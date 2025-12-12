@@ -1,0 +1,168 @@
+export const metadata = {
+  title: 'Privacy Policy | Mr. Air Services',
+  description: 'Privacy policy for Mr. Air Services. Learn how we collect, use, and protect your personal information.',
+};
+
+export default function PrivacyPolicyPage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative py-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
+        <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-primary/20 blur-xl"></div>
+
+        <div className="container relative">
+          {/* Section Label */}
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-2 h-2 rounded-full bg-secondary"></div>
+            <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Legal</span>
+          </div>
+
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight">
+            Privacy Policy
+          </h1>
+          <p className="text-neutral-600 mt-2">Last updated: December 2024</p>
+        </div>
+      </section>
+
+      {/* Content */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="container">
+          <div className="max-w-3xl mx-auto prose prose-lg prose-neutral">
+            <div className="bg-neutral-50 rounded-2xl p-8 mb-10">
+              <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-0">Introduction</h2>
+              <p className="text-neutral-600 mb-0 leading-relaxed">
+                Mr. Air Services ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+              </p>
+            </div>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4">Information We Collect</h2>
+            <p className="text-neutral-600 mb-4 leading-relaxed">
+              We may collect personal information that you voluntarily provide when you:
+            </p>
+            <ul className="list-none pl-0 space-y-3 mb-6">
+              {[
+                'Fill out a contact form or request a quote',
+                'Schedule a service appointment',
+                'Sign up for our newsletter or promotions',
+                'Apply for financing',
+                'Communicate with us via phone, email, or chat',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-neutral-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-neutral-600 mb-6 leading-relaxed">
+              This information may include your name, email address, phone number, physical address, and details about your HVAC system.
+            </p>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">How We Use Your Information</h2>
+            <p className="text-neutral-600 mb-4 leading-relaxed">
+              We use the information we collect to:
+            </p>
+            <ul className="list-none pl-0 space-y-3 mb-6">
+              {[
+                'Provide and improve our HVAC services',
+                'Respond to your inquiries and service requests',
+                'Schedule and manage appointments',
+                'Process payments and financing applications',
+                'Send service reminders and promotional communications',
+                'Analyze website usage to improve our online experience',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-neutral-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Information Sharing</h2>
+            <p className="text-neutral-600 mb-4 leading-relaxed">
+              We do not sell your personal information. We may share your information with:
+            </p>
+            <ul className="list-none pl-0 space-y-3 mb-6">
+              {[
+                'Service providers who assist in our operations (payment processors, scheduling software)',
+                'Financing partners when you apply for financing',
+                'Legal authorities when required by law',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-neutral-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Cookies and Tracking</h2>
+            <p className="text-neutral-600 mb-6 leading-relaxed">
+              Our website uses cookies and similar tracking technologies to improve your browsing experience and analyze website traffic. You can control cookie settings through your browser preferences.
+            </p>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Data Security</h2>
+            <p className="text-neutral-600 mb-6 leading-relaxed">
+              We implement reasonable security measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the Internet is 100% secure.
+            </p>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Your Rights</h2>
+            <p className="text-neutral-600 mb-4 leading-relaxed">
+              You have the right to:
+            </p>
+            <ul className="list-none pl-0 space-y-3 mb-6">
+              {[
+                'Access the personal information we hold about you',
+                'Request correction of inaccurate information',
+                'Request deletion of your information',
+                'Opt out of marketing communications',
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-neutral-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="bg-neutral-50 rounded-2xl p-8 mt-10">
+              <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-0">Contact Us</h2>
+              <p className="text-neutral-600 mb-4 leading-relaxed">
+                If you have questions about this Privacy Policy or our data practices, please contact us:
+              </p>
+              <p className="text-neutral-600 mb-2">
+                <strong className="text-neutral-black">Mr. Air Services</strong>
+              </p>
+              <p className="text-neutral-600 mb-2">
+                Phone: <a href="tel:+18324371000" className="text-secondary hover:underline">(832) 437-1000</a>
+              </p>
+              <p className="text-neutral-600 mb-0">
+                Email: <a href="mailto:info@mrairservices.com" className="text-secondary hover:underline">info@mrairservices.com</a>
+              </p>
+            </div>
+
+            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Changes to This Policy</h2>
+            <p className="text-neutral-600 mb-0 leading-relaxed">
+              We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

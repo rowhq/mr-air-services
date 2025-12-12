@@ -1,0 +1,7 @@
+export { Hero } from './Hero';
+export { ServicesOverview } from './ServicesOverview';
+export { WhyChooseUs } from './WhyChooseUs';
+export { CoolSaverSpotlight } from './CoolSaverSpotlight';
+export { Testimonials } from './Testimonials';
+export { AreasServed } from './AreasServed';
+export { FinalCTA } from './FinalCTA';
