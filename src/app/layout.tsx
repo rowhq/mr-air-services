@@ -13,7 +13,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Rowship Feedback URL Tracker - enables automatic URL detection in iframe */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){if(window.parent!==window){var s=function(){window.parent.postMessage({type:'ROWSHIP_URL_CHANGE',url:location.href},'*')};s();var p=history.pushState;history.pushState=function(){p.apply(this,arguments);s()};var r=history.replaceState;history.replaceState=function(){r.apply(this,arguments);s()};addEventListener('popstate',s);addEventListener('hashchange',s)}})();`
+          }}
+        />
+      </body>
     </html>
   );
 }
