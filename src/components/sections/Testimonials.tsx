@@ -1,24 +1,23 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui';
 
 const testimonials = [
   {
-    name: 'Sarah M.',
+    initials: 'MC',
     location: 'Missouri City',
     rating: 5,
-    text: "Mr. Air Services came out the same day I called. The technician was professional, explained everything clearly, and fixed my AC quickly. Highly recommend!",
+    text: "They came out the same day I called. The technician was professional, explained everything clearly, and fixed my AC quickly. Highly recommend!",
   },
   {
-    name: 'Robert J.',
+    initials: 'HT',
     location: 'Houston',
     rating: 5,
-    text: "Best HVAC company I've worked with. Fair pricing, honest assessment, and quality work. They've been maintaining my system for 3 years now.",
+    text: "Fair pricing, honest assessment, and quality work. They don't try to upsell you on things you don't need.",
   },
   {
-    name: 'Maria G.',
+    initials: 'SP',
     location: 'Spring',
     rating: 5,
-    text: "The team was punctual, courteous, and efficient. They installed a new unit and the whole process was seamless. Great customer service from start to finish.",
+    text: "The team was punctual, courteous, and efficient. Great customer service from start to finish.",
   },
 ];
 
@@ -28,7 +27,7 @@ function StarRating({ rating }: { rating: number }) {
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className={`w-5 h-5 ${i < rating ? 'text-warning' : 'text-neutral-200'}`}
+          className={`w-4 h-4 ${i < rating ? 'text-neutral-700' : 'text-neutral-200'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -41,46 +40,93 @@ function StarRating({ rating }: { rating: number }) {
 
 export function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
-      <div className="container">
-        {/* Section Label */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-2 h-2 rounded-full bg-secondary"></div>
-          <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Testimonials</span>
-        </div>
+    <section className="py-24 md:py-32 bg-neutral-50 relative overflow-hidden">
+      {/* Subtle geometric accent */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-secondary/5 -translate-y-1/2 translate-x-1/2"></div>
 
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
-            What Our Customers Say
-          </h2>
-          <Link href="/reviews">
-            <Button variant="outline" size="md">
-              Read More Reviews
-            </Button>
+      <div className="container relative">
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 animate-fade-in-up">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2 h-2 rounded-full bg-secondary" />
+              <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">
+                Testimonials
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight tracking-tight">
+              What Our Customers Say
+            </h2>
+          </div>
+          <Link
+            href="/contact"
+            className="mt-6 lg:mt-0 inline-flex items-center gap-2 px-6 py-3 border border-neutral-200 rounded-full
+              text-neutral-700 font-medium hover:bg-white hover:border-secondary/30 hover:text-secondary
+              hover:shadow-lg transition-all duration-300 text-sm"
+          >
+            Get a Free Quote
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </Link>
         </div>
 
+        {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-neutral-50 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+              className={`group bg-white border border-neutral-100 rounded-3xl p-8
+                hover:border-secondary/20 hover:shadow-xl hover:-translate-y-1
+                transition-all duration-500 animate-fade-in-up animation-delay-${(index + 1) * 100}`}
             >
-              <StarRating rating={testimonial.rating} />
-              <p className="mt-6 text-neutral-700 leading-relaxed text-lg">
-                "{testimonial.text}"
+              {/* Verified Google Badge */}
+              <div className="flex items-center justify-between mb-4">
+                <StarRating rating={testimonial.rating} />
+                <span className="text-xs font-medium text-neutral-400 flex items-center gap-1">
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                  </svg>
+                  Google
+                </span>
+              </div>
+
+              {/* Quote */}
+              <p className="text-neutral-600 leading-relaxed">
+                &ldquo;{testimonial.text}&rdquo;
               </p>
-              <div className="mt-6 pt-6 border-t border-neutral-200 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
-                  {testimonial.name.charAt(0)}
+
+              {/* Author */}
+              <div className="mt-8 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary
+                  flex items-center justify-center text-white font-bold
+                  group-hover:scale-110 transition-transform duration-300">
+                  {testimonial.initials}
                 </div>
                 <div>
-                  <p className="font-semibold text-neutral-black">{testimonial.name}</p>
+                  <p className="font-semibold text-neutral-900">Verified Customer</p>
                   <p className="text-sm text-neutral-500">{testimonial.location}</p>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Trust Indicator */}
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center animate-fade-in-up animation-delay-500">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-neutral-700" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span className="text-neutral-600 text-sm font-medium">4.9/5 Rating</span>
+          </div>
+          <div className="hidden sm:block w-px h-4 bg-neutral-300" />
+          <span className="text-neutral-500 text-sm">Veteran Owned & Operated</span>
+          <div className="hidden sm:block w-px h-4 bg-neutral-300" />
+          <span className="text-neutral-500 text-sm">Licensed & Insured</span>
         </div>
       </div>
     </section>

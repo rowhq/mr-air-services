@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { officeLocations } from '@/data/officeLocations';
 
 const footerLinks = {
   services: [
@@ -9,7 +10,6 @@ const footerLinks = {
   ],
   company: [
     { name: 'About Us', href: '/about' },
-    { name: 'Reviews', href: '/reviews' },
     { name: 'Contact', href: '/contact' },
     { name: 'Free AC Tune-Up', href: '/free-ac-tune-up' },
   ],
@@ -18,8 +18,6 @@ const footerLinks = {
     { name: 'Terms of Use', href: '/terms-of-use' },
   ],
 };
-
-const areasServed = ['Houston', 'Missouri City', 'Spring', 'Katy', 'Sugar Land', 'Pearland'];
 
 // Snowflake/AC Logo Icon
 function LogoIcon({ className = "w-8 h-8" }: { className?: string }) {
@@ -42,12 +40,19 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-6">
+            <Link href="/" className="flex items-center gap-2 mb-4">
               <LogoIcon className="w-8 h-8 text-primary" />
               <span className="text-xl font-semibold">Mr. Air Services</span>
             </Link>
+            {/* Veteran Badge */}
+            <div className="flex items-center gap-2 text-white text-sm font-medium mb-4">
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              US Military Veteran Owned & Operated
+            </div>
             <p className="text-neutral-400 mb-6 leading-relaxed">
-              Your trusted HVAC experts in the Greater Houston area. Professional service, quality workmanship, and customer satisfaction guaranteed.
+              Your trusted HVAC experts serving the Greater Houston area. Professional service, quality workmanship, and customer satisfaction guaranteed.
             </p>
             <div className="space-y-3">
               <a
@@ -62,7 +67,7 @@ export function Footer() {
                 (832) 437-1000
               </a>
               <a
-                href="mailto:info@mrairservices.com"
+                href="mailto:coolsavertuneups@mrairservices.com"
                 className="flex items-center gap-3 text-white hover:text-primary transition-colors"
               >
                 <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
@@ -70,7 +75,7 @@ export function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                info@mrairservices.com
+                coolsavertuneups@mrairservices.com
               </a>
             </div>
           </div>
@@ -126,15 +131,13 @@ export function Footer() {
                 <span>Closed</span>
               </li>
             </ul>
-            <h3 className="text-lg font-semibold text-white mb-4">Areas Served</h3>
-            <div className="flex flex-wrap gap-2">
-              {areasServed.map((area) => (
-                <span
-                  key={area}
-                  className="px-3 py-1 text-sm text-neutral-400 bg-white/5 rounded-full"
-                >
-                  {area}
-                </span>
+            <h3 className="text-lg font-semibold text-white mb-4">Our Locations</h3>
+            <div className="space-y-3">
+              {officeLocations.map((office) => (
+                <div key={office.name} className="text-neutral-400 text-sm">
+                  <span className="text-white font-medium">{office.name}</span>
+                  <p className="text-xs mt-0.5">{office.address}</p>
+                </div>
               ))}
             </div>
           </div>

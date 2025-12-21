@@ -5,3 +5,5 @@ export { CoolSaverSpotlight } from './CoolSaverSpotlight';
 export { Testimonials } from './Testimonials';
 export { AreasServed } from './AreasServed';
 export { FinalCTA } from './FinalCTA';
+export { FAQSection } from './FAQSection';
+export { HowItWorks } from './HowItWorks';

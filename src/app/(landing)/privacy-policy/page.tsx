@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 pb-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-primary/20 blur-xl"></div>
@@ -152,7 +152,7 @@ export default function PrivacyPolicyPage() {
                 Phone: <a href="tel:+18324371000" className="text-secondary hover:underline">(832) 437-1000</a>
               </p>
               <p className="text-neutral-600 mb-0">
-                Email: <a href="mailto:info@mrairservices.com" className="text-secondary hover:underline">info@mrairservices.com</a>
+                Email: <a href="mailto:coolsavertuneups@mrairservices.com" className="text-secondary hover:underline">coolsavertuneups@mrairservices.com</a>
               </p>
             </div>
 

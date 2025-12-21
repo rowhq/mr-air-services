@@ -7,7 +7,7 @@ export default function TermsOfUsePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 pb-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-primary/20 blur-xl"></div>
@@ -50,8 +50,8 @@ export default function TermsOfUsePage() {
                 'Collect or harvest user information without consent',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-warning/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <svg className="w-3 h-3 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-3 h-3 text-neutral-600" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
@@ -117,7 +117,7 @@ export default function TermsOfUsePage() {
                 Phone: <a href="tel:+18324371000" className="text-secondary hover:underline">(832) 437-1000</a>
               </p>
               <p className="text-neutral-600 mb-0">
-                Email: <a href="mailto:info@mrairservices.com" className="text-secondary hover:underline">info@mrairservices.com</a>
+                Email: <a href="mailto:coolsavertuneups@mrairservices.com" className="text-secondary hover:underline">coolsavertuneups@mrairservices.com</a>
               </p>
             </div>
           </div>

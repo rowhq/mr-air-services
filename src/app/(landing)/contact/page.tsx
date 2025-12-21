@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Input, Select, Textarea } from '@/components/ui';
+import { Button, Input, Select, Textarea, Breadcrumbs } from '@/components/ui';
 
 const serviceTypes = [
   { value: 'ac-repair', label: 'AC Repair' },
@@ -68,13 +68,14 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-primary/20 blur-xl"></div>
         <div className="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-white/10"></div>
 
         <div className="container relative py-20">
+          <Breadcrumbs items={[{ label: 'Contact' }]} />
           <div className="max-w-3xl">
             {/* Section Label */}
             <div className="flex items-center gap-2 mb-6">
@@ -131,8 +132,8 @@ export default function ContactPage() {
                     ),
                     title: 'Email',
                     content: (
-                      <a href="mailto:info@mrairservices.com" className="text-secondary font-semibold hover:underline">
-                        info@mrairservices.com
+                      <a href="mailto:coolsavertuneups@mrairservices.com" className="text-secondary font-semibold hover:underline">
+                        coolsavertuneups@mrairservices.com
                       </a>
                     ),
                   },
@@ -158,11 +159,10 @@ export default function ContactPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     ),
-                    title: 'Service Areas',
+                    title: 'Service Area',
                     content: (
                       <div className="text-neutral-600 text-sm">
-                        Houston, Missouri City, Spring,<br />
-                        Katy, Sugar Land, Pearland
+                        Greater Houston Area
                       </div>
                     ),
                   },

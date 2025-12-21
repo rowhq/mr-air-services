@@ -1,4 +1,5 @@
-import { Header, Footer } from '@/components/layout';
+import { Header, Footer, MobileActionBar } from '@/components/layout';
+import { FloatingCTA } from '@/components/ui';
 
 export default function LandingLayout({
   children,
@@ -8,10 +9,12 @@ export default function LandingLayout({
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="flex-1 pb-16 lg:pb-0">
         {children}
       </main>
       <Footer />
+      <MobileActionBar />
+      <FloatingCTA />
     </div>
   );
 }

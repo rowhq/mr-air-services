@@ -1,15 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Button, Input, Select, Textarea } from '@/components/ui';
+import { Button, Input, Select, Textarea, Breadcrumbs } from '@/components/ui';
 
 const serviceAreas = [
-  { value: 'houston', label: 'Houston' },
+  { value: 'greater-houston', label: 'Greater Houston Area' },
   { value: 'missouri-city', label: 'Missouri City' },
   { value: 'spring', label: 'Spring' },
-  { value: 'katy', label: 'Katy' },
-  { value: 'sugar-land', label: 'Sugar Land' },
-  { value: 'pearland', label: 'Pearland' },
+  { value: 'houston-west', label: 'West Houston / Katy Area' },
   { value: 'other', label: 'Other' },
 ];
 
@@ -82,35 +80,36 @@ export default function FreeACTuneUpPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center bg-gradient-to-br from-secondary via-secondary to-primary overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/5 translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/20 blur-xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-primary/20 blur-xl translate-y-1/2 -translate-x-1/2"></div>
 
         <div className="container relative py-20">
+          <Breadcrumbs items={[{ label: 'Free AC Tune-Up' }]} />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {/* Label */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-warning/20 rounded-full mb-6">
-                <div className="w-2 h-2 rounded-full bg-warning animate-pulse"></div>
-                <span className="text-sm font-medium text-warning">Limited Time Offer</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/20 rounded-full mb-6">
+                <div className="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
+                <span className="text-sm font-medium text-secondary">Limited Time Offer</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
                 Free AC Tune-Up for Qualifying Homeowners
               </h1>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Join the CoolSaver Program and receive a complimentary AC tune-up—a $129 value. Keep your system running at peak performance with no obligation.
+              <p className="text-xl text-neutral-700 mb-8 leading-relaxed">
+                Join the CoolSaver Program and receive a complimentary AC tune-up. Keep your system running at peak performance with no obligation.
               </p>
               <ul className="space-y-4">
                 {[
-                  'Complete 21-point inspection',
+                  'Complete 13-point inspection',
                   'Filter replacement included',
                   'No sales pressure, ever',
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white/90">
-                    <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-warning" fill="currentColor" viewBox="0 0 20 20">
+                  <li key={item} className="flex items-center gap-3 text-neutral-700">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center">
+                      <svg className="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
@@ -119,11 +118,11 @@ export default function FreeACTuneUpPage() {
                 ))}
               </ul>
             </div>
-            <div className="hidden lg:flex justify-center">
-              <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-10 text-center">
-                <div className="text-7xl font-bold text-white mb-2">$0</div>
-                <div className="text-xl text-white/90 mb-4">AC Tune-Up</div>
-                <div className="text-sm text-white/60">Value: $129</div>
+            <div className="flex justify-center mt-8 lg:mt-0">
+              <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center w-full lg:w-auto shadow-xl">
+                <div className="text-4xl lg:text-6xl font-bold text-secondary mb-1 lg:mb-2">FREE</div>
+                <div className="text-lg lg:text-xl text-neutral-700 mb-2 lg:mb-4">AC Tune-Up</div>
+                <div className="text-xs lg:text-sm text-neutral-500">For qualifying homeowners</div>
               </div>
             </div>
           </div>

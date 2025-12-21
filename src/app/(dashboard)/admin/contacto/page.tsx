@@ -72,9 +72,9 @@ export default function ContactoAdmin() {
                   setSelectedMessage(message);
                   markAsRead(message.id);
                 }}
-                className={`p-4 cursor-pointer hover:bg-gray-50 transition ${
-                  selectedMessage?.id === message.id ? "bg-blue-50" : ""
-                } ${!message.read ? "bg-yellow-50" : ""}`}
+                className={`p-4 cursor-pointer hover:bg-neutral-50 transition ${
+                  selectedMessage?.id === message.id ? "bg-primary-light" : ""
+                } ${!message.read ? "bg-neutral-100" : ""}`}
               >
                 <div className="flex justify-between items-start">
                   <div>
@@ -103,7 +103,7 @@ export default function ContactoAdmin() {
                 </div>
                 <button
                   onClick={() => deleteMessage(selectedMessage.id)}
-                  className="text-red-600 hover:bg-red-50 px-3 py-1 rounded-lg transition"
+                  className="text-neutral-600 hover:bg-neutral-100 px-3 py-1 rounded-lg transition"
                 >
                   Eliminar
                 </button>
@@ -114,7 +114,7 @@ export default function ContactoAdmin() {
               <div className="mt-6 flex gap-4">
                 <a
                   href={`mailto:${selectedMessage.email}`}
-                  className="flex-1 text-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                  className="flex-1 text-center px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary-hover transition"
                 >
                   Responder por Email
                 </a>

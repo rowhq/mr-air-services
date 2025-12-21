@@ -1,6 +1,6 @@
 import { HTMLAttributes, forwardRef } from 'react';
 
-type BadgeVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'neutral';
+type BadgeVariant = 'primary' | 'secondary' | 'neutral' | 'inverse';
 type BadgeSize = 'sm' | 'md';
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -9,12 +9,10 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  primary: 'bg-primary-light text-primary',
-  secondary: 'bg-secondary-light text-secondary',
-  success: 'bg-success-light text-success',
-  warning: 'bg-warning-light text-warning',
-  error: 'bg-error-light text-error',
-  neutral: 'bg-neutral-100 text-neutral-600',
+  primary: 'bg-primary-light text-secondary',
+  secondary: 'bg-neutral-100 text-neutral-700',
+  neutral: 'bg-neutral-100 text-neutral-600 border border-neutral-200',
+  inverse: 'bg-white/20 text-white border border-white/30',
 };
 
 const sizeStyles: Record<BadgeSize, string> = {
@@ -29,7 +27,7 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         ref={ref}
         className={`
           inline-flex items-center
-          font-medium rounded-full
+          font-medium rounded
           ${variantStyles[variant]}
           ${sizeStyles[size]}
           ${className}

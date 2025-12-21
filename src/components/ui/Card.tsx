@@ -8,7 +8,7 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 
 const variantStyles = {
   default: 'bg-white',
-  elevated: 'bg-white shadow-xl shadow-neutral-200/50',
+  elevated: 'bg-white shadow-md',
   bordered: 'bg-white border border-neutral-200',
 };
 
@@ -35,10 +35,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
       <div
         ref={ref}
         className={`
-          rounded-2xl
+          rounded-lg
           ${variantStyles[variant]}
           ${paddingStyles[padding]}
-          ${hover ? 'transition-all duration-300 hover:shadow-xl hover:shadow-neutral-200/50 hover:-translate-y-1' : ''}
+          ${hover ? 'transition-shadow duration-200 hover:shadow-md hover:border-neutral-300' : ''}
           ${className}
         `}
         {...props}

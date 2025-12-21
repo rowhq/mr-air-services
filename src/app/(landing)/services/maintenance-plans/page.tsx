@@ -1,20 +1,20 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui';
+import { Button, Breadcrumbs, TrustSignals } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
 
 export const metadata = {
   title: 'HVAC Maintenance Plans | Mr. Air Services - Houston AC & Heating Protection',
-  description: 'Protect your HVAC investment with our maintenance plans. Priority service, discounts on repairs, and regular tune-ups. Plans starting at $15/month.',
+  description: 'Annual preventative maintenance plans with CoolSaver Tune-Ups. Modern diagnostic tools, priority service, and repair discounts. Keep your system at peak performance.',
 };
 
 const plans = [
   {
     name: 'Basic Plan',
-    price: '$15',
-    period: '/month',
+    price: 'Call',
+    period: ' for pricing',
     description: 'Essential coverage for single-system homes',
     features: [
-      'Annual AC tune-up',
+      'Annual CoolSaver Tune-Up (AC)',
       'Annual heating tune-up',
       '10% discount on repairs',
       'Priority scheduling',
@@ -24,11 +24,11 @@ const plans = [
   },
   {
     name: 'Premium Plan',
-    price: '$25',
-    period: '/month',
+    price: 'Call',
+    period: ' for pricing',
     description: 'Comprehensive coverage for complete peace of mind',
     features: [
-      'Bi-annual AC tune-ups',
+      'Bi-annual CoolSaver Tune-Ups (AC)',
       'Annual heating tune-up',
       '15% discount on repairs',
       'Priority scheduling',
@@ -57,28 +57,28 @@ const plans = [
 
 const benefits = [
   {
-    title: 'Prevent Costly Breakdowns',
-    description: 'Regular maintenance catches small issues before they become expensive emergency repairs.',
+    title: 'Skip the Emergency Call',
+    description: "We catch the $50 problem before it becomes a $600 Saturday emergency. That's the whole point.",
   },
   {
-    title: 'Lower Energy Bills',
-    description: 'A well-maintained system runs more efficiently, reducing your monthly energy costs.',
+    title: 'Lower Power Bills',
+    description: "Clean system = efficient system = less money to the power company. Usually 10-15% less.",
   },
   {
-    title: 'Extend System Lifespan',
-    description: 'Proper care can add 5-10 years to your HVAC system\'s life.',
+    title: 'Squeeze More Years Out of It',
+    description: "AC units are expensive. Proper maintenance adds 5-10 years before you need to replace it.",
   },
   {
-    title: 'Priority Service',
-    description: 'Jump to the front of the line when you need service—especially important during peak seasons.',
+    title: 'Jump the Line',
+    description: "When it's 102° and everyone's AC is dying, members get priority. You'll appreciate this in July.",
   },
   {
-    title: 'Repair Discounts',
-    description: 'Save on any repairs needed throughout the year with member-exclusive discounts.',
+    title: 'Discounts on Repairs',
+    description: "Members get 10-15% off repairs. So even if something breaks, you pay less to fix it.",
   },
   {
-    title: 'Peace of Mind',
-    description: 'Know that your system is being cared for by professionals year-round.',
+    title: 'Sleep Better',
+    description: "Your AC is checked regularly by people who know what they're doing. One less thing to worry about.",
   },
 ];
 
@@ -86,13 +86,19 @@ export default function MaintenancePlansPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[50vh] flex items-center bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-primary/20 blur-xl"></div>
         <div className="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-white/10"></div>
 
         <div className="container relative py-20">
+          <Breadcrumbs
+            items={[
+              { label: 'Services', href: '/services' },
+              { label: 'Maintenance Plans' },
+            ]}
+          />
           <div className="text-center max-w-3xl mx-auto">
             {/* Section Label */}
             <div className="flex items-center justify-center gap-2 mb-6">
@@ -101,17 +107,71 @@ export default function MaintenancePlansPage() {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
-              HVAC Maintenance Plans
+              Stop Overpaying for AC Repairs
             </h1>
             <p className="text-xl text-neutral-700 leading-relaxed">
-              Protect your investment and ensure year-round comfort with our comprehensive maintenance plans.
+              Maintenance plans = catch problems early, avoid emergency calls, save money. It's not complicated.
             </p>
+            <TrustSignals className="mt-6 justify-center" />
+          </div>
+        </div>
+      </section>
+
+      {/* What's Included */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              {/* Section Label */}
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-2 h-2 rounded-full bg-secondary"></div>
+                <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">What's Included</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-neutral-black mb-6 leading-tight">
+                Every Plan Includes Our CoolSaver Tune-Up
+              </h2>
+              <p className="text-lg text-neutral-600 mb-6 leading-relaxed">
+                Our 14-point CoolSaver Tune-Up covers everything: refrigerant charge adjustment, coil cleaning, blower cleaning, filter replacement, and more. We use the latest diagnostic tools to keep your system running at peak performance.
+              </p>
+              <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
+                <strong>Pro tip:</strong> Any AC system 1 year or older should have an annual tune-up. It's the difference between a $50 catch and a $600 emergency.
+              </p>
+              <Link href="/services/air-conditioning-tune-ups">
+                <Button variant="outline">
+                  See Full CoolSaver Tune-Up Details →
+                </Button>
+              </Link>
+            </div>
+            <div className="bg-neutral-50 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-neutral-black mb-6">CoolSaver Tune-Up Highlights</h3>
+              <ul className="space-y-4">
+                {[
+                  'Refrigerant charge adjustment',
+                  'Condenser & evaporator coil cleaning',
+                  'Blower cleaning',
+                  'Air filter replacement',
+                  'Airflow measurement',
+                  'Full electrical inspection',
+                  'Drain line inspection',
+                  'Performance report',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-neutral-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Plans */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-neutral-50">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -120,7 +180,7 @@ export default function MaintenancePlansPage() {
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-14 text-center leading-tight">
-            Select the Right Plan for You
+            Pick Your Plan
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -175,7 +235,7 @@ export default function MaintenancePlansPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section className="py-20 lg:py-28 bg-white">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -184,12 +244,12 @@ export default function MaintenancePlansPage() {
           </div>
 
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-14 text-center leading-tight">
-            Why Choose a Maintenance Plan?
+            Why People Actually Sign Up
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit) => (
-              <div key={benefit.title} className="bg-white p-8 rounded-2xl hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300">
+              <div key={benefit.title} className="bg-neutral-50 p-8 rounded-2xl hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300">
                 <h3 className="text-lg font-semibold text-neutral-black mb-3">{benefit.title}</h3>
                 <p className="text-neutral-600 leading-relaxed">{benefit.description}</p>
               </div>
@@ -208,15 +268,15 @@ export default function MaintenancePlansPage() {
 
             <div className="relative">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 leading-tight">
-                Ready to Protect Your HVAC Investment?
+                Let's Get You Signed Up
               </h2>
               <p className="text-xl text-neutral-700 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join hundreds of Houston homeowners who trust Mr. Air Services to keep their HVAC systems running smoothly.
+                Join the Houston homeowners who don't panic when their AC makes a weird noise. Because we're already on it.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/contact">
                   <Button variant="secondary" size="lg">
-                    Sign Up Today
+                    Sign Me Up
                   </Button>
                 </Link>
                 <a href="tel:+18324371000">

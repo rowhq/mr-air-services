@@ -4,39 +4,32 @@
  */
 
 export const colors = {
-  // Primary Colors
+  // Primary Colors - Brand Cyan
   primary: {
-    blue: '#0B4D91',
-    blueHover: '#094079',
-    blueLight: '#E8F0F8',
+    main: '#00AEEF',
+    hover: '#0099D6',
+    dark: '#0080B3',
+    light: '#E6F7FD',
   },
-  // Secondary Colors
+  // Secondary Colors - Same as Primary (single brand color)
   secondary: {
-    red: '#C0392B',
-    redHover: '#A93226',
-    redLight: '#FBEAE9',
+    main: '#00AEEF',
+    hover: '#0099D6',
+    light: '#F0FAFF',
   },
-  // Neutral Colors
+  // Neutral Colors - Full grayscale
   neutral: {
-    black: '#1E1E1E',
-    gray600: '#6B7280',
-    gray400: '#9CA3AF',
-    gray200: '#E5E7EB',
-    gray100: '#F3F4F6',
+    black: '#1E293B',
+    900: '#0F172A',
+    700: '#334155',
+    600: '#475569',
+    500: '#64748B',
+    400: '#94A3B8',
+    300: '#CBD5E1',
+    200: '#E2E8F0',
+    100: '#F1F5F9',
+    50: '#F8FAFC',
     white: '#FFFFFF',
-  },
-  // Semantic Colors
-  success: {
-    main: '#10B981',
-    light: '#D1FAE5',
-  },
-  warning: {
-    main: '#F59E0B',
-    light: '#FEF3C7',
-  },
-  error: {
-    main: '#EF4444',
-    light: '#FEE2E2',
   },
 } as const;
 
@@ -129,13 +122,13 @@ export const transitions = {
 export const contactInfo = {
   phone: '(832) 437-1000',
   phoneLink: 'tel:+18324371000',
-  email: 'info@mrairservices.com',
-  emailLink: 'mailto:info@mrairservices.com',
+  email: 'coolsavertuneups@mrairservices.com',
+  emailLink: 'mailto:coolsavertuneups@mrairservices.com',
   hours: {
     weekdays: 'Monday–Friday: 8:00 AM – 5:00 PM',
     saturday: 'Saturday: By appointment',
     sunday: 'Sunday: Closed',
   },
   locations: ['Missouri City', 'Spring', 'Houston'],
-  areasServed: ['Houston', 'Missouri City', 'Spring', 'Katy', 'Sugar Land', 'Pearland'],
+  areasServed: ['Greater Houston Area'],
 } as const;

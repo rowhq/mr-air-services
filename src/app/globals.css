@@ -6,23 +6,24 @@
  */
 
 @theme {
-  /* Primary Colors - Sky Blue */
-  --color-primary: #60A5FA;
-  --color-primary-hover: #3B82F6;
-  --color-primary-dark: #2563EB;
-  --color-primary-light: #DBEAFE;
+  /* Primary Colors - Brand Cyan Blue */
+  --color-primary: #00AEEF;
+  --color-primary-hover: #0099D6;
+  --color-primary-dark: #0080B3;
+  --color-primary-light: #E6F7FD;
 
-  /* Secondary Colors - Accent Blue */
-  --color-secondary: #3B82F6;
-  --color-secondary-hover: #2563EB;
-  --color-secondary-light: #EFF6FF;
+  /* Secondary Colors - Same as Primary */
+  --color-secondary: #00AEEF;
+  --color-secondary-hover: #0099D6;
+  --color-secondary-light: #F0FAFF;
 
-  /* Hero Background */
-  --color-hero-start: #B4D7E8;
-  --color-hero-end: #87CEEB;
+  /* Hero Background - Brand Color */
+  --color-hero-start: #00AEEF;
+  --color-hero-end: #00AEEF;
 
   /* Neutral Colors */
   --color-neutral-black: #1E293B;
+  --color-neutral-900: #0F172A;
   --color-neutral-700: #334155;
   --color-neutral-600: #475569;
   --color-neutral-500: #64748B;
@@ -32,14 +33,6 @@
   --color-neutral-100: #F1F5F9;
   --color-neutral-50: #F8FAFC;
   --color-neutral-white: #FFFFFF;
-
-  /* Semantic Colors */
-  --color-success: #10B981;
-  --color-success-light: #D1FAE5;
-  --color-warning: #F59E0B;
-  --color-warning-light: #FEF3C7;
-  --color-error: #EF4444;
-  --color-error-light: #FEE2E2;
 
   /* Typography */
   --font-sans: "Inter", "SF Pro Display", "Roboto", system-ui, -apple-system, sans-serif;
@@ -80,18 +73,18 @@
   --spacing-3xl: 64px;
   --spacing-4xl: 96px;
 
-  /* Border Radius */
+  /* Border Radius - Reduced for professional look */
   --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  /* Shadows - Subtle, minimal */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -115,7 +108,12 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1E1E1E;
+  --foreground: #0F172A;
+
+  /* Clean Minimal additions */
+  --section-bg-alt: #FAFBFC;
+  --accent-blue: #00AEEF;
+  --text-muted: #64748B;
 }
 
 * {
@@ -289,4 +287,149 @@ body {
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* ========================================
+   Premium Animations - Apple-style
+   ======================================== */
+
+/* Fade in up animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered animation delays */
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-600 { animation-delay: 600ms; }
+.animation-delay-700 { animation-delay: 700ms; }
+.animation-delay-800 { animation-delay: 800ms; }
+
+/* Initial state for animated elements (use with JS intersection observer) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* Premium button press effect */
+.press-effect {
+  transition: transform 0.15s ease;
+}
+
+.press-effect:active {
+  transform: scale(0.98);
+}
+
+/* Smooth gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }

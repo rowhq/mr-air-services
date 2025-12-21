@@ -1,55 +1,75 @@
 import Link from 'next/link';
-import { Button, Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui';
-import { FinalCTA } from '@/components/sections';
+import { Button, Breadcrumbs, TrustSignals, SectionNav } from '@/components/ui';
+import { FinalCTA, FAQSection } from '@/components/sections';
+
+const sectionNavItems = [
+  { id: 'problems', label: 'Common Issues' },
+  { id: 'brands', label: 'Brands' },
+  { id: 'process', label: 'Our Process' },
+  { id: 'faq', label: 'FAQ' },
+];
 
 export const metadata = {
   title: 'Air Conditioning Repair | Mr. Air Services - Houston AC Repair Experts',
-  description: 'Fast, reliable AC repair in Houston. Same-day service available. Our certified technicians fix all makes and models. Call (832) 437-1000 for emergency AC repair.',
+  description: 'Fast, reliable AC repair in Houston. Same-day service available. Our experienced technicians fix all makes and models. Call (832) 437-1000 for emergency AC repair.',
 };
+
+const repairIssues = [
+  'Circuit breaker problems',
+  'Condenser and evaporator coil restrictions',
+  'Worn contactors and capacitors',
+  'Refrigerant leaks',
+  'Coil and copper line freezing',
+  'Compressor failures',
+  'Drainage system problems',
+  'Inadequate cooling performance',
+];
+
+const brandsServiced = ['Ruud', 'Lennox', 'Goodman', 'Trane', 'American Standard', 'Carrier'];
 
 const repairTypes = [
   {
     title: 'AC Not Cooling',
-    description: 'Refrigerant leaks, compressor issues, or airflow problems—we diagnose and fix the root cause.',
+    description: "When it's 98° outside and your house feels like an oven. Refrigerant leak? Busted compressor? We'll find it and fix it.",
   },
   {
     title: 'Strange Noises',
-    description: 'Grinding, squealing, or banging sounds indicate mechanical problems that need immediate attention.',
+    description: "If your AC sounds like a lawnmower, garbage disposal, or dying animal—that's bad. We'll figure out why and shut it up.",
   },
   {
-    title: 'AC Won\'t Turn On',
-    description: 'Electrical issues, thermostat problems, or failed components—we identify and repair quickly.',
+    title: "AC Won't Turn On",
+    description: "Thermostat issue? Blown capacitor? Electrical gremlins? We track down the problem and get you back to cold air.",
   },
   {
     title: 'Frozen Evaporator Coils',
-    description: 'Ice on your AC? We fix airflow restrictions and refrigerant issues causing the freeze.',
+    description: "Ice on your AC unit in July is not a good sign. Usually means airflow or refrigerant problems. We fix both.",
   },
   {
     title: 'Water Leaks',
-    description: 'Clogged drain lines, damaged pans, or other issues causing water damage—we handle it all.',
+    description: "Puddles around your unit? Clogged drain line, cracked pan, or worse. We'll stop the leak before it ruins your floor.",
   },
   {
     title: 'High Energy Bills',
-    description: 'Inefficient systems cost you money. We optimize your AC for peak performance.',
+    description: "Your AC shouldn't cost more than your mortgage. When it's guzzling power, something's wrong. We'll find it.",
   },
 ];
 
 const faqs = [
   {
-    question: 'How quickly can you respond to an AC emergency?',
-    answer: 'We offer same-day service for most emergencies in the Greater Houston area. For urgent situations, we prioritize calls to get your AC running as quickly as possible.',
+    question: 'How fast can you get here?',
+    answer: "Same day for most calls in Greater Houston. When it's 100° and your AC is dead, we know you can't wait three days for someone to \"maybe\" show up.",
   },
   {
-    question: 'Do you repair all AC brands?',
-    answer: 'Yes, our technicians are trained to service all major brands including Carrier, Trane, Lennox, Rheem, Goodman, and more.',
+    question: 'Do you work on my brand?',
+    answer: "Ruud, Lennox, Goodman, Trane, American Standard, Carrier—we service all major brands. If it cools air, we've worked on it.",
   },
   {
-    question: 'How much does AC repair cost?',
-    answer: 'Repair costs vary depending on the issue. We provide upfront pricing before any work begins—no surprises. Common repairs range from $150-$600.',
+    question: "What's this gonna cost me?",
+    answer: "Depends what's broken. But you'll know the exact price before we start. No \"oh by the way\" charges at the end.",
   },
   {
-    question: 'Should I repair or replace my AC?',
-    answer: 'Generally, if your AC is over 10-15 years old and repairs exceed 50% of a new unit\'s cost, replacement may be more economical. We\'ll give you an honest recommendation.',
+    question: 'Should I just replace this thing?',
+    answer: "If your unit is 10-15+ years old and the repair costs more than half a new system, replacement usually makes more sense. We'll tell you straight—no upselling.",
   },
 ];
 
@@ -57,13 +77,19 @@ export default function ACRepairPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
+      <section className="relative min-h-[60vh] pt-32 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-primary/20 blur-xl"></div>
         <div className="absolute top-1/2 left-1/3 w-24 h-24 rounded-full bg-white/10"></div>
 
         <div className="container relative py-20">
+          <Breadcrumbs
+            items={[
+              { label: 'Services', href: '/services' },
+              { label: 'AC Repair' },
+            ]}
+          />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {/* Section Label */}
@@ -73,37 +99,40 @@ export default function ACRepairPage() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
-                Air Conditioning Repair
+                AC Dead? We're On It.
               </h1>
               <p className="text-xl text-neutral-700 mb-8 leading-relaxed max-w-lg">
-                Fast, reliable AC repair when you need it most. Our certified technicians diagnose and fix problems right the first time.
+                Houston heat waits for no one. When your AC breaks, we diagnose fast, quote straight, and fix it right the first time.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact">
                   <Button variant="secondary" size="lg">
-                    Schedule Repair
+                    Schedule AC Repair
                   </Button>
                 </Link>
                 <a href="tel:+18324371000">
                   <Button variant="outline" size="lg">
-                    Call (832) 437-1000
+                    Call for Emergency
                   </Button>
                 </a>
               </div>
+              <TrustSignals className="mt-6" items={['Same-day service', 'All brands serviced', 'No hidden fees']} />
             </div>
-            <div className="hidden lg:flex justify-center">
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 text-center shadow-xl">
-                <div className="text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2">Same-Day</div>
-                <div className="text-xl text-neutral-700 mb-4">Emergency Service</div>
-                <div className="text-sm text-neutral-500">Available 7 days a week</div>
+            <div className="flex justify-center mt-8 lg:mt-0">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center shadow-xl w-full lg:w-auto">
+                <div className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 lg:mb-2">Same-Day</div>
+                <div className="text-lg lg:text-xl text-neutral-700 mb-2 lg:mb-4">Emergency Service</div>
+                <div className="text-xs lg:text-sm text-neutral-500">Available 7 days a week</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <SectionNav items={sectionNavItems} />
+
       {/* Common Problems */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section id="problems" className="py-20 lg:py-28 bg-white scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
@@ -113,10 +142,10 @@ export default function ACRepairPage() {
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
-              Common AC Problems We Fix
+              We've Seen It All. Fixed It All.
             </h2>
             <p className="text-neutral-600 max-w-md text-lg">
-              Whether your AC is making strange noises or not cooling at all, we've seen it all and fixed it all.
+              Strange sounds? No cold air? Weird smells? With our experience in Houston, there's not much that surprises us anymore.
             </p>
           </div>
 
@@ -134,8 +163,32 @@ export default function ACRepairPage() {
         </div>
       </section>
 
+      {/* Brands We Service */}
+      <section id="brands" className="py-16 bg-neutral-50 scroll-mt-20">
+        <div className="container">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-neutral-black mb-4">
+              Brands We Service
+            </h2>
+            <p className="text-neutral-600">
+              Factory-trained on all major manufacturers
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {brandsServiced.map((brand) => (
+              <div
+                key={brand}
+                className="px-6 py-3 bg-white rounded-full border border-neutral-200 text-neutral-700 font-medium hover:border-secondary hover:text-secondary transition-colors"
+              >
+                {brand}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Process */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section id="process" className="py-20 lg:py-28 bg-white scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -149,10 +202,10 @@ export default function ACRepairPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { step: '1', title: 'Call Us', description: 'Describe your AC problem and schedule a convenient appointment time.' },
-              { step: '2', title: 'Diagnosis', description: 'Our technician thoroughly inspects your system to identify the issue.' },
-              { step: '3', title: 'Upfront Quote', description: 'You receive a detailed estimate before any repair work begins.' },
-              { step: '4', title: 'Expert Repair', description: 'We fix your AC right the first time with quality parts and workmanship.' },
+              { step: '1', title: 'You Call', description: "Tell us what's wrong. We'll get someone out fast—usually same day." },
+              { step: '2', title: 'We Diagnose', description: "Our tech finds the real problem. Not a symptom, the actual cause." },
+              { step: '3', title: 'You Approve', description: "We tell you exactly what it'll cost before touching anything. No surprises." },
+              { step: '4', title: 'We Fix It', description: "Quality parts, proper installation, and it works when we leave. Guaranteed." },
             ].map((item) => (
               <div key={item.step} className="text-center">
                 <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-xl font-bold mb-6">
@@ -167,33 +220,12 @@ export default function ACRepairPage() {
       </section>
 
       {/* FAQs */}
-      <section className="py-20 lg:py-28 bg-white">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            {/* Section Label */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">FAQ</span>
-            </div>
-
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-10 text-center leading-tight">
-              Frequently Asked Questions
-            </h2>
-            <Accordion>
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`faq-${index}`}>
-                  <AccordionTrigger value={`faq-${index}`}>
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent value={`faq-${index}`}>
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </div>
-      </section>
+      <div id="faq" className="scroll-mt-20">
+        <FAQSection
+          subtitle="Got questions? We've got answers."
+          items={faqs}
+        />
+      </div>
 
       <FinalCTA />
     </>
