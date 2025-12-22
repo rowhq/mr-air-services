@@ -76,7 +76,7 @@ const servicesData = [
 
 
 // Services Mega Menu Component - Full Width Design
-function ServicesMegaMenu() {
+function ServicesMegaMenu({ scrolled }: { scrolled: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -211,12 +211,12 @@ function ServicesMegaMenu() {
 
       {/* Full-Width Mega Menu Dropdown */}
       <div
-        className={`fixed left-0 right-0 top-[var(--header-height,80px)] transition-all duration-300 ease-out ${
+        className={`fixed left-0 right-0 transition-all duration-300 ease-out ${
           isOpen
             ? 'opacity-100 visible translate-y-0'
             : 'opacity-0 invisible -translate-y-2 pointer-events-none'
         }`}
-        style={{ '--header-height': '80px' } as React.CSSProperties}
+        style={{ top: scrolled ? '56px' : '100px' }}
         role="menu"
         aria-label="Services menu"
       >
@@ -386,15 +386,16 @@ export function Header() {
         }`}
       >
         <div className="container flex items-center justify-between py-2">
+          {/* Left side - Veteran Badge */}
+          <span className="flex items-center gap-2 text-white font-medium text-sm">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            US MILITARY VETERAN OWNED & OPERATED
+          </span>
+
+          {/* Right side - Phone & Hours */}
           <div className="flex items-center gap-6 text-sm text-white/70">
-            {/* Veteran Badge */}
-            <span className="flex items-center gap-2 text-white font-medium">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              US MILITARY VETERAN OWNED & OPERATED
-            </span>
-            <span className="w-px h-4 bg-white/20" />
             <a
               href="tel:+18324371000"
               className="flex items-center gap-2 hover:text-white transition-colors"
@@ -434,7 +435,7 @@ export function Header() {
 
             {/* Center - Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-6">
-              <ServicesMegaMenu />
+              <ServicesMegaMenu scrolled={scrolled} />
               <Link
                 href="/free-ac-tune-up"
                 className="text-white/90 hover:text-white font-medium transition-colors"
