@@ -75,28 +75,16 @@ export function HowItWorks() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="py-20 lg:py-28 bg-[#F8FAFC] relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-900 relative overflow-hidden">
       <div className="container relative z-10">
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-8 mb-12 lg:mb-16">
-          {/* Left - Label */}
-          <div className="flex items-start gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#00AEEF] mt-1.5" />
-            <span className="text-slate-400 uppercase tracking-widest text-sm font-medium">
-              How It Works
-            </span>
-          </div>
-
-          {/* Right - Title and subtitle */}
-          <div>
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 leading-[1.1]">
-              From Call To<br />
-              Cool In 5 Steps
-            </h2>
-            <p className="text-slate-500 text-lg max-w-md">
-              Getting your AC back on track is easier than you think — just five simple steps and comfort returns.
-            </p>
-          </div>
+        <div className="mb-12 lg:mb-16">
+          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-4 leading-[1.1]">
+            From Call To Cool In 5 Steps
+          </h2>
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-md">
+            Getting your AC back on track is easier than you think — just five simple steps and comfort returns.
+          </p>
         </div>
 
         {/* Steps Cards */}
@@ -109,13 +97,13 @@ export function HowItWorks() {
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`relative rounded-lg p-6 text-left min-h-[350px] flex flex-col cursor-pointer transition-all duration-300 ease-out ${
                   isActive
-                    ? 'flex-[2] bg-[#00AEEF] text-white shadow-xl shadow-[#00AEEF]/20'
-                    : 'flex-1 bg-white text-slate-600 border border-neutral-200 hover:border-neutral-300'
+                    ? 'flex-[2] bg-secondary text-white shadow-xl shadow-secondary/20'
+                    : 'flex-1 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'
                 }`}
               >
                 {/* Number and Title */}
                 <div className={`text-sm font-medium tracking-wide transition-colors duration-300 ${
-                  isActive ? 'text-white/80' : 'text-slate-400'
+                  isActive ? 'text-white/80' : 'text-neutral-400'
                 }`}>
                   {step.number}. <span className="uppercase">{step.title}</span>
                 </div>
@@ -136,7 +124,7 @@ export function HowItWorks() {
                 </div>
 
                 {/* Icon placeholder for inactive cards */}
-                <div className={`mt-auto text-slate-300 transition-all duration-300 ${
+                <div className={`mt-auto text-neutral-300 dark:text-neutral-600 transition-all duration-300 ${
                   isActive ? 'opacity-0 scale-90' : 'opacity-100 scale-100'
                 }`}>
                   {step.icon}
@@ -156,12 +144,12 @@ export function HowItWorks() {
                 onClick={() => setActiveIndex(index)}
                 className={`relative rounded-lg p-5 text-left min-h-[280px] flex flex-col transition-colors duration-200 ${
                   isActive
-                    ? 'bg-[#00AEEF] text-white col-span-2 md:col-span-1'
-                    : 'bg-white text-slate-600 border border-neutral-200'
+                    ? 'bg-secondary text-white col-span-2 md:col-span-1'
+                    : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700'
                 }`}
               >
                 <div className={`text-sm font-medium tracking-wide ${
-                  isActive ? 'text-white/80' : 'text-slate-400'
+                  isActive ? 'text-white/80' : 'text-neutral-400'
                 }`}>
                   {step.number}. <span className="uppercase">{step.title}</span>
                 </div>
@@ -181,7 +169,7 @@ export function HowItWorks() {
                 )}
 
                 {!isActive && (
-                  <div className="mt-auto text-slate-300">
+                  <div className="mt-auto text-neutral-300 dark:text-neutral-600">
                     {step.icon}
                   </div>
                 )}

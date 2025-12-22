@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { officeLocations } from '@/data/officeLocations';
 
 const footerLinks = {
@@ -9,29 +10,14 @@ const footerLinks = {
     { name: 'Maintenance Plans', href: '/services/maintenance-plans' },
   ],
   company: [
-    { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
-    { name: 'Free AC Tune-Up', href: '/free-ac-tune-up' },
+    { name: 'Financing', href: '/financing-payments' },
   ],
   legal: [
     { name: 'Privacy Policy', href: '/privacy-policy' },
     { name: 'Terms of Use', href: '/terms-of-use' },
   ],
 };
-
-// Snowflake/AC Logo Icon
-function LogoIcon({ className = "w-8 h-8" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 32 32" fill="currentColor">
-      <path d="M16 2v28M16 2l-4 4M16 2l4 4M16 30l-4-4M16 30l4-4M2 16h28M2 16l4-4M2 16l4 4M30 16l-4-4M30 16l-4 4M6.1 6.1l19.8 19.8M6.1 6.1l1.4 5.5M6.1 6.1l5.5 1.4M25.9 25.9l-1.4-5.5M25.9 25.9l-5.5-1.4M25.9 6.1L6.1 25.9M25.9 6.1l-5.5 1.4M25.9 6.1l-1.4 5.5M6.1 25.9l5.5-1.4M6.1 25.9l1.4-5.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-      />
-    </svg>
-  );
-}
 
 export function Footer() {
   return (
@@ -40,9 +26,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <LogoIcon className="w-8 h-8 text-primary" />
-              <span className="text-xl font-semibold">Mr. Air Services</span>
+            <Link href="/" className="flex items-center mb-4">
+              <Image
+                src="/logo-white.svg"
+                alt="Mr. Air Services"
+                width={160}
+                height={37}
+                className="h-8 w-auto"
+              />
             </Link>
             {/* Veteran Badge */}
             <div className="flex items-center gap-2 text-white text-sm font-medium mb-4">

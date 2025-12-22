@@ -46,13 +46,6 @@ export function AreasServed() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left - Content */}
           <div className="animate-fade-in-up">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-full bg-secondary" />
-              <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">
-                Our Locations
-              </span>
-            </div>
-
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight tracking-tight">
               Serving the Greater<br />Houston Area
             </h2>

@@ -23,14 +23,14 @@ export function NumberedChecklistGrid({ items, initialCount = 6 }: NumberedCheck
         {visibleItems.map((item, index) => (
           <div
             key={item.title}
-            className="flex items-start gap-4 bg-white p-5 rounded-xl hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+            className="flex items-start gap-4 bg-white dark:bg-neutral-800 p-5 rounded-xl hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
           >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
               {String(index + 1).padStart(2, '0')}
             </div>
             <div>
-              <h3 className="font-semibold text-neutral-black">{item.title}</h3>
-              <p className="text-sm text-neutral-600">{item.description}</p>
+              <h3 className="font-semibold text-neutral-black dark:text-white">{item.title}</h3>
+              <p className="text-sm text-neutral-600 dark:text-neutral-400">{item.description}</p>
             </div>
           </div>
         ))}
@@ -39,7 +39,7 @@ export function NumberedChecklistGrid({ items, initialCount = 6 }: NumberedCheck
         <div className="flex justify-center mt-6">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium rounded-full transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 font-medium rounded-full transition-colors"
           >
             {expanded ? (
               <>

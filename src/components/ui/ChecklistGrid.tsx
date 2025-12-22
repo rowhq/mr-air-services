@@ -18,7 +18,7 @@ export function ChecklistGrid({ items, initialCount = 6 }: ChecklistGridProps) {
         {visibleItems.map((item, index) => (
           <div
             key={index}
-            className="flex items-start gap-3 bg-white p-5 rounded-xl hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+            className="flex items-start gap-3 bg-white dark:bg-neutral-800 p-5 rounded-xl hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
           >
             <div className="w-6 h-6 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0 mt-0.5">
               <svg className="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
@@ -29,7 +29,7 @@ export function ChecklistGrid({ items, initialCount = 6 }: ChecklistGridProps) {
                 />
               </svg>
             </div>
-            <span className="text-neutral-600">{item}</span>
+            <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
           </div>
         ))}
       </div>
@@ -37,7 +37,7 @@ export function ChecklistGrid({ items, initialCount = 6 }: ChecklistGridProps) {
         <div className="flex justify-center mt-6">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-medium rounded-full transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 font-medium rounded-full transition-colors"
           >
             {expanded ? (
               <>

@@ -31,11 +31,11 @@ export function InvoicePaymentForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="amount" className="block text-sm font-medium text-slate-700 mb-2">
+        <label htmlFor="amount" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
           Invoice Amount
         </label>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">$</span>
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 dark:text-neutral-500 font-medium">$</span>
           <input
             type="number"
             id="amount"
@@ -46,13 +46,13 @@ export function InvoicePaymentForm() {
             min="1"
             step="0.01"
             required
-            className="w-full pl-8 pr-4 py-3 rounded-lg border border-neutral-200 focus:border-[#00AEEF] focus:ring-2 focus:ring-[#00AEEF]/20 outline-none transition-all text-slate-900 placeholder:text-slate-400"
+            className="w-full pl-8 pr-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="memo" className="block text-sm font-medium text-slate-700 mb-2">
+        <label htmlFor="memo" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
           Invoice Number / Memo
         </label>
         <input
@@ -62,7 +62,7 @@ export function InvoicePaymentForm() {
           value={memo}
           onChange={(e) => setMemo(e.target.value)}
           placeholder="Enter invoice number or note"
-          className="w-full px-4 py-3 rounded-lg border border-neutral-200 focus:border-[#00AEEF] focus:ring-2 focus:ring-[#00AEEF]/20 outline-none transition-all text-slate-900 placeholder:text-slate-400"
+          className="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 focus:border-secondary focus:ring-2 focus:ring-secondary/20 outline-none transition-all text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
         />
       </div>
 
@@ -76,7 +76,7 @@ export function InvoicePaymentForm() {
         Pay Now
       </Button>
 
-      <div className="flex items-center justify-center gap-3 pt-2 text-slate-400">
+      <div className="flex items-center justify-center gap-3 pt-2 text-neutral-400 dark:text-neutral-500">
         <svg className="h-8" viewBox="0 0 50 16" fill="currentColor">
           <text x="0" y="12" fontSize="10" fontWeight="bold">VISA</text>
         </svg>
@@ -88,7 +88,7 @@ export function InvoicePaymentForm() {
         <span className="text-xs font-medium">Discover</span>
       </div>
 
-      <p className="text-xs text-slate-400 text-center">
+      <p className="text-xs text-neutral-400 dark:text-neutral-500 text-center">
         Secure payment via Stax. Google Pay, PayPal, and Bank (ACH) also accepted.
       </p>
     </form>

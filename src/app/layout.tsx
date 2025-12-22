@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Mr. Air Services",
@@ -22,7 +23,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-white dark:bg-neutral-900 text-neutral-black dark:text-neutral-50 transition-colors duration-300">
-        {children}
+        <Providers>{children}</Providers>
         {/* Rowship Feedback Tracker - URL + scroll position detection + scroll-to in iframe */}
         <script
           dangerouslySetInnerHTML={{

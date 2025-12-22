@@ -33,14 +33,14 @@ export function ThemeToggle() {
   // Prevent hydration mismatch
   if (!mounted) {
     return (
-      <div className="hidden sm:flex w-16 h-8 bg-white/20 backdrop-blur-sm rounded-full" />
+      <div className="flex w-16 h-8 bg-white/20 backdrop-blur-sm rounded-full" />
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="hidden sm:flex relative w-16 h-8 items-center bg-white/20 backdrop-blur-sm rounded-full p-1 hover:bg-white/30 transition-colors cursor-pointer"
+      className="flex relative w-16 h-8 items-center bg-white/20 backdrop-blur-sm rounded-full p-1 hover:bg-white/30 transition-colors cursor-pointer"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {/* Icons */}

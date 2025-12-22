@@ -1,13 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui';
-
-const trustBadges = [
-  { label: 'Veteran Owned', abbr: 'VET' },
-  { label: 'Licensed & Insured', abbr: 'LIC' },
-  { label: 'Same-Day Service', abbr: '24H' },
-  { label: 'All Brands', abbr: 'ALL' },
-];
+import { CoolSaverCTA } from '@/components/ui';
 
 export function Hero() {
   return (
@@ -23,8 +15,8 @@ export function Hero() {
         quality={90}
       />
 
-      {/* Improved Overlay - More subtle gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
+      {/* Improved Overlay - Subtle gradient for Apple-like elegance */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
 
       {/* Geometric Pattern Overlay (like About page) */}
       <div className="absolute inset-0 opacity-[0.03]">
@@ -36,85 +28,62 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Floating decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 rounded-full bg-secondary/10 blur-3xl"></div>
-      <div className="absolute bottom-40 left-10 w-48 h-48 rounded-full bg-white/5 blur-2xl"></div>
-
       {/* Content */}
       <div className="container relative pt-32 pb-20 min-h-[600px] md:min-h-[700px] lg:min-h-screen flex flex-col justify-center items-start text-left">
 
-        {/* Exclusive Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full mb-8 animate-fade-in-up">
-          <div className="w-2 h-2 rounded-full bg-white animate-pulse"></div>
-          <span className="text-sm font-medium text-white">Exclusive to Houston</span>
-        </div>
-
-        {/* Main Headline - CoolSaver First */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight animate-fade-in-up">
-          Free AC Tune-Ups for{' '}
-          <span className="block md:inline">
-            <span className="text-white/90 underline decoration-secondary decoration-4 underline-offset-4">Qualifying</span>{' '}
-            <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text">Homeowners</span>
-          </span>
+        {/* Main Headline - Clean Apple typography */}
+        <h1 className="text-4xl sm:text-5xl md:text-[64px] lg:text-[64px] font-bold text-white mb-8 leading-[1.1] tracking-tight animate-fade-in-up">
+          Free AC Tune-Ups for
+          <span className="block">Qualifying Homeowners</span>
         </h1>
 
         {/* Subheading with value prop */}
         <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-200">
           You already pay for it in your electric bill. We help you get it back.
-          <span className="block mt-2 text-white/70 text-base md:text-lg">
-            Veteran-owned. Same-day service. All brands serviced.
-          </span>
         </p>
 
-        {/* Social Proof */}
-        <div className="flex items-center gap-3 mb-8 animate-fade-in-up animation-delay-300">
-          <div className="flex -space-x-2">
-            {[1,2,3,4].map((i) => (
-              <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-secondary to-primary border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                {['J','M','R','S'][i-1]}
-              </div>
-            ))}
+        {/* Trust Badges */}
+        <div className="flex flex-wrap gap-3 mb-10 animate-fade-in-up animation-delay-300">
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+            <span className="text-sm font-medium text-white">Veteran Owned</span>
           </div>
-          <span className="text-white/80 text-sm">
-            <span className="text-white font-semibold">2,400+</span> Houston homeowners qualified
-          </span>
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span className="text-sm font-medium text-white">TX Licensed</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <span className="text-sm font-medium text-white">EPA Certified</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+            <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-sm font-medium text-white">Fully Insured</span>
+          </div>
         </div>
 
         {/* CTA Buttons - Clear hierarchy */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-10 animate-fade-in-up animation-delay-400">
-          <Link href="/free-ac-tune-up">
-            <Button variant="primary" size="lg" className="group">
+        <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-500">
+          <CoolSaverCTA variant="primary" size="lg">
               Check If You Qualify
-              <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 ml-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Button>
-          </Link>
+            </CoolSaverCTA>
           <a href="tel:+18324371000" className="inline-flex items-center justify-center gap-2 px-6 py-4 text-white/90 hover:text-white transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             <span className="font-medium">(832) 437-1000</span>
           </a>
-        </div>
-
-        {/* Trust Badges - Premium style with tooltips */}
-        <div className="flex flex-wrap gap-3 animate-fade-in-up animation-delay-500">
-          {trustBadges.map((badge) => (
-            <div
-              key={badge.abbr}
-              className="group relative px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 cursor-default
-                hover:bg-white/20 hover:border-white/30 hover:scale-105 transition-all duration-300"
-            >
-              <span className="text-sm font-medium text-white">{badge.abbr}</span>
-              {/* Tooltip */}
-              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-neutral-900 text-white text-xs rounded-lg
-                opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap z-10">
-                {badge.label}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-neutral-900"></div>
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Scroll Indicator */}

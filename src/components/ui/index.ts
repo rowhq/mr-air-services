@@ -13,3 +13,8 @@ export { ChecklistGrid } from './ChecklistGrid';
 export { NumberedChecklistGrid } from './NumberedChecklistGrid';
 export { FloatingCTA } from './FloatingCTA';
 export { SectionNav } from './SectionNav';
+export { StickyMobileCTA } from './StickyMobileCTA';
+export { Modal } from './Modal';
+export { CoolSaverModal } from './CoolSaverModal';
+export { CoolSaverCTA } from './CoolSaverCTA';
+export { DesktopStickyCTA } from './DesktopStickyCTA';

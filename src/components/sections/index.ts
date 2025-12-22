@@ -7,3 +7,4 @@ export { AreasServed } from './AreasServed';
 export { FinalCTA } from './FinalCTA';
 export { FAQSection } from './FAQSection';
 export { HowItWorks } from './HowItWorks';
+export { PlanQuiz } from './PlanQuiz';

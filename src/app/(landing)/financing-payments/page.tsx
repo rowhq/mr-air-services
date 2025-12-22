@@ -101,12 +101,6 @@ export default function FinancingPage() {
           <Breadcrumbs items={[{ label: 'Financing & Payments' }]} />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              {/* Section Label */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Financing & Payments</span>
-              </div>
-
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Don't Sweat the Bill
               </h1>
@@ -123,13 +117,13 @@ export default function FinancingPage() {
             <div className="flex justify-center mt-8 lg:mt-0">
               <div className="bg-white dark:bg-neutral-900 rounded-lg p-6 lg:p-10 shadow-lg text-center w-full max-w-sm">
                 <div className="text-xs lg:text-sm text-neutral-600 dark:text-neutral-400 mb-1 lg:mb-2">Financing</div>
-                <div className="text-3xl lg:text-4xl font-bold text-[#00AEEF] mb-1 lg:mb-2">Available</div>
+                <div className="text-3xl lg:text-4xl font-bold text-secondary mb-1 lg:mb-2">Available</div>
                 <div className="text-neutral-600 dark:text-neutral-400 text-sm lg:text-base mb-4">Easy approval</div>
                 <a
                   href="https://apply.svcfin.com/mrairservices"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-full px-6 py-3 bg-[#00AEEF] text-white font-semibold rounded-full hover:bg-[#0099D6] transition-colors"
+                  className="inline-flex items-center justify-center w-full px-6 py-3 bg-secondary text-white font-semibold rounded-full hover:bg-secondary-hover transition-colors"
                 >
                   Apply for Financing
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -148,12 +142,6 @@ export default function FinancingPage() {
       {/* Financing Options */}
       <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
-          {/* Section Label */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-[#00AEEF]"></div>
-            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Our Plans</span>
-          </div>
-
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               Pick What Works for You
@@ -167,14 +155,14 @@ export default function FinancingPage() {
             {financingOptions.map((option) => (
               <div
                 key={option.title}
-                className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-8 border border-neutral-100 dark:border-neutral-700 hover:border-[#00AEEF]/30 hover:shadow-md transition-all duration-200"
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-lg p-8 border border-neutral-100 dark:border-neutral-700 hover:border-secondary/30 hover:shadow-md transition-all duration-200"
               >
                 <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">{option.title}</h3>
                 <p className="text-neutral-600 dark:text-neutral-400 mb-6">{option.description}</p>
                 <ul className="space-y-3">
                   {option.details.map((detail) => (
                     <li key={detail} className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400">
-                      <div className="w-5 h-5 rounded-full bg-[#00AEEF] flex items-center justify-center">
+                      <div className="w-5 h-5 rounded-full bg-secondary flex items-center justify-center">
                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -192,12 +180,6 @@ export default function FinancingPage() {
       {/* Payment Methods */}
       <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
-          {/* Section Label */}
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-[#00AEEF]"></div>
-            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">We Accept</span>
-          </div>
-
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
             Payment Methods Accepted
           </h2>
@@ -206,9 +188,9 @@ export default function FinancingPage() {
             {paymentMethods.map((method) => (
               <div
                 key={method.name}
-                className="bg-white dark:bg-neutral-900 px-8 py-5 rounded-lg border border-neutral-100 dark:border-neutral-700 hover:border-[#00AEEF]/30 hover:shadow-md transition-all duration-200 flex items-center gap-4"
+                className="bg-white dark:bg-neutral-900 px-8 py-5 rounded-lg border border-neutral-100 dark:border-neutral-700 hover:border-secondary/30 hover:shadow-md transition-all duration-200 flex items-center gap-4"
               >
-                <div className="w-12 h-12 rounded-lg bg-[#00AEEF] text-white flex items-center justify-center">
+                <div className="w-12 h-12 rounded-lg bg-secondary text-white flex items-center justify-center">
                   {method.icon}
                 </div>
                 <span className="font-semibold text-neutral-black dark:text-white">{method.name}</span>
@@ -221,12 +203,6 @@ export default function FinancingPage() {
       {/* How It Works */}
       <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
-          {/* Section Label */}
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-[#00AEEF]"></div>
-            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Easy Process</span>
-          </div>
-
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
             How Financing Works
           </h2>
@@ -239,7 +215,7 @@ export default function FinancingPage() {
               { step: '4', title: 'Stay Cool', description: "We do the work. You make easy monthly payments. Done." },
             ].map((item) => (
               <div key={item.step} className="text-center">
-                <div className="w-14 h-14 mx-auto rounded-full bg-[#00AEEF] text-white flex items-center justify-center text-xl font-bold mb-6">
+                <div className="w-14 h-14 mx-auto rounded-full bg-secondary text-white flex items-center justify-center text-xl font-bold mb-6">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{item.title}</h3>
@@ -254,12 +230,6 @@ export default function FinancingPage() {
       <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           <div className="max-w-2xl mx-auto">
-            {/* Section Label */}
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="w-2 h-2 rounded-full bg-[#00AEEF]"></div>
-              <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Pay Invoice</span>
-            </div>
-
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 text-center leading-tight">
               Pay Your Invoice
             </h2>
@@ -273,7 +243,7 @@ export default function FinancingPage() {
 
             <p className="text-center text-neutral-500 dark:text-neutral-400 text-sm mt-6">
               Questions about your invoice? Call us at{' '}
-              <a href="tel:+18324371000" className="text-[#00AEEF] hover:underline">
+              <a href="tel:+18324371000" className="text-secondary hover:underline">
                 (832) 437-1000
               </a>
             </p>

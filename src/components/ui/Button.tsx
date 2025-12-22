@@ -14,13 +14,13 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     'bg-secondary text-white hover:bg-secondary-hover hover:shadow-lg hover:shadow-secondary/25 focus:ring-secondary/30',
   secondary:
-    'bg-white text-neutral-800 hover:bg-neutral-50 hover:shadow-lg focus:ring-neutral-400/20 border border-neutral-200',
+    'bg-white dark:bg-neutral-800 text-neutral-800 dark:text-white hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-lg focus:ring-neutral-400/20 border border-neutral-200 dark:border-neutral-700',
   outline:
-    'bg-transparent border border-neutral-300 text-neutral-700 hover:border-secondary hover:text-secondary hover:shadow-md focus:ring-neutral-400/30',
+    'bg-transparent border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:border-secondary hover:text-secondary hover:shadow-md focus:ring-neutral-400/30',
   'outline-inverse':
     'bg-white/10 backdrop-blur-sm border border-white/30 text-white hover:bg-white/20 hover:border-white/50 focus:ring-white/30',
   ghost:
-    'bg-transparent text-neutral-700 hover:bg-neutral-100 focus:ring-neutral-400/30',
+    'bg-transparent text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:ring-neutral-400/30',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -50,8 +50,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={`
           inline-flex items-center justify-center
           font-semibold rounded-full
-          transition-all duration-300 ease-out
-          hover:scale-[1.02] active:scale-[0.98]
+          transition-all duration-200 ease-out
+          hover:scale-[1.01] active:scale-[0.98]
           focus:outline-none focus:ring-2 focus:ring-offset-2
           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
           ${variantStyles[variant]}

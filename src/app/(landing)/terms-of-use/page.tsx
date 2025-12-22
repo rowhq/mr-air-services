@@ -13,12 +13,6 @@ export default function TermsOfUsePage() {
         <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-primary/20 blur-xl"></div>
 
         <div className="container relative">
-          {/* Section Label */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Legal</span>
-          </div>
-
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight">
             Terms of Use
           </h1>

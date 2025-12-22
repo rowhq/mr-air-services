@@ -2,59 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-// Animated counter component
-function AnimatedStat({ value, suffix = '', label }: { value: number; suffix?: string; label: string }) {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !isVisible) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [isVisible]);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const duration = 2000;
-    const steps = 60;
-    const increment = value / steps;
-    let current = 0;
-    let step = 0;
-
-    const timer = setInterval(() => {
-      step++;
-      current = Math.min(Math.floor(increment * step), value);
-      setCount(current);
-
-      if (step >= steps) {
-        setCount(value);
-        clearInterval(timer);
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [isVisible, value]);
-
-  return (
-    <div ref={ref} className="text-center">
-      <div className="text-4xl lg:text-5xl font-bold text-secondary mb-1 tabular-nums">
-        {count}{suffix}
-      </div>
-      <div className="text-neutral-500 dark:text-neutral-400 text-sm font-medium">{label}</div>
-    </div>
-  );
-}
-
 // Feature icons - using secondary color
 const icons = {
   certified: (
@@ -97,28 +44,27 @@ const icons = {
   ),
 };
 
-const stats = [
-  { value: 3, suffix: '', label: 'Houston Locations' },
-  { value: 0, suffix: '', label: 'Hidden Fees', isZero: true },
-  { value: 1, suffix: '', label: 'Call Away' },
-  { value: 100, suffix: '%', label: 'Transparency' },
-];
-
 const features = [
   {
     icon: icons.certified,
     title: 'Experienced Pros',
     description: "Trained technicians who actually care about getting it right. We service all major brands.",
+    stat: '98%',
+    statLabel: 'on-time rate',
   },
   {
     icon: icons.pricing,
     title: 'Upfront Pricing',
     description: "You'll know exactly what it costs before we start. No surprise bills, no hidden fees. Ever.",
+    stat: '$0',
+    statLabel: 'hidden fees',
   },
   {
     icon: icons.guarantee,
     title: 'Guaranteed Work',
     description: "If something's off, we come back and fix it. Period. Your comfort is our reputation.",
+    stat: '4.9/5',
+    statLabel: 'avg rating',
   },
 ];
 
@@ -145,12 +91,6 @@ export function WhyChooseUs() {
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="w-2 h-2 rounded-full bg-secondary" />
-            <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">
-              Why Choose Us
-            </span>
-          </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
             Why People Call Us Back
           </h2>
@@ -189,21 +129,8 @@ export function WhyChooseUs() {
             </div>
           </div>
 
-          {/* Right - Stats + Features */}
+          {/* Right - Features */}
           <div className={`animate-fade-in-up animation-delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4 mb-10">
-              {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700
-                    hover:border-secondary/20 hover:shadow-lg transition-all duration-300"
-                >
-                  <AnimatedStat value={stat.value} suffix={stat.suffix} label={stat.label} />
-                </div>
-              ))}
-            </div>
-
             {/* Features */}
             <div className="space-y-4">
               {features.map((feature) => (
@@ -221,13 +148,18 @@ export function WhyChooseUs() {
                     </div>
 
                     {/* Content */}
-                    <div>
+                    <div className="flex-1">
                       <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">
                         {feature.title}
                       </h3>
                       <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
                         {feature.description}
                       </p>
+                    </div>
+                    {/* Stat */}
+                    <div className="flex-shrink-0 text-right">
+                      <div className="text-2xl font-bold text-secondary">{feature.stat}</div>
+                      <div className="text-xs text-neutral-500 dark:text-neutral-400">{feature.statLabel}</div>
                     </div>
                   </div>
                 </div>

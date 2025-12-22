@@ -1,25 +1,29 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Mr. Air Services Design System
  * Based on UX/UI Specification Document
  */
 
 @theme {
-  /* Primary Colors - Brand Cyan Blue */
-  --color-primary: #00AEEF;
-  --color-primary-hover: #0099D6;
-  --color-primary-dark: #0080B3;
+  /* Primary Colors - Brand Cyan Blue (Accessible) */
+  /* #0099CC = ~3.4:1 contrast - balanced between vibrancy and accessibility */
+  --color-primary: #0099CC;
+  --color-primary-hover: #008ABB;
+  --color-primary-dark: #007AA3;
   --color-primary-light: #E6F7FD;
 
-  /* Secondary Colors - Same as Primary */
-  --color-secondary: #00AEEF;
-  --color-secondary-hover: #0099D6;
-  --color-secondary-light: #F0FAFF;
+  /* Secondary Colors - Same as Primary (Brand Cyan Blue) */
+  --color-secondary: #0099CC;
+  --color-secondary-hover: #008ABB;
+  --color-secondary-light: #E6F7FD;
 
-  /* Hero Background - Brand Color */
-  --color-hero-start: #00AEEF;
-  --color-hero-end: #00AEEF;
+  /* Hero Background - Brand Color (Accessible) */
+  --color-hero-start: #0099CC;
+  --color-hero-end: #0099CC;
 
   /* Neutral Colors */
   --color-neutral-black: #1E293B;
@@ -120,12 +124,19 @@
 
 /* Dark Mode Variables */
 .dark {
-  --background: #0F172A;
+  --background: oklch(0.21 0.04 264);
   --foreground: #F8FAFC;
-  --card-bg: #1E293B;
-  --card-border: #334155;
-  --section-bg-alt: #1E293B;
+  --card-bg: oklch(0.27 0.04 264);
+  --card-border: oklch(0.33 0.04 264);
+  --section-bg-alt: oklch(0.27 0.04 264);
   --text-muted: #94A3B8;
+  --color-primary-light: #0c3a4d;
+  --color-secondary-light: #0c3a4d;
+  /* Override Tailwind neutral colors for dark mode */
+  --color-neutral-950: oklch(0.18 0.04 264);
+  --color-neutral-900: oklch(0.21 0.04 264);
+  --color-neutral-800: oklch(0.27 0.04 264);
+  --color-neutral-700: oklch(0.33 0.04 264);
 }
 
 * {
@@ -186,8 +197,8 @@ body {
 
 @media (min-width: 1024px) {
   .container {
-    padding-left: 80px !important;
-    padding-right: 80px !important;
+    padding-left: 60px !important;
+    padding-right: 60px !important;
   }
 }
 

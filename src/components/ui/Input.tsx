@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="block text-sm font-medium text-neutral-black mb-2"
+            className="block text-sm font-medium text-neutral-black dark:text-white mb-2"
           >
             {label}
             {props.required && <span className="text-secondary ml-1">*</span>}
@@ -27,12 +27,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`
             w-full px-4 py-3.5
             border rounded-xl
-            text-neutral-black bg-neutral-50
-            placeholder:text-neutral-400
+            text-neutral-black dark:text-white bg-neutral-50 dark:bg-neutral-800
+            placeholder:text-neutral-400 dark:placeholder:text-neutral-500
             transition-all duration-200
-            focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary focus:bg-white
-            disabled:bg-neutral-100 disabled:cursor-not-allowed
-            ${error ? 'border-error focus:ring-error/50 focus:border-error' : 'border-neutral-200 hover:border-neutral-300'}
+            focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary focus:bg-white dark:focus:bg-neutral-900
+            disabled:bg-neutral-100 dark:disabled:bg-neutral-800 disabled:cursor-not-allowed
+            ${error ? 'border-error focus:ring-error/50 focus:border-error' : 'border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'}
             ${className}
           `}
           aria-invalid={error ? 'true' : 'false'}
@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
         {hint && !error && (
-          <p id={`${inputId}-hint`} className="mt-2 text-sm text-neutral-600">
+          <p id={`${inputId}-hint`} className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
             {hint}
           </p>
         )}
