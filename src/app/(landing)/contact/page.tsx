@@ -42,16 +42,16 @@ export default function ContactPage() {
     return (
       <section className="min-h-[80vh] flex items-center bg-gradient-to-br from-hero-start via-primary-light to-hero-end">
         <div className="container py-20">
-          <div className="max-w-2xl mx-auto text-center bg-white rounded-3xl p-12 shadow-xl">
+          <div className="max-w-2xl mx-auto text-center bg-white dark:bg-neutral-900 rounded-3xl p-12 shadow-xl">
             <div className="w-20 h-20 mx-auto bg-gradient-to-br from-hero-start to-hero-end rounded-full flex items-center justify-center mb-8">
               <svg className="w-10 h-10 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-neutral-black mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-4">
               Message Sent!
             </h1>
-            <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
               Thank you for contacting Mr. Air Services. We'll respond to your inquiry within 24 hours. For immediate assistance, please call us.
             </p>
             <a href="tel:+18324371000">
@@ -80,13 +80,13 @@ export default function ContactPage() {
             {/* Section Label */}
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Get In Touch</span>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Get In Touch</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
               Contact Us
             </h1>
-            <p className="text-xl text-neutral-700 max-w-2xl leading-relaxed">
+            <p className="text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed">
               Have questions or need service? We're here to help. Reach out by phone, email, or fill out the form below.
             </p>
           </div>
@@ -94,7 +94,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Info + Form */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
@@ -102,10 +102,10 @@ export default function ContactPage() {
               {/* Section Label */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Contact Info</span>
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Contact Info</span>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-neutral-black mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-neutral-black dark:text-white mb-8">
                 Get In Touch
               </h2>
 
@@ -145,7 +145,7 @@ export default function ContactPage() {
                     ),
                     title: 'Hours',
                     content: (
-                      <div className="text-neutral-600 text-sm">
+                      <div className="text-neutral-600 dark:text-neutral-400 text-sm">
                         Mon–Fri: 8:00 AM – 5:00 PM<br />
                         Sat: By appointment<br />
                         Sun: Closed
@@ -161,7 +161,7 @@ export default function ContactPage() {
                     ),
                     title: 'Service Area',
                     content: (
-                      <div className="text-neutral-600 text-sm">
+                      <div className="text-neutral-600 dark:text-neutral-400 text-sm">
                         Greater Houston Area
                       </div>
                     ),
@@ -169,13 +169,13 @@ export default function ContactPage() {
                 ].map((item) => (
                   <div
                     key={item.title}
-                    className="flex items-start gap-4 p-5 rounded-2xl bg-neutral-50 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+                    className="flex items-start gap-4 p-5 rounded-2xl bg-neutral-50 dark:bg-neutral-800 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hero-start to-hero-end text-secondary flex items-center justify-center flex-shrink-0">
                       {item.icon}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-neutral-black mb-1">{item.title}</h3>
+                      <h3 className="font-semibold text-neutral-black dark:text-white mb-1">{item.title}</h3>
                       {item.content}
                     </div>
                   </div>
@@ -185,14 +185,14 @@ export default function ContactPage() {
 
             {/* Form */}
             <div className="lg:col-span-2">
-              <div className="bg-neutral-50 rounded-3xl p-8 md:p-10">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 md:p-10">
                 {/* Section Label */}
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                  <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Send Message</span>
+                  <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Send Message</span>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-bold text-neutral-black mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-neutral-black dark:text-white mb-8">
                   Send Us a Message
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -259,10 +259,10 @@ export default function ContactPage() {
         <div className="absolute top-1/2 right-1/4 w-16 h-16 rounded-full bg-white/5"></div>
 
         <div className="container relative text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6">
             Need Emergency Service?
           </h2>
-          <p className="text-xl text-neutral-700 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-10 max-w-2xl mx-auto leading-relaxed">
             AC emergency? Don't sweat it. Call us now for same-day service.
           </p>
           <a href="tel:+18324371000">

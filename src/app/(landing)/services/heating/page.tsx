@@ -107,13 +107,13 @@ export default function HeatingPage() {
             {/* Section Label */}
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Heating Services</span>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Heating Services</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
               Heat Out? We're On It.
             </h1>
-            <p className="text-xl text-neutral-700 mb-8 leading-relaxed max-w-lg">
+            <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed max-w-lg">
               Yeah, Houston winters are mild. But when it's 35° and your heat won't kick on, you'll wish you'd called us sooner. Furnaces, heat pumps, whatever—we fix it.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -136,19 +136,19 @@ export default function HeatingPage() {
       <SectionNav items={sectionNavItems} />
 
       {/* Services */}
-      <section id="services" className="py-20 lg:py-28 bg-white scroll-mt-20">
+      <section id="services" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">What We Offer</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">What We Offer</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               Everything Heating
             </h2>
-            <p className="text-neutral-600 max-w-md text-lg">
+            <p className="text-neutral-600 dark:text-neutral-400 max-w-md text-lg">
               From "won't turn on" to "smells weird" to "I need a whole new system." We handle it.
             </p>
           </div>
@@ -157,10 +157,10 @@ export default function HeatingPage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="bg-neutral-50 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-neutral-black mb-3">{service.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">{service.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{service.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{service.description}</p>
               </div>
             ))}
           </div>
@@ -168,27 +168,27 @@ export default function HeatingPage() {
       </section>
 
       {/* 12-Point Furnace Tune-Up */}
-      <section id="tune-up" className="py-20 lg:py-28 bg-neutral-50 scroll-mt-20">
+      <section id="tune-up" className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800 scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Furnace Tune-Up</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Furnace Tune-Up</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 text-center leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 text-center leading-tight">
             12-Point Furnace Inspection
           </h2>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-14 text-center">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-14 text-center">
             Yearly inspections are essential for safety, peace of mind, and proper operation. Here's what we check.
           </p>
 
           <NumberedChecklistGrid items={furnaceChecklist} initialCount={6} />
 
           {/* Safety Callout */}
-          <div className="mt-12 max-w-3xl mx-auto bg-neutral-100 border border-neutral-200 rounded-2xl p-8 text-center">
-            <h3 className="text-xl font-bold text-neutral-black mb-3">Why Yearly Inspections Matter</h3>
-            <p className="text-neutral-600">
+          <div className="mt-12 max-w-3xl mx-auto bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-2xl p-8 text-center">
+            <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">Why Yearly Inspections Matter</h3>
+            <p className="text-neutral-600 dark:text-neutral-400">
               Carbon monoxide is odorless and invisible. A cracked heat exchanger can leak it into your home without warning.
               Yearly inspections catch these problems early—before they put your family at risk.
             </p>
@@ -197,20 +197,20 @@ export default function HeatingPage() {
       </section>
 
       {/* Warning Signs */}
-      <section id="warnings" className="py-20 lg:py-28 bg-white scroll-mt-20">
+      <section id="warnings" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {/* Section Label */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Warning Signs</span>
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Warning Signs</span>
               </div>
 
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 leading-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Your Heater Is Trying to Tell You Something
               </h2>
-              <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
                 Weird noises? Uneven temps? Don't ignore it. These are your heater's way of saying "help me before I die completely."
               </p>
               <ul className="space-y-4">
@@ -221,7 +221,7 @@ export default function HeatingPage() {
                         <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-neutral-600">{item}</span>
+                    <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -232,8 +232,8 @@ export default function HeatingPage() {
               <div className="absolute bottom-5 left-5 w-24 h-24 rounded-full bg-white/10"></div>
 
               <div className="relative">
-                <h3 className="text-2xl font-bold text-neutral-black mb-4">Don't Wait Until It's 40° Inside</h3>
-                <p className="text-neutral-700 mb-8 leading-relaxed">
+                <h3 className="text-2xl font-bold text-neutral-black dark:text-white mb-4">Don't Wait Until It's 40° Inside</h3>
+                <p className="text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed">
                   Sure, Houston winters are mild. But when that one cold week hits and your heat's dead? You'll be miserable. Get it checked now.
                 </p>
                 <Link href="/contact">

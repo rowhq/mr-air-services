@@ -27,7 +27,7 @@ function StarRating({ rating }: { rating: number }) {
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'text-neutral-700' : 'text-neutral-200'}`}
+          className={`w-4 h-4 ${i < rating ? 'text-neutral-700 dark:text-neutral-300' : 'text-neutral-200 dark:text-neutral-700'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -40,7 +40,7 @@ function StarRating({ rating }: { rating: number }) {
 
 export function Testimonials() {
   return (
-    <section className="py-24 md:py-32 bg-neutral-50 relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
       {/* Subtle geometric accent */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-secondary/5 -translate-y-1/2 translate-x-1/2"></div>
 
@@ -50,18 +50,18 @@ export function Testimonials() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-secondary" />
-              <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">
+              <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">
                 Testimonials
               </span>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
               What Our Customers Say
             </h2>
           </div>
           <Link
             href="/contact"
-            className="mt-6 lg:mt-0 inline-flex items-center gap-2 px-6 py-3 border border-neutral-200 rounded-full
-              text-neutral-700 font-medium hover:bg-white hover:border-secondary/30 hover:text-secondary
+            className="mt-6 lg:mt-0 inline-flex items-center gap-2 px-6 py-3 border border-neutral-200 dark:border-neutral-700 rounded-full
+              text-neutral-700 dark:text-neutral-300 font-medium hover:bg-white dark:hover:bg-neutral-900 hover:border-secondary/30 hover:text-secondary
               hover:shadow-lg transition-all duration-300 text-sm"
           >
             Get a Free Quote
@@ -76,7 +76,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`group bg-white border border-neutral-100 rounded-3xl p-8
+              className={`group bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-700 rounded-3xl p-8
                 hover:border-secondary/20 hover:shadow-xl hover:-translate-y-1
                 transition-all duration-500 animate-fade-in-up animation-delay-${(index + 1) * 100}`}
             >
@@ -95,7 +95,7 @@ export function Testimonials() {
               </div>
 
               {/* Quote */}
-              <p className="text-neutral-600 leading-relaxed">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
                 &ldquo;{testimonial.text}&rdquo;
               </p>
 
@@ -107,8 +107,8 @@ export function Testimonials() {
                   {testimonial.initials}
                 </div>
                 <div>
-                  <p className="font-semibold text-neutral-900">Verified Customer</p>
-                  <p className="text-sm text-neutral-500">{testimonial.location}</p>
+                  <p className="font-semibold text-neutral-900 dark:text-white">Verified Customer</p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">{testimonial.location}</p>
                 </div>
               </div>
             </div>
@@ -118,15 +118,15 @@ export function Testimonials() {
         {/* Trust Indicator */}
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center animate-fade-in-up animation-delay-500">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-neutral-700" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="w-5 h-5 text-neutral-700 dark:text-neutral-300" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
-            <span className="text-neutral-600 text-sm font-medium">4.9/5 Rating</span>
+            <span className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">4.9/5 Rating</span>
           </div>
-          <div className="hidden sm:block w-px h-4 bg-neutral-300" />
-          <span className="text-neutral-500 text-sm">Veteran Owned & Operated</span>
-          <div className="hidden sm:block w-px h-4 bg-neutral-300" />
-          <span className="text-neutral-500 text-sm">Licensed & Insured</span>
+          <div className="hidden sm:block w-px h-4 bg-neutral-300 dark:bg-neutral-700" />
+          <span className="text-neutral-500 dark:text-neutral-400 text-sm">Veteran Owned & Operated</span>
+          <div className="hidden sm:block w-px h-4 bg-neutral-300 dark:bg-neutral-700" />
+          <span className="text-neutral-500 dark:text-neutral-400 text-sm">Licensed & Insured</span>
         </div>
       </div>
     </section>

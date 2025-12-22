@@ -16,8 +16,8 @@ const HoustonCoverageMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="bg-neutral-50 border border-neutral-100 rounded-3xl h-[450px] flex items-center justify-center">
-        <div className="text-neutral-400 flex items-center gap-2">
+      <div className="bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-3xl h-[450px] flex items-center justify-center">
+        <div className="text-neutral-400 dark:text-neutral-400 flex items-center gap-2">
           <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -38,7 +38,7 @@ export function AreasServed() {
   }, []);
 
   return (
-    <section className="py-24 md:py-32 bg-neutral-50 relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
       {/* Subtle geometric accent */}
       <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-secondary/5 translate-y-1/2 -translate-x-1/2"></div>
 
@@ -48,16 +48,16 @@ export function AreasServed() {
           <div className="animate-fade-in-up">
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-secondary" />
-              <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">
+              <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">
                 Our Locations
               </span>
             </div>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 leading-tight tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight tracking-tight">
               Serving the Greater<br />Houston Area
             </h2>
 
-            <p className="text-neutral-600 text-lg mb-10 max-w-md leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-400 text-lg mb-10 max-w-md leading-relaxed">
               With {officeLocations.length} convenient locations across the Houston metro, we&apos;re always nearby when you need us. Same-day service available.
             </p>
 
@@ -72,7 +72,7 @@ export function AreasServed() {
                   className={`group relative px-4 py-3 rounded-full border text-left transition-all duration-300 ${
                     activeOffice === office.name
                       ? 'bg-secondary border-secondary text-white shadow-lg shadow-secondary/25 pr-6'
-                      : 'bg-white border-neutral-200 text-neutral-700 hover:border-secondary hover:shadow-md'
+                      : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-400 hover:border-secondary hover:shadow-md'
                   } animate-fade-in-up animation-delay-${(index + 1) * 100}`}
                 >
                   <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export function AreasServed() {
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                     <span className={`font-semibold text-sm ${
-                      activeOffice === office.name ? 'text-white' : 'text-neutral-900'
+                      activeOffice === office.name ? 'text-white' : 'text-neutral-900 dark:text-white'
                     }`}>
                       {office.name}
                     </span>
@@ -104,11 +104,11 @@ export function AreasServed() {
                 const office = officeLocations.find(o => o.name === activeOffice);
                 if (!office) return null;
                 return (
-                  <div className="bg-white rounded-2xl border border-neutral-200 p-5 shadow-sm">
+                  <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-5 shadow-sm">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h3 className="font-bold text-neutral-900 mb-1">{office.name}</h3>
-                        <p className="text-sm text-neutral-500">
+                        <h3 className="font-bold text-neutral-900 dark:text-white mb-1">{office.name}</h3>
+                        <p className="text-sm text-neutral-500 dark:text-neutral-400">
                           {office.address}, {office.city}, {office.state} {office.zip}
                         </p>
                       </div>
@@ -130,7 +130,7 @@ export function AreasServed() {
             </div>
 
             {/* CTA */}
-            <div className="flex items-center gap-4 text-neutral-500 text-sm">
+            <div className="flex items-center gap-4 text-neutral-500 dark:text-neutral-400 text-sm">
               <span>Questions?</span>
               <a
                 href="tel:+18324371000"

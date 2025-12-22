@@ -103,13 +103,13 @@ export default function MaintenancePlansPage() {
             {/* Section Label */}
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Maintenance Plans</span>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Maintenance Plans</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
               Stop Overpaying for AC Repairs
             </h1>
-            <p className="text-xl text-neutral-700 leading-relaxed">
+            <p className="text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed">
               Maintenance plans = catch problems early, avoid emergency calls, save money. It's not complicated.
             </p>
             <TrustSignals className="mt-6 justify-center" />
@@ -118,22 +118,22 @@ export default function MaintenancePlansPage() {
       </section>
 
       {/* What's Included */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               {/* Section Label */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">What's Included</span>
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">What's Included</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-neutral-black mb-6 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Every Plan Includes Our CoolSaver Tune-Up
               </h2>
-              <p className="text-lg text-neutral-600 mb-6 leading-relaxed">
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
                 Our 14-point CoolSaver Tune-Up covers everything: refrigerant charge adjustment, coil cleaning, blower cleaning, filter replacement, and more. We use the latest diagnostic tools to keep your system running at peak performance.
               </p>
-              <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
                 <strong>Pro tip:</strong> Any AC system 1 year or older should have an annual tune-up. It's the difference between a $50 catch and a $600 emergency.
               </p>
               <Link href="/services/air-conditioning-tune-ups">
@@ -142,8 +142,8 @@ export default function MaintenancePlansPage() {
                 </Button>
               </Link>
             </div>
-            <div className="bg-neutral-50 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-neutral-black mb-6">CoolSaver Tune-Up Highlights</h3>
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-6">CoolSaver Tune-Up Highlights</h3>
               <ul className="space-y-4">
                 {[
                   'Refrigerant charge adjustment',
@@ -161,7 +161,7 @@ export default function MaintenancePlansPage() {
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     </div>
-                    <span className="text-neutral-700">{item}</span>
+                    <span className="text-neutral-700 dark:text-neutral-300">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -171,15 +171,15 @@ export default function MaintenancePlansPage() {
       </section>
 
       {/* Plans */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Choose Your Plan</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Choose Your Plan</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-14 text-center leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
             Pick Your Plan
           </h2>
 
@@ -187,7 +187,7 @@ export default function MaintenancePlansPage() {
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative bg-neutral-50 rounded-3xl p-8 hover:shadow-xl hover:shadow-neutral-200/50 transition-all duration-300 ${
+                className={`relative bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300 ${
                   plan.popular ? 'ring-2 ring-secondary' : ''
                 }`}
               >
@@ -199,14 +199,14 @@ export default function MaintenancePlansPage() {
                   </div>
                 )}
                 <div className="text-center mb-8 pt-4">
-                  <h3 className="text-xl font-bold text-neutral-black mb-2">{plan.name}</h3>
+                  <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">{plan.name}</h3>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                       {plan.price}
                     </span>
-                    <span className="text-neutral-600">{plan.period}</span>
+                    <span className="text-neutral-600 dark:text-neutral-400">{plan.period}</span>
                   </div>
-                  <p className="text-neutral-600 mt-2 text-sm">{plan.description}</p>
+                  <p className="text-neutral-600 dark:text-neutral-400 mt-2 text-sm">{plan.description}</p>
                 </div>
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature) => (
@@ -216,7 +216,7 @@ export default function MaintenancePlansPage() {
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-neutral-600">{feature}</span>
+                      <span className="text-neutral-600 dark:text-neutral-400">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -235,23 +235,23 @@ export default function MaintenancePlansPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Benefits</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Benefits</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-14 text-center leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
             Why People Actually Sign Up
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit) => (
-              <div key={benefit.title} className="bg-neutral-50 p-8 rounded-2xl hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300">
-                <h3 className="text-lg font-semibold text-neutral-black mb-3">{benefit.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">{benefit.description}</p>
+              <div key={benefit.title} className="bg-neutral-50 dark:bg-neutral-800 p-8 rounded-2xl hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300">
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{benefit.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -259,7 +259,7 @@ export default function MaintenancePlansPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           <div className="bg-gradient-to-br from-hero-start to-hero-end rounded-3xl p-8 md:p-12 lg:p-16 text-center relative overflow-hidden">
             {/* Decorative elements */}
@@ -267,10 +267,10 @@ export default function MaintenancePlansPage() {
             <div className="absolute bottom-10 left-10 w-32 h-32 rounded-full bg-white/10"></div>
 
             <div className="relative">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 leading-tight">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Let's Get You Signed Up
               </h2>
-              <p className="text-xl text-neutral-700 mb-10 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-10 max-w-2xl mx-auto leading-relaxed">
                 Join the Houston homeowners who don't panic when their AC makes a weird noise. Because we're already on it.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -7,9 +7,9 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles = {
-  default: 'bg-white',
-  elevated: 'bg-white shadow-md',
-  bordered: 'bg-white border border-neutral-200',
+  default: 'bg-white dark:bg-neutral-800',
+  elevated: 'bg-white dark:bg-neutral-800 shadow-md',
+  bordered: 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700',
 };
 
 const paddingStyles = {
@@ -38,7 +38,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
           rounded-lg
           ${variantStyles[variant]}
           ${paddingStyles[padding]}
-          ${hover ? 'transition-shadow duration-200 hover:shadow-md hover:border-neutral-300' : ''}
+          ${hover ? 'transition-shadow duration-200 hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-600' : ''}
           ${className}
         `}
         {...props}
@@ -74,7 +74,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     return (
       <Component
         ref={ref}
-        className={`text-xl font-semibold text-neutral-black ${className}`}
+        className={`text-xl font-semibold text-neutral-black dark:text-white ${className}`}
         {...props}
       >
         {children}
@@ -90,7 +90,7 @@ interface CardContentProps extends HTMLAttributes<HTMLDivElement> {}
 export const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   ({ className = '', children, ...props }, ref) => {
     return (
-      <div ref={ref} className={`text-neutral-600 ${className}`} {...props}>
+      <div ref={ref} className={`text-neutral-600 dark:text-neutral-300 ${className}`} {...props}>
         {children}
       </div>
     );

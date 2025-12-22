@@ -16,29 +16,29 @@ export default function PrivacyPolicyPage() {
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Legal</span>
+            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Legal</span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight">
             Privacy Policy
           </h1>
-          <p className="text-neutral-600 mt-2">Last updated: December 2024</p>
+          <p className="text-neutral-600 dark:text-neutral-400 mt-2">Last updated: December 2024</p>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           <div className="max-w-3xl mx-auto prose prose-lg prose-neutral">
-            <div className="bg-neutral-50 rounded-2xl p-8 mb-10">
-              <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-0">Introduction</h2>
-              <p className="text-neutral-600 mb-0 leading-relaxed">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 mb-10">
+              <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-0">Introduction</h2>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-0 leading-relaxed">
                 Mr. Air Services ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4">Information We Collect</h2>
-            <p className="text-neutral-600 mb-4 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4">Information We Collect</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed">
               We may collect personal information that you voluntarily provide when you:
             </p>
             <ul className="list-none pl-0 space-y-3 mb-6">
@@ -55,16 +55,16 @@ export default function PrivacyPolicyPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-neutral-600">{item}</span>
+                  <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="text-neutral-600 mb-6 leading-relaxed">
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
               This information may include your name, email address, phone number, physical address, and details about your HVAC system.
             </p>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">How We Use Your Information</h2>
-            <p className="text-neutral-600 mb-4 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">How We Use Your Information</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed">
               We use the information we collect to:
             </p>
             <ul className="list-none pl-0 space-y-3 mb-6">
@@ -82,13 +82,13 @@ export default function PrivacyPolicyPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-neutral-600">{item}</span>
+                  <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Information Sharing</h2>
-            <p className="text-neutral-600 mb-4 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Information Sharing</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed">
               We do not sell your personal information. We may share your information with:
             </p>
             <ul className="list-none pl-0 space-y-3 mb-6">
@@ -103,23 +103,23 @@ export default function PrivacyPolicyPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-neutral-600">{item}</span>
+                  <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Cookies and Tracking</h2>
-            <p className="text-neutral-600 mb-6 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Cookies and Tracking</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
               Our website uses cookies and similar tracking technologies to improve your browsing experience and analyze website traffic. You can control cookie settings through your browser preferences.
             </p>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Data Security</h2>
-            <p className="text-neutral-600 mb-6 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Data Security</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
               We implement reasonable security measures to protect your personal information from unauthorized access, use, or disclosure. However, no method of transmission over the Internet is 100% secure.
             </p>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Your Rights</h2>
-            <p className="text-neutral-600 mb-4 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Your Rights</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed">
               You have the right to:
             </p>
             <ul className="list-none pl-0 space-y-3 mb-6">
@@ -135,29 +135,29 @@ export default function PrivacyPolicyPage() {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-neutral-600">{item}</span>
+                  <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="bg-neutral-50 rounded-2xl p-8 mt-10">
-              <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-0">Contact Us</h2>
-              <p className="text-neutral-600 mb-4 leading-relaxed">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 mt-10">
+              <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-0">Contact Us</h2>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed">
                 If you have questions about this Privacy Policy or our data practices, please contact us:
               </p>
-              <p className="text-neutral-600 mb-2">
-                <strong className="text-neutral-black">Mr. Air Services</strong>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-2">
+                <strong className="text-neutral-black dark:text-white">Mr. Air Services</strong>
               </p>
-              <p className="text-neutral-600 mb-2">
+              <p className="text-neutral-600 dark:text-neutral-400 mb-2">
                 Phone: <a href="tel:+18324371000" className="text-secondary hover:underline">(832) 437-1000</a>
               </p>
-              <p className="text-neutral-600 mb-0">
+              <p className="text-neutral-600 dark:text-neutral-400 mb-0">
                 Email: <a href="mailto:coolsavertuneups@mrairservices.com" className="text-secondary hover:underline">coolsavertuneups@mrairservices.com</a>
               </p>
             </div>
 
-            <h2 className="text-2xl font-bold text-neutral-black mb-4 mt-10">Changes to This Policy</h2>
-            <p className="text-neutral-600 mb-0 leading-relaxed">
+            <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Changes to This Policy</h2>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-0 leading-relaxed">
               We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
             </p>
           </div>

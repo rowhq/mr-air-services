@@ -53,19 +53,19 @@ export default function FreeACTuneUpPage() {
     return (
       <section className="min-h-[80vh] flex items-center bg-gradient-to-br from-hero-start via-primary-light to-hero-end">
         <div className="container py-20">
-          <div className="max-w-2xl mx-auto text-center bg-white rounded-3xl p-12 shadow-xl">
+          <div className="max-w-2xl mx-auto text-center bg-white dark:bg-neutral-900 rounded-3xl p-12 shadow-xl">
             <div className="w-20 h-20 mx-auto bg-gradient-to-br from-hero-start to-hero-end rounded-full flex items-center justify-center mb-8">
               <svg className="w-10 h-10 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-neutral-black mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-4">
               Thank You for Your Interest!
             </h1>
-            <p className="text-lg text-neutral-600 mb-8 leading-relaxed">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
               We've received your CoolSaver Program application. One of our team members will review your information and contact you within 24-48 hours to confirm your eligibility and schedule your free AC tune-up.
             </p>
-            <p className="text-neutral-600">
+            <p className="text-neutral-600 dark:text-neutral-400">
               Questions? Call us at{' '}
               <a href="tel:+18324371000" className="text-secondary font-semibold hover:underline">
                 (832) 437-1000
@@ -95,10 +95,10 @@ export default function FreeACTuneUpPage() {
                 <span className="text-sm font-medium text-secondary">Limited Time Offer</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Free AC Tune-Up for Qualifying Homeowners
               </h1>
-              <p className="text-xl text-neutral-700 mb-8 leading-relaxed">
+              <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed">
                 Join the CoolSaver Program and receive a complimentary AC tune-up. Keep your system running at peak performance with no obligation.
               </p>
               <ul className="space-y-4">
@@ -107,7 +107,7 @@ export default function FreeACTuneUpPage() {
                   'Filter replacement included',
                   'No sales pressure, ever',
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-neutral-700">
+                  <li key={item} className="flex items-center gap-3 text-neutral-700 dark:text-neutral-300">
                     <div className="w-6 h-6 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center">
                       <svg className="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -119,10 +119,10 @@ export default function FreeACTuneUpPage() {
               </ul>
             </div>
             <div className="flex justify-center mt-8 lg:mt-0">
-              <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center w-full lg:w-auto shadow-xl">
+              <div className="bg-white dark:bg-neutral-900 rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center w-full lg:w-auto shadow-xl">
                 <div className="text-4xl lg:text-6xl font-bold text-secondary mb-1 lg:mb-2">FREE</div>
-                <div className="text-lg lg:text-xl text-neutral-700 mb-2 lg:mb-4">AC Tune-Up</div>
-                <div className="text-xs lg:text-sm text-neutral-500">For qualifying homeowners</div>
+                <div className="text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 mb-2 lg:mb-4">AC Tune-Up</div>
+                <div className="text-xs lg:text-sm text-neutral-500 dark:text-neutral-400">For qualifying homeowners</div>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function FreeACTuneUpPage() {
       </section>
 
       {/* Form Section */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Form */}
@@ -138,10 +138,10 @@ export default function FreeACTuneUpPage() {
               {/* Section Label */}
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Apply Now</span>
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Apply Now</span>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-neutral-black mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-neutral-black dark:text-white mb-8">
                 Check Your Eligibility
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -221,8 +221,8 @@ export default function FreeACTuneUpPage() {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <div className="bg-neutral-50 rounded-2xl p-8">
-                <h3 className="text-lg font-bold text-neutral-black mb-6">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8">
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-6">
                   Program Requirements
                 </h3>
                 <ul className="space-y-4">
@@ -238,17 +238,17 @@ export default function FreeACTuneUpPage() {
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                       </div>
-                      <span className="text-neutral-600">{item}</span>
+                      <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="bg-neutral-50 rounded-2xl p-8">
-                <h3 className="text-lg font-bold text-neutral-black mb-4">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8">
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-4">
                   Questions?
                 </h3>
-                <p className="text-neutral-600 mb-6">
+                <p className="text-neutral-600 dark:text-neutral-400 mb-6">
                   Our team is happy to answer any questions about the CoolSaver Program.
                 </p>
                 <a

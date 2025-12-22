@@ -10,8 +10,19 @@ export function ThemeToggle() {
     setMounted(true);
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDark(stored === 'dark' || (!stored && prefersDark));
+    const initialDark = stored === 'dark' || (!stored && prefersDark);
+    setIsDark(initialDark);
   }, []);
+
+  // Apply dark class to HTML when isDark changes
+  useEffect(() => {
+    if (!mounted) return;
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark, mounted]);
 
   const toggleTheme = () => {
     const newTheme = !isDark;

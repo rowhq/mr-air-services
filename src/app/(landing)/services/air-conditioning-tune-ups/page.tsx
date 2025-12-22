@@ -94,13 +94,13 @@ export default function ACTuneUpsPage() {
               {/* Label */}
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/20 rounded-full mb-6">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-700">Most Popular Service</span>
+                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Most Popular Service</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 Skip the 3AM Panic Call
               </h1>
-              <p className="text-xl text-neutral-700 mb-8 leading-relaxed max-w-lg">
+              <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed max-w-lg">
                 A tune-up now beats an emergency repair in July. We check everything. Catch problems early. Keep you cool all summer.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -118,9 +118,9 @@ export default function ACTuneUpsPage() {
               <TrustSignals className="mt-6" />
             </div>
             <div className="flex justify-center mt-8 lg:mt-0">
-              <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-10 shadow-xl text-center w-full lg:w-auto">
+              <div className="bg-white dark:bg-neutral-800 rounded-2xl lg:rounded-3xl p-6 lg:p-10 shadow-xl text-center w-full lg:w-auto">
                 <div className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 lg:mb-2">CoolSaver Tune-Up</div>
-                <div className="text-neutral-600 mb-4 lg:mb-6 text-sm lg:text-base">Complete Service</div>
+                <div className="text-neutral-600 dark:text-neutral-400 mb-4 lg:mb-6 text-sm lg:text-base">Complete Service</div>
                 <ul className="text-left space-y-2 lg:space-y-3 text-sm">
                   {['14-point inspection', 'Filter replacement', 'Performance report'].map((item) => (
                     <li key={item} className="flex items-center gap-2 lg:gap-3">
@@ -140,16 +140,16 @@ export default function ACTuneUpsPage() {
       </section>
 
       {/* Benefits */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Benefits</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Benefits</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               Why Bother with a Tune-Up?
             </h2>
           </div>
@@ -158,13 +158,13 @@ export default function ACTuneUpsPage() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="bg-neutral-50 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300 text-center group"
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300 text-center group"
               >
                 <div className="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-hero-start to-hero-end text-secondary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                   {benefit.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-black mb-3">{benefit.title}</h3>
-                <p className="text-neutral-600 text-sm leading-relaxed">{benefit.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{benefit.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -172,18 +172,18 @@ export default function ACTuneUpsPage() {
       </section>
 
       {/* Checklist */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">What's Included</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">What's Included</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-6 text-center leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 text-center leading-tight">
             We Check Everything. Seriously, Everything.
           </h2>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-14 text-center">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto mb-14 text-center">
             14 checks we perform to keep your AC running at peak performance. Because "kinda sorta checked it" doesn't cut it in Houston summers.
           </p>
 

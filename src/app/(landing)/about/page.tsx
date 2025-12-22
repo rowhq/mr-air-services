@@ -100,16 +100,16 @@ export default function AboutPage() {
             {/* Section Label */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-sm rounded-full mb-8">
               <div className="w-2 h-2 rounded-full bg-secondary animate-pulse"></div>
-              <span className="text-sm font-medium text-neutral-700">US Military Veteran Owned & Operated</span>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">US Military Veteran Owned & Operated</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-black mb-8 leading-[1.1] tracking-tight animate-fade-in-up">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-black dark:text-white mb-8 leading-[1.1] tracking-tight animate-fade-in-up">
               The AC Company That{' '}
               <span className="bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                 Gives a Damn
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-neutral-700 max-w-2xl leading-relaxed opacity-90 animate-fade-in-up animation-delay-200">
+            <p className="text-xl md:text-2xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed opacity-90 animate-fade-in-up animation-delay-200">
               A long-established, trusted HVAC company serving residential and commercial clients throughout the Greater Houston area. We service all brands.
             </p>
 
@@ -121,7 +121,7 @@ export default function AboutPage() {
                   className="group relative px-4 py-2 bg-white/40 backdrop-blur-sm rounded-full border border-white/50 cursor-default
                     hover:bg-white/60 hover:scale-105 transition-all duration-300"
                 >
-                  <span className="text-sm font-semibold text-neutral-800">{cert.abbr}</span>
+                  <span className="text-sm font-semibold text-neutral-800 dark:text-white">{cert.abbr}</span>
                   {/* Tooltip */}
                   <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-neutral-900 text-white text-xs rounded-lg
                     opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 whitespace-nowrap">
@@ -136,15 +136,15 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story - Timeline Visual */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-white dark:bg-neutral-900">
         <div className="container">
           {/* Section Header */}
           <div className="max-w-2xl mb-16 animate-fade-in-up">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">Our Story</span>
+              <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">Our Story</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black leading-tight tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
               How We Got Here
             </h2>
           </div>
@@ -160,19 +160,19 @@ export default function AboutPage() {
                 className="relative pl-20 md:pl-28 pb-16 last:pb-0 group"
               >
                 {/* Timeline dot */}
-                <div className="absolute left-6 md:left-10 w-5 h-5 rounded-full bg-white border-4 border-secondary
+                <div className="absolute left-6 md:left-10 w-5 h-5 rounded-full bg-white dark:bg-neutral-900 border-4 border-secondary
                   group-hover:scale-125 group-hover:bg-secondary transition-all duration-300 z-10">
                 </div>
 
                 {/* Content card */}
-                <div className="bg-neutral-50 rounded-3xl p-8 md:p-10 border border-neutral-100
-                  group-hover:shadow-xl group-hover:shadow-neutral-200/50 group-hover:-translate-y-1
+                <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 md:p-10 border border-neutral-100 dark:border-neutral-700
+                  group-hover:shadow-xl group-hover:shadow-neutral-200/50 dark:hover:shadow-black/20 group-hover:-translate-y-1
                   transition-all duration-500 ease-out">
                   <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-xs font-semibold rounded-full mb-4">
                     {milestone.phase}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-neutral-black mb-4">{milestone.title}</h3>
-                  <p className="text-lg text-neutral-600 leading-relaxed">{milestone.description}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-neutral-black dark:text-white mb-4">{milestone.title}</h3>
+                  <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">{milestone.description}</p>
                 </div>
               </div>
             ))}
@@ -251,13 +251,13 @@ export default function AboutPage() {
             </div>
 
             {/* Contact CoolSaver */}
-            <div className="bg-white rounded-3xl p-8 md:p-10 shadow-2xl
+            <div className="bg-white dark:bg-neutral-900 rounded-3xl p-8 md:p-10 shadow-2xl
               hover:shadow-3xl hover:-translate-y-1 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-neutral-black mb-2">Check If You Qualify</h3>
-              <p className="text-neutral-600 mb-8">It takes 2 minutes. No obligation.</p>
+              <h3 className="text-2xl font-bold text-neutral-black dark:text-white mb-2">Check If You Qualify</h3>
+              <p className="text-neutral-600 dark:text-neutral-400 mb-8">It takes 2 minutes. No obligation.</p>
 
               <div className="space-y-4 mb-8">
-                <a href="tel:+18324371000" className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50
+                <a href="tel:+18324371000" className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800
                   hover:bg-secondary/10 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 group">
                   <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center
                     group-hover:bg-secondary group-hover:scale-110 transition-all duration-300">
@@ -266,12 +266,12 @@ export default function AboutPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-800">(832) 437-1000</div>
-                    <div className="text-sm text-neutral-500">Call now</div>
+                    <div className="font-semibold text-neutral-800 dark:text-white">(832) 437-1000</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400">Call now</div>
                   </div>
                 </a>
 
-                <a href="mailto:coolsavertuneups@mrairservices.com" className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50
+                <a href="mailto:coolsavertuneups@mrairservices.com" className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800
                   hover:bg-secondary/10 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 group">
                   <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center
                     group-hover:bg-secondary group-hover:scale-110 transition-all duration-300">
@@ -280,8 +280,8 @@ export default function AboutPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-800 text-sm md:text-base">coolsavertuneups@mrairservices.com</div>
-                    <div className="text-sm text-neutral-500">Email us</div>
+                    <div className="font-semibold text-neutral-800 dark:text-white text-sm md:text-base">coolsavertuneups@mrairservices.com</div>
+                    <div className="text-sm text-neutral-500 dark:text-neutral-400">Email us</div>
                   </div>
                 </a>
               </div>
@@ -305,18 +305,18 @@ export default function AboutPage() {
       </section>
 
       {/* The Mr. Air Services Promise - Merged Values + Why Choose Us */}
-      <section className="py-24 md:py-32 bg-neutral-50">
+      <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">Our Promise</span>
+              <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">Our Promise</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight tracking-tight">
               What Makes Us Different
             </h2>
-            <p className="text-xl text-neutral-600">
+            <p className="text-xl text-neutral-600 dark:text-neutral-400">
               Veteran-owned. Houston-trusted. No BS.
             </p>
           </div>
@@ -326,12 +326,12 @@ export default function AboutPage() {
             {promises.map((promise) => (
               <div
                 key={promise.title}
-                className="group relative bg-white rounded-3xl p-8 md:p-10 border border-neutral-100
-                  hover:shadow-2xl hover:shadow-neutral-200/50 hover:-translate-y-2
+                className="group relative bg-white dark:bg-neutral-900 rounded-3xl p-8 md:p-10 border border-neutral-100 dark:border-neutral-700
+                  hover:shadow-2xl hover:shadow-neutral-200/50 dark:hover:shadow-black/20 hover:-translate-y-2
                   transition-all duration-500 ease-out"
               >
                 {/* Icon */}
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700
                   group-hover:from-secondary group-hover:to-secondary
                   text-secondary group-hover:text-white
                   flex items-center justify-center mb-6
@@ -341,19 +341,19 @@ export default function AboutPage() {
                   {promise.icon}
                 </div>
 
-                <h3 className="text-xl font-bold text-neutral-black mb-3 group-hover:text-secondary transition-colors duration-300">
+                <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3 group-hover:text-secondary transition-colors duration-300">
                   {promise.title}
                 </h3>
-                <p className="text-neutral-600 leading-relaxed mb-6">
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
                   {promise.description}
                 </p>
 
                 {/* Stat */}
-                <div className="pt-6 border-t border-neutral-100">
+                <div className="pt-6 border-t border-neutral-100 dark:border-neutral-700">
                   <div className="text-3xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent">
                     {promise.stat}
                   </div>
-                  <div className="text-sm text-neutral-500">{promise.statLabel}</div>
+                  <div className="text-sm text-neutral-500 dark:text-neutral-400">{promise.statLabel}</div>
                 </div>
               </div>
             ))}
@@ -362,16 +362,16 @@ export default function AboutPage() {
       </section>
 
       {/* Services - Condensed with Featured */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-24 md:py-32 bg-white dark:bg-neutral-900">
         <div className="container">
           {/* Section Header */}
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 animate-fade-in-up">
             <div className="mb-6 lg:mb-0">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">What We Do</span>
+                <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">What We Do</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-neutral-black leading-tight tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
                 Our Services
               </h2>
             </div>
@@ -393,7 +393,7 @@ export default function AboutPage() {
                   hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98]
                   ${service.featured
                     ? 'md:col-span-2 lg:col-span-1 bg-gradient-to-br from-secondary to-primary text-white shadow-xl shadow-secondary/20'
-                    : 'bg-neutral-50 border border-neutral-100 hover:shadow-xl hover:shadow-neutral-200/50 hover:border-secondary/20'
+                    : 'bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-black/20 hover:border-secondary/20'
                   }`}
               >
                 {service.featured && (
@@ -403,10 +403,10 @@ export default function AboutPage() {
                 )}
 
                 <h3 className={`text-xl font-bold mb-3 transition-colors duration-300
-                  ${service.featured ? 'text-white' : 'text-neutral-black group-hover:text-secondary'}`}>
+                  ${service.featured ? 'text-white' : 'text-neutral-black dark:text-white group-hover:text-secondary'}`}>
                   {service.title}
                 </h3>
-                <p className={`leading-relaxed mb-6 ${service.featured ? 'text-white/90' : 'text-neutral-600'}`}>
+                <p className={`leading-relaxed mb-6 ${service.featured ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-400'}`}>
                   {service.desc}
                 </p>
 

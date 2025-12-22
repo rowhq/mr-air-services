@@ -48,19 +48,19 @@ const services = [
 
 export function ServicesOverview() {
   return (
-    <section className="py-24 md:py-32 bg-white">
+    <section className="py-24 md:py-32 bg-white dark:bg-neutral-900">
       <div className="container">
         {/* Section Header */}
         <div className="max-w-2xl mb-16 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">Our Services</span>
+            <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">Our Services</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight tracking-tight mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight mb-6">
             We Fix What Breaks.{' '}
-            <span className="text-neutral-500">We Keep It Running.</span>
+            <span className="text-neutral-500 dark:text-neutral-400">We Keep It Running.</span>
           </h2>
-          <p className="text-lg text-neutral-600 leading-relaxed">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
             From emergency repairs to routine maintenance—we handle it all. No job too big, too small, or too sweaty.
           </p>
         </div>
@@ -75,7 +75,7 @@ export function ServicesOverview() {
                 hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98]
                 ${service.featured
                   ? 'bg-gradient-to-br from-secondary to-primary text-white shadow-xl shadow-secondary/20'
-                  : 'bg-neutral-50 border border-neutral-100 hover:shadow-xl hover:shadow-neutral-200/50 hover:border-secondary/20'
+                  : 'bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 hover:shadow-xl hover:shadow-neutral-200/50 hover:border-secondary/20'
                 }`}
             >
               {service.featured && (
@@ -89,16 +89,16 @@ export function ServicesOverview() {
                 transition-all duration-500 ease-out
                 ${service.featured
                   ? 'bg-white/20 text-white'
-                  : 'bg-white text-secondary group-hover:bg-secondary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm'
+                  : 'bg-white dark:bg-neutral-900 text-secondary group-hover:bg-secondary group-hover:text-white group-hover:scale-110 group-hover:rotate-3 shadow-sm'
                 }`}>
                 {service.icon}
               </div>
 
               <h3 className={`text-xl font-bold mb-3 transition-colors duration-300
-                ${service.featured ? 'text-white' : 'text-neutral-black group-hover:text-secondary'}`}>
+                ${service.featured ? 'text-white' : 'text-neutral-black dark:text-white group-hover:text-secondary'}`}>
                 {service.title}
               </h3>
-              <p className={`text-sm leading-relaxed mb-6 ${service.featured ? 'text-white/90' : 'text-neutral-600'}`}>
+              <p className={`text-sm leading-relaxed mb-6 ${service.featured ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-400'}`}>
                 {service.description}
               </p>
 

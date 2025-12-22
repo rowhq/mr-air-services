@@ -109,11 +109,23 @@
 :root {
   --background: #ffffff;
   --foreground: #0F172A;
+  --card-bg: #ffffff;
+  --card-border: #E2E8F0;
 
   /* Clean Minimal additions */
   --section-bg-alt: #FAFBFC;
   --accent-blue: #00AEEF;
   --text-muted: #64748B;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card-bg: #1E293B;
+  --card-border: #334155;
+  --section-bg-alt: #1E293B;
+  --text-muted: #94A3B8;
 }
 
 * {

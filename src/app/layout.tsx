@@ -12,8 +12,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      <body>
+    <html lang="es" suppressHydrationWarning>
+      <head>
+        {/* Theme initialization script - runs before render to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');var d=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(!t&&d)){document.documentElement.classList.add('dark')}}catch(e){}})();`
+          }}
+        />
+      </head>
+      <body className="bg-white dark:bg-neutral-900 text-neutral-black dark:text-neutral-50 transition-colors duration-300">
         {children}
         {/* Rowship Feedback Tracker - URL + scroll position detection + scroll-to in iframe */}
         <script

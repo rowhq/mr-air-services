@@ -59,7 +59,7 @@ function MapController({ activeOffice }: { activeOffice: string | null }) {
 
 export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: HoustonCoverageMapProps) {
   return (
-    <div className="relative bg-neutral-100 border border-neutral-200 rounded-3xl overflow-hidden shadow-lg">
+    <div className="relative bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-3xl overflow-hidden shadow-lg">
       <MapContainer
         center={houstonMetroCenter}
         zoom={9}
@@ -118,8 +118,8 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
       </MapContainer>
 
       {/* Legend overlay */}
-      <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-md rounded-xl p-4 z-[1000] shadow-lg border border-neutral-200">
-        <p className="text-neutral-500 text-[10px] mb-3 font-semibold uppercase tracking-wider">
+      <div className="absolute bottom-4 left-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-xl p-4 z-[1000] shadow-lg border border-neutral-200 dark:border-neutral-700">
+        <p className="text-neutral-500 dark:text-neutral-400 text-[10px] mb-3 font-semibold uppercase tracking-wider">
           Office Locations
         </p>
         <div className="space-y-2">
@@ -145,7 +145,7 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
                     : 'none'
                 }}
               />
-              <span className="text-neutral-700 text-xs font-medium">
+              <span className="text-neutral-700 dark:text-neutral-400 text-xs font-medium">
                 {office.name}
               </span>
             </button>

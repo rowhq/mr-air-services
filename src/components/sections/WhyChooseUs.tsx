@@ -50,7 +50,7 @@ function AnimatedStat({ value, suffix = '', label }: { value: number; suffix?: s
       <div className="text-4xl lg:text-5xl font-bold text-secondary mb-1 tabular-nums">
         {count}{suffix}
       </div>
-      <div className="text-neutral-500 text-sm font-medium">{label}</div>
+      <div className="text-neutral-500 dark:text-neutral-400 text-sm font-medium">{label}</div>
     </div>
   );
 }
@@ -141,17 +141,17 @@ export function WhyChooseUs() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-32 bg-white overflow-hidden">
+    <section ref={sectionRef} className="py-24 md:py-32 bg-white dark:bg-neutral-900 overflow-hidden">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="w-2 h-2 rounded-full bg-secondary" />
-            <span className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">
+            <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-[0.2em]">
               Why Choose Us
             </span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black leading-tight tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
             Why People Call Us Back
           </h2>
         </div>
@@ -160,7 +160,7 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
           <div className={`relative animate-fade-in-up animation-delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] bg-neutral-100 shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 shadow-2xl">
               {/* Image */}
               <img
                 src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
@@ -172,7 +172,7 @@ export function WhyChooseUs() {
 
               {/* Experience Badge */}
               <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/20">
+                <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/20 dark:border-neutral-700/20">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
                       <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,8 +180,8 @@ export function WhyChooseUs() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-neutral-900">Veteran Owned</div>
-                      <div className="text-neutral-500 text-sm">Serving Greater Houston</div>
+                      <div className="text-2xl font-bold text-neutral-900 dark:text-white">Veteran Owned</div>
+                      <div className="text-neutral-500 dark:text-neutral-400 text-sm">Serving Greater Houston</div>
                     </div>
                   </div>
                 </div>
@@ -196,7 +196,7 @@ export function WhyChooseUs() {
               {stats.map((stat) => (
                 <div
                   key={stat.label}
-                  className="p-6 rounded-2xl bg-neutral-50 border border-neutral-100
+                  className="p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700
                     hover:border-secondary/20 hover:shadow-lg transition-all duration-300"
                 >
                   <AnimatedStat value={stat.value} suffix={stat.suffix} label={stat.label} />
@@ -209,23 +209,23 @@ export function WhyChooseUs() {
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="group p-6 rounded-2xl bg-white border border-neutral-100
+                  className="group p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-700
                     hover:border-secondary/30 hover:shadow-lg hover:-translate-y-0.5
                     transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-start gap-4">
                     {/* Icon */}
-                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-neutral-50 border border-neutral-100
+                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700
                       flex items-center justify-center group-hover:bg-secondary/10 transition-colors duration-300">
                       {feature.icon}
                     </div>
 
                     {/* Content */}
                     <div>
-                      <h3 className="text-lg font-bold text-neutral-900 mb-1 group-hover:text-secondary transition-colors">
+                      <h3 className="text-lg font-bold text-neutral-900 dark:text-white mb-1 group-hover:text-secondary transition-colors">
                         {feature.title}
                       </h3>
-                      <p className="text-neutral-600 text-sm leading-relaxed">
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
@@ -247,7 +247,7 @@ export function WhyChooseUs() {
                 </svg>
                 (832) 437-1000
               </a>
-              <span className="text-neutral-500 text-sm">Free estimates</span>
+              <span className="text-neutral-500 dark:text-neutral-400 text-sm">Free estimates</span>
             </div>
           </div>
         </div>

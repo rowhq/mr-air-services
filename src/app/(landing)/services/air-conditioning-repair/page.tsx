@@ -95,13 +95,13 @@ export default function ACRepairPage() {
               {/* Section Label */}
               <div className="flex items-center gap-2 mb-6">
                 <div className="w-2 h-2 rounded-full bg-secondary"></div>
-                <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">AC Repair</span>
+                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">AC Repair</span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
                 AC Dead? We're On It.
               </h1>
-              <p className="text-xl text-neutral-700 mb-8 leading-relaxed max-w-lg">
+              <p className="text-xl text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed max-w-lg">
                 Houston heat waits for no one. When your AC breaks, we diagnose fast, quote straight, and fix it right the first time.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -119,10 +119,10 @@ export default function ACRepairPage() {
               <TrustSignals className="mt-6" items={['Same-day service', 'All brands serviced', 'No hidden fees']} />
             </div>
             <div className="flex justify-center mt-8 lg:mt-0">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center shadow-xl w-full lg:w-auto">
+              <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-center shadow-xl w-full lg:w-auto">
                 <div className="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-1 lg:mb-2">Same-Day</div>
-                <div className="text-lg lg:text-xl text-neutral-700 mb-2 lg:mb-4">Emergency Service</div>
-                <div className="text-xs lg:text-sm text-neutral-500">Available 7 days a week</div>
+                <div className="text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 mb-2 lg:mb-4">Emergency Service</div>
+                <div className="text-xs lg:text-sm text-neutral-500 dark:text-neutral-400">Available 7 days a week</div>
               </div>
             </div>
           </div>
@@ -132,19 +132,19 @@ export default function ACRepairPage() {
       <SectionNav items={sectionNavItems} />
 
       {/* Common Problems */}
-      <section id="problems" className="py-20 lg:py-28 bg-white scroll-mt-20">
+      <section id="problems" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Common Issues</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Common Issues</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               We've Seen It All. Fixed It All.
             </h2>
-            <p className="text-neutral-600 max-w-md text-lg">
+            <p className="text-neutral-600 dark:text-neutral-400 max-w-md text-lg">
               Strange sounds? No cold air? Weird smells? With our experience in Houston, there's not much that surprises us anymore.
             </p>
           </div>
@@ -153,10 +153,10 @@ export default function ACRepairPage() {
             {repairTypes.map((type) => (
               <div
                 key={type.title}
-                className="bg-neutral-50 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300"
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
               >
-                <h3 className="text-lg font-semibold text-neutral-black mb-3">{type.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">{type.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{type.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{type.description}</p>
               </div>
             ))}
           </div>
@@ -164,13 +164,13 @@ export default function ACRepairPage() {
       </section>
 
       {/* Brands We Service */}
-      <section id="brands" className="py-16 bg-neutral-50 scroll-mt-20">
+      <section id="brands" className="py-16 bg-neutral-50 dark:bg-neutral-800 scroll-mt-20">
         <div className="container">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-neutral-black mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-neutral-black dark:text-white mb-4">
               Brands We Service
             </h2>
-            <p className="text-neutral-600">
+            <p className="text-neutral-600 dark:text-neutral-400">
               Factory-trained on all major manufacturers
             </p>
           </div>
@@ -178,7 +178,7 @@ export default function ACRepairPage() {
             {brandsServiced.map((brand) => (
               <div
                 key={brand}
-                className="px-6 py-3 bg-white rounded-full border border-neutral-200 text-neutral-700 font-medium hover:border-secondary hover:text-secondary transition-colors"
+                className="px-6 py-3 bg-white dark:bg-neutral-900 rounded-full border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium hover:border-secondary hover:text-secondary transition-colors"
               >
                 {brand}
               </div>
@@ -188,15 +188,15 @@ export default function ACRepairPage() {
       </section>
 
       {/* Process */}
-      <section id="process" className="py-20 lg:py-28 bg-white scroll-mt-20">
+      <section id="process" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Our Process</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Our Process</span>
           </div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-14 text-center leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
             Our Repair Process
           </h2>
 
@@ -211,8 +211,8 @@ export default function ACRepairPage() {
                 <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-xl font-bold mb-6">
                   {item.step}
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-black mb-3">{item.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{item.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>

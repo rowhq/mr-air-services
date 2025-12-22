@@ -96,13 +96,13 @@ export default function ServicesPage() {
             {/* Section Label */}
             <div className="flex items-center gap-2 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              <span className="text-sm font-medium text-neutral-700 uppercase tracking-wide">Our Services</span>
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">Our Services</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
               Our HVAC Services
             </h1>
-            <p className="text-xl text-neutral-700 max-w-2xl leading-relaxed">
+            <p className="text-xl text-neutral-700 dark:text-neutral-300 max-w-2xl leading-relaxed">
               Comprehensive heating and cooling solutions for residential and commercial properties in the Greater Houston area.
             </p>
           </div>
@@ -110,19 +110,19 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">What We Offer</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">What We Offer</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               Complete HVAC Solutions
             </h2>
-            <p className="text-neutral-600 max-w-md text-lg">
+            <p className="text-neutral-600 dark:text-neutral-400 max-w-md text-lg">
               From emergency repairs to preventive maintenance, we have you covered.
             </p>
           </div>
@@ -131,17 +131,17 @@ export default function ServicesPage() {
             {services.map((service) => (
               <div
                 key={service.title}
-                className="bg-neutral-50 rounded-3xl p-8 lg:p-10 hover:shadow-xl hover:shadow-neutral-200/50 transition-all duration-300 group"
+                className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 lg:p-10 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300 group"
               >
                 <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-hero-start to-hero-end text-secondary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-neutral-black mb-4">{service.title}</h3>
-                <p className="text-neutral-600 mb-6 leading-relaxed">{service.description}</p>
+                <h3 className="text-2xl font-bold text-neutral-black dark:text-white mb-4">{service.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">{service.description}</p>
                 <ul className="space-y-3 mb-8">
                   {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-neutral-600">
-                      <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                    <li key={feature} className="flex items-center gap-3 text-neutral-600 dark:text-neutral-400">
+                      <div className="w-6 h-6 rounded-full bg-white dark:bg-neutral-900 flex items-center justify-center">
                         <svg className="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
@@ -162,16 +162,16 @@ export default function ServicesPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 lg:py-28 bg-neutral-50">
+      <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           {/* Section Label */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-secondary"></div>
-            <span className="text-sm font-medium text-neutral-600 uppercase tracking-wide">Why Choose Us</span>
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Why Choose Us</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-14">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black mb-4 lg:mb-0 max-w-xl leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 lg:mb-0 max-w-xl leading-tight">
               Why Choose Mr. Air Services?
             </h2>
           </div>
@@ -206,12 +206,12 @@ export default function ServicesPage() {
                 ),
               },
             ].map((item) => (
-              <div key={item.title} className="text-center bg-white rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 transition-all duration-300">
+              <div key={item.title} className="text-center bg-white dark:bg-neutral-900 rounded-2xl p-8 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300">
                 <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-hero-start to-hero-end text-secondary flex items-center justify-center mb-6">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-neutral-black mb-3">{item.title}</h3>
-                <p className="text-neutral-600 leading-relaxed">{item.description}</p>
+                <h3 className="text-xl font-semibold text-neutral-black dark:text-white mb-3">{item.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
