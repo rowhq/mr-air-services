@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback, forwardRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, ThemeToggle } from '@/components/ui';
@@ -74,37 +74,8 @@ const servicesData = [
   },
 ];
 
-// Service Card Component
-const ServiceCard = forwardRef<HTMLAnchorElement, {
-  icon: React.ReactNode;
-  name: string;
-  description: string;
-  href: string;
-  onKeyDown?: (e: React.KeyboardEvent) => void;
-}>(({ icon, name, description, href, onKeyDown }, ref) => {
-  return (
-    <Link
-      ref={ref}
-      href={href}
-      onKeyDown={onKeyDown}
-      className="group p-4 rounded-lg hover:bg-white/5 focus:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-200"
-    >
-      <div className="text-secondary mb-3">{icon}</div>
-      <h4 className="text-white font-semibold mb-1.5">{name}</h4>
-      <p className="text-white/60 text-sm leading-relaxed mb-2">{description}</p>
-      <span className="text-secondary text-sm font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-        Learn more
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </span>
-    </Link>
-  );
-});
 
-ServiceCard.displayName = 'ServiceCard';
-
-// Services Mega Menu Component
+// Services Mega Menu Component - Full Width Design
 function ServicesMegaMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -183,17 +154,18 @@ function ServicesMegaMenu() {
         break;
       case 'ArrowRight':
         e.preventDefault();
-        // Move to next column (add 2 for 2-column grid)
+        // Move to next item in horizontal layout
         if (index < servicesData.length - 1) {
-          const nextIndex = index + 2;
-          setFocusedIndex(nextIndex < servicesData.length ? nextIndex : servicesData.length);
+          setFocusedIndex(index + 1);
+        } else if (index === servicesData.length - 1) {
+          setFocusedIndex(servicesData.length);
         }
         break;
       case 'ArrowLeft':
         e.preventDefault();
-        // Move to previous column
-        if (index >= 2) {
-          setFocusedIndex(index - 2);
+        // Move to previous item
+        if (index > 0) {
+          setFocusedIndex(index - 1);
         }
         break;
       case 'Home':
@@ -217,83 +189,147 @@ function ServicesMegaMenu() {
   }, [totalItems]);
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div ref={menuRef}>
       <button
         ref={triggerRef}
         onClick={() => setIsOpen(!isOpen)}
         onKeyDown={handleTriggerKeyDown}
         aria-expanded={isOpen}
         aria-haspopup="true"
-        className="flex items-center gap-1 text-white/90 hover:text-white font-medium transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-white/30 rounded-lg px-2 -mx-2"
+        className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors py-2 focus:outline-none focus:ring-2 focus:ring-white/30 rounded-lg px-2 -mx-2"
       >
         Services
-        <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
-      {/* Mega Menu Dropdown */}
+      {/* Full-Width Mega Menu Dropdown */}
       <div
-        className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 transition-all duration-200 ${
-          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
+        className={`fixed left-0 right-0 top-[var(--header-height,80px)] transition-all duration-300 ease-out ${
+          isOpen
+            ? 'opacity-100 visible translate-y-0'
+            : 'opacity-0 invisible -translate-y-2 pointer-events-none'
         }`}
+        style={{ '--header-height': '80px' } as React.CSSProperties}
         role="menu"
         aria-label="Services menu"
       >
-        <div className="bg-slate-900/98 backdrop-blur-sm rounded-lg border border-white/10 p-6 shadow-xl w-[720px]">
-          <div className="grid grid-cols-3 gap-6">
-            {/* Services Grid - 2 columns */}
-            <div className="col-span-2 grid grid-cols-2 gap-2" role="group" aria-label="Our services">
-              {servicesData.map((service, index) => (
-                <ServiceCard
-                  key={service.name}
-                  ref={(el) => { itemRefs.current[index] = el; }}
-                  onKeyDown={(e) => handleItemKeyDown(e, index)}
-                  {...service}
-                />
-              ))}
+        {/* Backdrop overlay */}
+        <div
+          className={`absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ height: '100vh' }}
+          onClick={() => setIsOpen(false)}
+        />
+
+        {/* Menu content */}
+        <div className="relative bg-slate-900/98 dark:bg-slate-950/98 backdrop-blur-xl border-t border-b border-white/10 shadow-2xl shadow-black/20">
+          <div className="container py-8">
+            {/* Header with title */}
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-white text-lg font-semibold">Our Services</h3>
+                <p className="text-white/50 text-sm mt-0.5">Professional HVAC solutions for your home</p>
+              </div>
+              <Link
+                href="/services"
+                onClick={() => setIsOpen(false)}
+                className="text-secondary text-sm font-medium hover:text-secondary/80 transition-colors flex items-center gap-1"
+              >
+                View all services
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
 
-            {/* Quick Action Panel */}
-            <div className="bg-slate-800/50 rounded-lg p-5 border border-white/10 flex flex-col">
-              <h4 className="text-white font-semibold mb-2">Need help now?</h4>
-              <p className="text-white/60 text-sm mb-4">
-                Our technicians are ready to help with any HVAC emergency.
-              </p>
+            <div className="grid grid-cols-12 gap-8">
+              {/* Services Grid - 4 columns on large screens */}
+              <div className="col-span-12 lg:col-span-9">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4" role="group" aria-label="Our services">
+                  {servicesData.map((service, index) => (
+                    <Link
+                      key={service.name}
+                      ref={(el) => { itemRefs.current[index] = el; }}
+                      href={service.href}
+                      onClick={() => setIsOpen(false)}
+                      onKeyDown={(e) => handleItemKeyDown(e, index)}
+                      className="group relative p-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 focus:bg-white/10 focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all duration-200"
+                    >
+                      {/* Icon */}
+                      <div className="text-secondary mb-4 transition-transform duration-200 group-hover:scale-110">
+                        {service.icon}
+                      </div>
 
-              {/* Phone */}
-              <a
-                ref={phoneRef}
-                href="tel:+18324371000"
-                onKeyDown={(e) => handleItemKeyDown(e, servicesData.length)}
-                className="flex items-center gap-3 text-white font-bold text-lg mb-3 hover:text-secondary focus:text-secondary focus:outline-none focus:ring-2 focus:ring-secondary/50 rounded-lg transition-colors"
-              >
-                <span className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </span>
-                (832) 437-1000
-              </a>
+                      {/* Content */}
+                      <h4 className="text-white font-semibold mb-2">{service.name}</h4>
+                      <p className="text-white/50 text-sm leading-relaxed mb-3">{service.description}</p>
 
-              {/* Badge */}
-              <div className="flex items-center gap-2 text-white/80 text-xs font-medium mb-4">
-                <span className="w-2 h-2 rounded-full bg-white" />
-                Same-day service available
+                      {/* Arrow indicator */}
+                      <div className="flex items-center text-secondary text-sm font-medium opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">
+                        <span>Learn more</span>
+                        <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
 
-              {/* CTA Button */}
-              <Link
-                ref={ctaRef}
-                href="/contact"
-                onKeyDown={(e) => handleItemKeyDown(e, servicesData.length + 1)}
-                onClick={() => setIsOpen(false)}
-                className="mt-auto"
-              >
-                <Button variant="primary" size="sm" fullWidth>
-                  Book Emergency Service
-                </Button>
-              </Link>
+              {/* Quick Action Panel */}
+              <div className="col-span-12 lg:col-span-3">
+                <div className="bg-gradient-to-br from-secondary/20 to-secondary/5 rounded-xl p-6 border border-secondary/20 h-full flex flex-col">
+                  {/* Emergency badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-xs font-medium mb-4 w-fit">
+                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                    Available 24/7
+                  </div>
+
+                  <h4 className="text-white font-bold text-lg mb-2">Need help now?</h4>
+                  <p className="text-white/60 text-sm mb-5">
+                    Our certified technicians are ready for any HVAC emergency.
+                  </p>
+
+                  {/* Phone */}
+                  <a
+                    ref={phoneRef}
+                    href="tel:+18324371000"
+                    onKeyDown={(e) => handleItemKeyDown(e, servicesData.length)}
+                    className="flex items-center gap-3 p-3 bg-white/10 rounded-lg hover:bg-white/15 focus:bg-white/15 focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all mb-4"
+                  >
+                    <span className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </span>
+                    <div>
+                      <span className="block text-white font-bold text-lg">(832) 437-1000</span>
+                      <span className="text-white/50 text-xs">Tap to call</span>
+                    </div>
+                  </a>
+
+                  {/* CTA Button */}
+                  <Link
+                    ref={ctaRef}
+                    href="/contact"
+                    onKeyDown={(e) => handleItemKeyDown(e, servicesData.length + 1)}
+                    onClick={() => setIsOpen(false)}
+                    className="mt-auto"
+                  >
+                    <Button variant="primary" size="md" fullWidth>
+                      Book Emergency Service
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -307,10 +343,10 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Detect scroll for header effects
+  // Detect scroll for header effects (100px threshold for more stable behavior)
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 100);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -318,6 +354,18 @@ export function Header() {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Body scroll lock when mobile menu is open (Apple UX pattern)
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -363,7 +411,6 @@ export function Header() {
               Mon-Fri: 8AM-5PM
             </span>
           </div>
-          <ThemeToggle />
         </div>
       </div>
 
@@ -422,14 +469,12 @@ export function Header() {
 
             {/* Right Side - CTA & Mobile Menu */}
             <div className="flex items-center gap-3">
-              {/* Mobile Theme Toggle */}
-              <div className="lg:hidden">
-                <ThemeToggle />
-              </div>
+              {/* Theme Toggle - Siempre visible */}
+              <ThemeToggle />
 
               {/* CTA Button */}
               <Link href="/contact" className="hidden sm:block">
-                <Button variant="primary" size="sm">
+                <Button variant="primary" size="md">
                   Book a Repair
                 </Button>
               </Link>
