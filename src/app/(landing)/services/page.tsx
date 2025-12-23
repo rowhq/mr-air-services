@@ -42,9 +42,9 @@ export default function ServicesPage() {
           <div className="mb-8">
             <div className="bg-neutral-900 dark:bg-neutral-800 rounded-2xl p-8 lg:p-10 relative overflow-hidden">
               {/* Emergency Badge */}
-              <div className="absolute top-6 right-6 flex items-center gap-2 px-3 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                <span className="text-sm font-medium text-red-400">Same-Day Emergency</span>
+              <div className="absolute top-6 right-6 flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                <span className="text-sm font-medium text-primary">Same-Day Emergency</span>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -94,7 +94,7 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Heating Services */}
             <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-md transition-shadow duration-200">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-red-500/20 text-orange-500 flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
@@ -124,10 +124,10 @@ export default function ServicesPage() {
             {/* AC Tune-Ups */}
             <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-md transition-shadow duration-200 relative">
               {/* Free Badge */}
-              <div className="absolute top-4 right-4 px-2.5 py-1 bg-green-500/10 border border-green-500/20 rounded-full">
-                <span className="text-xs font-semibold text-green-600 dark:text-green-400">FREE for Qualifying</span>
+              <div className="absolute top-4 right-4 px-2.5 py-1 bg-primary/10 border border-primary/20 rounded-full">
+                <span className="text-xs font-semibold text-primary">FREE for Qualifying</span>
               </div>
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-secondary/20 to-primary/20 text-secondary flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -154,7 +154,7 @@ export default function ServicesPage() {
 
             {/* Maintenance Plans */}
             <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:shadow-md transition-shadow duration-200">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-indigo-500/20 text-purple-500 flex items-center justify-center mb-6">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>

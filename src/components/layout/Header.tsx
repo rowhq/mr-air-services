@@ -244,6 +244,9 @@ export function Header() {
 
             {/* Right Side - CTA & Mobile Menu */}
             <div className="flex items-center gap-3">
+              <Link href="/docs" className="hidden lg:block text-white/60 hover:text-white text-sm transition-colors">
+                Docs
+              </Link>
               <ThemeToggle />
               <Link href="/contact" className="hidden sm:block">
                 <Button variant="primary" size="md">

@@ -81,9 +81,9 @@ export function ServicesOverview() {
                 }`}
             >
               {service.isEmergency && (
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 bg-red-500/10 border border-red-500/20 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                  <span className="text-xs font-medium text-red-500 dark:text-red-400">Emergency</span>
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 bg-primary/10 border border-primary/20 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                  <span className="text-xs font-medium text-primary">Emergency</span>
                 </div>
               )}
               {service.featured && (

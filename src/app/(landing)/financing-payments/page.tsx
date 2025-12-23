@@ -118,8 +118,8 @@ export default function FinancingPage() {
         </div>
 
         <div className="container relative py-20">
-          <Breadcrumbs items={[{ label: 'Financing & Payments' }]} className="text-white/80" />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <Breadcrumbs items={[{ label: 'Financing & Payments' }]} />
+          <div className="max-w-3xl">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
                 Don't Sweat the Bill
@@ -171,41 +171,6 @@ export default function FinancingPage() {
               </div>
             </div>
 
-            {/* Photo Card */}
-            <div className="flex justify-center mt-8 lg:mt-0 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-              <div className="bg-white dark:bg-neutral-900 rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
-                <div className="relative h-48">
-                  <Image
-                    src="/images/financing/family-comfort.jpg"
-                    alt="Happy family enjoying comfort at home"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">
-                    Financing Available
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-4 text-sm">
-                    Quick approval process with flexible terms for your comfort
-                  </p>
-                  <a
-                    href={FINANCING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center justify-center w-full px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors"
-                  >
-                    Check Your Options
-                    <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                  <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-3">
-                    On approved credit. Takes only 5 minutes.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
