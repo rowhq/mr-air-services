@@ -456,3 +456,45 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* ========================================
+   Maintenance Plans - Card Animations
+   ======================================== */
+
+/* Plan Card - Premium hover effect */
+.plan-card {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.plan-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 153, 204, 0.2);
+}
+
+/* Benefit Card - Staggered fade in */
+.benefit-card {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Testimonial Card - Subtle entrance */
+.testimonial-card {
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* FAQ Card - Slide in from left */
+.faq-card {
+  animation: slide-in-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Feature list items - Stagger animation for tune-up list */
+.feature-stagger > li {
+  animation: fade-in-up 0.5s ease both;
+}
+
+.feature-stagger > li:nth-child(1) { animation-delay: 0ms; }
+.feature-stagger > li:nth-child(2) { animation-delay: 60ms; }
+.feature-stagger > li:nth-child(3) { animation-delay: 120ms; }
+.feature-stagger > li:nth-child(4) { animation-delay: 180ms; }
+.feature-stagger > li:nth-child(5) { animation-delay: 240ms; }
+.feature-stagger > li:nth-child(6) { animation-delay: 300ms; }
+.feature-stagger > li:nth-child(7) { animation-delay: 360ms; }
+.feature-stagger > li:nth-child(8) { animation-delay: 420ms; }

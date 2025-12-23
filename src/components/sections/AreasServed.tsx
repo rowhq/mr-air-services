@@ -109,7 +109,7 @@ export function AreasServed() {
                         href={getDirectionsUrl(office)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-secondary text-white text-sm font-medium rounded-full hover:bg-secondary-hover transition-colors"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-secondary text-white text-base font-medium rounded-full hover:bg-secondary-hover transition-colors"
                       >
                         Directions
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

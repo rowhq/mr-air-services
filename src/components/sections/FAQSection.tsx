@@ -5,88 +5,161 @@ import { useState } from 'react';
 interface FAQItem {
   question: string;
   answer: string;
+  icon?: React.ReactNode;
 }
 
-interface FAQSectionProps {
-  title?: string;
-  subtitle?: string;
+interface FAQCategory {
+  name: string;
   items: FAQItem[];
 }
 
+interface FAQSectionProps {
+  badge?: string;
+  title?: string;
+  description?: string;
+  categories?: FAQCategory[];
+  // Legacy support
+  items?: FAQItem[];
+  subtitle?: string;
+}
+
+// Default icons for FAQ items
+const defaultIcons = [
+  <svg key="1" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+  </svg>,
+  <svg key="2" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
+  <svg key="3" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+  </svg>,
+  <svg key="4" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>,
+  <svg key="5" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
+  <svg key="6" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+  </svg>,
+];
+
 export function FAQSection({
-  title = "Frequently\nAsked Questions",
+  badge = 'FAQ',
+  title = "Got Questions? We've Got Answers",
+  description = "Browse through our FAQs to find answers about our services, pricing, process, and more. Need further assistance? We're always here to help.",
+  categories,
+  // Legacy props
+  items,
   subtitle,
-  items
 }: FAQSectionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  // Handle legacy API: convert items to single category
+  const effectiveCategories: FAQCategory[] = categories || [
+    { name: 'General', items: items || [] }
+  ];
+
+  // Use subtitle as description if provided (legacy)
+  const effectiveDescription = subtitle || description;
+
+  const currentItems = effectiveCategories[activeCategory]?.items || [];
 
   return (
-    <section className="bg-white dark:bg-neutral-900 py-20 lg:py-28">
+    <section className="bg-neutral-900 py-20 lg:py-28">
       <div className="container">
-        {/* Header */}
-        <div className="mb-16 lg:mb-20">
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-4 leading-[1.1] whitespace-pre-line">
-            {title}
-          </h2>
-          {subtitle && (
-            <p className="text-neutral-600 dark:text-neutral-400 text-lg max-w-md">{subtitle}</p>
-          )}
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
 
-        {/* FAQ Items */}
-        <div>
-          {items.map((item, index) => (
-            <div key={index} className="border-b border-neutral-200 dark:border-neutral-700/50">
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full py-7 lg:py-8 grid grid-cols-[auto_1fr_auto] lg:grid-cols-[80px_1fr_1fr_56px] items-center gap-4 lg:gap-0 text-left group"
-              >
-                {/* Number */}
-                <span className="text-neutral-400 dark:text-neutral-500 text-base lg:text-lg font-normal">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
+          {/* Left - Header */}
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <span className="inline-block px-4 py-1.5 bg-white/10 text-white/70 text-sm font-medium rounded-full mb-6">
+              {badge}
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+              {title}
+            </h2>
+            <p className="text-neutral-400 text-lg leading-relaxed max-w-md">
+              {effectiveDescription}
+            </p>
+          </div>
 
-                {/* Line - only visible on desktop, spans the middle area */}
-                <div className="hidden lg:flex items-center pr-8">
-                  <div className="h-px w-full bg-neutral-200 dark:bg-neutral-700/60" />
-                </div>
+          {/* Right - Tabs + Accordion */}
+          <div>
+            {/* Category Tabs - only show if multiple categories */}
+            {effectiveCategories.length > 1 && (
+              <div className="flex flex-wrap gap-2 mb-8">
+                {effectiveCategories.map((cat, index) => (
+                  <button
+                    key={cat.name}
+                    onClick={() => {
+                      setActiveCategory(index);
+                      setOpenIndex(0);
+                    }}
+                    className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                      activeCategory === index
+                        ? 'bg-white text-neutral-900'
+                        : 'bg-transparent text-white/70 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+            )}
 
-                {/* Question */}
-                <span className="text-neutral-900 dark:text-white text-lg lg:text-xl font-normal group-hover:text-neutral-600 dark:group-hover:text-neutral-200 transition-colors col-span-1">
-                  {item.question}
-                </span>
+            {/* FAQ Items */}
+            <div>
+              {currentItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="border-b border-white/10 last:border-b-0"
+                >
+                  <button
+                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                    className="w-full flex items-start gap-4 py-5 text-left group"
+                  >
+                    {/* Icon */}
+                    <span className={`flex-shrink-0 mt-0.5 transition-colors ${
+                      openIndex === index ? 'text-primary' : 'text-white/50'
+                    }`}>
+                      {item.icon || defaultIcons[index % defaultIcons.length]}
+                    </span>
 
-                {/* Button +/× */}
-                <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
-                  openIndex === index
-                    ? 'bg-neutral-300 dark:bg-neutral-600/80 text-neutral-700 dark:text-white'
-                    : 'bg-neutral-200 dark:bg-neutral-700/60 text-neutral-500 dark:text-neutral-400 group-hover:bg-neutral-300 dark:group-hover:bg-neutral-600/80 group-hover:text-neutral-600 dark:group-hover:text-neutral-300'
-                }`}>
-                  <span className="text-2xl lg:text-3xl font-light leading-none">
-                    {openIndex === index ? '×' : '+'}
-                  </span>
-                </div>
-              </button>
+                    {/* Question */}
+                    <span className={`flex-1 text-base font-medium transition-colors ${
+                      openIndex === index ? 'text-white' : 'text-white/90 group-hover:text-white'
+                    }`}>
+                      {item.question}
+                    </span>
 
-              {/* Answer - aligned with question column */}
-              {openIndex === index && (
-                <div className="pb-8 lg:grid lg:grid-cols-[80px_1fr_1fr_56px] lg:gap-0">
-                  {/* Empty space for number column */}
-                  <div className="hidden lg:block" />
-                  {/* Empty space for line column */}
-                  <div className="hidden lg:block" />
-                  {/* Answer text aligned with question */}
-                  <div className="pl-0 lg:pl-0 pr-4 lg:pr-8">
-                    <p className="text-neutral-600 dark:text-neutral-400 text-base lg:text-lg leading-relaxed">
-                      {item.answer}
-                    </p>
+                    {/* Toggle Icon */}
+                    <span className={`flex-shrink-0 w-6 h-6 flex items-center justify-center transition-all ${
+                      openIndex === index ? 'text-white/70 rotate-45' : 'text-white/40'
+                    }`}>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </span>
+                  </button>
+
+                  {/* Answer */}
+                  <div className={`overflow-hidden transition-all duration-300 ease-out ${
+                    openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
+                    <div className="pl-9 pr-10 pb-5">
+                      <p className="text-neutral-400 text-base leading-relaxed">
+                        {item.answer}
+                      </p>
+                    </div>
                   </div>
-                  {/* Empty space for button column */}
-                  <div className="hidden lg:block" />
                 </div>
-              )}
+              ))}
             </div>
-          ))}
+          </div>
+
         </div>
       </div>
     </section>

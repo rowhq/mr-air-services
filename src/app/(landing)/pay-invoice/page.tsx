@@ -15,10 +15,10 @@ export default function PayInvoicePage() {
         <div className="container">
           <Breadcrumbs items={[{ label: 'Pay Invoice' }]} />
           <div className="max-w-2xl">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               Pay Your Invoice
             </h1>
-            <p className="text-lg text-neutral-700 dark:text-neutral-300">
+            <p className="text-lg text-white/80">
               Quick, secure payment. Takes less than a minute.
             </p>
           </div>

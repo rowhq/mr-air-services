@@ -114,9 +114,58 @@ export function WhyChooseUs() {
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/20 dark:border-neutral-700/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0">
-                      <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {/* USA Flag */}
+                      <svg className="w-10 h-7" viewBox="0 0 60 42" fill="none">
+                        {/* Red stripes */}
+                        <rect width="60" height="42" fill="#B22234"/>
+                        <rect y="3.23" width="60" height="3.23" fill="white"/>
+                        <rect y="9.69" width="60" height="3.23" fill="white"/>
+                        <rect y="16.15" width="60" height="3.23" fill="white"/>
+                        <rect y="22.62" width="60" height="3.23" fill="white"/>
+                        <rect y="29.08" width="60" height="3.23" fill="white"/>
+                        <rect y="35.54" width="60" height="3.23" fill="white"/>
+                        {/* Blue canton */}
+                        <rect width="24" height="22.62" fill="#3C3B6E"/>
+                        {/* Stars (simplified) */}
+                        <g fill="white">
+                          <circle cx="4" cy="3" r="1.2"/>
+                          <circle cx="8" cy="3" r="1.2"/>
+                          <circle cx="12" cy="3" r="1.2"/>
+                          <circle cx="16" cy="3" r="1.2"/>
+                          <circle cx="20" cy="3" r="1.2"/>
+                          <circle cx="6" cy="5.5" r="1.2"/>
+                          <circle cx="10" cy="5.5" r="1.2"/>
+                          <circle cx="14" cy="5.5" r="1.2"/>
+                          <circle cx="18" cy="5.5" r="1.2"/>
+                          <circle cx="4" cy="8" r="1.2"/>
+                          <circle cx="8" cy="8" r="1.2"/>
+                          <circle cx="12" cy="8" r="1.2"/>
+                          <circle cx="16" cy="8" r="1.2"/>
+                          <circle cx="20" cy="8" r="1.2"/>
+                          <circle cx="6" cy="10.5" r="1.2"/>
+                          <circle cx="10" cy="10.5" r="1.2"/>
+                          <circle cx="14" cy="10.5" r="1.2"/>
+                          <circle cx="18" cy="10.5" r="1.2"/>
+                          <circle cx="4" cy="13" r="1.2"/>
+                          <circle cx="8" cy="13" r="1.2"/>
+                          <circle cx="12" cy="13" r="1.2"/>
+                          <circle cx="16" cy="13" r="1.2"/>
+                          <circle cx="20" cy="13" r="1.2"/>
+                          <circle cx="6" cy="15.5" r="1.2"/>
+                          <circle cx="10" cy="15.5" r="1.2"/>
+                          <circle cx="14" cy="15.5" r="1.2"/>
+                          <circle cx="18" cy="15.5" r="1.2"/>
+                          <circle cx="4" cy="18" r="1.2"/>
+                          <circle cx="8" cy="18" r="1.2"/>
+                          <circle cx="12" cy="18" r="1.2"/>
+                          <circle cx="16" cy="18" r="1.2"/>
+                          <circle cx="20" cy="18" r="1.2"/>
+                          <circle cx="6" cy="20.5" r="1.2"/>
+                          <circle cx="10" cy="20.5" r="1.2"/>
+                          <circle cx="14" cy="20.5" r="1.2"/>
+                          <circle cx="18" cy="20.5" r="1.2"/>
+                        </g>
                       </svg>
                     </div>
                     <div>
@@ -170,7 +219,7 @@ export function WhyChooseUs() {
             <div className="mt-10 flex items-center gap-4">
               <a
                 href="tel:+18324371000"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-white font-semibold rounded-full
+                className="inline-flex items-center gap-2 px-8 py-3 bg-secondary text-white font-semibold rounded-full
                   hover:bg-secondary-hover hover:shadow-lg hover:shadow-secondary/25 hover:scale-[1.02]
                   active:scale-[0.98] transition-all duration-300"
               >

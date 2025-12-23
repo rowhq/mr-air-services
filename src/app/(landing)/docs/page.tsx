@@ -258,11 +258,11 @@ const actionItems = [
     title: 'Maintenance Plan Pricing',
     status: 'needs-verification',
     priority: 'high',
-    question: 'Are these maintenance plan prices correct?',
+    question: 'Are these maintenance plan prices correct? NOTE: Maintenance Plans are a feature WE ADDED - your current site doesn\'t offer them publicly.',
     currentData: [
-      'Basic Plan: $19/month ($228/year)',
-      'Premium Plan: $29/month ($348/year)',
-      '$149 tune-up value (used for "FREE" comparison)',
+      'Basic Plan: $19/month ($199/year)',
+      'Premium Plan: $29/month ($299/year)',
+      'Includes: 1-2 AC tune-ups + 1 heating tune-up + repair discounts',
     ],
   },
   {
@@ -337,6 +337,31 @@ const actionItems = [
     question: 'The financing page uses stock photos. Do you have photos of actual financed installations or happy customers?',
     currentData: null,
   },
+  // NEW - Service pricing that we invented
+  {
+    id: 15,
+    title: 'Service Pricing',
+    status: 'needs-verification',
+    priority: 'critical',
+    question: 'We show specific prices on the site. Are these correct? Your current website does NOT show prices publicly.',
+    currentData: [
+      'CoolSaver AC Tune-Up: FREE (qualifying) or $49',
+      'Heating Tune-Up: $85',
+      'AC Tune-Up market value: $149 (used for comparison)',
+    ],
+  },
+  {
+    id: 16,
+    title: 'Maintenance Plans Feature',
+    status: 'needs-confirmation',
+    priority: 'high',
+    question: 'We created a Maintenance Plans page (/services/maintenance-plans) as an upsell feature. Your current website does NOT have this. Do you want to offer maintenance plan subscriptions?',
+    currentData: [
+      'Basic: $19/month - 1 AC + 1 heating tune-up + 10% repair discount',
+      'Premium: $29/month - 2 AC + 1 heating tune-up + 15% discount + free service calls',
+      'Commercial: Custom pricing',
+    ],
+  },
 ];
 
 export default function DocsPage() {
@@ -399,7 +424,7 @@ export default function DocsPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                   Action Required
-                  <span className="ml-auto px-1.5 py-0.5 bg-primary text-white text-xs rounded">14</span>
+                  <span className="ml-auto px-1.5 py-0.5 bg-primary text-white text-xs rounded">16</span>
                 </a>
                 <a href="#improvements" className="flex items-center gap-3 px-3 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -579,7 +604,7 @@ export default function DocsPage() {
                   <h2 className="text-3xl font-bold text-neutral-black dark:text-white">
                     Action Required
                   </h2>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">14 items need your input before launch</p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">16 items need your input before launch</p>
                 </div>
               </div>
               <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
@@ -589,11 +614,11 @@ export default function DocsPage() {
               {/* Priority Summary */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-primary">4</div>
+                  <div className="text-2xl font-bold text-primary">5</div>
                   <div className="text-xs text-neutral-400">Critical</div>
                 </div>
                 <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
-                  <div className="text-2xl font-bold text-primary/80">4</div>
+                  <div className="text-2xl font-bold text-primary/80">5</div>
                   <div className="text-xs text-neutral-400">High</div>
                 </div>
                 <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">

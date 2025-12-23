@@ -11,16 +11,16 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   // All hero sections use dark backgrounds, so we use light colors
-  const baseClasses = 'text-white/60';
-  const separatorClasses = 'text-white/40';
-  const activeClasses = 'text-white/90 font-medium';
+  const baseClasses = 'text-white/80';
+  const separatorClasses = 'text-white/60';
+  const activeClasses = '!text-white font-medium';
   const hoverClasses = 'hover:text-white';
 
   return (
-    <nav aria-label="Breadcrumb" className={`text-sm ${baseClasses} mb-6`}>
+    <nav aria-label="Breadcrumb" className="text-sm mb-6">
       <ol className="flex items-center flex-wrap gap-1.5">
         <li>
-          <Link href="/" className={`${hoverClasses} transition-colors`}>
+          <Link href="/" className={`${baseClasses} ${hoverClasses} transition-colors`}>
             Home
           </Link>
         </li>
@@ -28,7 +28,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
           <li key={item.label} className="flex items-center gap-1.5">
             <span className={separatorClasses}>/</span>
             {item.href ? (
-              <Link href={item.href} className={`${hoverClasses} transition-colors`}>
+              <Link href={item.href} className={`${baseClasses} ${hoverClasses} transition-colors`}>
                 {item.label}
               </Link>
             ) : (

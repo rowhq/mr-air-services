@@ -49,7 +49,7 @@ const inspectionPhases = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-    color: 'bg-primary-dark',
+    color: 'bg-primary',
     items: [
       'Safety controls & shutoffs',
       'Heat exchanger inspection (CO leak check)',
@@ -79,7 +79,7 @@ const inspectionPhases = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    color: 'bg-primary-light',
+    color: 'bg-primary',
     items: [
       'Thermostat calibration',
       'Filter service & airflow',
@@ -93,17 +93,6 @@ const houstonStats = [
   { number: '3-5', label: 'freezing days/year in Houston', sublabel: 'But when it happens...' },
   { number: '$2,400', label: 'average emergency repair', sublabel: 'vs $85 tune-up' },
   { number: '430+', label: 'CO poisoning deaths/year (US)', sublabel: 'Most are preventable' },
-];
-
-const warningSignsItems = [
-  'Uneven heating throughout your home',
-  'Strange noises when the system runs',
-  'Yellow or flickering pilot light',
-  'Frequent cycling on and off',
-  'Higher than normal energy bills',
-  'Dust or dry air in your home',
-  'System is 15+ years old',
-  'Visible rust or cracks',
 ];
 
 const faqs = [
@@ -149,7 +138,7 @@ export default function HeatingPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Heat Out? We're On It.
             </h1>
-            <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
+            <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-lg">
               Yeah, Houston winters are mild. But when it's 35° and your heat won't kick on, you'll wish you'd called us sooner. Furnaces, heat pumps, whatever—we fix it.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -159,12 +148,12 @@ export default function HeatingPage() {
                 </Button>
               </Link>
               <a href="tel:+18324371000">
-                <Button variant="outline" size="lg">
+                <Button variant="outline-inverse" size="lg">
                   Call (832) 437-1000
                 </Button>
               </a>
             </div>
-            <TrustSignals className="mt-6" />
+            <TrustSignals className="mt-6" variant="dark" />
           </div>
         </div>
       </section>
@@ -172,7 +161,7 @@ export default function HeatingPage() {
       <SectionNav items={sectionNavItems} />
 
       {/* Houston Stats */}
-      <section className="py-12 bg-neutral-900">
+      <section className="py-16 lg:py-20 bg-neutral-900">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {houstonStats.map((stat) => (
@@ -229,7 +218,7 @@ export default function HeatingPage() {
             {inspectionPhases.map((phase, idx) => (
               <div
                 key={phase.phase}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-300"
+                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div className={`w-10 h-10 rounded-xl ${phase.color} text-white flex items-center justify-center`}>
@@ -273,45 +262,219 @@ export default function HeatingPage() {
         </div>
       </section>
 
-      {/* Warning Signs */}
-      <section id="warnings" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
+      {/* Warning Signs - Premium Design */}
+      <section id="warnings" className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800 scroll-mt-20 overflow-hidden">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
-                Your Heater Is Trying to Tell You Something
-              </h2>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
-                Weird noises? Uneven temps? Don't ignore it. These are your heater's way of saying "help me before I die completely."
-              </p>
-              <ul className="space-y-4">
-                {warningSignsItems.map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-secondary/20 dark:bg-secondary/30 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+          {/* Header */}
+          <div className="max-w-2xl mb-16">
+            <span className="inline-flex items-center gap-2 px-3 py-1 bg-secondary/10 dark:bg-secondary/20 text-secondary text-sm font-medium rounded-full mb-4">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+              Know the Signs
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
+              Is Your Heater<br />Asking for Help?
+            </h2>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400">
+              Your heating system gives you clues before it fails. Here's what to look for.
+            </p>
+          </div>
+
+          {/* Bento Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
+
+            {/* Emergency Card - Large Featured */}
+            <div className="lg:col-span-7 group">
+              <div className="relative h-full bg-secondary rounded-3xl p-8 lg:p-10 overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
+                {/* Animated background elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4" />
+
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                       </svg>
                     </div>
-                    <span className="text-neutral-600 dark:text-neutral-400">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-gradient-to-br from-hero-start to-hero-end rounded-3xl p-10 relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-5 right-5 w-16 h-16 rounded-full bg-white/10"></div>
-              <div className="absolute bottom-5 left-5 w-24 h-24 rounded-full bg-white/10"></div>
+                    <span className="text-white/80 text-sm font-medium uppercase tracking-wider">Emergency</span>
+                  </div>
 
-              <div className="relative">
-                <h3 className="text-2xl font-bold text-neutral-black dark:text-white mb-4">Don't Wait Until It's 40° Inside</h3>
-                <p className="text-neutral-700 dark:text-neutral-300 mb-8 leading-relaxed">
-                  Sure, Houston winters are mild. But when that one cold week hits and your heat's dead? You'll be miserable. Get it checked now.
-                </p>
-                <Link href="/contact">
-                  <Button variant="secondary" size="lg">
-                    Book a Tune-Up
-                  </Button>
-                </Link>
+                  <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+                    Smell Gas?<br />Get Out Now.
+                  </h3>
+                  <p className="text-white/90 text-lg mb-8 max-w-md">
+                    If you smell rotten eggs, leave immediately. Don't flip switches. Call from outside.
+                  </p>
+
+                  <a href="tel:+18324371000" className="inline-flex items-center gap-3 bg-white text-secondary font-bold px-6 py-3 rounded-full hover:bg-white/90 transition-colors group-hover:shadow-lg">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    Call (832) 437-1000
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Yellow Pilot Light */}
+            <div className="lg:col-span-5 group">
+              <div className="h-full bg-white dark:bg-neutral-900 rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center shadow-lg shadow-secondary/25">
+                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+                    </svg>
+                  </div>
+                  <span className="px-3 py-1 bg-secondary/10 dark:bg-secondary/20 text-secondary text-xs font-bold rounded-full">CO RISK</span>
+                </div>
+                <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">Yellow Pilot Light</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-4">Should be blue. Yellow = incomplete combustion = carbon monoxide.</p>
+                <div className="flex items-center gap-2 text-sm text-secondary font-medium">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                  Schedule today
+                </div>
+              </div>
+            </div>
+
+            {/* Needs Attention Row */}
+            <div className="lg:col-span-4 group">
+              <div className="h-full bg-white dark:bg-neutral-900 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-4 shadow-lg shadow-primary/20">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Strange Sounds</h3>
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm">Banging, squealing, rattling = parts wearing out</p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 group">
+              <div className="h-full bg-white dark:bg-neutral-900 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-4 shadow-lg shadow-primary/20">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Short Cycling</h3>
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm">Turns on/off constantly? Thermostat or filter issue</p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 group">
+              <div className="h-full bg-white dark:bg-neutral-900 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center mb-4 shadow-lg shadow-primary/20">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Visible Damage</h3>
+                <p className="text-neutral-500 dark:text-neutral-400 text-sm">Rust or cracks? Get a professional inspection</p>
+              </div>
+            </div>
+
+            {/* Maintenance Signs - Horizontal Scroll on Mobile */}
+            <div className="lg:col-span-12">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400">Schedule a tune-up if you notice:</span>
+              </div>
+              <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-4 scrollbar-hide">
+                <div className="flex-shrink-0 w-64 lg:w-auto bg-white dark:bg-neutral-900 rounded-2xl p-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-neutral-black dark:text-white text-sm">High Bills</h4>
+                      <p className="text-neutral-500 dark:text-neutral-400 text-xs">Efficiency dropping</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 w-64 lg:w-auto bg-white dark:bg-neutral-900 rounded-2xl p-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-neutral-black dark:text-white text-sm">Uneven Heat</h4>
+                      <p className="text-neutral-500 dark:text-neutral-400 text-xs">Hot/cold spots</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 w-64 lg:w-auto bg-white dark:bg-neutral-900 rounded-2xl p-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-neutral-black dark:text-white text-sm">15+ Years Old</h4>
+                      <p className="text-neutral-500 dark:text-neutral-400 text-xs">Consider upgrade</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex-shrink-0 w-64 lg:w-auto bg-white dark:bg-neutral-900 rounded-2xl p-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-neutral-black dark:text-white text-sm">Dusty Air</h4>
+                      <p className="text-neutral-500 dark:text-neutral-400 text-xs">Filter or duct issue</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="mt-12 relative">
+            <div className="absolute inset-0 bg-secondary/20 rounded-3xl blur-2xl" />
+            <div className="relative bg-neutral-900 dark:bg-neutral-950 rounded-3xl p-8 md:p-12 overflow-hidden">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+              <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full mb-4">
+                    <svg className="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span className="text-white/80 text-sm">Houston winters are unpredictable</span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                    $85 tune-up vs $2,400 emergency repair
+                  </h3>
+                  <p className="text-neutral-400 max-w-lg">
+                    Don't wait until it's 40° inside. Our 12-point inspection catches problems before they become emergencies.
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/contact">
+                    <Button variant="secondary" size="lg" className="w-full sm:w-auto shadow-lg shadow-secondary/25">
+                      Book $85 Tune-Up
+                    </Button>
+                  </Link>
+                  <a href="tel:+18324371000">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                      Call Now
+                    </Button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

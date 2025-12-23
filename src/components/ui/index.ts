@@ -18,3 +18,4 @@ export { Modal } from './Modal';
 export { CoolSaverModal } from './CoolSaverModal';
 export { CoolSaverCTA } from './CoolSaverCTA';
 export { DesktopStickyCTA } from './DesktopStickyCTA';
+export { StickyTuneUpCTA } from './StickyTuneUpCTA';

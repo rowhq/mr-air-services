@@ -151,8 +151,8 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl ${
         scrolled
-          ? 'bg-slate-900/70 shadow-lg shadow-black/10 border-b border-white/5'
-          : 'bg-slate-900/40'
+          ? 'bg-neutral-900/70 shadow-lg shadow-black/10 border-b border-white/5'
+          : 'bg-neutral-900/40'
       }`}
     >
       <a href="#main-content" className="skip-link">
@@ -220,6 +220,7 @@ export function Header() {
               >
                 <Link
                   href="/services"
+                  onClick={() => setServicesMenuOpen(false)}
                   className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors py-2"
                 >
                   Services
@@ -278,7 +279,7 @@ export function Header() {
 
     {/* Services Mega Menu Dropdown - OUTSIDE header for proper backdrop-blur */}
     <div
-      className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-out bg-slate-900/40 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10 ${
+      className={`fixed left-0 right-0 z-40 transition-all duration-300 ease-out bg-neutral-900/40 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/10 ${
         servicesMenuOpen
           ? 'opacity-100 visible translate-y-0'
           : 'opacity-0 invisible -translate-y-2 pointer-events-none'
