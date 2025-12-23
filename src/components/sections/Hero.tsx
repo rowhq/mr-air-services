@@ -18,16 +18,6 @@ export function Hero() {
       {/* Improved Overlay - Subtle gradient for Apple-like elegance */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
 
-      {/* Geometric Pattern Overlay (like About page) */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <pattern id="hero-grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-          </pattern>
-          <rect width="100" height="100" fill="url(#hero-grid)" className="text-white"/>
-        </svg>
-      </div>
-
       {/* Content */}
       <div className="container relative pt-32 pb-20 min-h-[600px] md:min-h-[700px] lg:min-h-screen flex flex-col justify-center items-start text-left">
 

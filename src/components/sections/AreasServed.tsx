@@ -60,7 +60,6 @@ export function AreasServed() {
                 <button
                   key={office.name}
                   onMouseEnter={() => setActiveOffice(office.name)}
-                  onMouseLeave={() => setActiveOffice(null)}
                   onClick={() => setActiveOffice(activeOffice === office.name ? null : office.name)}
                   className={`group relative px-4 py-3 rounded-full border text-left transition-all duration-300 ${
                     activeOffice === office.name

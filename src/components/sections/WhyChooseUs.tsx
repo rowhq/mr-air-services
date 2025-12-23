@@ -100,7 +100,7 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
           <div className={`relative animate-fade-in-up animation-delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/5] bg-neutral-100 dark:bg-neutral-800 shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800 shadow-2xl">
               {/* Image */}
               <img
                 src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
@@ -185,13 +185,13 @@ export function WhyChooseUs() {
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="group p-6 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-700
-                    hover:border-secondary/30 hover:shadow-lg hover:-translate-y-0.5
+                  className="group p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800
+                    hover:-translate-y-0.5
                     transition-all duration-300 cursor-default"
                 >
                   <div className="flex items-start gap-4">
                     {/* Icon */}
-                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700
+                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-white dark:bg-neutral-900
                       flex items-center justify-center group-hover:bg-secondary/10 transition-colors duration-300">
                       {feature.icon}
                     </div>

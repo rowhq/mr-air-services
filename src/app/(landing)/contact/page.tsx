@@ -137,123 +137,76 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Column - Title & Contact Info */}
           <div className={`lg:pt-8 transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
-              Let's Get In<br />Touch
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
+              Get In Touch
             </h1>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-md leading-relaxed">
-              Need HVAC service? We're here to help. Fill out the form or contact us directly.
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 max-w-md">
+              Fill out the form or call us directly.
             </p>
 
-            {/* Trust Signals - SVG Icons */}
-            <div className="flex flex-wrap gap-3 mb-10">
-              <div className="flex items-center gap-2 px-4 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-full border border-neutral-100 dark:border-neutral-700">
-                <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            {/* Phone - Hero CTA */}
+            <a
+              href="tel:+18324371000"
+              className="group flex items-center gap-5 p-6 rounded-2xl bg-secondary hover:bg-secondary-hover transition-all mb-6"
+            >
+              <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">4.9 Google Rating</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-full border border-neutral-100 dark:border-neutral-700">
-                <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                </svg>
-                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Veteran Owned</span>
+              <div className="flex-1">
+                <p className="text-white/80 text-sm mb-1">Call us now</p>
+                <p className="text-2xl font-bold text-white">(832) 437-1000</p>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 bg-neutral-50 dark:bg-neutral-800 rounded-full border border-neutral-100 dark:border-neutral-700">
-                <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Licensed & Insured</span>
-              </div>
-            </div>
+              <svg className="w-6 h-6 text-white/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
 
-            {/* Contact Info Cards */}
-            <div className="space-y-4">
-              <a
-                href="tel:+18324371000"
-                className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 hover:border-secondary/30 transition-all group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-secondary text-white flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">Call Us</p>
-                  <p className="text-xl font-bold text-neutral-black dark:text-white group-hover:text-secondary transition-colors">(832) 437-1000</p>
-                </div>
-                <svg className="w-5 h-5 text-neutral-400 group-hover:text-secondary group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-
+            {/* Quick Info Row */}
+            <div className="grid grid-cols-2 gap-4 mb-6">
               <a
                 href="mailto:info@mrairservices.com"
-                className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 hover:border-secondary/30 transition-all group"
+                className="group p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 hover:border-secondary/30 transition-all"
               >
-                <div className="w-12 h-12 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400">Email</span>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">Email Us</p>
-                  <p className="text-lg font-bold text-neutral-black dark:text-white group-hover:text-secondary transition-colors truncate">info@mrairservices.com</p>
-                </div>
-                <svg className="w-5 h-5 text-neutral-400 group-hover:text-secondary group-hover:translate-x-1 transition-all flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 group-hover:text-secondary transition-colors truncate">
+                  info@mrairservices.com
+                </p>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700">
-                <div className="w-12 h-12 rounded-xl bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300 flex items-center justify-center">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700">
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400">Hours</span>
+                  <span className={`ml-auto text-xs font-medium px-2 py-0.5 rounded-full ${
+                    openStatus.isOpen
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                      : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500'
+                  }`}>
+                    {openStatus.isOpen ? 'Open' : 'Closed'}
+                  </span>
                 </div>
-                <div className="flex-1">
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">Business Hours</p>
-                  <p className="font-semibold text-neutral-black dark:text-white">Mon–Fri: 8AM – 5PM</p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">Sat: By appointment</p>
-                </div>
-                <div className={`px-3 py-1.5 rounded-full text-sm font-medium ${
-                  openStatus.isOpen
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                    : openStatus.statusText === 'By Appointment'
-                    ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
-                    : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
-                }`}>
-                  <span className={`inline-block w-2 h-2 rounded-full mr-1.5 ${
-                    openStatus.isOpen ? 'bg-green-500 animate-pulse' : 'bg-neutral-400'
-                  }`}></span>
-                  {openStatus.statusText}
-                </div>
+                <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                  Mon–Fri: 8AM–5PM
+                </p>
               </div>
             </div>
 
-            {/* Service Area */}
-            <div className="mt-8 p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-semibold text-neutral-black dark:text-white">Service Area</p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">Greater Houston Area</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {['Houston', 'Katy', 'Sugar Land', 'Pearland', 'The Woodlands'].map((area) => (
-                  <span key={area} className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-700 text-sm text-neutral-600 dark:text-neutral-400">
-                    {area}
-                  </span>
-                ))}
-                <span className="px-3 py-1 rounded-full bg-secondary/10 text-sm text-secondary font-medium">
-                  +20 more
-                </span>
-              </div>
+            {/* Service Area - Compact */}
+            <div className="flex items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
+              <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Serving Greater Houston Area</span>
             </div>
           </div>
 

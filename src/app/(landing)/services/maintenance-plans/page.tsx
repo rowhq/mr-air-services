@@ -162,7 +162,7 @@ export default function MaintenancePlansPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] pt-32 overflow-hidden">
+      <section className="relative min-h-[500px] md:min-h-[550px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -178,8 +178,8 @@ export default function MaintenancePlansPage() {
               { label: 'Maintenance Plans' },
             ]}
           />
-          <div className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
               Stop Overpaying for AC Repairs
             </h1>
             <p className="text-xl text-white/80 leading-relaxed mb-8">
@@ -187,7 +187,7 @@ export default function MaintenancePlansPage() {
             </p>
 
             {/* Hero CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Link href="#plans">
                 <Button variant="secondary" size="lg">
                   See All Plans
@@ -200,7 +200,7 @@ export default function MaintenancePlansPage() {
               </a>
             </div>
 
-            <TrustSignals className="justify-center" variant="dark" />
+            <TrustSignals variant="dark" />
           </div>
         </div>
       </section>
@@ -214,50 +214,99 @@ export default function MaintenancePlansPage() {
         </div>
       </section>
 
-      {/* What's Included */}
+      {/* What's Included - Rediseñado */}
       <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Header con badge */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
-                Every Plan Includes Our CoolSaver Tune-Up
+              <div className="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/20 text-primary px-4 py-2 rounded-full text-sm font-bold mb-4">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Included in Every Plan
+              </div>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight">
+                14-Point CoolSaver Tune-Up
               </h2>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-                Our 14-point CoolSaver Tune-Up covers everything: refrigerant charge adjustment, coil cleaning, blower cleaning, filter replacement, and more. We use the latest diagnostic tools to keep your system running at peak performance.
-              </p>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
-                <strong>Pro tip:</strong> Any AC system 1 year or older should have an annual tune-up. It's the difference between a $50 catch and a $600 emergency.
-              </p>
-              <Link href="/services/air-conditioning-tune-ups">
-                <Button variant="outline">
-                  See Full CoolSaver Tune-Up Details →
-                </Button>
-              </Link>
             </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-6">CoolSaver Tune-Up Highlights</h3>
-              <ul className="space-y-4">
-                {[
-                  'Refrigerant charge adjustment',
-                  'Condenser & evaporator coil cleaning',
-                  'Blower cleaning',
-                  'Air filter replacement',
-                  'Airflow measurement',
-                  'Full electrical inspection',
-                  'Drain line inspection',
-                  'Performance report',
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-hero-start to-hero-end flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3 h-3 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <span className="text-neutral-700 dark:text-neutral-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="mt-6 lg:mt-0 flex items-baseline gap-2">
+              <span className="text-5xl font-black text-primary">$149</span>
+              <span className="text-neutral-500 dark:text-neutral-400 text-lg">value</span>
             </div>
+          </div>
+
+          {/* Grid de servicios con iconos */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {[
+              { name: 'Refrigerant Check', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              )},
+              { name: 'Coil Cleaning', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              )},
+              { name: 'Blower Service', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                </svg>
+              )},
+              { name: 'Filter Replace', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+              )},
+              { name: 'Airflow Test', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              )},
+              { name: 'Electrical Check', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              )},
+              { name: 'Drain Service', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              )},
+              { name: 'Full Report', icon: (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )},
+            ].map((service) => (
+              <div
+                key={service.name}
+                className="group p-5 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 hover:bg-primary/5 dark:hover:bg-primary/10 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {service.icon}
+                </div>
+                <h4 className="font-semibold text-neutral-900 dark:text-white text-sm group-hover:text-primary dark:group-hover:text-primary-light transition-colors">
+                  {service.name}
+                </h4>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+            <Link href="/services/air-conditioning-tune-ups">
+              <Button variant="secondary" size="lg">
+                See Full Tune-Up Details
+                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Button>
+            </Link>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 max-w-md">
+              <strong className="text-neutral-700 dark:text-neutral-300">Pro tip:</strong> Any AC system 1+ year old should have an annual tune-up. It's the difference between a $50 catch and a $600 emergency.
+            </p>
           </div>
         </div>
       </section>

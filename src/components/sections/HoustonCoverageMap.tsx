@@ -98,7 +98,6 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
             icon={createMarkerIcon(activeOffice === office.name)}
             eventHandlers={{
               mouseover: () => onOfficeHover(office.name),
-              mouseout: () => onOfficeHover(null),
               click: () => onOfficeHover(office.name),
             }}
           >
@@ -128,7 +127,6 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
               key={office.name}
               onClick={() => onOfficeHover(office.name)}
               onMouseEnter={() => onOfficeHover(office.name)}
-              onMouseLeave={() => onOfficeHover(null)}
               className={`flex items-center gap-2 transition-all duration-200 w-full text-left ${
                 activeOffice === office.name
                   ? 'opacity-100'

@@ -19,6 +19,7 @@ const navigation = [
     ],
   },
   { name: 'Financing', href: '/financing-payments' },
+  { name: 'Pay Invoice', href: '/pay-invoice' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -239,6 +240,9 @@ export function Header() {
 
               <Link href="/financing-payments" className="text-white/90 hover:text-white font-medium transition-colors">
                 Financing
+              </Link>
+              <Link href="/pay-invoice" className="text-white/90 hover:text-white font-medium transition-colors">
+                Pay Invoice
               </Link>
               <Link href="/contact" className="text-white/90 hover:text-white font-medium transition-colors">
                 Contact

@@ -106,7 +106,7 @@ export default function ACRepairPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[60vh] pt-32 overflow-hidden">
+      <section className="relative min-h-[500px] md:min-h-[550px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -124,11 +124,11 @@ export default function ACRepairPage() {
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
                 AC Dead? We're On It.
               </h1>
               <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
-                Houston heat waits for no one. When your AC breaks, we diagnose fast, quote straight, and fix it right the first time.
+                Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact">
