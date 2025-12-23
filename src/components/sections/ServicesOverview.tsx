@@ -7,7 +7,7 @@ const services = [
     description: "AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.",
     href: '/services/air-conditioning-repair',
     cta: 'tel:+18324371000',
-    ctaLabel: 'Call Now',
+    ctaLabel: 'Get Emergency Help',
     isEmergency: true,
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,8 +17,8 @@ const services = [
   },
   {
     title: 'CoolSaver Tune-Ups',
-    description: "14-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.",
-    href: '/#coolsaver',
+    description: "13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.",
+    href: '/services/air-conditioning-tune-ups',
     ctaLabel: 'Check If You Qualify',
     featured: true,
     useModal: true,
@@ -30,7 +30,7 @@ const services = [
     ),
   },
   {
-    title: 'Heating Services',
+    title: 'Heating',
     description: "Furnace and heat pump repair, maintenance, and installation. Be ready for Houston winters.",
     href: '/services/heating',
     ctaLabel: 'Schedule Service',
@@ -38,17 +38,6 @@ const services = [
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Maintenance Plans',
-    description: "Annual plans with priority service and repair discounts. Prevention is cheaper than repair.",
-    href: '/services/maintenance-plans',
-    ctaLabel: 'Compare Plans',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
   },
@@ -70,7 +59,7 @@ export function ServicesOverview() {
         </div>
 
         {/* Services Grid - Clean Apple style */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
             <div
               key={service.title}
@@ -130,18 +119,25 @@ export function ServicesOverview() {
                   </Button>
                 </Link>
               )}
+
+              {/* Learn more link */}
+              <div className="text-center mt-3">
+                <Link
+                  href={service.href}
+                  className={`inline-flex items-center gap-1 text-sm font-medium transition-colors ${
+                    service.featured
+                      ? 'text-white/80 hover:text-white'
+                      : 'text-neutral-500 hover:text-secondary'
+                  }`}
+                >
+                  Learn more
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* View All Link */}
-        <div className="text-center mt-10">
-          <Link href="/services" className="inline-flex items-center gap-2 text-secondary font-medium hover:underline">
-            View All Services
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
         </div>
       </div>
     </section>

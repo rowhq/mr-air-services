@@ -10,7 +10,7 @@ const sectionNavItems = [
 ];
 
 export const metadata = {
-  title: 'Heating Services | Mr. Air Services - Houston Furnace & Heat Pump Experts',
+  title: 'Heating | Mr. Air Services - Houston Furnace & Heat Pump Experts',
   description: 'Professional heating services in Houston. Furnace repair, heat pump installation, and heating maintenance. Stay warm this winter. Call (832) 437-1000.',
 };
 
@@ -111,7 +111,7 @@ export default function HeatingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[600px] md:min-h-[670px] pt-32 overflow-hidden">
+      <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[670px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -128,7 +128,7 @@ export default function HeatingPage() {
             ]}
           />
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               Heat Out? We're On It.
             </h1>
             <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-lg">

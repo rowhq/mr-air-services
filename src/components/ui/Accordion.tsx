@@ -87,7 +87,7 @@ export function AccordionTrigger({ value, children, className = '' }: AccordionT
     >
       {children}
       <svg
-        className={`w-5 h-5 text-neutral-400 transition-transform duration-200 ${
+        className={`w-6 h-6 text-neutral-400 transition-transform duration-200 flex-shrink-0 ${
           isOpen ? 'rotate-180' : ''
         }`}
         xmlns="http://www.w3.org/2000/svg"

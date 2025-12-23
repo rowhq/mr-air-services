@@ -129,7 +129,7 @@ export function CoolSaverModal({ isOpen, onClose }: CoolSaverModalProps) {
             </div>
 
             {/* Phone #1 & Phone #2 */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
                   Phone #1 *
@@ -174,7 +174,7 @@ export function CoolSaverModal({ isOpen, onClose }: CoolSaverModalProps) {
             </div>
 
             {/* City & State Zip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
                   City *
@@ -204,7 +204,7 @@ export function CoolSaverModal({ isOpen, onClose }: CoolSaverModalProps) {
             </div>
 
             {/* Electric Company & # of A/C units */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">
                   Electric Company (if known) *

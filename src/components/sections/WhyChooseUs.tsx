@@ -152,7 +152,7 @@ export function WhyChooseUs() {
               {features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="group p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800
+                  className="group p-4 md:p-6 rounded-2xl bg-neutral-50 dark:bg-neutral-800
                     hover:-translate-y-0.5
                     transition-all duration-300 cursor-default"
                 >

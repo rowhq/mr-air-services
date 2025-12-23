@@ -12,10 +12,9 @@ const navigation = [
     name: 'Services',
     href: '/services',
     children: [
-      { name: 'Air Conditioning Repair', href: '/services/air-conditioning-repair' },
-      { name: 'Air Conditioning Tune-Ups', href: '/services/air-conditioning-tune-ups' },
+      { name: 'AC Repair', href: '/services/air-conditioning-repair' },
+      { name: 'CoolSaver Tune-Ups', href: '/services/air-conditioning-tune-ups' },
       { name: 'Heating', href: '/services/heating' },
-      { name: 'Maintenance Plans', href: '/services/maintenance-plans' },
     ],
   },
   { name: 'Financing', href: '/financing-payments' },
@@ -56,21 +55,9 @@ const servicesData = [
         <path d="M8 6l-2-2M24 6l2-2" strokeLinecap="round" />
       </svg>
     ),
-    name: 'AC Tune-Ups',
+    name: 'CoolSaver Tune-Ups',
     description: 'Keep your AC running at peak efficiency.',
     href: '/services/air-conditioning-tune-ups',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="6" y="6" width="20" height="20" rx="2" />
-        <path d="M6 12h20M12 6v20" strokeLinecap="round" />
-        <path d="M16 16l2 2M16 22l2 2" strokeLinecap="round" />
-      </svg>
-    ),
-    name: 'Maintenance Plans',
-    description: 'Save money with scheduled preventive care.',
-    href: '/services/maintenance-plans',
   },
 ];
 
@@ -263,7 +250,7 @@ export function Header() {
 
               <button
                 type="button"
-                className="lg:hidden p-2 text-white bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
+                className="lg:hidden p-3 text-white bg-white/20 backdrop-blur-sm rounded-full hover:bg-white/30 transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 aria-label="Toggle menu"
               >
@@ -305,7 +292,7 @@ export function Header() {
           <div className="container pt-8 pb-6">
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-12 lg:col-span-9">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {servicesData.map((service) => {
                     const isActive = pathname === service.href;
                     return (
@@ -360,15 +347,6 @@ export function Header() {
                     <span className="text-white font-bold">(832) 437-1000</span>
                   </a>
 
-                  <Link
-                    href="/contact"
-                    onClick={() => setServicesMenuOpen(false)}
-                    className="mt-auto"
-                  >
-                    <Button variant="primary" size="sm" fullWidth>
-                      Book Emergency
-                    </Button>
-                  </Link>
                 </div>
               </div>
             </div>

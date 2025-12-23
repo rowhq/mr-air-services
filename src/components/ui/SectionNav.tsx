@@ -61,7 +61,7 @@ export function SectionNav({ items }: SectionNavProps) {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
+              className={`px-4 py-2.5 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
                 activeSection === item.id
                   ? 'bg-secondary text-white'
                   : 'text-neutral-600 hover:bg-neutral-100'

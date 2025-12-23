@@ -106,7 +106,7 @@ export default function ACRepairPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[600px] md:min-h-[670px] pt-32 overflow-hidden">
+      <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[670px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -124,7 +124,7 @@ export default function ACRepairPage() {
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                 AC Dead? We're On It.
               </h1>
               <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
@@ -153,7 +153,7 @@ export default function ACRepairPage() {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <span className="text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">We service:</span>
-            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
               {brandsServiced.map((brand) => (
                 <Image
                   key={brand.name}

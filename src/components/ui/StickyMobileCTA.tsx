@@ -1,12 +1,20 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 
 export function StickyMobileCTA() {
+  const pathname = usePathname();
+
+  // Hide on tune-ups page where StickyTuneUpCTA is used
+  if (pathname === '/services/air-conditioning-tune-ups') {
+    return null;
+  }
+
   return (
     <>
       {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 p-4 z-50">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-50">
         <a href="tel:+18324371000" className="block">
           <Button variant="primary" fullWidth size="lg">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,7 +26,7 @@ export function StickyMobileCTA() {
       </div>
 
       {/* Spacer for sticky CTA on mobile */}
-      <div className="h-20 md:hidden"></div>
+      <div className="h-[calc(5rem+env(safe-area-inset-bottom))] md:hidden"></div>
     </>
   );
 }

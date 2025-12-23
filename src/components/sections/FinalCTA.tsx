@@ -1,29 +1,26 @@
-import { Button, CoolSaverCTA } from '@/components/ui';
+import Link from 'next/link';
+import { Button } from '@/components/ui';
 
 export function FinalCTA() {
   return (
     <section className="py-24 md:py-32 bg-gradient-to-br from-secondary via-secondary to-primary relative overflow-hidden">
       <div className="container relative">
         <div className="text-center max-w-3xl mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full mb-8">
-            <div className="w-2 h-2 rounded-full bg-white"></div>
-            <span className="text-sm font-medium text-white">Same-Day Service Available</span>
-          </div>
-
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
             Ready to Get Started?
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl mx-auto">
-            Whether you need emergency repair, routine maintenance, or a new system installation, our team is ready to help. Contact us today for a free quote.
+            Whether you need emergency repair, routine maintenance, or a new system installation, our team is ready to help.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CoolSaverCTA variant="secondary" size="lg" className="group">
-                Check If You Qualify
+            <Link href="/contact">
+              <Button variant="secondary" size="lg" className="group">
+                Schedule Your Service
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </CoolSaverCTA>
+              </Button>
+            </Link>
             <a href="tel:+18324371000">
               <Button variant="outline-inverse" size="lg" className="group">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -70,7 +70,7 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`group bg-white dark:bg-neutral-900 rounded-3xl p-8
+              className={`group bg-white dark:bg-neutral-900 rounded-3xl p-5 md:p-8
                 hover:bg-neutral-50 dark:hover:bg-neutral-800
                 transition-all duration-500 animate-fade-in-up animation-delay-${(index + 1) * 100}`}
             >

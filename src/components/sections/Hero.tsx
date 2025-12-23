@@ -22,7 +22,7 @@ export function Hero() {
       <div className="container relative pt-32 pb-20 min-h-[600px] md:min-h-[700px] lg:min-h-screen flex flex-col justify-center items-start text-left">
 
         {/* Main Headline - Clean Apple typography */}
-        <h1 className="text-4xl sm:text-5xl md:text-[64px] lg:text-[64px] font-bold text-white mb-8 leading-[1.1] tracking-tight animate-fade-in-up">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[64px] font-bold text-white mb-8 leading-[1.1] tracking-tight animate-fade-in-up">
           Free AC Tune-Ups for
           <span className="block">Qualifying Homeowners</span>
         </h1>

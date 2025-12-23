@@ -4,7 +4,7 @@ import { FinalCTA } from '@/components/sections';
 
 export const metadata = {
   title: 'HVAC Services | Mr. Air Services - Houston AC & Heating',
-  description: 'Complete HVAC services in Houston. AC repair, tune-ups, heating services, and maintenance plans. Same-day service available.',
+  description: 'Complete HVAC services in Houston. AC repair, CoolSaver tune-ups, and heating services. Same-day service available.',
 };
 
 export default function ServicesPage() {
@@ -38,7 +38,7 @@ export default function ServicesPage() {
       {/* Services Grid - 4 Column Grid */}
       <section className="py-16 lg:py-24 bg-white dark:bg-neutral-900">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* AC Repair */}
             <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-200 relative">
               {/* Emergency Badge */}
@@ -79,7 +79,7 @@ export default function ServicesPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">Heating Services</h3>
+              <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">Heating</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
                 Stay warm during Houston's cold snaps. Furnaces, heat pumps, and all heating systems.
               </p>
@@ -114,10 +114,10 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">CoolSaver Tune-Ups</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
-                14-point inspection. Catch small issues before they become expensive repairs.
+                13-point inspection. Catch small issues before they become expensive repairs.
               </p>
               <ul className="space-y-2 mb-6">
-                {['14-point inspection', 'Filter replacement', 'Coil cleaning'].map((feature) => (
+                {['13-point inspection', 'Filter replacement', 'Coil cleaning'].map((feature) => (
                   <li key={feature} className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400 text-sm">
                     <svg className="w-4 h-4 text-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -131,72 +131,6 @@ export default function ServicesPage() {
                 </CoolSaverCTA>
             </div>
 
-            {/* Maintenance Plans */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-8 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors duration-200">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-6">
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">Maintenance Plans</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
-                Protect your investment. Priority scheduling, discounts, and peace of mind.
-              </p>
-              <ul className="space-y-2 mb-6">
-                {['Priority scheduling', 'Repair discounts', 'Bi-annual tune-ups'].map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400 text-sm">
-                    <svg className="w-4 h-4 text-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/services/maintenance-plans">
-                <Button variant="secondary" fullWidth>
-                  Compare Plans
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us - Simplified with Stats */}
-      <section className="py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-800">
-        <div className="container">
-          <h2 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-12 text-center">
-            Why Mr. Air Services?
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                title: 'Fast Response',
-                description: 'Same-day service available for emergencies.',
-                stat: '2hr',
-                statLabel: 'Avg Response',
-              },
-              {
-                title: 'Licensed & Insured',
-                description: 'Certified technicians you can trust.',
-                stat: '15+',
-                statLabel: 'Years Experience',
-              },
-              {
-                title: 'Upfront Pricing',
-                description: 'No surprises. Know the cost before we start.',
-                stat: '$0',
-                statLabel: 'Hidden Fees',
-              },
-            ].map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="text-4xl font-bold text-secondary mb-1">{item.stat}</div>
-                <div className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">{item.statLabel}</div>
-                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-2">{item.title}</h3>
-                <p className="text-neutral-600 dark:text-neutral-400 text-sm">{item.description}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>

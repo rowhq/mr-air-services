@@ -134,10 +134,10 @@ export default function ContactPage() {
   return (
     <section className="min-h-screen pt-32 pb-20 bg-white dark:bg-neutral-900">
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
           {/* Left Column - Title & Contact Info */}
           <div className={`lg:pt-8 transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
               Get In Touch
             </h1>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 max-w-md">
@@ -164,7 +164,7 @@ export default function ContactPage() {
             </a>
 
             {/* Quick Info Row */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <a
                 href="mailto:info@mrairservices.com"
                 className="group p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all"
@@ -212,7 +212,7 @@ export default function ContactPage() {
 
           {/* Right Column - Form */}
           <div className={`transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 md:p-10">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-5 sm:p-6 md:p-10">
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-2">Send a Message</h2>
                 <p className="text-neutral-500 dark:text-neutral-400">We'll get back to you within 24 hours.</p>
@@ -348,7 +348,7 @@ export default function ContactPage() {
                   <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
                     Services Needed
                   </label>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {serviceOptions.map((service) => (
                       <button
                         key={service.id}

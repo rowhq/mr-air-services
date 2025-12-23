@@ -4,10 +4,9 @@ import { officeLocations } from '@/data/officeLocations';
 
 const footerLinks = {
   services: [
-    { name: 'Air Conditioning Repair', href: '/services/air-conditioning-repair' },
-    { name: 'Air Conditioning Tune-Ups', href: '/services/air-conditioning-tune-ups' },
+    { name: 'AC Repair', href: '/services/air-conditioning-repair' },
+    { name: 'CoolSaver Tune-Ups', href: '/services/air-conditioning-tune-ups' },
     { name: 'Heating', href: '/services/heating' },
-    { name: 'Maintenance Plans', href: '/services/maintenance-plans' },
   ],
   company: [
     { name: 'Contact', href: '/contact' },
@@ -23,7 +22,7 @@ export function Footer() {
   return (
     <footer className="bg-neutral-black text-white">
       <div className="container py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-12">
           {/* Company Info */}
           <div>
             <Link href="/" className="flex items-center mb-4">

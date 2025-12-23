@@ -63,7 +63,7 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
       <MapContainer
         center={houstonMetroCenter}
         zoom={9}
-        style={{ height: '450px', width: '100%' }}
+        className="h-[300px] md:h-[450px] w-full"
         zoomControl={false}
         attributionControl={false}
       >

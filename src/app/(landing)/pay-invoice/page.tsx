@@ -16,7 +16,7 @@ export default function PayInvoicePage() {
       <div className="container relative">
         <Breadcrumbs items={[{ label: 'Pay Invoice' }]} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center mt-8">
           {/* Left - Info */}
           <div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
@@ -69,7 +69,7 @@ export default function PayInvoicePage() {
           </div>
 
           {/* Right - Form Card */}
-          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-8">
+          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 md:p-8">
             <InvoicePaymentForm />
           </div>
         </div>
