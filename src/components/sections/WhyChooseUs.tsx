@@ -114,7 +114,7 @@ export function WhyChooseUs() {
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/20 dark:border-neutral-700/20">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
                       {/* USA Flag */}
                       <svg className="w-10 h-7" viewBox="0 0 60 42" fill="none">
                         {/* Red stripes */}

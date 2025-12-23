@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Button, ThemeToggle } from '@/components/ui';
 
@@ -77,6 +78,7 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -300,26 +302,35 @@ export function Header() {
             <div className="grid grid-cols-12 gap-6">
               <div className="col-span-12 lg:col-span-9">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                  {servicesData.map((service) => (
-                    <Link
-                      key={service.name}
-                      href={service.href}
-                      onClick={() => setServicesMenuOpen(false)}
-                      className="group relative p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200"
-                    >
-                      <div className="text-white mb-3 transition-transform duration-200 group-hover:scale-110">
-                        {service.icon}
-                      </div>
-                      <h4 className="text-white font-semibold mb-1">{service.name}</h4>
-                      <p className="text-white/50 text-sm leading-snug mb-2">{service.description}</p>
-                      <div className="flex items-center text-secondary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span>Learn more</span>
-                        <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </Link>
-                  ))}
+                  {servicesData.map((service) => {
+                    const isActive = pathname === service.href;
+                    return (
+                      <Link
+                        key={service.name}
+                        href={service.href}
+                        onClick={() => setServicesMenuOpen(false)}
+                        className={`group relative p-4 rounded-xl border transition-all duration-200 ${
+                          isActive
+                            ? 'bg-white/20 border-white/40'
+                            : 'bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/20'
+                        }`}
+                      >
+                        <div className="text-white mb-3 transition-transform duration-200 group-hover:scale-110">
+                          {service.icon}
+                        </div>
+                        <h4 className="text-white font-semibold mb-1">{service.name}</h4>
+                        <p className="text-white/50 group-hover:text-white/80 text-sm leading-snug mb-2 transition-colors">{service.description}</p>
+                        <div className={`flex items-center text-white/70 text-sm font-medium transition-opacity ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                          <span>{isActive ? 'Currently viewing' : 'Learn more'}</span>
+                          {!isActive && (
+                            <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
 
