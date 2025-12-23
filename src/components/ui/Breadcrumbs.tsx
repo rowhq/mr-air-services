@@ -7,22 +7,14 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
-  variant?: 'default' | 'light';
 }
 
-export function Breadcrumbs({ items, variant = 'default' }: BreadcrumbsProps) {
-  const baseClasses = variant === 'light'
-    ? 'text-white/70'
-    : 'text-neutral-500';
-  const separatorClasses = variant === 'light'
-    ? 'text-white/50'
-    : 'text-neutral-400';
-  const activeClasses = variant === 'light'
-    ? 'text-white font-medium'
-    : 'text-neutral-900 font-medium';
-  const hoverClasses = variant === 'light'
-    ? 'hover:text-white'
-    : 'hover:text-secondary';
+export function Breadcrumbs({ items }: BreadcrumbsProps) {
+  // All hero sections use dark backgrounds, so we use light colors
+  const baseClasses = 'text-white/60';
+  const separatorClasses = 'text-white/40';
+  const activeClasses = 'text-white/90 font-medium';
+  const hoverClasses = 'hover:text-white';
 
   return (
     <nav aria-label="Breadcrumb" className={`text-sm ${baseClasses} mb-6`}>

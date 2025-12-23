@@ -192,6 +192,153 @@ const pages = [
   { path: '/terms-of-use', name: 'Terms of Use', status: 'live' },
 ];
 
+const actionItems = [
+  // CRITICAL - Need client input before launch
+  {
+    id: 1,
+    title: 'Office Locations',
+    status: 'needs-confirmation',
+    priority: 'critical',
+    question: 'Are these your actual office locations? Please confirm or provide correct addresses.',
+    currentData: [
+      'Missouri City - Suite 183, 2601 D Cartwright Rd, 77459',
+      'Spring - 4057 Riley Fuzzel Rd, Ste 500-103, 77386',
+      'Houston - 14526 Old Katy Rd, 77079',
+    ],
+  },
+  {
+    id: 2,
+    title: 'Customer Testimonials',
+    status: 'placeholder',
+    priority: 'critical',
+    question: 'The current testimonials are placeholders with fake initials (J.M., S.T., R.P., M.K.). Do you have real customer reviews we can use? Google reviews work great.',
+    currentData: [
+      '"Best AC service in Houston..." - J.M., Katy',
+      '"They fixed our furnace same day..." - S.T., Sugar Land',
+      '"CoolSaver program saved us..." - R.P., Cypress',
+      '"Professional and on time..." - M.K., Spring',
+    ],
+  },
+  {
+    id: 3,
+    title: 'License & Certification Numbers',
+    status: 'missing',
+    priority: 'critical',
+    question: 'We display "TX Licensed" and "EPA Certified" badges but no actual license numbers. What are your TDLR license number and EPA certification?',
+    currentData: null,
+  },
+  {
+    id: 4,
+    title: 'Email Address Conflict',
+    status: 'needs-confirmation',
+    priority: 'critical',
+    question: 'We found two different email addresses in the site. Which one should we use?',
+    currentData: [
+      'coolsavertuneups@mrairservices.com (CoolSaver form)',
+      'info@mrairservices.com (general contact)',
+    ],
+  },
+  // HIGH PRIORITY - Should verify before launch
+  {
+    id: 5,
+    title: 'Statistics & Claims',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'We show several stats throughout the site. Are these accurate?',
+    currentData: [
+      '98% on-time arrival rate',
+      '4.9 Google Rating (5,000+ reviews)',
+      '2hr average response time',
+      '15+ years experience',
+      '25+ Houston cities served',
+    ],
+  },
+  {
+    id: 6,
+    title: 'Maintenance Plan Pricing',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'Are these maintenance plan prices correct?',
+    currentData: [
+      'Basic Plan: $19/month ($228/year)',
+      'Premium Plan: $29/month ($348/year)',
+      '$149 tune-up value (used for "FREE" comparison)',
+    ],
+  },
+  {
+    id: 7,
+    title: 'Business Hours vs 24/7 Claims',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'The site shows "Mon-Fri 8AM-5PM" but also mentions "24/7 Emergency Service". How should we handle after-hours emergency calls?',
+    currentData: [
+      'Regular hours: Mon-Fri 8AM-5PM',
+      'Emergency service: 24/7 (implied)',
+    ],
+  },
+  {
+    id: 8,
+    title: 'Phone Number',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'Is this the correct main phone number for the business?',
+    currentData: ['(832) 437-1000'],
+  },
+  // MEDIUM PRIORITY - Would improve trust
+  {
+    id: 9,
+    title: 'Team & Work Photos',
+    status: 'missing',
+    priority: 'medium',
+    question: 'We\'re using a stock photo for the "technician" image. Do you have real photos of your team, trucks, or completed jobs?',
+    currentData: ['Stock photo in "Why Choose Us" section (Unsplash)'],
+  },
+  {
+    id: 10,
+    title: 'Service Area Map',
+    status: 'needs-verification',
+    priority: 'medium',
+    question: 'The map shows 6 specific cities (Houston, Missouri City, Sugar Land, Katy, Cypress, Spring) but the site claims "25+ cities". Should we add more cities to the map?',
+    currentData: null,
+  },
+  {
+    id: 11,
+    title: 'Financing Partner',
+    status: 'needs-verification',
+    priority: 'medium',
+    question: 'Is SVC Finance your financing partner? The link goes to their portal. Please confirm the URL is correct.',
+    currentData: ['https://login.svcfin.com/signup/10102236'],
+  },
+  {
+    id: 12,
+    title: 'Warranty Terms',
+    status: 'missing',
+    priority: 'medium',
+    question: 'The site mentions "Parts Warranty" but doesn\'t specify terms. What warranty do you offer on repairs and parts?',
+    currentData: null,
+  },
+  // LOW PRIORITY - Nice to have
+  {
+    id: 13,
+    title: 'Brand Logos',
+    status: 'needs-verification',
+    priority: 'low',
+    question: 'We show logos for Trane, Carrier, Lennox, etc. Do you service all these brands? Any to add or remove?',
+    currentData: [
+      'Trane, Carrier, Lennox, Rheem, Goodman',
+      'American Standard, York, Bryant, Amana, Daikin',
+    ],
+  },
+  {
+    id: 14,
+    title: 'Financing Page Stock Photos',
+    status: 'placeholder',
+    priority: 'low',
+    question: 'The financing page uses stock photos. Do you have photos of actual financed installations or happy customers?',
+    currentData: null,
+  },
+];
+
 export default function DocsPage() {
   return (
     <>
@@ -246,6 +393,13 @@ export default function DocsPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                   The Big Picture
+                </a>
+                <a href="#action-required" className="flex items-center gap-3 px-3 py-2 text-sm bg-primary/10 text-primary font-medium rounded-lg">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Action Required
+                  <span className="ml-auto px-1.5 py-0.5 bg-primary text-white text-xs rounded">14</span>
                 </a>
                 <a href="#improvements" className="flex items-center gap-3 px-3 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -409,6 +563,198 @@ export default function DocsPage() {
                     <span className="text-neutral-400 text-sm">Hours</span>
                     <p className="font-semibold">Mon-Fri 8AM-5PM</p>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Action Required */}
+            <section id="action-required">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-neutral-black dark:text-white">
+                    Action Required
+                  </h2>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">14 items need your input before launch</p>
+                </div>
+              </div>
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8">
+                We audited the entire site and found these items that need your confirmation, verification, or replacement. Items are grouped by priority.
+              </p>
+
+              {/* Priority Summary */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-primary">4</div>
+                  <div className="text-xs text-neutral-400">Critical</div>
+                </div>
+                <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-primary/80">4</div>
+                  <div className="text-xs text-neutral-400">High</div>
+                </div>
+                <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-primary/60">4</div>
+                  <div className="text-xs text-neutral-400">Medium</div>
+                </div>
+                <div className="p-4 bg-neutral-900 dark:bg-neutral-800 rounded-xl text-center">
+                  <div className="text-2xl font-bold text-neutral-500">2</div>
+                  <div className="text-xs text-neutral-400">Low</div>
+                </div>
+              </div>
+
+              {/* Critical Items */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-primary"></span>
+                  Critical - Must resolve before launch
+                </h3>
+                <div className="space-y-4">
+                  {actionItems.filter(item => item.priority === 'critical').map((item) => (
+                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl border border-primary/30">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h4 className="text-lg font-semibold text-white">{item.title}</h4>
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+                          item.status === 'needs-confirmation' ? 'bg-primary/20 text-primary' :
+                          item.status === 'needs-verification' ? 'bg-primary/10 text-primary/80' :
+                          item.status === 'placeholder' ? 'bg-neutral-700 text-neutral-300' :
+                          'bg-neutral-700 text-neutral-400'
+                        }`}>
+                          {item.status === 'needs-confirmation' ? 'Needs Confirmation' :
+                           item.status === 'needs-verification' ? 'Needs Verification' :
+                           item.status === 'placeholder' ? 'Placeholder Data' : 'Missing'}
+                        </span>
+                      </div>
+                      <p className="text-neutral-300 text-sm mb-4">{item.question}</p>
+                      {item.currentData && (
+                        <div className="p-4 bg-white/5 rounded-xl">
+                          <p className="text-xs text-neutral-500 uppercase tracking-wider mb-2">Current Data:</p>
+                          <ul className="space-y-1">
+                            {item.currentData.map((data, idx) => (
+                              <li key={idx} className="text-sm text-neutral-400 font-mono">{data}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* High Priority Items */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-primary/80"></span>
+                  High Priority - Should verify before launch
+                </h3>
+                <div className="space-y-4">
+                  {actionItems.filter(item => item.priority === 'high').map((item) => (
+                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl border border-neutral-700">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h4 className="text-lg font-semibold text-white">{item.title}</h4>
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+                          item.status === 'needs-confirmation' ? 'bg-primary/20 text-primary' :
+                          item.status === 'needs-verification' ? 'bg-primary/10 text-primary/80' :
+                          item.status === 'placeholder' ? 'bg-neutral-700 text-neutral-300' :
+                          'bg-neutral-700 text-neutral-400'
+                        }`}>
+                          {item.status === 'needs-confirmation' ? 'Needs Confirmation' :
+                           item.status === 'needs-verification' ? 'Needs Verification' :
+                           item.status === 'placeholder' ? 'Placeholder Data' : 'Missing'}
+                        </span>
+                      </div>
+                      <p className="text-neutral-300 text-sm mb-4">{item.question}</p>
+                      {item.currentData && (
+                        <div className="p-4 bg-white/5 rounded-xl">
+                          <p className="text-xs text-neutral-500 uppercase tracking-wider mb-2">Current Data:</p>
+                          <ul className="space-y-1">
+                            {item.currentData.map((data, idx) => (
+                              <li key={idx} className="text-sm text-neutral-400 font-mono">{data}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Medium Priority Items */}
+              <div className="mb-8">
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-primary/60"></span>
+                  Medium Priority - Would improve trust & credibility
+                </h3>
+                <div className="space-y-4">
+                  {actionItems.filter(item => item.priority === 'medium').map((item) => (
+                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h4 className="text-lg font-semibold text-neutral-black dark:text-white">{item.title}</h4>
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+                          item.status === 'needs-confirmation' ? 'bg-primary/20 text-primary' :
+                          item.status === 'needs-verification' ? 'bg-primary/10 text-primary/80' :
+                          item.status === 'placeholder' ? 'bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300' :
+                          'bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400'
+                        }`}>
+                          {item.status === 'needs-confirmation' ? 'Needs Confirmation' :
+                           item.status === 'needs-verification' ? 'Needs Verification' :
+                           item.status === 'placeholder' ? 'Placeholder Data' : 'Missing'}
+                        </span>
+                      </div>
+                      <p className="text-neutral-600 dark:text-neutral-300 text-sm mb-4">{item.question}</p>
+                      {item.currentData && (
+                        <div className="p-4 bg-neutral-100 dark:bg-white/5 rounded-xl">
+                          <p className="text-xs text-neutral-500 uppercase tracking-wider mb-2">Current Data:</p>
+                          <ul className="space-y-1">
+                            {item.currentData.map((data, idx) => (
+                              <li key={idx} className="text-sm text-neutral-500 dark:text-neutral-400 font-mono">{data}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Low Priority Items */}
+              <div>
+                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-neutral-400"></span>
+                  Low Priority - Nice to have
+                </h3>
+                <div className="space-y-4">
+                  {actionItems.filter(item => item.priority === 'low').map((item) => (
+                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl border border-neutral-200 dark:border-neutral-700/50">
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <h4 className="text-lg font-semibold text-neutral-black dark:text-white">{item.title}</h4>
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
+                          item.status === 'needs-confirmation' ? 'bg-primary/20 text-primary' :
+                          item.status === 'needs-verification' ? 'bg-primary/10 text-primary/80' :
+                          item.status === 'placeholder' ? 'bg-neutral-200 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300' :
+                          'bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400'
+                        }`}>
+                          {item.status === 'needs-confirmation' ? 'Needs Confirmation' :
+                           item.status === 'needs-verification' ? 'Needs Verification' :
+                           item.status === 'placeholder' ? 'Placeholder Data' : 'Missing'}
+                        </span>
+                      </div>
+                      <p className="text-neutral-600 dark:text-neutral-300 text-sm mb-4">{item.question}</p>
+                      {item.currentData && (
+                        <div className="p-4 bg-neutral-100 dark:bg-white/5 rounded-xl">
+                          <p className="text-xs text-neutral-500 uppercase tracking-wider mb-2">Current Data:</p>
+                          <ul className="space-y-1">
+                            {item.currentData.map((data, idx) => (
+                              <li key={idx} className="text-sm text-neutral-500 dark:text-neutral-400 font-mono">{data}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>
