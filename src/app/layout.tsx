@@ -30,6 +30,7 @@ export default function RootLayout({
             __html: `(function(){if(window.parent!==window){var s=function(){window.parent.postMessage({type:'ROWSHIP_URL_CHANGE',url:location.href,scrollY:window.scrollY||document.documentElement.scrollTop||0},'*')};s();var p=history.pushState;history.pushState=function(){p.apply(this,arguments);s()};var r=history.replaceState;history.replaceState=function(){r.apply(this,arguments);s()};addEventListener('popstate',s);addEventListener('hashchange',s);addEventListener('scroll',function(){window.parent.postMessage({type:'ROWSHIP_SCROLL_CHANGE',scrollY:window.scrollY||document.documentElement.scrollTop||0},'*')});addEventListener('message',function(e){if(e.data&&e.data.type==='ROWSHIP_SCROLL_TO'){window.scrollTo({top:e.data.scrollY||0,left:e.data.scrollX||0,behavior:'smooth'})}})}})();`
           }}
         />
+        <script data-rowship-token="site_v2selDTstSFSfTH3" src="https://ops.rowship.com/rowship-widget.js" async></script>
       </body>
     </html>
   );
