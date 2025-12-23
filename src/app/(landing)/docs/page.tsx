@@ -505,22 +505,22 @@ export default function DocsPage() {
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl border border-primary/20 text-center">
+                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl  text-center">
                   <div className="text-4xl font-bold text-primary mb-2">11</div>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400">Pages Built</div>
                 </div>
-                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl border border-primary/20 text-center">
+                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl  text-center">
                   <div className="text-4xl font-bold text-primary mb-2">16+</div>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400">Improvements Made</div>
                 </div>
-                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl border border-primary/20 text-center">
+                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl  text-center">
                   <div className="text-4xl font-bold text-primary mb-2">100%</div>
                   <div className="text-sm text-neutral-600 dark:text-neutral-400">Dark Mode Ready</div>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">About the Project</h3>
                   <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
                     <li className="flex items-start gap-2">
@@ -550,7 +550,7 @@ export default function DocsPage() {
                   </ul>
                 </div>
 
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">What We Set Out to Do</h3>
                   <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
                     <li className="flex items-start gap-2">
@@ -639,7 +639,7 @@ export default function DocsPage() {
                 </h3>
                 <div className="space-y-4">
                   {actionItems.filter(item => item.priority === 'critical').map((item) => (
-                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl border border-primary/30">
+                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl ">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <h4 className="text-lg font-semibold text-white">{item.title}</h4>
                         <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
@@ -677,7 +677,7 @@ export default function DocsPage() {
                 </h3>
                 <div className="space-y-4">
                   {actionItems.filter(item => item.priority === 'high').map((item) => (
-                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl border border-neutral-700">
+                    <div key={item.id} className="p-6 bg-neutral-900 dark:bg-neutral-800 rounded-2xl ">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <h4 className="text-lg font-semibold text-white">{item.title}</h4>
                         <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
@@ -715,7 +715,7 @@ export default function DocsPage() {
                 </h3>
                 <div className="space-y-4">
                   {actionItems.filter(item => item.priority === 'medium').map((item) => (
-                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <h4 className="text-lg font-semibold text-neutral-black dark:text-white">{item.title}</h4>
                         <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
@@ -753,7 +753,7 @@ export default function DocsPage() {
                 </h3>
                 <div className="space-y-4">
                   {actionItems.filter(item => item.priority === 'low').map((item) => (
-                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl border border-neutral-200 dark:border-neutral-700/50">
+                    <div key={item.id} className="p-6 bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl /50">
                       <div className="flex items-start justify-between gap-4 mb-3">
                         <h4 className="text-lg font-semibold text-neutral-black dark:text-white">{item.title}</h4>
                         <span className={`px-2 py-1 text-xs font-medium rounded-full flex-shrink-0 ${
@@ -799,7 +799,7 @@ export default function DocsPage() {
                     <h3 className="text-xl font-semibold text-neutral-black dark:text-white mb-4">{category.category}</h3>
                     <div className="space-y-3">
                       {category.items.map((item, idx) => (
-                        <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+                        <div key={idx} className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl ">
                           <div className="flex items-start gap-3">
                             <span className="w-6 h-6 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center flex-shrink-0">
                               <svg className="w-3 h-3 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -840,7 +840,7 @@ export default function DocsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {keyFeatures.map((feature) => (
-                  <div key={feature.title} className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 transition-colors">
+                  <div key={feature.title} className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl  hover:bg-primary/5 transition-colors">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 text-primary">
                       {feature.icon}
                     </div>
@@ -860,7 +860,7 @@ export default function DocsPage() {
                 Here&apos;s how the site is organized. Click any page to see it live.
               </p>
 
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-6 md:p-8">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl  p-6 md:p-8">
                 <div className="space-y-4">
                   {siteMap.map((item) => (
                     <div key={item.name} className="space-y-2">
@@ -921,7 +921,7 @@ export default function DocsPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Colors */}
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">Colors</h3>
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
@@ -946,7 +946,7 @@ export default function DocsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-neutral-900 dark:bg-white border border-neutral-200 dark:border-neutral-700"></div>
+                      <div className="w-8 h-8 rounded-lg bg-neutral-900 dark:bg-white "></div>
                       <div>
                         <p className="text-sm font-medium text-neutral-black dark:text-white">Neutrals</p>
                         <code className="text-xs text-neutral-500">#0F172A - #FFFFFF</code>
@@ -956,7 +956,7 @@ export default function DocsPage() {
                 </div>
 
                 {/* Typography */}
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">Typography</h3>
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
@@ -983,7 +983,7 @@ export default function DocsPage() {
                 </div>
 
                 {/* Components */}
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">Components</h3>
                   <div className="flex flex-wrap gap-2">
                     {['Buttons', 'Cards', 'Modals', 'Forms', 'Navigation', 'Sections', 'Accordions', 'Badges'].map((comp) => (
@@ -995,7 +995,7 @@ export default function DocsPage() {
                 </div>
 
                 {/* Features */}
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">Built-in Features</h3>
                   <div className="space-y-2">
                     {[
@@ -1024,7 +1024,7 @@ export default function DocsPage() {
 
               <div className="space-y-4">
                 {changelog.map((commit) => (
-                  <div key={commit.hash} className="flex items-start gap-4 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+                  <div key={commit.hash} className="flex items-start gap-4 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl ">
                     <code className="text-xs bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded font-mono text-neutral-600 dark:text-neutral-400 flex-shrink-0">
                       {commit.hash.slice(0, 7)}
                     </code>
@@ -1052,7 +1052,7 @@ export default function DocsPage() {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">What We Used</h3>
                   <div className="space-y-3">
                     {[
@@ -1070,7 +1070,7 @@ export default function DocsPage() {
                   </div>
                 </div>
 
-                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700">
+                <div className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl ">
                   <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-4">Deployment</h3>
                   <div className="space-y-3">
                     {[
@@ -1095,10 +1095,10 @@ export default function DocsPage() {
                 All Pages
               </h2>
 
-              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+              <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl  overflow-hidden">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-neutral-200 dark:border-neutral-700">
+                    <tr className="">
                       <th className="text-left p-4 font-semibold text-neutral-black dark:text-white">Page</th>
                       <th className="text-left p-4 font-semibold text-neutral-black dark:text-white">URL</th>
                       <th className="text-left p-4 font-semibold text-neutral-black dark:text-white">Status</th>
@@ -1106,7 +1106,7 @@ export default function DocsPage() {
                   </thead>
                   <tbody>
                     {pages.map((page, idx) => (
-                      <tr key={page.path} className={idx !== pages.length - 1 ? 'border-b border-neutral-200 dark:border-neutral-700' : ''}>
+                      <tr key={page.path} className={idx !== pages.length - 1 ? '' : ''}>
                         <td className="p-4">
                           <Link href={page.path} className="text-neutral-black dark:text-white hover:text-primary transition-colors">
                             {page.name}

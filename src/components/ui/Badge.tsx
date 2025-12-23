@@ -11,8 +11,8 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 const variantStyles: Record<BadgeVariant, string> = {
   primary: 'bg-primary-light text-secondary',
   secondary: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300',
-  neutral: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-neutral-200 dark:border-neutral-700',
-  inverse: 'bg-white/20 text-white border border-white/30',
+  neutral: 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400',
+  inverse: 'bg-white/20 text-white',
 };
 
 const sizeStyles: Record<BadgeSize, string> = {

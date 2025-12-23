@@ -106,7 +106,7 @@ export default function ACRepairPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[500px] md:min-h-[550px] pt-32 overflow-hidden">
+      <section className="relative min-h-[600px] md:min-h-[670px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -149,7 +149,7 @@ export default function ACRepairPage() {
       </section>
 
       {/* Brands We Service - Trust builder right after hero */}
-      <section className="py-8 bg-neutral-50 dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700">
+      <section className="py-8 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <span className="text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">We service:</span>
@@ -161,7 +161,7 @@ export default function ACRepairPage() {
                   alt={`${brand.name} logo`}
                   width={140}
                   height={40}
-                  className="h-8 md:h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-200"
+                  className="h-8 md:h-10 w-auto object-contain grayscale opacity-60 dark:invert dark:opacity-70 hover:grayscale-0 hover:opacity-100 dark:hover:invert-0 transition-all duration-200"
                 />
               ))}
             </div>
@@ -187,7 +187,7 @@ export default function ACRepairPage() {
             {repairTypes.map((type) => (
               <div
                 key={type.title}
-                className="flex items-start gap-4 p-5 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:shadow-md transition-all duration-200 group"
+                className="flex items-start gap-4 p-5 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 group"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/20 to-primary/20 text-secondary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
                   {type.icon}

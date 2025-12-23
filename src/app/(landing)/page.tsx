@@ -1,6 +1,5 @@
 import {
   Hero,
-  CoolSaverSpotlight,
   WhyChooseUs,
   ServicesOverview,
   Testimonials,
@@ -17,7 +16,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <CoolSaverSpotlight />
       <WhyChooseUs />
       <ServicesOverview />
       <Testimonials />

@@ -169,7 +169,7 @@ export function PlanQuiz() {
   const plan = planDetails[recommendation];
 
   return (
-    <div className="bg-white dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-700 p-6 md:p-8 shadow-xl shadow-neutral-200/50 dark:shadow-black/20">
+    <div className="bg-white dark:bg-neutral-900 rounded-3xl p-6 md:p-8">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
@@ -202,7 +202,7 @@ export function PlanQuiz() {
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
                 showResult || i < currentQuestion
-                  ? 'bg-primary text-white shadow-lg shadow-primary/30'
+                  ? 'bg-primary text-white'
                   : i === currentQuestion
                   ? 'bg-primary/15 text-primary border-2 border-primary'
                   : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500'
@@ -251,7 +251,7 @@ export function PlanQuiz() {
                 className={`w-full text-left p-4 md:p-5 rounded-2xl border-2 transition-all duration-200 group ${
                   selectedOption === option.label
                     ? 'border-primary bg-primary/10 dark:bg-primary/20 scale-[0.98]'
-                    : 'border-neutral-200 dark:border-neutral-700 hover:border-primary/50 dark:hover:border-primary/50 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:shadow-lg'
+                    : 'border-neutral-200 dark:border-neutral-700 hover:border-primary/50 dark:hover:border-primary/50 hover:bg-neutral-50 dark:hover:bg-neutral-800'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -312,7 +312,7 @@ export function PlanQuiz() {
           </div>
 
           {/* Plan card */}
-          <div className={`bg-gradient-to-br ${plan.color} rounded-2xl p-6 md:p-8 text-white mb-6 shadow-xl`}>
+          <div className={`bg-gradient-to-br ${plan.color} rounded-2xl p-6 md:p-8 text-white mb-6`}>
             <div className="text-sm text-white/70 uppercase tracking-wider mb-2 font-medium">
               We recommend
             </div>

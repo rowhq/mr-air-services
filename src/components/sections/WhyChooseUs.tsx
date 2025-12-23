@@ -100,7 +100,7 @@ export function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
           <div className={`relative animate-fade-in-up animation-delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800 shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800">
               {/* Image */}
               <img
                 src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
@@ -110,67 +110,34 @@ export function WhyChooseUs() {
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent" />
 
-              {/* Experience Badge */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/20 dark:border-neutral-700/20">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden">
-                      {/* USA Flag */}
-                      <svg className="w-10 h-7" viewBox="0 0 60 42" fill="none">
-                        {/* Red stripes */}
-                        <rect width="60" height="42" fill="#B22234"/>
-                        <rect y="3.23" width="60" height="3.23" fill="white"/>
-                        <rect y="9.69" width="60" height="3.23" fill="white"/>
-                        <rect y="16.15" width="60" height="3.23" fill="white"/>
-                        <rect y="22.62" width="60" height="3.23" fill="white"/>
-                        <rect y="29.08" width="60" height="3.23" fill="white"/>
-                        <rect y="35.54" width="60" height="3.23" fill="white"/>
-                        {/* Blue canton */}
-                        <rect width="24" height="22.62" fill="#3C3B6E"/>
-                        {/* Stars (simplified) */}
-                        <g fill="white">
-                          <circle cx="4" cy="3" r="1.2"/>
-                          <circle cx="8" cy="3" r="1.2"/>
-                          <circle cx="12" cy="3" r="1.2"/>
-                          <circle cx="16" cy="3" r="1.2"/>
-                          <circle cx="20" cy="3" r="1.2"/>
-                          <circle cx="6" cy="5.5" r="1.2"/>
-                          <circle cx="10" cy="5.5" r="1.2"/>
-                          <circle cx="14" cy="5.5" r="1.2"/>
-                          <circle cx="18" cy="5.5" r="1.2"/>
-                          <circle cx="4" cy="8" r="1.2"/>
-                          <circle cx="8" cy="8" r="1.2"/>
-                          <circle cx="12" cy="8" r="1.2"/>
-                          <circle cx="16" cy="8" r="1.2"/>
-                          <circle cx="20" cy="8" r="1.2"/>
-                          <circle cx="6" cy="10.5" r="1.2"/>
-                          <circle cx="10" cy="10.5" r="1.2"/>
-                          <circle cx="14" cy="10.5" r="1.2"/>
-                          <circle cx="18" cy="10.5" r="1.2"/>
-                          <circle cx="4" cy="13" r="1.2"/>
-                          <circle cx="8" cy="13" r="1.2"/>
-                          <circle cx="12" cy="13" r="1.2"/>
-                          <circle cx="16" cy="13" r="1.2"/>
-                          <circle cx="20" cy="13" r="1.2"/>
-                          <circle cx="6" cy="15.5" r="1.2"/>
-                          <circle cx="10" cy="15.5" r="1.2"/>
-                          <circle cx="14" cy="15.5" r="1.2"/>
-                          <circle cx="18" cy="15.5" r="1.2"/>
-                          <circle cx="4" cy="18" r="1.2"/>
-                          <circle cx="8" cy="18" r="1.2"/>
-                          <circle cx="12" cy="18" r="1.2"/>
-                          <circle cx="16" cy="18" r="1.2"/>
-                          <circle cx="20" cy="18" r="1.2"/>
-                          <circle cx="6" cy="20.5" r="1.2"/>
-                          <circle cx="10" cy="20.5" r="1.2"/>
-                          <circle cx="14" cy="20.5" r="1.2"/>
-                          <circle cx="18" cy="20.5" r="1.2"/>
-                        </g>
-                      </svg>
-                    </div>
+              {/* Experience Badge - Compact */}
+              <div className="absolute bottom-4 left-4">
+                <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-xl px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    {/* USA Flag - smaller */}
+                    <svg className="w-7 h-5 flex-shrink-0" viewBox="0 0 60 42" fill="none">
+                      <rect width="60" height="42" fill="#B22234"/>
+                      <rect y="3.23" width="60" height="3.23" fill="white"/>
+                      <rect y="9.69" width="60" height="3.23" fill="white"/>
+                      <rect y="16.15" width="60" height="3.23" fill="white"/>
+                      <rect y="22.62" width="60" height="3.23" fill="white"/>
+                      <rect y="29.08" width="60" height="3.23" fill="white"/>
+                      <rect y="35.54" width="60" height="3.23" fill="white"/>
+                      <rect width="24" height="22.62" fill="#3C3B6E"/>
+                      <g fill="white">
+                        <circle cx="4" cy="3" r="1.2"/><circle cx="8" cy="3" r="1.2"/><circle cx="12" cy="3" r="1.2"/><circle cx="16" cy="3" r="1.2"/><circle cx="20" cy="3" r="1.2"/>
+                        <circle cx="6" cy="5.5" r="1.2"/><circle cx="10" cy="5.5" r="1.2"/><circle cx="14" cy="5.5" r="1.2"/><circle cx="18" cy="5.5" r="1.2"/>
+                        <circle cx="4" cy="8" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="12" cy="8" r="1.2"/><circle cx="16" cy="8" r="1.2"/><circle cx="20" cy="8" r="1.2"/>
+                        <circle cx="6" cy="10.5" r="1.2"/><circle cx="10" cy="10.5" r="1.2"/><circle cx="14" cy="10.5" r="1.2"/><circle cx="18" cy="10.5" r="1.2"/>
+                        <circle cx="4" cy="13" r="1.2"/><circle cx="8" cy="13" r="1.2"/><circle cx="12" cy="13" r="1.2"/><circle cx="16" cy="13" r="1.2"/><circle cx="20" cy="13" r="1.2"/>
+                        <circle cx="6" cy="15.5" r="1.2"/><circle cx="10" cy="15.5" r="1.2"/><circle cx="14" cy="15.5" r="1.2"/><circle cx="18" cy="15.5" r="1.2"/>
+                        <circle cx="4" cy="18" r="1.2"/><circle cx="8" cy="18" r="1.2"/><circle cx="12" cy="18" r="1.2"/><circle cx="16" cy="18" r="1.2"/><circle cx="20" cy="18" r="1.2"/>
+                        <circle cx="6" cy="20.5" r="1.2"/><circle cx="10" cy="20.5" r="1.2"/><circle cx="14" cy="20.5" r="1.2"/><circle cx="18" cy="20.5" r="1.2"/>
+                      </g>
+                    </svg>
                     <div>
-                      <div className="text-2xl font-bold text-neutral-900 dark:text-white">Veteran Owned</div>
-                      <div className="text-neutral-500 dark:text-neutral-400 text-sm">Serving Greater Houston</div>
+                      <div className="text-sm font-bold text-neutral-900 dark:text-white">Veteran Owned</div>
+                      <div className="text-neutral-500 dark:text-neutral-400 text-xs">Serving Greater Houston</div>
                     </div>
                   </div>
                 </div>
@@ -220,7 +187,7 @@ export function WhyChooseUs() {
               <a
                 href="tel:+18324371000"
                 className="inline-flex items-center gap-2 px-8 py-3 bg-secondary text-white font-semibold rounded-full
-                  hover:bg-secondary-hover hover:shadow-lg hover:shadow-secondary/25 hover:scale-[1.02]
+                  hover:bg-secondary-hover hover:scale-[1.02]
                   active:scale-[0.98] transition-all duration-300"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -97,8 +97,8 @@ export function HowItWorks() {
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`relative rounded-lg p-6 text-left min-h-[350px] flex flex-col cursor-pointer transition-all duration-300 ease-out ${
                   isActive
-                    ? 'flex-[2] bg-secondary text-white shadow-xl shadow-secondary/20'
-                    : 'flex-1 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'
+                    ? 'flex-[2] bg-secondary text-white'
+                    : 'flex-1 bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700'
                 }`}
               >
                 {/* Number and Title */}
@@ -145,7 +145,7 @@ export function HowItWorks() {
                 className={`relative rounded-lg p-5 text-left min-h-[280px] flex flex-col transition-colors duration-200 ${
                   isActive
                     ? 'bg-secondary text-white col-span-2 md:col-span-1'
-                    : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700'
+                    : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700'
                 }`}
               >
                 <div className={`text-sm font-medium tracking-wide ${

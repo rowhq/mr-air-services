@@ -16,7 +16,7 @@ const HoustonCoverageMap = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-3xl h-[450px] flex items-center justify-center">
+      <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl h-[450px] flex items-center justify-center">
         <div className="text-neutral-400 dark:text-neutral-400 flex items-center gap-2">
           <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -61,10 +61,10 @@ export function AreasServed() {
                   key={office.name}
                   onMouseEnter={() => setActiveOffice(office.name)}
                   onClick={() => setActiveOffice(activeOffice === office.name ? null : office.name)}
-                  className={`group relative px-4 py-3 rounded-full border text-left transition-all duration-300 ${
+                  className={`group relative px-4 py-3 rounded-full text-left transition-all duration-300 ${
                     activeOffice === office.name
-                      ? 'bg-secondary border-secondary text-white shadow-lg shadow-secondary/25 pr-6'
-                      : 'bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-400 hover:border-secondary hover:shadow-md'
+                      ? 'bg-secondary text-white pr-6'
+                      : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-400 hover:bg-secondary/10 dark:hover:bg-secondary/20'
                   } animate-fade-in-up animation-delay-${(index + 1) * 100}`}
                 >
                   <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export function AreasServed() {
                 const office = officeLocations.find(o => o.name === activeOffice);
                 if (!office) return null;
                 return (
-                  <div className="bg-white dark:bg-neutral-900 rounded-2xl border border-neutral-200 dark:border-neutral-700 p-5 shadow-sm">
+                  <div className="bg-white dark:bg-neutral-900 rounded-2xl p-5">
                     <div className="flex items-start justify-between">
                       <div>
                         <h3 className="font-bold text-neutral-900 dark:text-white mb-1">{office.name}</h3>

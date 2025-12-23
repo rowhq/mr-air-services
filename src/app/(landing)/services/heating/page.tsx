@@ -29,23 +29,12 @@ const services = [
   },
   {
     title: 'New Installation',
-    description: "Need a new system? We help you pick the right size for your home. No pressure sales.",
-    stat: '0%',
-    statLabel: 'financing',
+    description: "Need a new system? We help you pick the right size for your home. Financing available.",
+    stat: 'Free',
+    statLabel: 'estimates',
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Yearly Tune-Up',
-    description: "Prevents breakdowns and catches carbon monoxide risks. One visit, peace of mind all year.",
-    stat: '$89',
-    statLabel: 'per year',
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
   },
@@ -122,7 +111,7 @@ export default function HeatingPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative min-h-[500px] md:min-h-[550px] pt-32 overflow-hidden">
+      <section className="relative min-h-[600px] md:min-h-[670px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -184,7 +173,7 @@ export default function HeatingPage() {
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {services.map((service) => (
               <div
                 key={service.title}
@@ -231,7 +220,7 @@ export default function HeatingPage() {
             {inspectionPhases.map((phase, idx) => (
               <div
                 key={phase.phase}
-                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
+                className="bg-white dark:bg-neutral-900 rounded-2xl p-6 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-300"
               >
                 <div className="flex items-center gap-3 mb-5">
                   <div className={`w-10 h-10 rounded-xl ${phase.color} text-white flex items-center justify-center`}>
@@ -257,7 +246,7 @@ export default function HeatingPage() {
           </div>
 
           {/* Safety Callout */}
-          <div className="max-w-3xl mx-auto bg-neutral-900 dark:bg-neutral-800 border border-neutral-700 rounded-2xl p-6 md:p-8">
+          <div className="max-w-3xl mx-auto bg-neutral-900 dark:bg-neutral-950 rounded-2xl p-6 md:p-8">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-xl bg-white/10 text-white flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,7 +307,7 @@ export default function HeatingPage() {
           {/* Warning Signs Grid - Simple 4 cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Yellow Pilot Light */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:border-secondary/50 transition-colors">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-secondary/10 dark:bg-secondary/20 text-secondary flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
@@ -329,7 +318,7 @@ export default function HeatingPage() {
             </div>
 
             {/* Strange Sounds */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 transition-colors">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0" />
@@ -340,7 +329,7 @@ export default function HeatingPage() {
             </div>
 
             {/* Short Cycling */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 transition-colors">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -351,7 +340,7 @@ export default function HeatingPage() {
             </div>
 
             {/* High Bills */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 transition-colors">
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

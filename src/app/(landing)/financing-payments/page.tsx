@@ -10,42 +10,6 @@ export const metadata = {
 
 const FINANCING_URL = 'https://apply.svcfin.com/home/dealerAuthentication?id=400319926&key=1742219857';
 
-const financingOptions = [
-  {
-    title: 'Quick Approval',
-    description: 'Decision before we leave your home',
-    highlight: '5-minute application',
-    image: '/images/financing/thumbs-up.jpg',
-    details: [
-      'Apply right on the spot',
-      'Your tech can help you through it',
-      'Know your options same-day',
-    ],
-  },
-  {
-    title: 'Flexible Terms',
-    description: 'Monthly payments that fit your budget',
-    highlight: 'Multiple term lengths',
-    image: '/images/financing/piggy-bank.jpg',
-    details: [
-      'Choose what works for you',
-      'No prepayment penalties',
-      'Pay off early anytime',
-    ],
-  },
-  {
-    title: 'All Credit Welcome',
-    description: 'Multiple lenders = more approvals',
-    highlight: "We don't give up easily",
-    image: '/images/financing/credit-approval.jpg',
-    details: [
-      "One \"no\" doesn't mean no options",
-      'Several backup lenders available',
-      "AC doesn't care about your FICO",
-    ],
-  },
-];
-
 const howItWorks = [
   {
     step: '1',
@@ -181,7 +145,7 @@ export default function FinancingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Photo Side */}
             <div className="relative animate-fade-in-up">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <div className="relative rounded-2xl overflow-hidden">
                 <Image
                   src="/images/financing/technician-helping.jpg"
                   alt="HVAC technician helping customer with financing"
@@ -191,7 +155,7 @@ export default function FinancingPage() {
                 />
               </div>
               {/* Floating stat card */}
-              <div className="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-xl shadow-lg">
+              <div className="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-xl">
                 <div className="text-3xl font-bold">5 min</div>
                 <div className="text-sm opacity-90">to apply</div>
               </div>
@@ -207,7 +171,7 @@ export default function FinancingPage() {
               </p>
 
               <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
+                <div className="flex items-start gap-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-xl">
                   <div className="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -219,7 +183,7 @@ export default function FinancingPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 bg-primary/5 dark:bg-primary/10 rounded-xl border-2 border-primary/30">
+                <div className="flex items-start gap-4 p-4 bg-primary/10 dark:bg-primary/15 rounded-xl">
                   <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -271,7 +235,7 @@ export default function FinancingPage() {
                 >
                   {/* Number circle */}
                   <div className="relative inline-block mb-6">
-                    <div className="w-16 h-16 rounded-full bg-white dark:bg-neutral-900 border-4 border-primary text-primary flex items-center justify-center text-2xl font-bold shadow-lg relative z-10">
+                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold relative z-10">
                       {item.step}
                     </div>
                   </div>
@@ -288,75 +252,6 @@ export default function FinancingPage() {
         </div>
       </section>
 
-      {/* Financing Options with Photos */}
-      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900">
-        <div className="container">
-          <div className="text-center mb-14 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
-              Why Finance With Us?
-            </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              We make the process easy. Multiple options to fit your situation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {financingOptions.map((option, idx) => (
-              <div
-                key={option.title}
-                className="group bg-neutral-50 dark:bg-neutral-800 rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 hover:shadow-xl transition-all duration-300 animate-fade-in-up"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                {/* Card Photo */}
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={option.image}
-                    alt={option.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-neutral-900/20 group-hover:bg-neutral-900/10 transition-colors" />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">
-                    {option.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 mb-4">{option.description}</p>
-
-                  <div className="bg-primary/10 dark:bg-primary/20 rounded-lg px-4 py-2 mb-4 inline-block">
-                    <p className="text-primary font-bold text-sm">{option.highlight}</p>
-                  </div>
-
-                  <ul className="space-y-2">
-                    {option.details.map((detail) => (
-                      <li key={detail} className="flex items-start gap-2 text-sm text-neutral-600 dark:text-neutral-400">
-                        <svg className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-            <a
-              href={FINANCING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="secondary" size="lg">
-                Start Your Application
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
       {/* FAQs */}
       <FAQSection
         subtitle="Questions about financing? We've got real answers."
@@ -364,7 +259,7 @@ export default function FinancingPage() {
       />
 
       {/* Invoice Payment - Simple Link */}
-      <section className="py-12 bg-neutral-50 dark:bg-neutral-800 border-t border-neutral-200 dark:border-neutral-700">
+      <section className="py-12 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
             <p className="text-neutral-600 dark:text-neutral-400">

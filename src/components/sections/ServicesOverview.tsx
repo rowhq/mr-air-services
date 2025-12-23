@@ -74,14 +74,14 @@ export function ServicesOverview() {
           {services.map((service) => (
             <div
               key={service.title}
-              className={`relative rounded-2xl p-6 transition-shadow duration-200
+              className={`relative rounded-2xl p-6 transition-all duration-300 cursor-pointer
                 ${service.featured
-                  ? 'bg-gradient-to-br from-secondary to-primary text-white'
-                  : 'bg-neutral-50 dark:bg-neutral-800 hover:shadow-md'
+                  ? 'bg-gradient-to-br from-secondary to-primary text-white hover:scale-[1.02]'
+                  : 'bg-neutral-50 dark:bg-neutral-800 hover:scale-[1.02] hover:bg-neutral-100 dark:hover:bg-neutral-700'
                 }`}
             >
               {service.isEmergency && (
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 bg-primary/10 border border-primary/20 rounded-full">
+                <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-1 bg-primary/10 rounded-full">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
                   <span className="text-xs font-medium text-primary">Emergency</span>
                 </div>

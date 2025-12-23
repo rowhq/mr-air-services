@@ -23,7 +23,7 @@ export function NumberedChecklistGrid({ items, initialCount = 6 }: NumberedCheck
         {visibleItems.map((item, index) => (
           <div
             key={item.title}
-            className="flex items-start gap-4 bg-white dark:bg-neutral-800 p-5 rounded-xl hover:shadow-lg hover:shadow-neutral-200/50 dark:hover:shadow-black/20 transition-all duration-300"
+            className="flex items-start gap-4 bg-neutral-50 dark:bg-neutral-800 p-5 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-300"
           >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
               {String(index + 1).padStart(2, '0')}

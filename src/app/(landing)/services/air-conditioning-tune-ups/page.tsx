@@ -62,15 +62,7 @@ export default function ACTuneUpsPage() {
       <StickyTuneUpCTA />
 
       {/* Hero - FREE Prominently Featured */}
-      <section className="relative min-h-[500px] md:min-h-[550px] pt-32 overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/services/seasonal-maintenance.webp)' }}
-        />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/75 to-black/60" />
-
+      <section className="relative min-h-[600px] md:min-h-[670px] pt-32 overflow-hidden bg-neutral-900">
         <div className="container relative py-20">
           <Breadcrumbs
             items={[
@@ -103,62 +95,71 @@ export default function ACTuneUpsPage() {
             </div>
 
             {/* Right - Pricing Card */}
-            <div className="relative">
-              {/* Decorative glow circles - más visibles */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/40 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary/50 rounded-full blur-2xl pointer-events-none" />
-
-              {/* Main Card */}
-              <div className="relative bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-2xl shadow-black/25 overflow-hidden">
-                {/* Guarantee Badge */}
-                <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-primary/10 dark:bg-primary/20 px-3 py-1.5 rounded-full">
-                  <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            <div className="relative bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl p-8 lg:p-10 ring-1 ring-neutral-200/60 dark:ring-neutral-700/60">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-8 pt-2">
+                <div>
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">CoolSaver Program</p>
+                  <h3 className="text-lg font-bold text-neutral-900 dark:text-white">AC Tune-Up</h3>
+                </div>
+                <div className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-full">
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
-                  <span className="text-xs font-bold text-neutral-700 dark:text-neutral-200">100% Money-Back</span>
+                  Guaranteed
                 </div>
+              </div>
 
-                {/* Content */}
-                <div className="relative">
-                  {/* Price */}
-                  <div className="text-center mb-6 mt-2">
-                    <div className="text-6xl font-black text-neutral-900 dark:text-white tracking-tight">
-                      FREE<span className="text-xl align-top text-neutral-400 ml-0.5">*</span>
-                    </div>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
-                      *or just <span className="text-primary font-bold">$49</span> if you don&apos;t qualify
-                    </p>
-                  </div>
-
-                  {/* Features */}
-                  <ul className="space-y-2.5 mb-6">
-                    {[
-                      { text: 'Complete inspection', value: 'Included' },
-                      { text: 'Filter replacement', value: 'Included' },
-                      { text: 'Performance report', value: 'Included' },
-                      { text: 'Same-day service', value: 'Available' },
-                    ].map((item) => (
-                      <li key={item.text} className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-6 h-6 rounded-full bg-primary/15 dark:bg-primary/25 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                          </div>
-                          <span className="text-neutral-700 dark:text-neutral-300">{item.text}</span>
-                        </div>
-                        <span className="text-xs font-semibold text-primary">{item.value}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Footer */}
-                  <div className="pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                    <p className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
-                      No pressure • Cancel anytime • Honest recommendations
-                    </p>
-                  </div>
+              {/* Price */}
+              <div className="mb-8">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-6xl font-black text-neutral-900 dark:text-white tracking-tight">$0</span>
+                  <span className="text-lg text-neutral-400 line-through">$149</span>
                 </div>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+                  For qualifying homeowners • <span className="text-neutral-700 dark:text-neutral-300">or just $49</span>
+                </p>
+              </div>
+
+              {/* Features */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <span className="text-neutral-700 dark:text-neutral-300">Full system inspection</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="text-neutral-700 dark:text-neutral-300">Filter replacement included</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-neutral-700 dark:text-neutral-300">Detailed performance report</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  <span className="text-neutral-700 dark:text-neutral-300">Same-day service available</span>
+                </div>
+              </div>
+
+              {/* Divider with trust */}
+              <div className="flex items-center gap-3 pt-6 border-t border-neutral-200 dark:border-neutral-700">
+                <div className="flex -space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-600 ring-2 ring-white dark:ring-neutral-800" />
+                  <div className="w-8 h-8 rounded-full bg-neutral-300 dark:bg-neutral-500 ring-2 ring-white dark:ring-neutral-800" />
+                  <div className="w-8 h-8 rounded-full bg-neutral-400 dark:bg-neutral-400 ring-2 ring-white dark:ring-neutral-800" />
+                </div>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  <span className="font-semibold text-neutral-700 dark:text-neutral-300">2,500+</span> Houston homeowners served
+                </p>
               </div>
             </div>
           </div>

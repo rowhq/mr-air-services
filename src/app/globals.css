@@ -416,13 +416,11 @@ body {
 
 /* Hover lift effect */
 .hover-lift {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.15);
 }
 
 /* Premium button press effect */
@@ -467,7 +465,7 @@ body {
 }
 
 .plan-card:hover {
-  box-shadow: 0 25px 50px -12px rgba(0, 153, 204, 0.2);
+  /* Clean hover without shadows */
 }
 
 /* Benefit Card - Staggered fade in */

@@ -37,7 +37,7 @@ export function Accordion({
 
   return (
     <AccordionContext.Provider value={{ openItems, toggleItem, allowMultiple }}>
-      <div className={`divide-y divide-neutral-200 border-y border-neutral-200 ${className}`}>
+      <div className={`space-y-2 ${className}`}>
         {children}
       </div>
     </AccordionContext.Provider>

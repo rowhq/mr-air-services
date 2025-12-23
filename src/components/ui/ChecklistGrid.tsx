@@ -100,7 +100,7 @@ export function ChecklistGrid({ items, initialCount = 6 }: ChecklistGridProps) {
         {visibleItems.map((item, index) => (
           <div
             key={index}
-            className="group flex items-center gap-4 bg-white dark:bg-neutral-800 p-5 rounded-2xl border border-neutral-100 dark:border-neutral-700 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+            className="group flex items-center gap-4 bg-neutral-50 dark:bg-neutral-800 p-5 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300"
           >
             <div className="w-11 h-11 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
               {itemIcons[item] || defaultIcon}
@@ -115,7 +115,7 @@ export function ChecklistGrid({ items, initialCount = 6 }: ChecklistGridProps) {
         <div className="flex justify-center mt-8">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="inline-flex items-center gap-2 px-6 py-3.5 bg-neutral-100 dark:bg-neutral-700 hover:bg-primary/10 dark:hover:bg-primary/20 text-neutral-700 dark:text-neutral-300 hover:text-primary font-semibold rounded-full transition-all duration-300 border-2 border-transparent hover:border-primary/30"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-neutral-100 dark:bg-neutral-700 hover:bg-primary/10 dark:hover:bg-primary/20 text-neutral-700 dark:text-neutral-300 hover:text-primary font-semibold rounded-full transition-all duration-300"
           >
             {expanded ? (
               <>

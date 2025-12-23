@@ -54,9 +54,9 @@ export function Testimonials() {
           </div>
           <Link
             href="/contact"
-            className="mt-6 lg:mt-0 inline-flex items-center gap-2 px-6 py-3 border border-neutral-200 dark:border-neutral-700 rounded-full
-              text-neutral-700 dark:text-neutral-300 font-medium hover:bg-white dark:hover:bg-neutral-900 hover:border-secondary/30 hover:text-secondary
-              hover:shadow-lg transition-all duration-300 text-sm"
+            className="mt-6 lg:mt-0 inline-flex items-center gap-2 px-6 py-3 bg-neutral-100 dark:bg-neutral-700 rounded-full
+              text-neutral-700 dark:text-neutral-300 font-medium hover:bg-secondary/10 dark:hover:bg-secondary/20 hover:text-secondary
+              transition-all duration-300 text-sm"
           >
             Get a Free Quote
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,8 +70,8 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`group bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-700 rounded-3xl p-8
-                hover:border-secondary/20 hover:shadow-xl hover:-translate-y-1
+              className={`group bg-white dark:bg-neutral-900 rounded-3xl p-8
+                hover:bg-neutral-50 dark:hover:bg-neutral-800
                 transition-all duration-500 animate-fade-in-up animation-delay-${(index + 1) * 100}`}
             >
               {/* Verified Google Badge */}
