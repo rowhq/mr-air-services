@@ -109,19 +109,6 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* Trust Indicator */}
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 text-center animate-fade-in-up animation-delay-500">
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-neutral-700 dark:text-neutral-300" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <span className="text-neutral-600 dark:text-neutral-400 text-sm font-medium">4.9/5 Rating</span>
-          </div>
-          <div className="hidden sm:block w-px h-4 bg-neutral-300 dark:bg-neutral-700" />
-          <span className="text-neutral-500 dark:text-neutral-400 text-sm">Veteran Owned & Operated</span>
-          <div className="hidden sm:block w-px h-4 bg-neutral-300 dark:bg-neutral-700" />
-          <span className="text-neutral-500 dark:text-neutral-400 text-sm">Licensed & Insured</span>
-        </div>
       </div>
     </section>
   );

@@ -15,18 +15,40 @@ export function FloatingCTA({
   phone = '(832) 437-1000',
 }: FloatingCTAProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [finalCTAVisible, setFinalCTAVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show after scrolling 400px
       setIsVisible(window.scrollY > 400);
     };
 
+    // Initial scroll check
+    handleScroll();
+
+    // Detect when FinalCTA section OR footer is visible
+    const finalCTA = document.getElementById('final-cta');
+    const footer = document.querySelector('footer');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const isAnyVisible = entries.some(entry => entry.isIntersecting);
+        setFinalCTAVisible(isAnyVisible);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (finalCTA) observer.observe(finalCTA);
+    if (footer) observer.observe(footer);
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
-  if (!isVisible) return null;
+  if (!isVisible || finalCTAVisible) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-40 hidden lg:flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300">

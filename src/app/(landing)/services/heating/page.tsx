@@ -135,13 +135,13 @@ export default function HeatingPage() {
               Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact">
-                <Button variant="secondary" size="lg">
+              <Link href="/contact" className="w-full sm:w-auto">
+                <Button variant="secondary" size="lg" fullWidthMobile>
                   Schedule Heating Service
                 </Button>
               </Link>
-              <a href="tel:+18324371000">
-                <Button variant="outline-inverse" size="lg">
+              <a href="tel:+18324371000" className="w-full sm:w-auto">
+                <Button variant="outline-inverse" size="lg" fullWidthMobile>
                   Call (832) 437-1000
                 </Button>
               </a>

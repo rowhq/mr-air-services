@@ -80,11 +80,11 @@ export default function ACTuneUpsPage() {
                 Keep your system running at peak efficiency. FREE CoolSaver tune-ups for qualifying homeowners, or schedule your annual inspection today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <CoolSaverCTA variant="secondary" size="lg" className="shadow-2xl shadow-white/10">
+                <CoolSaverCTA variant="secondary" size="lg" fullWidthMobile className="shadow-2xl shadow-white/10">
                   Check If You Qualify — FREE
                 </CoolSaverCTA>
-                <a href="tel:+18324371000">
-                  <Button variant="outline-inverse" size="lg" className="w-full sm:w-auto">
+                <a href="tel:+18324371000" className="w-full sm:w-auto">
+                  <Button variant="outline-inverse" size="lg" fullWidthMobile>
                     Call (832) 437-1000
                   </Button>
                 </a>

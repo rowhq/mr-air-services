@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals, SectionNav, DesktopStickyCTA } from '@/components/ui';
-import { FinalCTA, FAQSection } from '@/components/sections';
+import { FinalCTA, FAQSection, RepairProcess } from '@/components/sections';
 
 const sectionNavItems = [
   { id: 'problems', label: 'Common Issues' },
@@ -131,13 +131,13 @@ export default function ACRepairPage() {
                 Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contact">
-                  <Button variant="secondary" size="lg">
+                <Link href="/contact" className="w-full sm:w-auto">
+                  <Button variant="secondary" size="lg" fullWidthMobile>
                     Schedule AC Repair
                   </Button>
                 </Link>
-                <a href="tel:+18324371000">
-                  <Button variant="outline-inverse" size="lg">
+                <a href="tel:+18324371000" className="w-full sm:w-auto">
+                  <Button variant="outline-inverse" size="lg" fullWidthMobile>
                     Call (832) 437-1000
                   </Button>
                 </a>
@@ -203,30 +203,7 @@ export default function ACRepairPage() {
       </section>
 
       {/* Process */}
-      <section id="process" className="py-20 lg:py-28 bg-white dark:bg-neutral-900 scroll-mt-20">
-        <div className="container">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-14 text-center leading-tight">
-            Our Repair Process
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              { step: '1', title: 'You Call', description: "Tell us what's wrong. We'll get someone out fast—usually same day." },
-              { step: '2', title: 'We Diagnose', description: "Our tech finds the real problem. Not a symptom, the actual cause." },
-              { step: '3', title: 'You Approve', description: "We tell you exactly what it'll cost before touching anything. No surprises." },
-              { step: '4', title: 'We Fix It', description: "Quality parts, proper installation, and it works when we leave. Guaranteed." },
-            ].map((item) => (
-              <div key={item.step} className="text-center">
-                <div className="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary text-white flex items-center justify-center text-xl font-bold mb-6">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">{item.title}</h3>
-                <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <RepairProcess />
 
       {/* FAQs */}
       <div id="faq" className="scroll-mt-20">

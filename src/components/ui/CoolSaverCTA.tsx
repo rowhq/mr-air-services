@@ -7,6 +7,7 @@ interface CoolSaverCTAProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'outline-inverse';
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  fullWidthMobile?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
@@ -15,6 +16,7 @@ export function CoolSaverCTA({
   variant = 'secondary',
   size = 'lg',
   fullWidth = false,
+  fullWidthMobile = false,
   className = '',
   children = 'Check If You Qualify',
 }: CoolSaverCTAProps) {
@@ -25,6 +27,7 @@ export function CoolSaverCTA({
       variant={variant}
       size={size}
       fullWidth={fullWidth}
+      fullWidthMobile={fullWidthMobile}
       onClick={openCoolSaverModal}
       className={className}
     >

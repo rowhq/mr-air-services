@@ -8,3 +8,4 @@ export { FinalCTA } from './FinalCTA';
 export { FAQSection } from './FAQSection';
 export { HowItWorks } from './HowItWorks';
 export { PlanQuiz } from './PlanQuiz';
+export { RepairProcess } from './RepairProcess';

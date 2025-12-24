@@ -54,9 +54,9 @@ export function SectionNav({ items }: SectionNavProps) {
   };
 
   return (
-    <nav className="sticky top-16 z-30 bg-white border-b border-neutral-200 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+    <nav className="sticky top-16 z-30 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
       <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-1 px-4 py-2 min-w-max">
+        <div className="flex justify-center gap-1 px-4 py-2">
           {items.map((item) => (
             <button
               key={item.id}
@@ -64,7 +64,7 @@ export function SectionNav({ items }: SectionNavProps) {
               className={`px-4 py-2.5 text-sm font-medium rounded-full whitespace-nowrap transition-colors ${
                 activeSection === item.id
                   ? 'bg-secondary text-white'
-                  : 'text-neutral-600 hover:bg-neutral-100'
+                  : 'text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
               }`}
             >
               {item.label}

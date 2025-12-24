@@ -2,44 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-// Feature icons - using secondary color
+// Feature icons - simple stroke style matching ServicesOverview
 const icons = {
   certified: (
-    <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
-      <circle cx="20" cy="20" r="18" className="stroke-secondary" strokeWidth="2" />
-      <path
-        d="M14 20l4 4 8-8"
-        className="stroke-secondary"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="20" cy="20" r="12" className="stroke-secondary/30" strokeWidth="1" strokeDasharray="4 4" />
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
     </svg>
   ),
   pricing: (
-    <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
-      <rect x="6" y="10" width="28" height="20" rx="3" className="stroke-secondary" strokeWidth="2" />
-      <path d="M6 17h28" className="stroke-secondary" strokeWidth="2" />
-      <circle cx="12" cy="24" r="2" className="fill-secondary" />
-      <path d="M20 22h8" className="stroke-secondary/50" strokeWidth="2" strokeLinecap="round" />
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   ),
   guarantee: (
-    <svg className="w-10 h-10" viewBox="0 0 40 40" fill="none">
-      <path
-        d="M20 4L6 10v10c0 9 6 14 14 16 8-2 14-7 14-16V10L20 4z"
-        className="stroke-secondary"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M14 20l4 4 8-8"
-        className="stroke-secondary"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
     </svg>
   ),
 };
@@ -158,7 +135,7 @@ export function WhyChooseUs() {
                 >
                   <div className="flex items-start gap-4">
                     {/* Icon */}
-                    <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-white dark:bg-neutral-900
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white dark:bg-neutral-900 text-secondary
                       flex items-center justify-center group-hover:bg-secondary/10 transition-colors duration-300">
                       {feature.icon}
                     </div>

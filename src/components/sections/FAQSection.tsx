@@ -14,7 +14,6 @@ interface FAQCategory {
 }
 
 interface FAQSectionProps {
-  badge?: string;
   title?: string;
   description?: string;
   categories?: FAQCategory[];
@@ -47,7 +46,6 @@ const defaultIcons = [
 ];
 
 export function FAQSection({
-  badge = 'FAQ',
   title = "Got Questions? We've Got Answers",
   description = "Browse through our FAQs to find answers about our services, pricing, process, and more. Need further assistance? We're always here to help.",
   categories,
@@ -75,9 +73,6 @@ export function FAQSection({
 
           {/* Left - Header */}
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white/70 text-sm font-medium rounded-full mb-6">
-              {badge}
-            </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
               {title}
             </h2>

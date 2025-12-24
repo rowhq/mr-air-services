@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  fullWidthMobile?: boolean;
   loading?: boolean;
 }
 
@@ -35,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       size = 'lg',
       fullWidth = false,
+      fullWidthMobile = false,
       loading = false,
       disabled,
       className = '',
@@ -56,7 +58,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
           ${variantStyles[variant]}
           ${sizeStyles[size]}
-          ${fullWidth ? 'w-full' : ''}
+          ${fullWidth ? 'w-full' : fullWidthMobile ? 'w-full sm:w-auto' : ''}
           ${className}
         `}
         {...props}

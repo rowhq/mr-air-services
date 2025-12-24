@@ -54,71 +54,42 @@ export function AreasServed() {
               With {officeLocations.length} convenient locations across the Houston metro, we&apos;re always nearby when you need us. Same-day service available.
             </p>
 
-            {/* Office Location Cards - Compact Design */}
+            {/* Office Location Pills - Click opens directions */}
             <div className="flex flex-wrap gap-2 mb-10">
               {officeLocations.map((office, index) => (
-                <button
+                <a
                   key={office.name}
+                  href={getDirectionsUrl(office)}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onMouseEnter={() => setActiveOffice(office.name)}
-                  onClick={() => setActiveOffice(activeOffice === office.name ? null : office.name)}
-                  className={`group relative px-4 py-3 rounded-full text-left transition-all duration-300 ${
-                    activeOffice === office.name
-                      ? 'bg-secondary text-white pr-6'
-                      : 'bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-400 hover:bg-secondary/10 dark:hover:bg-secondary/20'
-                  } animate-fade-in-up animation-delay-${(index + 1) * 100}`}
+                  onMouseLeave={() => setActiveOffice(null)}
+                  className={`group relative px-4 py-3 rounded-full text-left transition-all duration-200
+                    bg-white dark:bg-neutral-900 hover:bg-secondary hover:scale-105
+                    animate-fade-in-up animation-delay-${(index + 1) * 100}`}
                 >
                   <div className="flex items-center gap-2">
-                    {/* Pin Icon */}
                     <svg
-                      className={`w-4 h-4 flex-shrink-0 transition-colors ${
-                        activeOffice === office.name ? 'text-white' : 'text-secondary'
-                      }`}
+                      className="w-4 h-4 flex-shrink-0 text-secondary group-hover:text-white transition-colors"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
-                    <span className={`font-semibold text-sm ${
-                      activeOffice === office.name ? 'text-white' : 'text-neutral-900 dark:text-white'
-                    }`}>
+                    <span className="font-semibold text-sm text-neutral-900 dark:text-white group-hover:text-white transition-colors">
                       {office.name}
                     </span>
+                    <svg
+                      className="w-3 h-3 text-neutral-400 group-hover:text-white/70 transition-colors"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
                   </div>
-                </button>
+                </a>
               ))}
-            </div>
-
-            {/* Expanded Location Detail */}
-            <div className={`overflow-hidden transition-all duration-300 mb-10 ${
-              activeOffice ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
-            }`}>
-              {activeOffice && (() => {
-                const office = officeLocations.find(o => o.name === activeOffice);
-                if (!office) return null;
-                return (
-                  <div className="bg-white dark:bg-neutral-900 rounded-2xl p-5">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-bold text-neutral-900 dark:text-white mb-1">{office.name}</h3>
-                        <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                          {office.address}, {office.city}, {office.state} {office.zip}
-                        </p>
-                      </div>
-                      <a
-                        href={getDirectionsUrl(office)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-4 py-2 bg-secondary text-white text-base font-medium rounded-full hover:bg-secondary-hover transition-colors"
-                      >
-                        Directions
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                );
-              })()}
             </div>
 
             {/* CTA */}
