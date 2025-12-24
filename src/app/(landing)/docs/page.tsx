@@ -87,7 +87,7 @@ const improvements = [
     items: [
       { before: 'Basic design with no clear identity', after: 'Modern look with a unified cyan color scheme', impact: 'high' },
       { before: 'No dark mode', after: 'Full dark mode support throughout', impact: 'high' },
-      { before: 'Inconsistent fonts', after: 'Clean typography with Inter font', impact: 'medium' },
+      { before: 'Inconsistent fonts', after: 'Clean typography with Plus Jakarta Sans', impact: 'medium' },
       { before: 'Generic or missing images', after: 'Professional photos of actual HVAC work', impact: 'high' },
     ],
   },
@@ -934,7 +934,7 @@ export default function DocsPage() {
                   <div className="space-y-3 text-sm">
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-600 dark:text-neutral-400">Font</span>
-                      <code className="text-xs bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded">Inter, system-ui</code>
+                      <code className="text-xs bg-neutral-200 dark:bg-neutral-700 px-2 py-1 rounded">Plus Jakarta Sans</code>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-600 dark:text-neutral-400">H1</span>

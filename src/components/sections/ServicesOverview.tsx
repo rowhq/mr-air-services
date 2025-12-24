@@ -31,7 +31,7 @@ const services = [
   },
   {
     title: 'Heating',
-    description: "Furnace and heat pump repair, maintenance, and installation. Be ready for Houston winters.",
+    description: "Furnace and heat pump repair, maintenance, and new installations. Stay warm all winter with our expert technicians.",
     href: '/services/heating',
     ctaLabel: 'Schedule Service',
     icon: (
@@ -94,27 +94,27 @@ export function ServicesOverview() {
                 ${service.featured ? 'text-white' : 'text-neutral-black dark:text-white'}`}>
                 {service.title}
               </h3>
-              <p className={`text-sm leading-relaxed mb-4 ${service.featured ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-400'}`}>
+              <p className={`text-sm leading-relaxed mb-6 min-h-[60px] ${service.featured ? 'text-white/90' : 'text-neutral-600 dark:text-neutral-400'}`}>
                 {service.description}
               </p>
 
               {service.useModal ? (
                 <CoolSaverCTA
                   variant={service.featured ? 'outline-inverse' : 'secondary'}
-                  size="sm"
+                  size="lg"
                   fullWidth
                 >
                   {service.ctaLabel}
                 </CoolSaverCTA>
               ) : service.cta ? (
                 <a href={service.cta}>
-                  <Button variant={service.featured ? 'outline-inverse' : 'secondary'} size="sm" fullWidth>
+                  <Button variant={service.featured ? 'outline-inverse' : 'secondary'} size="lg" fullWidth>
                     {service.ctaLabel}
                   </Button>
                 </a>
               ) : (
                 <Link href={service.href}>
-                  <Button variant={service.featured ? 'outline-inverse' : 'secondary'} size="sm" fullWidth>
+                  <Button variant={service.featured ? 'outline-inverse' : 'secondary'} size="lg" fullWidth>
                     {service.ctaLabel}
                   </Button>
                 </Link>

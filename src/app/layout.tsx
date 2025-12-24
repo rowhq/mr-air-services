@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Mr. Air Services",
@@ -13,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className={plusJakarta.variable}>
       <head>
         {/* Theme initialization script - runs before render to prevent flash */}
         <script
@@ -22,7 +29,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-white dark:bg-neutral-900 text-neutral-black dark:text-neutral-50 transition-colors duration-300">
+      <body className="font-sans bg-white dark:bg-neutral-900 text-neutral-black dark:text-neutral-50 transition-colors duration-300">
         <Providers>{children}</Providers>
         {/* Rowship Feedback Tracker - URL + scroll position detection + scroll-to in iframe */}
         <script

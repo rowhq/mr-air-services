@@ -35,7 +35,7 @@ export const colors = {
 
 export const typography = {
   fontFamily: {
-    sans: '"Inter", "SF Pro Display", "Roboto", system-ui, -apple-system, sans-serif',
+    sans: '"Plus Jakarta Sans", "SF Pro Display", system-ui, -apple-system, sans-serif',
   },
   fontSize: {
     // Desktop

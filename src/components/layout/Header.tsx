@@ -290,9 +290,7 @@ export function Header() {
         {/* Menu Content */}
         <div>
           <div className="container pt-8 pb-6">
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-12 lg:col-span-9">
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {servicesData.map((service) => {
                     const isActive = pathname === service.href;
                     return (
@@ -306,7 +304,7 @@ export function Header() {
                             : 'bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/20'
                         }`}
                       >
-                        <div className="text-white mb-3 transition-transform duration-200 group-hover:scale-110">
+                        <div className="text-white mb-3">
                           {service.icon}
                         </div>
                         <h4 className="text-white font-semibold mb-1">{service.name}</h4>
@@ -322,33 +320,6 @@ export function Header() {
                       </Link>
                     );
                   })}
-                </div>
-              </div>
-
-              <div className="col-span-12 lg:col-span-3">
-                <div className="bg-gradient-to-br from-secondary/25 to-secondary/10 rounded-xl p-4 border border-secondary/30 h-full flex flex-col">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-white font-bold text-sm">Need help now?</span>
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-white/10 rounded-full text-white text-xs">
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                      24/7
-                    </span>
-                  </div>
-
-                  <a
-                    href="tel:+18324371000"
-                    className="flex items-center gap-3 p-2.5 bg-white/10 rounded-lg hover:bg-white/15 transition-all mb-2"
-                  >
-                    <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </span>
-                    <span className="text-white font-bold">(832) 437-1000</span>
-                  </a>
-
-                </div>
-              </div>
             </div>
           </div>
         </div>

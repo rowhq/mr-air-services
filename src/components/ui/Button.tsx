@@ -24,16 +24,16 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'px-4 py-2 text-base min-h-[44px] max-h-[56px]',
-  md: 'px-6 py-2.5 text-base min-h-[44px] max-h-[56px]',
-  lg: 'px-8 py-3 text-base min-h-[48px] max-h-[56px]',
+  sm: 'px-4 h-[36px] text-xs',      // 36px height, 12px text
+  md: 'px-5 h-[48px] text-sm',      // 48px height, 14px text
+  lg: 'px-6 h-[56px] text-base',    // 56px height, 16px text (standard)
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       variant = 'primary',
-      size = 'md',
+      size = 'lg',
       fullWidth = false,
       loading = false,
       disabled,

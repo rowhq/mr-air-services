@@ -39,7 +39,7 @@
   --color-neutral-white: #FFFFFF;
 
   /* Typography */
-  --font-sans: "Inter", "SF Pro Display", "Roboto", system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-sans, "Plus Jakarta Sans"), "SF Pro Display", system-ui, -apple-system, sans-serif;
 
   /* Font Sizes - Desktop */
   --font-size-h1: 48px;
