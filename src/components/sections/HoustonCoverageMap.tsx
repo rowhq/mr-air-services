@@ -4,7 +4,13 @@ import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { officeLocations, houstonMetroCenter, getFullAddress } from '@/data/officeLocations';
+import { officeLocations, houstonMetroCenter, getFullAddress, OfficeLocation } from '@/data/officeLocations';
+
+// Generate Google Maps directions URL
+const getDirectionsUrl = (office: OfficeLocation) => {
+  const address = encodeURIComponent(getFullAddress(office));
+  return `https://www.google.com/maps/dir/?api=1&destination=${address}`;
+};
 
 interface HoustonCoverageMapProps {
   activeOffice: string | null;
@@ -63,9 +69,10 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
       <MapContainer
         center={houstonMetroCenter}
         zoom={9}
-        className="h-[300px] md:h-[450px] w-full"
+        className="h-[380px] md:h-[450px] w-full"
         zoomControl={false}
         attributionControl={false}
+        scrollWheelZoom={false}
       >
         {/* Light map tiles from CartoDB */}
         <TileLayer
@@ -106,18 +113,40 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
                 <strong style={{ fontSize: '15px', color: '#00AEEF', display: 'block', marginBottom: '4px' }}>
                   {office.name}
                 </strong>
-                <p style={{ margin: 0, color: '#64748B', fontSize: '12px', lineHeight: '1.4' }}>
+                <p style={{ margin: '0 0 8px 0', color: '#64748B', fontSize: '12px', lineHeight: '1.4' }}>
                   {office.address}<br />
                   {office.city}, {office.state} {office.zip}
                 </p>
+                <a
+                  href={getDirectionsUrl(office)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    padding: '6px 12px',
+                    background: '#00AEEF',
+                    color: 'white',
+                    borderRadius: '9999px',
+                    fontSize: '12px',
+                    fontWeight: '600',
+                    textDecoration: 'none',
+                  }}
+                >
+                  Get Directions
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
               </div>
             </Popup>
           </Marker>
         ))}
       </MapContainer>
 
-      {/* Legend overlay */}
-      <div className="absolute bottom-4 left-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-xl p-4 z-[1000]">
+      {/* Legend overlay - hidden on mobile (pills in AreasServed serve this purpose) */}
+      <div className="hidden md:block absolute bottom-4 left-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-xl p-4 z-[1000]">
         <p className="text-neutral-500 dark:text-neutral-400 text-[10px] mb-3 font-semibold uppercase tracking-wider">
           Office Locations
         </p>
