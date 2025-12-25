@@ -1,10 +1,47 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export function MobileActionBar() {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const bar = barRef.current;
+    if (!bar) return;
+
+    // Function to position bar at visual viewport bottom
+    const updatePosition = () => {
+      if (window.visualViewport) {
+        const vv = window.visualViewport;
+        // Calculate the offset from the layout viewport bottom to visual viewport bottom
+        const offsetBottom = window.innerHeight - (vv.height + vv.offsetTop);
+        bar.style.bottom = `${Math.max(0, offsetBottom)}px`;
+      }
+    };
+
+    // Initial position
+    updatePosition();
+
+    // Listen to visual viewport changes
+    window.visualViewport?.addEventListener('resize', updatePosition);
+    window.visualViewport?.addEventListener('scroll', updatePosition);
+
+    // Also listen to window resize for orientation changes
+    window.addEventListener('resize', updatePosition);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', updatePosition);
+      window.visualViewport?.removeEventListener('scroll', updatePosition);
+      window.removeEventListener('resize', updatePosition);
+    };
+  }, []);
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50">
+    <div
+      ref={barRef}
+      className="fixed bottom-0 left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50"
+    >
       <div className="flex pb-[env(safe-area-inset-bottom)]">
         <a
           href="tel:+18324371000"
