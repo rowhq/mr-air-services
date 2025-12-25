@@ -511,3 +511,12 @@ body {
 .feature-stagger > li:nth-child(6) { animation-delay: 300ms; }
 .feature-stagger > li:nth-child(7) { animation-delay: 360ms; }
 .feature-stagger > li:nth-child(8) { animation-delay: 420ms; }
+
+
+/* Leaflet map background fix - prevents black corners on rounded containers */
+.leaflet-container {
+  background: #f5f5f5;
+}
+.dark .leaflet-container {
+  background: #374151;
+}
