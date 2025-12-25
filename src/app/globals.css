@@ -521,3 +521,8 @@ body {
 .dark .leaflet-container {
   background: #1f2937; /* neutral-800 */
 }
+
+/* Safe area padding for mobile devices with notches/home indicators */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}

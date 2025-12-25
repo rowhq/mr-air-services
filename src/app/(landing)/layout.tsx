@@ -9,7 +9,7 @@ export default function LandingLayout({
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main id="main-content" className="flex-1 pb-[calc(5rem+env(safe-area-inset-bottom))] lg:pb-0">
+      <main id="main-content" className="flex-1">
         {children}
       </main>
       <Footer />
