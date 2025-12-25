@@ -122,8 +122,8 @@ export function AreasServed() {
             </div>
           </div>
 
-          {/* Right - Coverage Map */}
-          <div ref={mapRef} className="order-first lg:order-last lg:sticky lg:top-24 animate-fade-in-up animation-delay-200">
+          {/* Right - Coverage Map (after content on mobile, right side on desktop) */}
+          <div ref={mapRef} className="lg:sticky lg:top-24 animate-fade-in-up animation-delay-200">
             {mounted && (
               <HoustonCoverageMap
                 activeOffice={activeOffice}
