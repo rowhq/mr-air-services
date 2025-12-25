@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function MobileActionBar() {
   return (
-    <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50 safe-area-inset-bottom">
+    <div className="fixed bottom-0 left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="flex">
         <a
           href="tel:+18324371000"
