@@ -8,11 +8,10 @@ export function MobileActionBar() {
       {/* Spacer to prevent content from being hidden behind the bar */}
       <div className="h-16 lg:hidden" />
 
-      {/* Fixed bar - uses CSS position sticky as fallback */}
+      {/* Fixed bar - uses CSS fixed positioning which works on both Safari and Chrome */}
       <div
         className="fixed inset-x-0 bottom-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50"
         style={{
-          /* Force new stacking context for proper rendering */
           transform: 'translate3d(0,0,0)',
           WebkitTransform: 'translate3d(0,0,0)',
         }}
