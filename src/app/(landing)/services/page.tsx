@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button, Breadcrumbs, StickyMobileCTA, CoolSaverCTA } from '@/components/ui';
+import { Button, Breadcrumbs, CoolSaverCTA } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
 
 export const metadata = {
@@ -136,7 +136,6 @@ export default function ServicesPage() {
       </section>
 
       <FinalCTA />
-      <StickyMobileCTA />
     </>
   );
 }
