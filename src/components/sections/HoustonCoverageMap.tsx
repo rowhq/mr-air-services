@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -15,6 +15,7 @@ const getDirectionsUrl = (office: OfficeLocation) => {
 interface HoustonCoverageMapProps {
   activeOffice: string | null;
   onOfficeHover: (office: string | null) => void;
+  openPopup?: string | null;
 }
 
 // Custom marker icon - using design system colors
@@ -46,8 +47,16 @@ const createMarkerIcon = (isActive: boolean) => {
   });
 };
 
-// Component to handle map view changes when active office changes
-function MapController({ activeOffice }: { activeOffice: string | null }) {
+// Component to handle map view changes and popup opening
+function MapController({
+  activeOffice,
+  openPopup,
+  markerRefs
+}: {
+  activeOffice: string | null;
+  openPopup?: string | null;
+  markerRefs: React.MutableRefObject<Map<string, L.Marker>>;
+}) {
   const map = useMap();
 
   useEffect(() => {
@@ -60,10 +69,24 @@ function MapController({ activeOffice }: { activeOffice: string | null }) {
     }
   }, [activeOffice, map]);
 
+  // Open popup programmatically when openPopup changes
+  useEffect(() => {
+    if (openPopup) {
+      const marker = markerRefs.current.get(openPopup);
+      if (marker) {
+        setTimeout(() => {
+          marker.openPopup();
+        }, 600); // Wait for flyTo animation
+      }
+    }
+  }, [openPopup, markerRefs]);
+
   return null;
 }
 
-export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: HoustonCoverageMapProps) {
+export default function HoustonCoverageMap({ activeOffice, onOfficeHover, openPopup }: HoustonCoverageMapProps) {
+  const markerRefs = useRef<Map<string, L.Marker>>(new Map());
+
   return (
     <div className="relative bg-neutral-100 dark:bg-neutral-800 rounded-3xl overflow-hidden">
       <MapContainer
@@ -80,8 +103,8 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         />
 
-        {/* Map controller for flying to active offices */}
-        <MapController activeOffice={activeOffice} />
+        {/* Map controller for flying to active offices and opening popups */}
+        <MapController activeOffice={activeOffice} openPopup={openPopup} markerRefs={markerRefs} />
 
         {/* Service area coverage circle */}
         <Circle
@@ -103,6 +126,11 @@ export default function HoustonCoverageMap({ activeOffice, onOfficeHover }: Hous
             key={office.name}
             position={office.coordinates}
             icon={createMarkerIcon(activeOffice === office.name)}
+            ref={(ref) => {
+              if (ref) {
+                markerRefs.current.set(office.name, ref);
+              }
+            }}
             eventHandlers={{
               mouseover: () => onOfficeHover(office.name),
               click: () => onOfficeHover(office.name),

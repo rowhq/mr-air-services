@@ -100,13 +100,14 @@ export default function FinancingPage() {
                   href={FINANCING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="w-full sm:w-auto"
                 >
-                  <Button variant="secondary" size="lg">
+                  <Button variant="secondary" size="lg" fullWidthMobile>
                     Apply for Financing
                   </Button>
                 </a>
-                <a href="tel:+18324371000">
-                  <Button variant="outline" size="lg" className="border-white text-white hover:bg-white/10">
+                <a href="tel:+18324371000" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" fullWidthMobile className="border-white text-white hover:bg-white/10">
                     Call (832) 437-1000
                   </Button>
                 </a>
@@ -200,8 +201,9 @@ export default function FinancingPage() {
                 href={FINANCING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="block w-full sm:w-auto"
               >
-                <Button variant="secondary" size="lg">
+                <Button variant="secondary" size="lg" fullWidthMobile>
                   See Your Payment Options
                 </Button>
               </a>

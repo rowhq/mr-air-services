@@ -120,8 +120,8 @@ export default function ContactPage() {
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
               Thank you for contacting Mr. Air Services. We'll respond within 24 hours.
             </p>
-            <a href="tel:+18324371000">
-              <Button variant="secondary" size="lg">
+            <a href="tel:+18324371000" className="block w-full sm:w-auto">
+              <Button variant="secondary" size="lg" fullWidthMobile>
                 Call (832) 437-1000
               </Button>
             </a>

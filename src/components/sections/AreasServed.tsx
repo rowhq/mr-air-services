@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { officeLocations, getFullAddress, OfficeLocation } from '@/data/officeLocations';
 
@@ -31,11 +31,30 @@ const HoustonCoverageMap = dynamic(
 
 export function AreasServed() {
   const [activeOffice, setActiveOffice] = useState<string | null>(null);
+  const [openPopup, setOpenPopup] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handlePillClick = (office: OfficeLocation) => {
+    // Check if mobile (< lg breakpoint)
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+
+    if (isMobile) {
+      // Mobile: scroll to map and open popup
+      mapRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setActiveOffice(office.name);
+      setOpenPopup(office.name);
+      // Reset openPopup after a delay to allow re-triggering
+      setTimeout(() => setOpenPopup(null), 2000);
+    } else {
+      // Desktop: open Google Maps directly
+      window.open(getDirectionsUrl(office), '_blank');
+    }
+  };
 
   return (
     <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
@@ -54,14 +73,12 @@ export function AreasServed() {
               With {officeLocations.length} convenient locations across the Houston metro, we&apos;re always nearby when you need us. Same-day service available.
             </p>
 
-            {/* Office Location Pills - Click opens directions */}
+            {/* Office Location Pills - Mobile: scroll to map, Desktop: open Maps */}
             <div className="flex flex-wrap gap-2 mb-10">
               {officeLocations.map((office, index) => (
-                <a
+                <button
                   key={office.name}
-                  href={getDirectionsUrl(office)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => handlePillClick(office)}
                   onMouseEnter={() => setActiveOffice(office.name)}
                   onMouseLeave={() => setActiveOffice(null)}
                   className={`group relative px-4 py-3 rounded-full text-left transition-all duration-200
@@ -79,8 +96,9 @@ export function AreasServed() {
                     <span className="font-semibold text-sm text-neutral-900 dark:text-white group-hover:text-white transition-colors">
                       {office.name}
                     </span>
+                    {/* External link icon - only on desktop */}
                     <svg
-                      className="w-3 h-3 text-neutral-400 group-hover:text-white/70 transition-colors"
+                      className="w-3 h-3 hidden lg:block text-neutral-400 group-hover:text-white/70 transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -88,7 +106,7 @@ export function AreasServed() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </div>
-                </a>
+                </button>
               ))}
             </div>
 
@@ -105,11 +123,12 @@ export function AreasServed() {
           </div>
 
           {/* Right - Coverage Map */}
-          <div className="order-first lg:order-last lg:sticky lg:top-24 animate-fade-in-up animation-delay-200">
+          <div ref={mapRef} className="order-first lg:order-last lg:sticky lg:top-24 animate-fade-in-up animation-delay-200">
             {mounted && (
               <HoustonCoverageMap
                 activeOffice={activeOffice}
                 onOfficeHover={setActiveOffice}
+                openPopup={openPopup}
               />
             )}
           </div>

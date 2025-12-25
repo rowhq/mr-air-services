@@ -42,7 +42,7 @@ export function CoolSaverSpotlight() {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="primary" size="lg" onClick={openCoolSaverModal}>
+                <Button variant="primary" size="lg" fullWidthMobile onClick={openCoolSaverModal}>
                   Check If You Qualify
                 </Button>
                 <a

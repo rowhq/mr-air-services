@@ -330,8 +330,8 @@ export function PlanQuiz() {
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/contact">
-              <Button variant="secondary" size="lg">
+            <Link href="/contact" className="w-full sm:w-auto">
+              <Button variant="secondary" size="lg" fullWidthMobile>
                 Get Started Now
               </Button>
             </Link>
