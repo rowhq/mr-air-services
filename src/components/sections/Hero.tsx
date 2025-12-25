@@ -10,7 +10,7 @@ export function Hero() {
         alt="Mr. Air Services technician working on AC unit"
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-top md:object-center"
         sizes="100vw"
         quality={90}
       />

@@ -114,7 +114,7 @@ export default function HeatingPage() {
       <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[670px] pt-32 overflow-hidden">
         {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-top md:bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/images/services/heating-services.webp)' }}
         />
         {/* Dark Overlay */}
