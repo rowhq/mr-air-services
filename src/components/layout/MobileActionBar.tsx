@@ -1,13 +1,39 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export function MobileActionBar() {
+  const [bottomOffset, setBottomOffset] = useState(0);
+
+  useEffect(() => {
+    const updatePosition = () => {
+      if (window.visualViewport) {
+        // Calculate offset from layout viewport to visual viewport bottom
+        const layoutHeight = window.innerHeight;
+        const visualHeight = window.visualViewport.height;
+        const visualOffsetTop = window.visualViewport.offsetTop;
+        const offset = layoutHeight - visualHeight - visualOffsetTop;
+        setBottomOffset(Math.max(0, offset));
+      }
+    };
+
+    // Listen to visual viewport changes (Chrome/Safari toolbar hide/show)
+    window.visualViewport?.addEventListener('resize', updatePosition);
+    window.visualViewport?.addEventListener('scroll', updatePosition);
+    updatePosition();
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', updatePosition);
+      window.visualViewport?.removeEventListener('scroll', updatePosition);
+    };
+  }, []);
+
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50 pb-[env(safe-area-inset-bottom)]"
+      className="fixed left-0 right-0 lg:hidden bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 z-50 pb-[env(safe-area-inset-bottom)]"
       style={{
-        /* Force Safari iOS to use visual viewport */
+        bottom: bottomOffset,
         WebkitTransform: 'translateZ(0)',
         transform: 'translateZ(0)',
       }}
