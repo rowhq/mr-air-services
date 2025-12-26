@@ -50,7 +50,7 @@ const inspectionPhases = [
     ),
     color: 'bg-primary',
     items: [
-      'We check all safety switches work',
+      'We make sure all safety switches actually work',
       'We look for dangerous gas leaks',
       'Carbon monoxide detector test',
       'Gas lines and vents inspection',

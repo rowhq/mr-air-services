@@ -45,7 +45,7 @@ const benefits = [
   },
   {
     title: 'Extend System Lifespan',
-    description: "Regular maintenance helps your AC and heating system last longer, protecting your investment.",
+    description: "A well-maintained system lasts years longer. That's thousands you're not spending on a new unit.",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />

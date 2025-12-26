@@ -7,10 +7,10 @@ export function FinalCTA() {
       <div className="container relative">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight tracking-tight">
-            Ready to Get Started?
+            Let&apos;s Get Your AC Sorted
           </h2>
           <p className="text-lg md:text-xl text-white/90 mb-10 leading-relaxed max-w-2xl mx-auto">
-            Whether you need emergency repair, routine maintenance, or a new system installation, our team is ready to help.
+            AC acting up? Heater making weird noises? Or just want someone to check things out? Give us a call.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="w-full sm:w-auto">

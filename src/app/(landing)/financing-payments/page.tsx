@@ -56,7 +56,7 @@ const howItWorks = [
 const faqs = [
   {
     question: 'What credit score do I need?',
-    answer: "There's no strict minimum. We work with multiple lenders covering all credit profiles. Even if your credit isn't perfect, we usually have options.",
+    answer: "Honestly? We work with a bunch of different lenders. Even if your credit's seen better days, we can usually find something.",
   },
   {
     question: "What's the interest rate?",
@@ -68,7 +68,7 @@ const faqs = [
   },
   {
     question: 'What if I get denied?',
-    answer: "We've got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. No judgment—AC doesn't care about your FICO score.",
+    answer: "We've got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. Your AC broke—that's stressful enough without worrying about credit.",
   },
   {
     question: 'Can I pay it off early?',

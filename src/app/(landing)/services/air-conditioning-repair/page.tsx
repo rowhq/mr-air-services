@@ -86,7 +86,7 @@ const repairTypes = [
 const faqs = [
   {
     question: 'How fast can you get here?',
-    answer: "Same day for most calls in Greater Houston. When it's 100° and your AC is dead, we know you can't wait three days for someone to \"maybe\" show up.",
+    answer: "Usually same day in Houston. Look, when it's 100 degrees and your AC just died, you don't need someone telling you 'maybe Thursday.' We get it.",
   },
   {
     question: 'Do you work on my brand?',

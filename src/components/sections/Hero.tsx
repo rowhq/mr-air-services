@@ -29,7 +29,7 @@ export function Hero() {
 
         {/* Subheading with value prop */}
         <p className="text-lg md:text-xl lg:text-2xl text-white/90 mb-8 max-w-2xl leading-relaxed animate-fade-in-up animation-delay-200">
-          You already pay for it in your electric bill. We help you get it back.
+          Your electric company charges you for this. Let us help you actually use it.
         </p>
 
         {/* Trust Badges */}

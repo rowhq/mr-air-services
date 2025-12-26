@@ -31,7 +31,7 @@ const services = [
   },
   {
     title: 'Heating',
-    description: "Furnace and heat pump repair, maintenance, and new installations. Stay warm all winter with our expert technicians.",
+    description: "Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We'll help you pick the right one.",
     href: '/services/heating',
     ctaLabel: 'Schedule Service',
     icon: (
@@ -50,11 +50,11 @@ export function ServicesOverview() {
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight mb-4">
-            We Fix What Breaks.{' '}
-            <span className="text-neutral-500 dark:text-neutral-400">We Keep It Running.</span>
+            When It Breaks, We Fix It.{' '}
+            <span className="text-neutral-500 dark:text-neutral-400">Before It Breaks, We Catch It.</span>
           </h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
-            From emergency repairs to routine maintenance—we handle it all.
+            Emergency at 2am or just time for a tune-up. We&apos;ve got you.
           </p>
         </div>
 
