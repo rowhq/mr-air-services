@@ -18,9 +18,9 @@ export function Footer() {
     <footer className="bg-neutral-950 dark:bg-neutral-950">
       {/* Main Footer */}
       <div className="container py-12 md:py-16">
-        {/* Logo */}
+        {/* Logo & Description */}
         <div className="mb-10">
-          <Link href="/" className="inline-block">
+          <Link href="/" className="inline-block mb-5">
             <Image
               src="/logo-white.svg"
               alt="Mr. Air Services"
@@ -29,6 +29,9 @@ export function Footer() {
               className="h-7 w-auto opacity-80"
             />
           </Link>
+          <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
+            Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.
+          </p>
         </div>
 
         {/* Links Grid */}
