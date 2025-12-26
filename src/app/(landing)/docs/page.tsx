@@ -153,27 +153,57 @@ const pages = [
 ];
 
 const actionItems = [
+  // CRITICAL
   {
     id: 1,
     title: 'Customer Testimonials',
     status: 'placeholder',
     priority: 'critical',
-    question: 'The testimonials section uses placeholder reviews. Do you have real Google reviews we can use?',
+    question: 'The testimonials use placeholder initials. Do you have real Google reviews with customer names we can use?',
     currentData: [
-      '"Best AC service in Houston..." - J.M., Katy',
-      '"They fixed our furnace same day..." - S.T., Sugar Land',
+      'MC - Missouri City: "They came out the same day..."',
+      'HT - Houston: "Fair pricing, honest assessment..."',
+      'SP - Spring: "The team was punctual..."',
     ],
   },
   {
     id: 2,
-    title: 'License Numbers',
+    title: 'License & Certification Numbers',
     status: 'missing',
     priority: 'critical',
-    question: 'The site shows "TX Licensed" and "EPA Certified" badges. What are your TDLR license and EPA certification numbers?',
-    currentData: null,
+    question: 'The site displays "TX Licensed" and "EPA Certified" badges. What are the actual numbers?',
+    currentData: [
+      'TDLR License #: (needed)',
+      'EPA Certification #: (needed)',
+    ],
   },
   {
     id: 3,
+    title: 'Office Locations',
+    status: 'needs-verification',
+    priority: 'critical',
+    question: 'Are these your current office addresses? Please confirm or correct:',
+    currentData: [
+      'Missouri City: Suite 183, 2601 D Cartwright Rd, 77459',
+      'Spring: 4057 Riley Fuzzel Rd, Ste 500-103, 77386',
+      'Houston: 14526 Old Katy Rd, 77079',
+    ],
+  },
+  // HIGH
+  {
+    id: 4,
+    title: 'Email Addresses',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'The site uses 3 different email addresses. Which should be the primary contact?',
+    currentData: [
+      'coolsavertuneups@mrairservices.com (CoolSaver forms)',
+      'info@mrairservices.com (Contact page)',
+      'customerservice@mrairservices.com (Tune-ups page)',
+    ],
+  },
+  {
+    id: 5,
     title: 'Business Statistics',
     status: 'needs-verification',
     priority: 'high',
@@ -185,23 +215,32 @@ const actionItems = [
     ],
   },
   {
-    id: 4,
-    title: 'Team Photos',
+    id: 6,
+    title: 'CoolSaver Qualification Criteria',
+    status: 'needs-verification',
+    priority: 'high',
+    question: 'The CoolSaver modal asks about electric provider and home ownership. Are these the correct criteria?',
+    currentData: [
+      'Must have qualifying electric provider',
+      'Must be homeowner (not renter)',
+    ],
+  },
+  // MEDIUM
+  {
+    id: 7,
+    title: 'Team & Work Photos',
     status: 'missing',
     priority: 'medium',
-    question: 'The hero and some sections use stock photos. Do you have real photos of your team, trucks, or completed work?',
+    question: 'Hero and other sections use stock photos. Do you have real photos of your team, trucks, or completed jobs?',
     currentData: null,
   },
   {
-    id: 5,
-    title: 'CoolSaver Qualification',
+    id: 8,
+    title: 'Phone Number',
     status: 'needs-verification',
-    priority: 'high',
-    question: 'The CoolSaver modal asks about electric provider and home ownership. Are these the correct qualification criteria?',
-    currentData: [
-      'Must have specific electric provider',
-      'Must be homeowner (not renter)',
-    ],
+    priority: 'medium',
+    question: 'Is (832) 437-1000 the correct main phone number?',
+    currentData: ['(832) 437-1000'],
   },
 ];
 
