@@ -100,12 +100,23 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Trust Line */}
+      {/* Trust Line with Veteran Badge */}
       <div className="border-t border-neutral-800/50">
-        <div className="container py-5">
-          <p className="text-[11px] text-neutral-500 text-center">
-            Veteran Owned & Operated · Licensed & Insured · Serving Greater Houston
-          </p>
+        <div className="container py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            {/* Veteran Owned Badge */}
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-neutral-800/60 rounded-lg border border-neutral-700/50">
+              <span className="text-2xl" role="img" aria-label="US Flag">🇺🇸</span>
+              <div>
+                <p className="text-sm font-semibold text-white leading-tight">Veteran Owned</p>
+                <p className="text-xs text-neutral-400">US Military</p>
+              </div>
+            </div>
+            <span className="hidden sm:inline text-neutral-700">·</span>
+            <p className="text-[11px] text-neutral-500">
+              Licensed & Insured · Serving Greater Houston
+            </p>
+          </div>
         </div>
       </div>
 
