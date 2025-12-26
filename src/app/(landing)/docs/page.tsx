@@ -275,10 +275,10 @@ export default function DocsPage() {
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Site Documentation
+            Website Redesign
           </h1>
           <p className="text-xl text-white/70 max-w-2xl">
-            Everything about the Mr. Air Services website - features, structure, and items needing your input.
+            Complete redesign of Mr. Air Services website. Strategy, architecture, and everything you need to know.
           </p>
         </div>
       </section>
@@ -293,6 +293,12 @@ export default function DocsPage() {
                 <p className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-3 px-3">
                   Documentation
                 </p>
+                <a href="#strategy" className="flex items-center gap-3 px-3 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  Strategy
+                </a>
                 <a href="#overview" className="flex items-center gap-3 px-3 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -361,6 +367,192 @@ export default function DocsPage() {
 
             {/* Main Content */}
             <div className="flex-1 min-w-0 space-y-20">
+
+            {/* Strategy - Why the Redesign */}
+            <section id="strategy">
+              <div className="mb-8">
+                <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                  Project Strategy
+                </span>
+              </div>
+              <h2 className="text-3xl font-bold text-neutral-black dark:text-white mb-4">
+                Why This Redesign?
+              </h2>
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 max-w-3xl">
+                Your website is your 24/7 salesperson. We rebuilt it from scratch to turn visitors into paying customers,
+                establish trust instantly, and make it dead simple to contact you.
+              </p>
+
+              {/* Problems & Solutions */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div className="p-6 bg-neutral-100 dark:bg-neutral-800 rounded-2xl border-l-4 border-neutral-400">
+                  <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Previous Challenges
+                  </h3>
+                  <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-neutral-400 mt-1">•</span>
+                      <span>Outdated design that didn&apos;t reflect professional service quality</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-neutral-400 mt-1">•</span>
+                      <span>Poor mobile experience - most customers search on phones</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-neutral-400 mt-1">•</span>
+                      <span>No clear call-to-action or conversion path</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-neutral-400 mt-1">•</span>
+                      <span>CoolSaver program not prominently featured</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-neutral-400 mt-1">•</span>
+                      <span>Missing trust signals and credibility indicators</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="p-6 bg-primary/5 dark:bg-primary/10 rounded-2xl border-l-4 border-primary">
+                  <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    What We Built
+                  </h3>
+                  <ul className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span>Modern, premium design that builds instant trust</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span>Mobile-first design with sticky action buttons</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span>Clear CTAs: Call Now, Book Online, Get Quote on every page</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span>CoolSaver prominently featured with qualification modal</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary mt-1">✓</span>
+                      <span>Veteran-owned badge, licensing, ratings throughout</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Information Architecture */}
+              <div className="p-8 bg-neutral-50 dark:bg-neutral-800 rounded-3xl mb-12">
+                <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-2">
+                  Information Architecture
+                </h3>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+                  How we organized content to match how customers actually think:
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">1</div>
+                    <h4 className="font-semibold text-neutral-black dark:text-white">Awareness</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      <strong>Homepage Hero:</strong> Immediately tells visitors what you do, where you serve, and why trust you (Veteran-owned, 15+ years).
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">2</div>
+                    <h4 className="font-semibold text-neutral-black dark:text-white">Consideration</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      <strong>Service Pages:</strong> Detailed info on each service with pricing transparency, what&apos;s included, and FAQs that answer real concerns.
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold">3</div>
+                    <h4 className="font-semibold text-neutral-black dark:text-white">Conversion</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      <strong>Multiple CTAs:</strong> Phone number always visible, sticky mobile bar, financing options, and CoolSaver free tune-up offer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* UX Decisions */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-neutral-black dark:text-white">
+                  Key UX Decisions
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">Mobile-First Sticky Bar</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      70%+ of HVAC searches happen on mobile. The sticky &quot;Call Now&quot; and &quot;Book Online&quot; buttons are always accessible without scrolling.
+                    </p>
+                  </div>
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">Emergency CTA in Header</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      AC emergencies are stressful. The red emergency button stays visible on desktop so panicked customers can call immediately.
+                    </p>
+                  </div>
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">CoolSaver Qualification Modal</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Instead of a form, a quick 2-question modal lets customers instantly know if they qualify - reducing friction and increasing conversions.
+                    </p>
+                  </div>
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">Trust Above the Fold</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Veteran-owned, TX Licensed, EPA Certified badges visible immediately. Trust must be established in the first 3 seconds.
+                    </p>
+                  </div>
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">Mega Menu with Icons</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Services dropdown shows all options with icons and descriptions. Customers can quickly find exactly what they need without hunting.
+                    </p>
+                  </div>
+                  <div className="p-5 bg-neutral-50 dark:bg-neutral-800 rounded-xl">
+                    <h4 className="font-semibold text-neutral-black dark:text-white mb-2">Interactive Coverage Map</h4>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                      Visual map showing all 3 locations and service areas. Customers can verify you serve their neighborhood at a glance.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Design Philosophy */}
+              <div className="mt-12 p-8 bg-neutral-900 dark:bg-neutral-950 rounded-3xl text-white">
+                <h3 className="text-xl font-bold mb-4">Design Philosophy</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <p className="text-primary font-semibold mb-1">Clean & Professional</p>
+                    <p className="text-sm text-neutral-400">
+                      Minimal clutter, generous whitespace. Looks like a company that does quality work.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-primary font-semibold mb-1">Conversion-Focused</p>
+                    <p className="text-sm text-neutral-400">
+                      Every section pushes toward one action: contact you for service.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-primary font-semibold mb-1">Fast & Accessible</p>
+                    <p className="text-sm text-neutral-400">
+                      Optimized images, instant loads. Works perfectly on slow connections and all devices.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
 
             {/* Overview */}
             <section id="overview">
