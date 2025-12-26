@@ -83,7 +83,7 @@ export function AreasServed() {
                   onMouseLeave={() => setActiveOffice(null)}
                   className={`group relative px-4 py-3 rounded-full text-left transition-all duration-200
                     bg-white dark:bg-neutral-900 hover:bg-secondary hover:scale-105
-                    animate-fade-in-up animation-delay-${(index + 1) * 100}`}
+                    animate-fade-in-up ${index === 0 ? 'animation-delay-100' : index === 1 ? 'animation-delay-200' : 'animation-delay-300'}`}
                 >
                   <div className="flex items-center gap-2">
                     <svg

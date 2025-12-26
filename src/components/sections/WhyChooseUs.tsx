@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 // Feature icons - simple stroke style matching ServicesOverview
 const icons = {
@@ -79,10 +80,12 @@ export function WhyChooseUs() {
           <div className={`relative animate-fade-in-up animation-delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800">
               {/* Image */}
-              <img
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
-                alt="HVAC Technician"
-                className="w-full h-full object-cover"
+              <Image
+                src="/images/financing/technician-helping.jpg"
+                alt="HVAC Technician helping homeowner"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent" />

@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui';
 
+// Note: metadata must be in a separate file for client components
+// See contact/metadata.ts
+
 // SVG Icons for services
 const ServiceIcons = {
   'ac-repair': (
