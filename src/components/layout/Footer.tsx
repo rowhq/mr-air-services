@@ -10,134 +10,137 @@ const footerLinks = {
   company: [
     { name: 'Contact', href: '/contact' },
     { name: 'Financing', href: '/financing-payments' },
+    { name: 'Pay Invoice', href: '/pay-invoice' },
+  ],
+  legal: [
+    { name: 'Privacy Policy', href: '/privacy-policy' },
+    { name: 'Terms of Use', href: '/terms-of-use' },
   ],
 };
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-950 dark:bg-neutral-950">
+    <footer className="bg-neutral-950">
       {/* Main Footer */}
-      <div className="container py-12 md:py-16">
-        {/* Logo & Description */}
-        <div className="mb-10">
-          <Link href="/" className="inline-block mb-5">
-            <Image
-              src="/logo-white.svg"
-              alt="Mr. Air Services"
-              width={120}
-              height={28}
-              className="h-7 w-auto opacity-80"
-            />
-          </Link>
-          <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
-            Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.
-          </p>
-        </div>
+      <div className="container py-14 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
 
-        {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-          {/* Services */}
-          <div>
-            <h3 className="text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-4">
-              Services
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-xs text-neutral-400 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Brand Column */}
+          <div className="lg:col-span-5">
+            <Link href="/" className="inline-block mb-6">
+              <Image
+                src="/logo-white.svg"
+                alt="Mr. Air Services"
+                width={160}
+                height={38}
+                className="h-9 w-auto"
+              />
+            </Link>
+            <p className="text-neutral-400 leading-relaxed mb-8 max-w-md">
+              Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.
+            </p>
 
-          {/* Company */}
-          <div>
-            <h3 className="text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-4">
-              Company
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-xs text-neutral-400 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div className="col-span-2 md:col-span-1">
-            <h3 className="text-[11px] uppercase tracking-wider text-neutral-500 font-medium mb-4">
-              Contact
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="tel:+18324371000"
-                  className="text-xs text-neutral-400 hover:text-white transition-colors"
-                >
-                  (832) 437-1000
-                </a>
-              </li>
-              <li>
-                <span className="text-xs text-neutral-500">
-                  Houston, TX
-                </span>
-              </li>
-              <li>
-                <span className="text-xs text-neutral-500">
-                  Mon–Fri 8AM–5PM
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Trust Line with Veteran Badge */}
-      <div className="border-t border-neutral-800/50">
-        <div className="container py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             {/* Veteran Owned Badge */}
-            <div className="flex items-center gap-3 px-4 py-2.5 bg-neutral-800/60 rounded-lg border border-neutral-700/50">
-              <span className="text-2xl" role="img" aria-label="US Flag">🇺🇸</span>
+            <div className="inline-flex items-center gap-3 px-4 py-3 bg-neutral-900 rounded-xl border border-neutral-800">
+              <span className="text-3xl" role="img" aria-label="US Flag">🇺🇸</span>
               <div>
-                <p className="text-sm font-semibold text-white leading-tight">Veteran Owned</p>
-                <p className="text-xs text-neutral-400">US Military</p>
+                <p className="font-semibold text-white">Veteran Owned</p>
+                <p className="text-sm text-neutral-400">US Military</p>
               </div>
             </div>
-            <span className="hidden sm:inline text-neutral-700">·</span>
-            <p className="text-[11px] text-neutral-500">
-              Licensed & Insured · Serving Greater Houston
-            </p>
+          </div>
+
+          {/* Links Columns */}
+          <div className="lg:col-span-7">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+              {/* Services */}
+              <div>
+                <h3 className="text-sm font-semibold text-white mb-4">
+                  Services
+                </h3>
+                <ul className="space-y-3">
+                  {footerLinks.services.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-neutral-400 hover:text-white transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Company */}
+              <div>
+                <h3 className="text-sm font-semibold text-white mb-4">
+                  Company
+                </h3>
+                <ul className="space-y-3">
+                  {footerLinks.company.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-neutral-400 hover:text-white transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Contact */}
+              <div className="col-span-2 sm:col-span-1">
+                <h3 className="text-sm font-semibold text-white mb-4">
+                  Contact
+                </h3>
+                <ul className="space-y-3">
+                  <li>
+                    <a
+                      href="tel:+18324371000"
+                      className="text-sm text-neutral-400 hover:text-white transition-colors font-medium"
+                    >
+                      (832) 437-1000
+                    </a>
+                  </li>
+                  <li className="text-sm text-neutral-500">
+                    Houston, TX
+                  </li>
+                  <li className="text-sm text-neutral-500">
+                    Mon–Fri 8AM–5PM
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-neutral-800/50">
-        <div className="container py-5">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-[11px] text-neutral-600">
-              © {new Date().getFullYear()} Mr. Air Services, LLC. All rights reserved.
-            </p>
-            <div className="flex items-center gap-4 text-[11px]">
-              <Link href="/privacy-policy" className="text-neutral-500 hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <span className="text-neutral-700">|</span>
-              <Link href="/terms-of-use" className="text-neutral-500 hover:text-white transition-colors">
-                Terms of Use
-              </Link>
+      <div className="border-t border-neutral-800">
+        <div className="container py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+              <p className="text-sm text-neutral-500">
+                © {new Date().getFullYear()} Mr. Air Services, LLC
+              </p>
+              <span className="hidden sm:inline text-neutral-700">·</span>
+              <p className="text-sm text-neutral-600">
+                Licensed & Insured
+              </p>
+            </div>
+            <div className="flex items-center gap-6">
+              {footerLinks.legal.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm text-neutral-500 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
