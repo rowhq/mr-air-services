@@ -15,21 +15,41 @@ const howItWorks = [
     step: '1',
     title: 'Get a Quote',
     description: 'We tell you exactly what it costs. No hidden fees, no surprises.',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+      </svg>
+    ),
   },
   {
     step: '2',
     title: 'Apply in 5 Minutes',
     description: 'Your tech helps you right there. Quick form, basic info.',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+      </svg>
+    ),
   },
   {
     step: '3',
     title: 'Instant Decision',
     description: "You'll know before we leave. If one lender says no, we try others.",
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
   },
   {
     step: '4',
     title: 'Stay Comfortable',
     description: 'We do the work. You make easy monthly payments. Done.',
+    icon: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    ),
   },
 ];
 
@@ -212,44 +232,106 @@ export default function FinancingPage() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 lg:py-28 bg-neutral-50 dark:bg-neutral-800">
+      {/* How It Works - Premium Design */}
+      <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900 overflow-hidden">
         <div className="container">
-          <div className="text-center mb-14 animate-fade-in-up">
+          <div className="text-center mb-16 animate-fade-in-up">
+            <p className="text-primary font-semibold text-sm tracking-wide uppercase mb-3">Simple Process</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
               How It Works
             </h2>
-            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto">
               From quote to approval in one visit. No waiting, no wondering.
             </p>
           </div>
 
-          <div className="relative">
-            {/* Timeline connector */}
-            <div className="absolute top-12 left-0 right-0 h-0.5 bg-neutral-200 dark:bg-neutral-700 hidden md:block" />
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Desktop: Horizontal Cards */}
+          <div className="hidden lg:block">
+            <div className="grid grid-cols-4 gap-6">
               {howItWorks.map((item, idx) => (
                 <div
                   key={item.step}
-                  className="text-center relative animate-fade-in-up"
+                  className="group relative animate-fade-in-up"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
-                  {/* Number circle */}
-                  <div className="relative inline-block mb-6">
-                    <div className="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold relative z-10">
-                      {item.step}
+                  {/* Connector Line */}
+                  {idx < howItWorks.length - 1 && (
+                    <div className="absolute top-10 left-[60%] w-[calc(100%-20%)] h-[2px] bg-gradient-to-r from-primary/40 to-primary/10" />
+                  )}
+
+                  {/* Card */}
+                  <div className="relative bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 h-full transition-all duration-300 hover:bg-neutral-100 dark:hover:bg-neutral-700">
+                    {/* Step Badge + Icon Row */}
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center text-lg font-bold">
+                        {item.step}
+                      </div>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                        {item.icon}
+                      </div>
                     </div>
+
+                    <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-neutral-black dark:text-white mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    {item.description}
-                  </p>
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Mobile/Tablet: Vertical Timeline */}
+          <div className="lg:hidden">
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-5 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/50 to-primary/20" />
+
+              <div className="space-y-6">
+                {howItWorks.map((item, idx) => (
+                  <div
+                    key={item.step}
+                    className="relative pl-14 animate-fade-in-up"
+                    style={{ animationDelay: `${idx * 100}ms` }}
+                  >
+                    {/* Step Number on Timeline */}
+                    <div className="absolute left-0 w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center text-lg font-bold z-10">
+                      {item.step}
+                    </div>
+
+                    {/* Card */}
+                    <div className="bg-neutral-50 dark:bg-neutral-800 rounded-xl p-5">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                          {item.icon}
+                        </div>
+                        <h3 className="text-lg font-semibold text-neutral-black dark:text-white">
+                          {item.title}
+                        </h3>
+                      </div>
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+            <a
+              href={FINANCING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="secondary" size="lg">
+                Start Your Application
+              </Button>
+            </a>
           </div>
         </div>
       </section>
