@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { FAQBlockContent, BlockSettings } from '@/types/cms';
 
 interface FAQItem {
   question: string;
@@ -14,13 +15,30 @@ interface FAQCategory {
 }
 
 interface FAQSectionProps {
+  // CMS props
+  content?: FAQBlockContent;
+  settings?: BlockSettings;
+  faqs?: Array<{
+    id?: string;
+    question: string;
+    answer: string;
+    category?: string;
+  }>;
+  // Legacy props
   title?: string;
   description?: string;
   categories?: FAQCategory[];
-  // Legacy support
   items?: FAQItem[];
   subtitle?: string;
 }
+
+const defaultContent: FAQBlockContent = {
+  sectionTitle: "Got Questions? We've Got Answers",
+  sectionSubtitle: "Browse through our FAQs to find answers about our services, pricing, process, and more. Need further assistance? We're always here to help.",
+  categories: [],
+  layout: "accordion",
+  maxItems: 10,
+};
 
 // Default icons for FAQ items
 const defaultIcons = [
@@ -46,23 +64,39 @@ const defaultIcons = [
 ];
 
 export function FAQSection({
-  title = "Got Questions? We've Got Answers",
-  description = "Browse through our FAQs to find answers about our services, pricing, process, and more. Need further assistance? We're always here to help.",
+  content,
+  settings,
+  faqs,
+  title,
+  description,
   categories,
-  // Legacy props
   items,
   subtitle,
 }: FAQSectionProps) {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  // Handle legacy API: convert items to single category
-  const effectiveCategories: FAQCategory[] = categories || [
-    { name: 'General', items: items || [] }
-  ];
+  // Determine effective title and description
+  const effectiveTitle = content?.sectionTitle || title || defaultContent.sectionTitle;
+  const effectiveDescription = content?.sectionSubtitle || subtitle || description || defaultContent.sectionSubtitle;
 
-  // Use subtitle as description if provided (legacy)
-  const effectiveDescription = subtitle || description;
+  // Convert CMS faqs to categories if provided
+  let effectiveCategories: FAQCategory[];
+  if (faqs && faqs.length > 0) {
+    // Group faqs by category
+    const grouped = faqs.reduce((acc, faq) => {
+      const cat = faq.category || 'General';
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push({ question: faq.question, answer: faq.answer });
+      return acc;
+    }, {} as Record<string, FAQItem[]>);
+
+    effectiveCategories = Object.entries(grouped).map(([name, items]) => ({ name, items }));
+  } else if (categories) {
+    effectiveCategories = categories;
+  } else {
+    effectiveCategories = [{ name: 'General', items: items || [] }];
+  }
 
   const currentItems = effectiveCategories[activeCategory]?.items || [];
 
@@ -74,7 +108,7 @@ export function FAQSection({
           {/* Left - Header */}
           <div className="lg:sticky lg:top-32 lg:self-start">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              {title}
+              {effectiveTitle}
             </h2>
             <p className="text-neutral-400 text-lg leading-relaxed max-w-md">
               {effectiveDescription}

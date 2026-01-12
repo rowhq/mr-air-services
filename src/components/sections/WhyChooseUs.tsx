@@ -2,53 +2,74 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import type { WhyChooseUsBlockContent, BlockSettings } from '@/types/cms';
 
-// Feature icons - simple stroke style matching ServicesOverview
-const icons = {
-  certified: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-    </svg>
-  ),
-  pricing: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  ),
-  guarantee: (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-    </svg>
-  ),
+interface FeatureItem {
+  id?: string;
+  icon: string;
+  title: string;
+  description: string;
+  stat: string;
+  statLabel: string;
+}
+
+interface WhyChooseUsProps {
+  content?: WhyChooseUsBlockContent;
+  settings?: BlockSettings;
+}
+
+const defaultContent: WhyChooseUsBlockContent = {
+  sectionTitle: "Why People Call Us Back",
+  features: [
+    {
+      id: "1",
+      icon: "certified",
+      title: 'Experienced Pros',
+      description: "Our guys show up on time, explain what's wrong in plain English, and fix it right. All major brands.",
+      stat: '98%',
+      statLabel: 'on-time rate',
+    },
+    {
+      id: "2",
+      icon: "pricing",
+      title: 'Upfront Pricing',
+      description: "We tell you what it costs before we touch anything. The price we quote is the price you pay.",
+      stat: '$0',
+      statLabel: 'hidden fees',
+    },
+    {
+      id: "3",
+      icon: "guarantee",
+      title: 'Guaranteed Work',
+      description: "Not happy? We come back. No arguments, no runaround. That's how we've kept customers for 15 years.",
+      stat: '4.9/5',
+      statLabel: 'avg rating',
+    },
+  ],
+  showImage: true,
+  imageUrl: "/images/financing/technician-helping.jpg",
+  showVeteranBadge: true,
 };
 
-const features = [
-  {
-    icon: icons.certified,
-    title: 'Experienced Pros',
-    description: "Our guys show up on time, explain what's wrong in plain English, and fix it right. All major brands.",
-    stat: '98%',
-    statLabel: 'on-time rate',
-  },
-  {
-    icon: icons.pricing,
-    title: 'Upfront Pricing',
-    description: "We tell you what it costs before we touch anything. The price we quote is the price you pay.",
-    stat: '$0',
-    statLabel: 'hidden fees',
-  },
-  {
-    icon: icons.guarantee,
-    title: 'Guaranteed Work',
-    description: "Not happy? We come back. No arguments, no runaround. That's how we've kept customers for 15 years.",
-    stat: '4.9/5',
-    statLabel: 'avg rating',
-  },
-];
+// Feature icon helper component
+function FeatureIcon({ icon }: { icon: string }) {
+  const iconPaths: Record<string, string> = {
+    certified: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
+    pricing: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    guarantee: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+  };
 
-export function WhyChooseUs() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={iconPaths[icon] || iconPaths.certified} />
+    </svg>
+  );
+}
+
+export function WhyChooseUs({ content = defaultContent, settings }: WhyChooseUsProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { sectionTitle, features, showImage, imageUrl, showVeteranBadge } = content;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,18 +91,19 @@ export function WhyChooseUs() {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
-            Why People Call Us Back
+            {sectionTitle}
           </h2>
         </div>
 
         {/* Main Content - Two Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
+          {showImage && (
           <div className={`relative animate-fade-in-up animation-delay-200 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800">
               {/* Image */}
               <Image
-                src="/images/financing/technician-helping.jpg"
+                src={imageUrl || "/images/financing/technician-helping.jpg"}
                 alt="HVAC Technician helping homeowner"
                 fill
                 className="object-cover"
@@ -91,6 +113,7 @@ export function WhyChooseUs() {
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent" />
 
               {/* Experience Badge - Compact */}
+              {showVeteranBadge && (
               <div className="absolute bottom-4 left-4">
                 <div className="bg-white/95 dark:bg-neutral-800/95 backdrop-blur-sm rounded-xl px-4 py-3">
                   <div className="flex items-center gap-3">
@@ -122,8 +145,10 @@ export function WhyChooseUs() {
                   </div>
                 </div>
               </div>
+              )}
             </div>
           </div>
+          )}
 
           {/* Right - Features */}
           <div className={`animate-fade-in-up animation-delay-300 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
@@ -140,7 +165,7 @@ export function WhyChooseUs() {
                     {/* Icon */}
                     <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white dark:bg-neutral-900 text-secondary
                       flex items-center justify-center group-hover:bg-secondary/10 transition-colors duration-300">
-                      {feature.icon}
+                      <FeatureIcon icon={feature.icon} />
                     </div>
 
                     {/* Content */}

@@ -78,6 +78,7 @@ export default function ContactPage() {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [openStatus, setOpenStatus] = useState({ isOpen: false, statusText: 'Closed' });
 
@@ -100,9 +101,34 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setSubmitted(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/cms/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          preferredTime: formData.preferredTime,
+          services: formData.services,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isFieldActive = (field: string, value: string) => focusedField === field || value.length > 0;
@@ -414,6 +440,13 @@ export default function ContactPage() {
                     {formData.message.length}/500
                   </div>
                 </div>
+
+                {/* Error Message */}
+                {submitError && (
+                  <div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                    <p className="text-sm text-red-600 dark:text-red-400">{submitError}</p>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <Button

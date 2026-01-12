@@ -1,7 +1,34 @@
 import Link from 'next/link';
 import { Button, CoolSaverCTA } from '@/components/ui';
+import type { ServicesOverviewBlockContent, BlockSettings } from '@/types/cms';
 
-const services = [
+interface ServiceItem {
+  title: string;
+  description: string;
+  href: string;
+  cta?: string;
+  ctaLabel: string;
+  isEmergency?: boolean;
+  featured?: boolean;
+  useModal?: boolean;
+  icon: string;
+}
+
+interface ServicesOverviewProps {
+  content?: ServicesOverviewBlockContent;
+  settings?: BlockSettings;
+  services?: ServiceItem[];
+}
+
+const defaultContent: ServicesOverviewBlockContent = {
+  sectionTitle: "When It Breaks, We Fix It.",
+  sectionSubtitle: "Before It Breaks, We Catch It.",
+  serviceIds: [],
+  layout: "3-col",
+  showCta: true,
+};
+
+const defaultServices: ServiceItem[] = [
   {
     title: 'AC Repair',
     description: "AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.",
@@ -9,11 +36,7 @@ const services = [
     cta: 'tel:+18324371000',
     ctaLabel: 'Get Emergency Help',
     isEmergency: true,
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-      </svg>
-    ),
+    icon: 'ac-repair',
   },
   {
     title: 'CoolSaver Tune-Ups',
@@ -22,36 +45,65 @@ const services = [
     ctaLabel: 'Check If You Qualify',
     featured: true,
     useModal: true,
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
+    icon: 'tune-up',
   },
   {
     title: 'Heating',
     description: "Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We'll help you pick the right one.",
     href: '/services/heating',
     ctaLabel: 'Schedule Service',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
-      </svg>
-    ),
+    icon: 'heating',
   },
 ];
 
-export function ServicesOverview() {
+// Icon helper component
+function ServiceIcon({ icon }: { icon: string }) {
+  const iconPaths: Record<string, React.ReactNode> = {
+    'ac-repair': (
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+    ),
+    'tune-up': (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </>
+    ),
+    'heating': (
+      <>
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+      </>
+    ),
+  };
+
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      {iconPaths[icon] || iconPaths['ac-repair']}
+    </svg>
+  );
+}
+
+export function ServicesOverview({
+  content = defaultContent,
+  settings,
+  services = defaultServices
+}: ServicesOverviewProps) {
+  const { sectionTitle, sectionSubtitle, layout } = content;
+
+  const gridCols = {
+    '2-col': 'lg:grid-cols-2',
+    '3-col': 'lg:grid-cols-3',
+    '4-col': 'lg:grid-cols-4',
+  };
+
   return (
     <section className="py-16 lg:py-24 bg-white dark:bg-neutral-900">
       <div className="container">
         {/* Section Header */}
         <div className="max-w-2xl mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight mb-4">
-            When It Breaks, We Fix It.{' '}
-            <span className="text-neutral-500 dark:text-neutral-400">Before It Breaks, We Catch It.</span>
+            {sectionTitle}{' '}
+            {sectionSubtitle && <span className="text-neutral-500 dark:text-neutral-400">{sectionSubtitle}</span>}
           </h2>
           <p className="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
             Emergency at 2am or just time for a tune-up. We&apos;ve got you.
@@ -59,7 +111,7 @@ export function ServicesOverview() {
         </div>
 
         {/* Services Grid - Clean Apple style */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className={`grid grid-cols-1 md:grid-cols-2 ${gridCols[layout]} gap-6`}>
           {services.map((service) => (
             <div
               key={service.title}
@@ -87,7 +139,7 @@ export function ServicesOverview() {
                   ? 'bg-white/20 text-white'
                   : 'bg-white dark:bg-neutral-900 text-secondary'
                 }`}>
-                {service.icon}
+                <ServiceIcon icon={service.icon} />
               </div>
 
               <h3 className={`text-lg font-bold mb-2

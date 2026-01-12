@@ -1,23 +1,50 @@
 import Link from 'next/link';
+import type { TestimonialsBlockContent, BlockSettings } from '@/types/cms';
 
-const testimonials = [
+interface TestimonialItem {
+  id?: string;
+  initials: string;
+  location: string;
+  rating: number;
+  text: string;
+  source?: string;
+}
+
+interface TestimonialsProps {
+  content?: TestimonialsBlockContent;
+  settings?: BlockSettings;
+  testimonials?: TestimonialItem[];
+}
+
+const defaultContent: TestimonialsBlockContent = {
+  sectionTitle: "What Our Customers Say",
+  testimonialIds: "featured",
+  layout: "grid",
+  maxItems: 3,
+  showSource: true,
+};
+
+const defaultTestimonials: TestimonialItem[] = [
   {
     initials: 'MC',
     location: 'Missouri City',
     rating: 5,
     text: "They came out the same day I called. The technician was professional, explained everything clearly, and fixed my AC quickly. Highly recommend!",
+    source: 'Google',
   },
   {
     initials: 'HT',
     location: 'Houston',
     rating: 5,
     text: "Fair pricing, honest assessment, and quality work. They don't try to upsell you on things you don't need.",
+    source: 'Google',
   },
   {
     initials: 'SP',
     location: 'Spring',
     rating: 5,
     text: "The team was punctual, courteous, and efficient. Great customer service from start to finish.",
+    source: 'Google',
   },
 ];
 
@@ -38,7 +65,14 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export function Testimonials() {
+export function Testimonials({
+  content = defaultContent,
+  settings,
+  testimonials = defaultTestimonials
+}: TestimonialsProps) {
+  const { sectionTitle, maxItems, showSource } = content;
+  const displayTestimonials = testimonials.slice(0, maxItems);
+
   return (
     <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
       {/* Subtle geometric accent */}
@@ -49,7 +83,7 @@ export function Testimonials() {
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16 animate-fade-in-up">
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white leading-tight tracking-tight">
-              What Our Customers Say
+              {sectionTitle}
             </h2>
           </div>
           <Link
@@ -67,25 +101,29 @@ export function Testimonials() {
 
         {/* Testimonial Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
+          {displayTestimonials.map((testimonial, index) => (
             <div
               key={index}
               className={`group bg-white dark:bg-neutral-900 rounded-3xl p-5 md:p-8
                 hover:bg-neutral-50 dark:hover:bg-neutral-800
                 transition-all duration-500 animate-fade-in-up animation-delay-${(index + 1) * 100}`}
             >
-              {/* Verified Google Badge */}
+              {/* Verified Badge */}
               <div className="flex items-center justify-between mb-4">
                 <StarRating rating={testimonial.rating} />
-                <span className="text-xs font-medium text-neutral-400 flex items-center gap-1">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                  </svg>
-                  Google
-                </span>
+                {showSource && testimonial.source && (
+                  <span className="text-xs font-medium text-neutral-400 flex items-center gap-1">
+                    {testimonial.source === 'Google' && (
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      </svg>
+                    )}
+                    {testimonial.source}
+                  </span>
+                )}
               </div>
 
               {/* Quote */}

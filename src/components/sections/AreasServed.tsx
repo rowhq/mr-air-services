@@ -2,7 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { officeLocations, getFullAddress, OfficeLocation } from '@/data/officeLocations';
+import { officeLocations as defaultOfficeLocations, getFullAddress, OfficeLocation } from '@/data/officeLocations';
+import type { AreasServedBlockContent, BlockSettings } from '@/types/cms';
+
+interface AreasServedProps {
+  content?: AreasServedBlockContent;
+  settings?: BlockSettings;
+  locations?: OfficeLocation[];
+}
+
+const defaultContent: AreasServedBlockContent = {
+  title: "Serving the Greater Houston Area",
+  subtitle: "With 3 convenient locations across the Houston metro, we're always nearby when you need us. Same-day service available.",
+  showMap: true,
+  showList: true,
+};
 
 // Generate Google Maps directions URL
 const getDirectionsUrl = (office: OfficeLocation) => {
@@ -29,11 +43,16 @@ const HoustonCoverageMap = dynamic(
   }
 );
 
-export function AreasServed() {
+export function AreasServed({
+  content = defaultContent,
+  settings,
+  locations = defaultOfficeLocations
+}: AreasServedProps) {
   const [activeOffice, setActiveOffice] = useState<string | null>(null);
   const [openPopup, setOpenPopup] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const mapRef = useRef<HTMLDivElement>(null);
+  const { title, subtitle, showMap, showList } = content;
 
   useEffect(() => {
     setMounted(true);
@@ -66,16 +85,21 @@ export function AreasServed() {
           {/* Left - Content */}
           <div className="animate-fade-in-up">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight tracking-tight">
-              Serving the Greater<br />Houston Area
+              {title.includes('Greater') ? (
+                <>Serving the Greater<br />Houston Area</>
+              ) : (
+                title
+              )}
             </h2>
 
             <p className="text-neutral-600 dark:text-neutral-400 text-lg mb-10 max-w-md leading-relaxed">
-              With {officeLocations.length} convenient locations across the Houston metro, we&apos;re always nearby when you need us. Same-day service available.
+              {subtitle || `With ${locations.length} convenient locations across the Houston metro, we're always nearby when you need us. Same-day service available.`}
             </p>
 
             {/* Office Location Pills - Mobile: scroll to map, Desktop: open Maps */}
+            {showList && (
             <div className="flex flex-wrap gap-2 mb-10">
-              {officeLocations.map((office, index) => (
+              {locations.map((office, index) => (
                 <button
                   key={office.name}
                   onClick={() => handlePillClick(office)}
@@ -109,6 +133,7 @@ export function AreasServed() {
                 </button>
               ))}
             </div>
+            )}
 
             {/* CTA */}
             <div className="flex items-center gap-4 text-neutral-500 dark:text-neutral-400 text-sm">
@@ -123,6 +148,7 @@ export function AreasServed() {
           </div>
 
           {/* Right - Coverage Map (after content on mobile, right side on desktop) */}
+          {showMap && (
           <div ref={mapRef} className="lg:sticky lg:top-24 animate-fade-in-up animation-delay-200">
             {mounted && (
               <HoustonCoverageMap
@@ -132,6 +158,7 @@ export function AreasServed() {
               />
             )}
           </div>
+          )}
         </div>
       </div>
     </section>
