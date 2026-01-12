@@ -220,6 +220,17 @@ async function syncContent() {
     console.log('  Footer navigation updated!');
 
     // =====================================================
+    // UPDATE SERVICES - Mark top 3 as featured
+    // =====================================================
+    console.log('\nUpdating Services (marking AC Repair, CoolSaver, Heating as featured)...');
+    await sql`
+      UPDATE services
+      SET is_featured = true
+      WHERE slug IN ('air-conditioning-repair', 'air-conditioning-tune-ups', 'heating')
+    `;
+    console.log('  Services updated!');
+
+    // =====================================================
     // VERIFY
     // =====================================================
     console.log('\n--- Verification ---');
