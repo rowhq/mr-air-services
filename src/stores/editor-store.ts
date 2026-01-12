@@ -116,17 +116,25 @@ const defaultBlockContent: Record<BlockType, BlockContent> = {
   },
   "repair-process": {
     sectionTitle: "Our Process",
-    sectionSubtitle: "",
-    categories: [],
-    layout: "accordion",
-    maxItems: 10,
+    sectionSubtitle: "How we get your AC running again",
+    steps: [
+      { id: "1", number: "01", title: "You Call", description: "We answer and schedule a visit", badge: "Same day" },
+      { id: "2", number: "02", title: "We Diagnose", description: "Find the real problem", badge: "Honest assessment" },
+      { id: "3", number: "03", title: "You Approve", description: "Know the price before we start", badge: "No hidden fees" },
+      { id: "4", number: "04", title: "We Fix It", description: "Quality parts, proper installation", badge: "Guaranteed" },
+    ],
+    layout: "horizontal",
   },
   "how-it-works": {
     sectionTitle: "How It Works",
-    sectionSubtitle: "",
-    categories: [],
-    layout: "accordion",
-    maxItems: 10,
+    sectionSubtitle: "Getting started is easy",
+    steps: [
+      { id: "1", number: "01", title: "Contact Us", shortTitle: "Get in touch", description: "Call or book online" },
+      { id: "2", number: "02", title: "Pick a Time", shortTitle: "Schedule your visit", description: "Same-day available" },
+      { id: "3", number: "03", title: "We Arrive", shortTitle: "Expert service", description: "On time, every time" },
+      { id: "4", number: "04", title: "Pay Your Way", shortTitle: "Transparent pricing", description: "Card, cash, or financing" },
+    ],
+    layout: "cards",
   },
 };
 

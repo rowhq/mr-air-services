@@ -154,6 +154,32 @@ export interface AreasServedBlockContent {
   highlightedAreas?: string[];
 }
 
+export interface RepairProcessBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  steps: {
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+    badge?: string;
+  }[];
+  layout: "horizontal" | "vertical" | "timeline";
+}
+
+export interface HowItWorksBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  steps: {
+    id: string;
+    number: string;
+    title: string;
+    shortTitle?: string;
+    description: string;
+  }[];
+  layout: "cards" | "timeline" | "accordion";
+}
+
 // Union type for all block content
 export type BlockContent =
   | HeroBlockContent
@@ -166,7 +192,9 @@ export type BlockContent =
   | TextContentBlockContent
   | ImageTextBlockContent
   | StatsGridBlockContent
-  | AreasServedBlockContent;
+  | AreasServedBlockContent
+  | RepairProcessBlockContent
+  | HowItWorksBlockContent;
 
 // Editor Block (with full typing)
 export interface EditorBlock {

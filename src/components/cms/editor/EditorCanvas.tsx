@@ -281,7 +281,8 @@ function BlockPreview({ block }: { block: EditorBlock }) {
 }
 
 export function EditorCanvas() {
-  const { draftBlocks, deviceMode, reorderBlocks, viewMode } = useEditorStore();
+  const { draftBlocks, deviceMode, reorderBlocks, viewMode, page } = useEditorStore();
+  const pageSlug = page?.slug || "home";
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -315,7 +316,7 @@ export function EditorCanvas() {
           }}
         >
           <iframe
-            src={`/preview/${draftBlocks.length > 0 ? "home" : ""}`}
+            src={`/preview/${pageSlug}`}
             className="w-full h-full min-h-screen"
             title="Page Preview"
           />

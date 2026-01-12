@@ -58,32 +58,6 @@ INSERT INTO services (title, slug, description, short_description, icon, feature
     TRUE,
     2,
     TRUE
-  ),
-  (
-    'AC Installation',
-    'air-conditioning-installation',
-    'Expert AC installation services. We help you choose the right system for your home and budget.',
-    'Need a new AC? We''ll help you choose the right system and install it properly.',
-    'plus-circle',
-    '["Free estimates", "Top brands available", "Professional installation", "Warranty included"]',
-    'Get Free Estimate',
-    '/services/air-conditioning-installation',
-    FALSE,
-    3,
-    TRUE
-  ),
-  (
-    'Indoor Air Quality',
-    'indoor-air-quality',
-    'Breathe easier with our indoor air quality solutions. Air purifiers, humidifiers, and ventilation systems.',
-    'Improve your home''s air quality with filtration, purification, and ventilation solutions.',
-    'wind',
-    '["Air purification systems", "Humidity control", "Duct cleaning", "Ventilation solutions"]',
-    'Improve Your Air',
-    '/services/indoor-air-quality',
-    FALSE,
-    4,
-    TRUE
   )
 ON CONFLICT (slug) DO NOTHING;
 
@@ -299,6 +273,624 @@ BEGIN
       }',
       '{"padding": "lg", "background": "gradient"}',
       5,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- AC REPAIR PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  ac_repair_page_id UUID;
+BEGIN
+  SELECT id INTO ac_repair_page_id FROM pages WHERE slug = 'air-conditioning-repair';
+
+  IF ac_repair_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      ac_repair_page_id,
+      'hero',
+      '{
+        "title": "AC Repair",
+        "titleHighlight": "Houston",
+        "subtitle": "When your AC quits, you need it fixed. Fast, fair, done right.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "clock", "text": "Same-Day Service"},
+          {"id": "3", "icon": "shield", "text": "All Brands"}
+        ],
+        "primaryCta": {
+          "text": "Get Help Now",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "secondaryCta": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      ac_repair_page_id,
+      'repair-process',
+      '{
+        "sectionTitle": "How We Work",
+        "sectionSubtitle": "No runaround. No surprises.",
+        "steps": [
+          {"id": "1", "number": "01", "title": "You Call", "description": "We answer and schedule a visit", "badge": "Same day"},
+          {"id": "2", "number": "02", "title": "We Diagnose", "description": "Find the real problem", "badge": "Honest assessment"},
+          {"id": "3", "number": "03", "title": "You Approve", "description": "Know the price before we start", "badge": "No hidden fees"},
+          {"id": "4", "number": "04", "title": "We Fix It", "description": "Quality parts, proper installation", "badge": "Guaranteed"}
+        ],
+        "layout": "horizontal"
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      ac_repair_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Common Questions",
+        "sectionSubtitle": "Straight answers to what you''re probably wondering",
+        "pageSlug": "air-conditioning-repair",
+        "categories": ["ac-repair"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      ac_repair_page_id,
+      'final-cta',
+      '{
+        "title": "AC Problems?",
+        "subtitle": "Let''s get it fixed. Call now or schedule online.",
+        "primaryButton": {
+          "text": "Schedule Repair",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      3,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- HEATING PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  heating_page_id UUID;
+BEGIN
+  SELECT id INTO heating_page_id FROM pages WHERE slug = 'heating';
+
+  IF heating_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      heating_page_id,
+      'hero',
+      '{
+        "title": "Heating Services",
+        "titleHighlight": "Houston",
+        "subtitle": "Furnace acting up? Heat pump on the fritz? We fix it.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "certified", "text": "Licensed & Insured"},
+          {"id": "3", "icon": "shield", "text": "All Systems"}
+        ],
+        "primaryCta": {
+          "text": "Schedule Service",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "secondaryCta": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      heating_page_id,
+      'how-it-works',
+      '{
+        "sectionTitle": "Getting Started Is Easy",
+        "sectionSubtitle": "From call to comfort in 4 simple steps",
+        "steps": [
+          {"id": "1", "number": "01", "title": "Contact Us", "shortTitle": "Get in touch", "description": "Call or book online"},
+          {"id": "2", "number": "02", "title": "Pick a Time", "shortTitle": "Schedule your visit", "description": "Same-day available"},
+          {"id": "3", "number": "03", "title": "We Arrive", "shortTitle": "Expert service", "description": "On time, every time"},
+          {"id": "4", "number": "04", "title": "Stay Warm", "shortTitle": "Problem solved", "description": "Guaranteed work"}
+        ],
+        "layout": "cards"
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      heating_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Heating FAQs",
+        "sectionSubtitle": "What you need to know",
+        "pageSlug": "heating",
+        "categories": ["heating"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      heating_page_id,
+      'final-cta',
+      '{
+        "title": "Need Heating Help?",
+        "subtitle": "Don''t freeze—call us today.",
+        "primaryButton": {
+          "text": "Schedule Service",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      3,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- TUNE-UPS PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  tuneups_page_id UUID;
+BEGIN
+  SELECT id INTO tuneups_page_id FROM pages WHERE slug = 'air-conditioning-tune-ups';
+
+  IF tuneups_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      tuneups_page_id,
+      'hero',
+      '{
+        "title": "CoolSaver",
+        "titleHighlight": "Tune-Ups",
+        "subtitle": "13-point inspection. Catch problems before they become emergencies.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "check", "text": "13-Point Inspection"},
+          {"id": "2", "icon": "shield", "text": "Prevents Breakdowns"},
+          {"id": "3", "icon": "star", "text": "FREE for Qualifying Homeowners"}
+        ],
+        "primaryCta": {
+          "text": "Check If You Qualify",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "secondaryCta": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      tuneups_page_id,
+      'why-choose-us',
+      '{
+        "sectionTitle": "What''s Included",
+        "features": [
+          {
+            "id": "1",
+            "icon": "check",
+            "title": "Complete Inspection",
+            "description": "We check every component of your system—refrigerant levels, electrical connections, airflow, and more.",
+            "stat": "13",
+            "statLabel": "point inspection"
+          },
+          {
+            "id": "2",
+            "icon": "shield",
+            "title": "Prevent Costly Repairs",
+            "description": "Small problems caught early don''t become expensive emergencies later.",
+            "stat": "90%",
+            "statLabel": "of breakdowns preventable"
+          },
+          {
+            "id": "3",
+            "icon": "leaf",
+            "title": "Lower Energy Bills",
+            "description": "A tuned-up system runs more efficiently, saving you money every month.",
+            "stat": "15%",
+            "statLabel": "avg energy savings"
+          }
+        ],
+        "showImage": false,
+        "showVeteranBadge": true
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      tuneups_page_id,
+      'final-cta',
+      '{
+        "title": "Ready for Your Tune-Up?",
+        "subtitle": "Don''t wait for your AC to fail on the hottest day of the year.",
+        "primaryButton": {
+          "text": "Schedule Tune-Up",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      2,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- FINANCING PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  financing_page_id UUID;
+BEGIN
+  SELECT id INTO financing_page_id FROM pages WHERE slug = 'financing-payments';
+
+  IF financing_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      financing_page_id,
+      'hero',
+      '{
+        "title": "Financing",
+        "titleHighlight": "& Payments",
+        "subtitle": "Flexible options to fit your budget. Don''t let cost stop you from staying comfortable.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "check", "text": "0% APR Available"},
+          {"id": "2", "icon": "clock", "text": "Quick Approval"},
+          {"id": "3", "icon": "shield", "text": "No Hidden Fees"}
+        ],
+        "primaryCta": {
+          "text": "Apply Now",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      financing_page_id,
+      'stats-grid',
+      '{
+        "title": "Financing Options",
+        "stats": [
+          {"id": "1", "value": "0%", "label": "APR Available", "icon": "percent"},
+          {"id": "2", "value": "60", "label": "Month Terms", "icon": "calendar"},
+          {"id": "3", "value": "$0", "label": "Down Payment", "icon": "dollar"},
+          {"id": "4", "value": "2min", "label": "Approval Time", "icon": "clock"}
+        ],
+        "layout": "4-col"
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      financing_page_id,
+      'final-cta',
+      '{
+        "title": "Ready to Get Started?",
+        "subtitle": "Apply for financing or pay your invoice online.",
+        "primaryButton": {
+          "text": "Contact Us",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "Pay Invoice",
+          "href": "/pay-invoice",
+          "type": "link"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      2,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- PRIVACY POLICY PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  privacy_page_id UUID;
+BEGIN
+  SELECT id INTO privacy_page_id FROM pages WHERE slug = 'privacy-policy';
+
+  IF privacy_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      privacy_page_id,
+      'text-content',
+      '{
+        "title": "Privacy Policy",
+        "content": "<p><strong>Last Updated: January 2025</strong></p><p>Mr. Air Services (\"we,\" \"us,\" or \"our\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p><h2>Information We Collect</h2><p><strong>Personal Information:</strong> Name, email address, phone number, service address, and payment information when you request services or contact us.</p><p><strong>Automatically Collected Information:</strong> Browser type, IP address, device information, pages visited, and time spent on our site.</p><h2>How We Use Your Information</h2><ul><li>To provide and maintain our services</li><li>To process transactions and send related information</li><li>To respond to your comments, questions, and requests</li><li>To send promotional communications (with your consent)</li><li>To improve our website and services</li></ul><h2>Information Sharing</h2><p>We do not sell your personal information. We may share information with service providers who assist our operations, or when required by law.</p><h2>Your Rights</h2><p>You may request access to, correction of, or deletion of your personal information by contacting us at info@mrairservices.com.</p><h2>Contact Us</h2><p>If you have questions about this Privacy Policy, please contact us at:<br/>Mr. Air Services<br/>Email: info@mrairservices.com<br/>Phone: (832) 437-1000</p>",
+        "alignment": "left"
+      }',
+      '{"padding": "lg", "background": "white", "maxWidth": "narrow"}',
+      0,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- TERMS OF USE PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  terms_page_id UUID;
+BEGIN
+  SELECT id INTO terms_page_id FROM pages WHERE slug = 'terms-of-use';
+
+  IF terms_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      terms_page_id,
+      'text-content',
+      '{
+        "title": "Terms of Use",
+        "content": "<p><strong>Last Updated: January 2025</strong></p><p>Welcome to Mr. Air Services. By accessing or using our website and services, you agree to be bound by these Terms of Use.</p><h2>Use of Services</h2><p>You agree to use our services only for lawful purposes and in accordance with these Terms. You must be at least 18 years old to use our services.</p><h2>Service Appointments</h2><p>When you schedule a service appointment, you agree to:</p><ul><li>Provide accurate contact and service location information</li><li>Ensure someone 18 or older is present during the service</li><li>Provide safe access to the equipment requiring service</li><li>Pay for services rendered according to the quoted price</li></ul><h2>Pricing and Payment</h2><p>All prices quoted are estimates and may change based on actual conditions found during service. Final pricing will be confirmed before work begins. We accept cash, credit cards, and approved financing.</p><h2>Warranties</h2><p>Our work is guaranteed. Specific warranty terms will be provided with your service invoice.</p><h2>Limitation of Liability</h2><p>To the maximum extent permitted by law, Mr. Air Services shall not be liable for any indirect, incidental, special, or consequential damages.</p><h2>Changes to Terms</h2><p>We may update these Terms from time to time. Continued use of our services constitutes acceptance of updated Terms.</p><h2>Contact</h2><p>Questions about these Terms? Contact us at info@mrairservices.com or (832) 437-1000.</p>",
+        "alignment": "left"
+      }',
+      '{"padding": "lg", "background": "white", "maxWidth": "narrow"}',
+      0,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- PAY INVOICE PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  pay_page_id UUID;
+BEGIN
+  SELECT id INTO pay_page_id FROM pages WHERE slug = 'pay-invoice';
+
+  IF pay_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      pay_page_id,
+      'hero',
+      '{
+        "title": "Pay Your",
+        "titleHighlight": "Invoice",
+        "subtitle": "Quick, secure online payment. Have your invoice number ready.",
+        "overlay": "light",
+        "trustBadges": [
+          {"id": "1", "icon": "shield", "text": "Secure Payment"},
+          {"id": "2", "icon": "check", "text": "Instant Confirmation"}
+        ],
+        "primaryCta": {
+          "text": "Pay Now",
+          "href": "#payment-form",
+          "variant": "primary"
+        },
+        "layout": "centered"
+      }',
+      '{"padding": "md", "background": "white"}',
+      0,
+      TRUE
+    ),
+    (
+      pay_page_id,
+      'contact-info',
+      '{
+        "title": "Need Help?",
+        "subtitle": "Questions about your invoice? We''re here to help.",
+        "showPhone": true,
+        "showEmail": true,
+        "showHours": true,
+        "showLocations": false,
+        "showMap": false
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      1,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- SERVICES INDEX PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  services_page_id UUID;
+BEGIN
+  SELECT id INTO services_page_id FROM pages WHERE slug = 'services';
+
+  IF services_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      services_page_id,
+      'hero',
+      '{
+        "title": "Our",
+        "titleHighlight": "Services",
+        "subtitle": "Professional HVAC services for Houston homeowners",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "license", "text": "TX Licensed"},
+          {"id": "3", "icon": "shield", "text": "Fully Insured"}
+        ],
+        "primaryCta": {
+          "text": "Get a Quote",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "layout": "centered"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      services_page_id,
+      'services-grid',
+      '{
+        "sectionTitle": "What We Do",
+        "sectionSubtitle": "From repairs to installations, we''ve got you covered",
+        "serviceIds": [],
+        "layout": "3-col",
+        "showCta": true
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      services_page_id,
+      'final-cta',
+      '{
+        "title": "Ready to Get Started?",
+        "subtitle": "Schedule your service today.",
+        "primaryButton": {
+          "text": "Contact Us",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      2,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- CONTACT PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  contact_page_id UUID;
+BEGIN
+  SELECT id INTO contact_page_id FROM pages WHERE slug = 'contact';
+
+  IF contact_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      contact_page_id,
+      'hero',
+      '{
+        "title": "Contact",
+        "titleHighlight": "Us",
+        "subtitle": "Get in touch. We''re here to help.",
+        "overlay": "light",
+        "trustBadges": [],
+        "primaryCta": {
+          "text": "Call Now",
+          "href": "tel:+18324371000",
+          "variant": "primary"
+        },
+        "layout": "centered"
+      }',
+      '{"padding": "md", "background": "white"}',
+      0,
+      TRUE
+    ),
+    (
+      contact_page_id,
+      'contact-info',
+      '{
+        "title": "Get In Touch",
+        "subtitle": "Multiple ways to reach us",
+        "showPhone": true,
+        "showEmail": true,
+        "showHours": true,
+        "showLocations": true,
+        "showMap": true
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
       TRUE
     )
     ON CONFLICT DO NOTHING;
