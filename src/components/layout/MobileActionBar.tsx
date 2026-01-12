@@ -1,8 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import type { SiteConfig } from '@/types/site-config';
 
-export function MobileActionBar() {
+interface MobileActionBarProps {
+  config: SiteConfig;
+}
+
+export function MobileActionBar({ config }: MobileActionBarProps) {
+  // Format phone for tel: link
+  const phoneLink = `tel:+1${config.company.phone.replace(/\D/g, '')}`;
+
   return (
     <>
       {/* Spacer to prevent content from being hidden behind the bar */}
@@ -18,7 +26,7 @@ export function MobileActionBar() {
       >
         <div className="flex safe-area-bottom">
           <a
-            href="tel:+18324371000"
+            href={phoneLink}
             className="flex-1 flex items-center justify-center gap-2 py-4 bg-secondary text-white font-medium active:bg-secondary/80 transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

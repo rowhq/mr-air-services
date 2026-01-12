@@ -241,10 +241,10 @@ CREATE TRIGGER update_users_updated_at
 
 -- Default site config
 INSERT INTO site_config (key, value) VALUES
-  ('company', '{"name": "Mr. Air Services", "tagline": "South Texas Premier HVAC & Indoor Air Quality Experts", "phone": "(956) 996-2665", "email": "info@mrairservices.com"}'),
+  ('company', '{"name": "Mr. Air Services", "tagline": "Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.", "phone": "(832) 437-1000", "email": "info@mrairservices.com"}'),
   ('social', '{"facebook": "", "instagram": "", "twitter": "", "youtube": ""}'),
-  ('hours', '{"weekday": "8:00 AM - 6:00 PM", "saturday": "9:00 AM - 2:00 PM", "sunday": "Closed", "emergency": "24/7"}'),
-  ('seo', '{"defaultTitle": "Mr. Air Services | HVAC & Indoor Air Quality Experts", "defaultDescription": "Professional HVAC services in South Texas. AC repair, installation, maintenance and indoor air quality solutions."}')
+  ('hours', '{"weekday": "Mon-Fri: 8AM-5PM", "saturday": "Closed", "sunday": "Closed", "emergency": "24/7 Emergency Service"}'),
+  ('seo', '{"defaultTitle": "Mr. Air Services | Houston HVAC Experts", "defaultDescription": "Professional HVAC services in Houston. AC repair, installation, maintenance and indoor air quality solutions."}')
 ON CONFLICT (key) DO NOTHING;
 
 -- Default pages

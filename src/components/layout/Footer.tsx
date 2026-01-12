@@ -1,24 +1,48 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import type { SiteDataProps, NavigationItem, ServiceItem } from '@/types/site-config';
 
-const footerLinks = {
-  services: [
-    { name: 'AC Repair', href: '/services/air-conditioning-repair' },
-    { name: 'Tune-Ups', href: '/services/air-conditioning-tune-ups' },
-    { name: 'Heating', href: '/services/heating' },
-  ],
-  company: [
-    { name: 'Contact', href: '/contact' },
-    { name: 'Financing', href: '/financing-payments' },
-    { name: 'Pay Invoice', href: '/pay-invoice' },
-  ],
-  legal: [
-    { name: 'Privacy Policy', href: '/privacy-policy' },
-    { name: 'Terms of Use', href: '/terms-of-use' },
-  ],
-};
+interface FooterProps {
+  siteData: SiteDataProps;
+}
 
-export function Footer() {
+export function Footer({ siteData }: FooterProps) {
+  const { config, navigation, services, primaryLocation } = siteData;
+
+  // Get footer navigation items
+  const footerNavItems = navigation
+    .filter((item) => item.location === 'footer' && item.is_visible)
+    .sort((a, b) => a.position - b.position);
+
+  // Group footer items by type
+  const serviceLinks = services
+    .filter((s) => s.is_published)
+    .slice(0, 3)
+    .map((service) => ({
+      name: service.title,
+      href: `/services/${service.slug}`,
+    }));
+
+  const companyLinks = footerNavItems
+    .filter((item) => !item.href.includes('privacy') && !item.href.includes('terms') && !item.href.includes('services'))
+    .map((item) => ({
+      name: item.label,
+      href: item.href,
+    }));
+
+  const legalLinks = footerNavItems
+    .filter((item) => item.href.includes('privacy') || item.href.includes('terms'))
+    .map((item) => ({
+      name: item.label,
+      href: item.href,
+    }));
+
+  // Format phone for tel: link
+  const phoneLink = `tel:+1${config.company.phone.replace(/\D/g, '')}`;
+
+  // Get location info
+  const locationCity = primaryLocation ? `${primaryLocation.city}, ${primaryLocation.state}` : 'Houston, TX';
+
   return (
     <footer className="bg-neutral-950">
       {/* Main Footer */}
@@ -30,14 +54,14 @@ export function Footer() {
             <Link href="/" className="inline-block mb-6">
               <Image
                 src="/logo-white.svg"
-                alt="Mr. Air Services"
+                alt={config.company.name}
                 width={160}
                 height={38}
                 className="h-9 w-auto"
               />
             </Link>
             <p className="text-neutral-400 leading-relaxed mb-8 max-w-md">
-              Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.
+              {config.company.tagline || 'Professional HVAC service for the Greater Houston area. Quality work, fair prices, guaranteed satisfaction.'}
             </p>
 
             {/* Veteran Owned Badge */}
@@ -59,7 +83,7 @@ export function Footer() {
                   Services
                 </h3>
                 <ul className="space-y-3">
-                  {footerLinks.services.map((link) => (
+                  {serviceLinks.map((link) => (
                     <li key={link.name}>
                       <Link
                         href={link.href}
@@ -78,16 +102,37 @@ export function Footer() {
                   Company
                 </h3>
                 <ul className="space-y-3">
-                  {footerLinks.company.map((link) => (
-                    <li key={link.name}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-neutral-400 hover:text-white transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
+                  {companyLinks.length > 0 ? (
+                    companyLinks.map((link) => (
+                      <li key={link.name}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-neutral-400 hover:text-white transition-colors"
+                        >
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))
+                  ) : (
+                    // Fallback if no navigation items
+                    <>
+                      <li>
+                        <Link href="/contact" className="text-sm text-neutral-400 hover:text-white transition-colors">
+                          Contact
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/financing-payments" className="text-sm text-neutral-400 hover:text-white transition-colors">
+                          Financing
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="/pay-invoice" className="text-sm text-neutral-400 hover:text-white transition-colors">
+                          Pay Invoice
+                        </Link>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
 
@@ -99,17 +144,17 @@ export function Footer() {
                 <ul className="space-y-3">
                   <li>
                     <a
-                      href="tel:+18324371000"
+                      href={phoneLink}
                       className="text-sm text-neutral-400 hover:text-white transition-colors font-medium"
                     >
-                      (832) 437-1000
+                      {config.company.phone}
                     </a>
                   </li>
                   <li className="text-sm text-neutral-500">
-                    Houston, TX
+                    {locationCity}
                   </li>
                   <li className="text-sm text-neutral-500">
-                    Mon–Fri 8AM–5PM
+                    {config.hours.weekday}
                   </li>
                 </ul>
               </div>
@@ -124,7 +169,7 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
               <p className="text-sm text-neutral-500">
-                © {new Date().getFullYear()} Mr. Air Services, LLC
+                © {new Date().getFullYear()} {config.company.name}, LLC
               </p>
               <span className="hidden sm:inline text-neutral-700">·</span>
               <p className="text-sm text-neutral-600">
@@ -132,15 +177,27 @@ export function Footer() {
               </p>
             </div>
             <div className="flex items-center gap-6">
-              {footerLinks.legal.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm text-neutral-500 hover:text-white transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {legalLinks.length > 0 ? (
+                legalLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="text-sm text-neutral-500 hover:text-white transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                ))
+              ) : (
+                // Fallback
+                <>
+                  <Link href="/privacy-policy" className="text-sm text-neutral-500 hover:text-white transition-colors">
+                    Privacy Policy
+                  </Link>
+                  <Link href="/terms-of-use" className="text-sm text-neutral-500 hover:text-white transition-colors">
+                    Terms of Use
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

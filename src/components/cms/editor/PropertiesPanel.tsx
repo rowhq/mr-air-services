@@ -177,7 +177,9 @@ interface ContentFieldsProps {
 function ContentFields({ type, content, onChange }: ContentFieldsProps) {
   // Render different fields based on block type
   switch (type) {
-    case "hero":
+    case "hero": {
+      const primaryCta = (content.primaryCta as { text?: string; href?: string; variant?: string }) || {};
+      const secondaryCta = (content.secondaryCta as { text?: string; href?: string; type?: string }) || {};
       return (
         <div className="space-y-4">
           <TextField
@@ -216,8 +218,64 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             ]}
             onChange={(v) => onChange("layout", v)}
           />
+
+          {/* Primary CTA */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Primary Button</h4>
+            <div className="space-y-3">
+              <TextField
+                label="Button Text"
+                value={primaryCta.text || ""}
+                onChange={(v) => onChange("primaryCta", { ...primaryCta, text: v })}
+              />
+              <TextField
+                label="Button Link"
+                value={primaryCta.href || ""}
+                onChange={(v) => onChange("primaryCta", { ...primaryCta, href: v })}
+                placeholder="/contact or tel:+1..."
+              />
+              <SelectField
+                label="Variant"
+                value={primaryCta.variant || "primary"}
+                options={[
+                  { value: "primary", label: "Primary" },
+                  { value: "secondary", label: "Secondary" },
+                ]}
+                onChange={(v) => onChange("primaryCta", { ...primaryCta, variant: v })}
+              />
+            </div>
+          </div>
+
+          {/* Secondary CTA */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Secondary Button (Optional)</h4>
+            <div className="space-y-3">
+              <TextField
+                label="Button Text"
+                value={secondaryCta.text || ""}
+                onChange={(v) => onChange("secondaryCta", { ...secondaryCta, text: v })}
+                placeholder="e.g. (832) 437-1000"
+              />
+              <TextField
+                label="Button Link"
+                value={secondaryCta.href || ""}
+                onChange={(v) => onChange("secondaryCta", { ...secondaryCta, href: v })}
+                placeholder="tel:+18324371000"
+              />
+              <SelectField
+                label="Type"
+                value={secondaryCta.type || "link"}
+                options={[
+                  { value: "link", label: "Link" },
+                  { value: "phone", label: "Phone" },
+                ]}
+                onChange={(v) => onChange("secondaryCta", { ...secondaryCta, type: v })}
+              />
+            </div>
+          </div>
         </div>
       );
+    }
 
     case "services-overview":
       return (
@@ -301,6 +359,12 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             value={(content.sectionSubtitle as string) || ""}
             onChange={(v) => onChange("sectionSubtitle", v)}
           />
+          <TextField
+            label="Filter by Page Slug"
+            value={(content.pageSlug as string) || ""}
+            onChange={(v) => onChange("pageSlug", v)}
+            placeholder="e.g. air-conditioning-repair"
+          />
           <SelectField
             label="Layout"
             value={(content.layout as string) || "accordion"}
@@ -318,10 +382,49 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             min={1}
             max={50}
           />
+          <p className="text-xs text-gray-400 mt-2">
+            Leave page slug empty to show general FAQs, or enter a page slug to show page-specific FAQs.
+          </p>
         </div>
       );
 
-    case "final-cta":
+    case "services-grid":
+      return (
+        <div className="space-y-4">
+          <TextField
+            label="Section Title"
+            value={(content.sectionTitle as string) || ""}
+            onChange={(v) => onChange("sectionTitle", v)}
+          />
+          <TextareaField
+            label="Subtitle"
+            value={(content.sectionSubtitle as string) || ""}
+            onChange={(v) => onChange("sectionSubtitle", v)}
+          />
+          <SelectField
+            label="Layout"
+            value={(content.layout as string) || "3-col"}
+            options={[
+              { value: "2-col", label: "2 Columns" },
+              { value: "3-col", label: "3 Columns" },
+              { value: "4-col", label: "4 Columns" },
+            ]}
+            onChange={(v) => onChange("layout", v)}
+          />
+          <CheckboxField
+            label="Show CTA"
+            checked={(content.showCta as boolean) || false}
+            onChange={(v) => onChange("showCta", v)}
+          />
+          <p className="text-xs text-gray-400 mt-2">
+            Shows all published services. Use Services admin to manage which services appear.
+          </p>
+        </div>
+      );
+
+    case "final-cta": {
+      const primaryButton = (content.primaryButton as { text?: string; href?: string }) || {};
+      const secondaryButton = (content.secondaryButton as { text?: string; href?: string; type?: string }) || {};
       return (
         <div className="space-y-4">
           <TextField
@@ -344,8 +447,55 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             ]}
             onChange={(v) => onChange("background", v)}
           />
+
+          {/* Primary Button */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Primary Button</h4>
+            <div className="space-y-3">
+              <TextField
+                label="Button Text"
+                value={primaryButton.text || ""}
+                onChange={(v) => onChange("primaryButton", { ...primaryButton, text: v })}
+              />
+              <TextField
+                label="Button Link"
+                value={primaryButton.href || ""}
+                onChange={(v) => onChange("primaryButton", { ...primaryButton, href: v })}
+                placeholder="/contact"
+              />
+            </div>
+          </div>
+
+          {/* Secondary Button */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Secondary Button (Optional)</h4>
+            <div className="space-y-3">
+              <TextField
+                label="Button Text"
+                value={secondaryButton.text || ""}
+                onChange={(v) => onChange("secondaryButton", { ...secondaryButton, text: v })}
+                placeholder="e.g. (832) 437-1000"
+              />
+              <TextField
+                label="Button Link"
+                value={secondaryButton.href || ""}
+                onChange={(v) => onChange("secondaryButton", { ...secondaryButton, href: v })}
+                placeholder="tel:+18324371000"
+              />
+              <SelectField
+                label="Type"
+                value={secondaryButton.type || "link"}
+                options={[
+                  { value: "link", label: "Link" },
+                  { value: "phone", label: "Phone" },
+                ]}
+                onChange={(v) => onChange("secondaryButton", { ...secondaryButton, type: v })}
+              />
+            </div>
+          </div>
         </div>
       );
+    }
 
     case "text-content":
       return (

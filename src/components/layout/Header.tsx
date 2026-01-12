@@ -1,67 +1,52 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, type ReactNode } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Button, ThemeToggle } from '@/components/ui';
+import type { SiteDataProps } from '@/types/site-config';
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  {
-    name: 'Services',
-    href: '/services',
-    children: [
-      { name: 'AC Repair', href: '/services/air-conditioning-repair' },
-      { name: 'CoolSaver Tune-Ups', href: '/services/air-conditioning-tune-ups' },
-      { name: 'Heating', href: '/services/heating' },
-    ],
-  },
-  { name: 'Financing', href: '/financing-payments' },
-  { name: 'Pay Invoice', href: '/pay-invoice' },
-  { name: 'Contact', href: '/contact' },
-];
+// Service icons mapping
+const serviceIcons: Record<string, ReactNode> = {
+  'ac-repair': (
+    <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M6 26V12l10-8 10 8v14a2 2 0 01-2 2H8a2 2 0 01-2-2z" strokeLinejoin="round" />
+      <path d="M16 14v6M13 17h6" strokeLinecap="round" />
+    </svg>
+  ),
+  'heating': (
+    <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M16 4v24M16 4l-3 3M16 4l3 3M16 28l-3-3M16 28l3-3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="16" cy="16" r="6" />
+      <path d="M16 10v12" strokeLinecap="round" />
+    </svg>
+  ),
+  'tune-up': (
+    <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="16" cy="16" r="10" />
+      <path d="M16 10v6l4 2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 6l-2-2M24 6l2-2" strokeLinecap="round" />
+    </svg>
+  ),
+  'default': (
+    <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M16 4v24M16 4l-3 3M16 4l3 3" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="16" cy="20" r="6" />
+    </svg>
+  ),
+};
 
-// Services data for mega menu
-const servicesData = [
-  {
-    icon: (
-      <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M6 26V12l10-8 10 8v14a2 2 0 01-2 2H8a2 2 0 01-2-2z" strokeLinejoin="round" />
-        <path d="M16 14v6M13 17h6" strokeLinecap="round" />
-      </svg>
-    ),
-    name: 'AC Repair',
-    description: 'Fast, reliable repairs when you need them most.',
-    href: '/services/air-conditioning-repair',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M16 4v24M16 4l-3 3M16 4l3 3M16 28l-3-3M16 28l3-3" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="16" cy="16" r="6" />
-        <path d="M16 10v12" strokeLinecap="round" />
-      </svg>
-    ),
-    name: 'Heating',
-    description: 'Stay warm all winter with expert heating service.',
-    href: '/services/heating',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="16" cy="16" r="10" />
-        <path d="M16 10v6l4 2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M8 6l-2-2M24 6l2-2" strokeLinecap="round" />
-      </svg>
-    ),
-    name: 'CoolSaver Tune-Ups',
-    description: 'Keep your AC running at peak efficiency.',
-    href: '/services/air-conditioning-tune-ups',
-  },
-];
+function getServiceIcon(iconKey: string): ReactNode {
+  return serviceIcons[iconKey] || serviceIcons['default'];
+}
 
-export function Header() {
+interface HeaderProps {
+  siteData: SiteDataProps;
+}
+
+export function Header({ siteData }: HeaderProps) {
+  const { config, navigation, services } = siteData;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
@@ -70,6 +55,43 @@ export function Header() {
 
   const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Get header navigation items
+  const headerNavItems = navigation
+    .filter((item) => item.location === 'header' && item.is_visible)
+    .sort((a, b) => a.position - b.position);
+
+  // Get featured services for mega menu
+  const featuredServices = services
+    .filter((service) => service.is_featured && service.is_published)
+    .sort((a, b) => a.position - b.position);
+
+  // Build navigation structure with services as children
+  const buildNavigation = () => {
+    const navItems: Array<{ name: string; href: string; children?: Array<{ name: string; href: string }> }> = [];
+
+    headerNavItems.forEach((item) => {
+      if (item.label === 'Services' || item.href === '/services') {
+        navItems.push({
+          name: item.label,
+          href: item.href,
+          children: featuredServices.map((service) => ({
+            name: service.title,
+            href: `/services/${service.slug}`,
+          })),
+        });
+      } else {
+        navItems.push({
+          name: item.label,
+          href: item.href,
+        });
+      }
+    });
+
+    return navItems;
+  };
+
+  const navigationItems = buildNavigation();
 
   // Cleanup timeouts
   useEffect(() => {
@@ -136,6 +158,9 @@ export function Header() {
     }, 200);
   }, []);
 
+  // Format phone for tel: link
+  const phoneLink = `tel:+1${config.company.phone.replace(/\D/g, '')}`;
+
   return (
     <>
     <header
@@ -165,19 +190,19 @@ export function Header() {
 
           <div className="flex items-center gap-6 text-sm text-white/70">
             <a
-              href="tel:+18324371000"
+              href={phoneLink}
               className="flex items-center gap-2 hover:text-white transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              (832) 437-1000
+              {config.company.phone}
             </a>
             <span className="flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Mon-Fri: 8AM-5PM
+              {config.hours.weekday}
             </span>
           </div>
         </div>
@@ -191,7 +216,7 @@ export function Header() {
             <Link href="/" className="flex items-center">
               <Image
                 src="/logo-white.svg"
-                alt="Mr. Air Services"
+                alt={config.company.name}
                 width={180}
                 height={42}
                 className={`w-auto text-white transition-all duration-300 ${
@@ -203,37 +228,39 @@ export function Header() {
 
             {/* Center - Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-6">
-              {/* Services with Mega Menu */}
-              <div
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Link
-                  href="/services"
-                  onClick={() => setServicesMenuOpen(false)}
-                  className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors py-2"
-                >
-                  Services
-                  <svg
-                    className={`w-4 h-4 transition-transform duration-300 ${servicesMenuOpen ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+              {navigationItems.map((item) => (
+                item.children ? (
+                  <div
+                    key={item.name}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </Link>
-              </div>
-
-              <Link href="/financing-payments" className="text-white/90 hover:text-white font-medium transition-colors">
-                Financing
-              </Link>
-              <Link href="/pay-invoice" className="text-white/90 hover:text-white font-medium transition-colors">
-                Pay Invoice
-              </Link>
-              <Link href="/contact" className="text-white/90 hover:text-white font-medium transition-colors">
-                Contact
-              </Link>
+                    <Link
+                      href={item.href}
+                      onClick={() => setServicesMenuOpen(false)}
+                      className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors py-2"
+                    >
+                      {item.name}
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-300 ${servicesMenuOpen ? 'rotate-180' : ''}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </Link>
+                  </div>
+                ) : (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-white/90 hover:text-white font-medium transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                )
+              ))}
             </div>
 
             {/* Right Side - CTA & Mobile Menu */}
@@ -291,12 +318,13 @@ export function Header() {
         <div>
           <div className="container pt-8 pb-6">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                  {servicesData.map((service) => {
-                    const isActive = pathname === service.href;
+                  {featuredServices.map((service) => {
+                    const serviceHref = `/services/${service.slug}`;
+                    const isActive = pathname === serviceHref;
                     return (
                       <Link
-                        key={service.name}
-                        href={service.href}
+                        key={service.id}
+                        href={serviceHref}
                         onClick={() => setServicesMenuOpen(false)}
                         className={`group relative p-4 rounded-xl border transition-all duration-200 ${
                           isActive
@@ -305,10 +333,10 @@ export function Header() {
                         }`}
                       >
                         <div className="text-white mb-3">
-                          {service.icon}
+                          {getServiceIcon(service.icon)}
                         </div>
-                        <h4 className="text-white font-semibold mb-1">{service.name}</h4>
-                        <p className="text-white/50 group-hover:text-white/80 text-sm leading-snug mb-2 transition-colors">{service.description}</p>
+                        <h4 className="text-white font-semibold mb-1">{service.title}</h4>
+                        <p className="text-white/50 group-hover:text-white/80 text-sm leading-snug mb-2 transition-colors">{service.short_description}</p>
                         <div className={`flex items-center text-white/70 text-sm font-medium transition-opacity ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                           <span>{isActive ? 'Currently viewing' : 'Learn more'}</span>
                           {!isActive && (
@@ -333,7 +361,7 @@ export function Header() {
               <Link href="/" onClick={() => setMobileMenuOpen(false)}>
                 <Image
                   src="/logo-white.svg"
-                  alt="Mr. Air Services"
+                  alt={config.company.name}
                   width={160}
                   height={37}
                   className="h-8 w-auto"
@@ -352,7 +380,7 @@ export function Header() {
             </div>
 
             <nav className="space-y-1">
-              {navigation.map((item) => (
+              {navigationItems.map((item) => (
                 <div key={item.name}>
                   {item.children ? (
                     <div>
@@ -405,16 +433,16 @@ export function Header() {
                 </Button>
               </Link>
               <a
-                href="tel:+18324371000"
+                href={phoneLink}
                 className="flex items-center justify-center gap-2 py-3 text-white font-medium"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                (832) 437-1000
+                {config.company.phone}
               </a>
               <p className="text-center text-white/70 text-sm">
-                Mon-Fri: 8AM-5PM
+                {config.hours.weekday}
               </p>
             </div>
           </div>
