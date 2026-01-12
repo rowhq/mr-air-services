@@ -2,6 +2,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals } from '@/components/ui';
 import { FinalCTA, FAQSection } from '@/components/sections';
+import type { FAQ } from '@/types/database';
+
+// Fetch FAQs from CMS
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/faqs?page=financing-payments`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return [];
+    return response.json();
+  } catch {
+    return [];
+  }
+}
 
 export const metadata = {
   title: 'Financing & Payments | Mr. Air Services - Flexible HVAC Financing Houston',
@@ -53,7 +68,8 @@ const howItWorks = [
   },
 ];
 
-const faqs = [
+// Default FAQs (fallback if CMS is empty)
+const defaultFaqs = [
   {
     question: 'What credit score do I need?',
     answer: "Honestly? We work with a bunch of different lenders. Even if your credit's seen better days, we can usually find something.",
@@ -84,7 +100,11 @@ const faqs = [
   },
 ];
 
-export default function FinancingPage() {
+export default async function FinancingPage() {
+  const cmsFaqs = await getFAQs();
+  const faqs = cmsFaqs.length > 0
+    ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : defaultFaqs;
   return (
     <>
       {/* Hero with Background Photo */}

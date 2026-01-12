@@ -100,6 +100,25 @@ INSERT INTO faqs (page_slug, category, question, answer, position, is_published)
   ('heating', 'heating', 'Why is my heater blowing cold air?', 'Could be a thermostat issue, pilot light problem, or clogged filter. We''ll diagnose it quickly and give you options.', 2, TRUE)
 ON CONFLICT DO NOTHING;
 
+-- Tune-Up FAQs
+INSERT INTO faqs (page_slug, category, question, answer, position, is_published) VALUES
+  ('air-conditioning-tune-ups', 'tune-ups', 'How often should I get a tune-up?', 'Once a year, ideally before summer. Regular maintenance prevents breakdowns, keeps efficiency high, and extends your system''s life. Think of it like an oil change for your car.', 0, TRUE),
+  ('air-conditioning-tune-ups', 'tune-ups', 'What does the tune-up include?', 'A 13-point inspection covering refrigerant levels, coils, electrical connections, drain lines, motors, and more. We check everything that affects cooling performance and efficiency.', 1, TRUE),
+  ('air-conditioning-tune-ups', 'tune-ups', 'How do I qualify for a FREE tune-up?', 'Click ''Check If You Qualify'' and answer a few quick questions. Qualifying homeowners get a complete CoolSaver tune-up at no cost. It takes about 30 seconds.', 2, TRUE),
+  ('air-conditioning-tune-ups', 'tune-ups', 'How long does a tune-up take?', 'About 45 minutes to an hour for a thorough inspection. We don''t rush—we check everything properly so you get real value from the service.', 3, TRUE)
+ON CONFLICT DO NOTHING;
+
+-- Financing FAQs
+INSERT INTO faqs (page_slug, category, question, answer, position, is_published) VALUES
+  ('financing-payments', 'financing', 'What credit score do I need?', 'Honestly? We work with a bunch of different lenders. Even if your credit''s seen better days, we can usually find something.', 0, TRUE),
+  ('financing-payments', 'financing', 'What''s the interest rate?', 'Rates depend on your credit profile and term length. Apply to see your personalized options—it only takes 5 minutes and you''ll know right away.', 1, TRUE),
+  ('financing-payments', 'financing', 'How do I apply?', 'Takes 5 minutes. Your tech can help you on the spot, or call our office. You''ll know if you''re approved before we leave.', 2, TRUE),
+  ('financing-payments', 'financing', 'What if I get denied?', 'We''ve got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. Your AC broke—that''s stressful enough without worrying about credit.', 3, TRUE),
+  ('financing-payments', 'financing', 'Can I pay it off early?', 'Yep. No prepayment penalties. Pay it off whenever you want without extra fees.', 4, TRUE),
+  ('financing-payments', 'financing', 'What''s the minimum to finance?', 'Minimums vary by lender. Most major repairs and new system installations qualify. Ask us for details.', 5, TRUE),
+  ('financing-payments', 'financing', 'Any discounts for veterans or seniors?', 'Absolutely. We''ve got discounts for seniors, military, and first responders. Just ask when you schedule. We don''t make you jump through hoops.', 6, TRUE)
+ON CONFLICT DO NOTHING;
+
 -- =====================================================
 -- NAVIGATION ITEMS
 -- =====================================================

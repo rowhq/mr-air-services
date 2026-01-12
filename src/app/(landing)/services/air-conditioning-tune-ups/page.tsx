@@ -1,7 +1,42 @@
 import Link from 'next/link';
 import { Button, Breadcrumbs, TrustSignals, ChecklistGrid, CoolSaverCTA } from '@/components/ui';
-import { FinalCTA } from '@/components/sections';
+import { FinalCTA, FAQSection } from '@/components/sections';
 import { StickyTuneUpCTA } from '@/components/ui/StickyTuneUpCTA';
+import type { FAQ } from '@/types/database';
+
+// Fetch FAQs from CMS
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/faqs?page=air-conditioning-tune-ups`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return [];
+    return response.json();
+  } catch {
+    return [];
+  }
+}
+
+// Default FAQs (fallback if CMS is empty)
+const defaultFaqs = [
+  {
+    question: 'How often should I get a tune-up?',
+    answer: "Once a year, ideally before summer. Regular maintenance prevents breakdowns, keeps efficiency high, and extends your system's life. Think of it like an oil change for your car.",
+  },
+  {
+    question: 'What does the tune-up include?',
+    answer: "A 13-point inspection covering refrigerant levels, coils, electrical connections, drain lines, motors, and more. We check everything that affects cooling performance and efficiency.",
+  },
+  {
+    question: 'How do I qualify for a FREE tune-up?',
+    answer: "Click 'Check If You Qualify' and answer a few quick questions. Qualifying homeowners get a complete CoolSaver tune-up at no cost. It takes about 30 seconds.",
+  },
+  {
+    question: 'How long does a tune-up take?',
+    answer: "About 45 minutes to an hour for a thorough inspection. We don't rush—we check everything properly so you get real value from the service.",
+  },
+];
 
 export const metadata = {
   title: 'Annual AC Tune-Up & Preventative Maintenance | Mr. Air Services Houston',
@@ -54,7 +89,12 @@ const benefits = [
   },
 ];
 
-export default function ACTuneUpsPage() {
+export default async function ACTuneUpsPage() {
+  const cmsFaqs = await getFAQs();
+  const faqs = cmsFaqs.length > 0
+    ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : defaultFaqs;
+
   return (
     <>
       {/* Sticky Mobile CTA */}
@@ -209,6 +249,12 @@ export default function ACTuneUpsPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQs */}
+      <FAQSection
+        subtitle="Got questions about tune-ups? We've got answers."
+        items={faqs}
+      />
 
       <FinalCTA />
     </>
