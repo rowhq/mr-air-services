@@ -18,17 +18,18 @@ ON CONFLICT DO NOTHING;
 -- SERVICES
 -- =====================================================
 
+-- Services matching ServicesOverview.tsx defaultServices
 INSERT INTO services (title, slug, description, short_description, icon, features, cta_text, cta_link, is_featured, position, is_published) VALUES
   (
     'AC Repair',
     'air-conditioning-repair',
     'Fast, reliable AC repair in Houston. Same-day service available. Our experienced technicians fix all makes and models.',
     'AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.',
-    'wrench',
+    'ac-repair',
     '["Same-day service available", "All brands serviced", "No hidden fees", "Licensed technicians"]',
     'Get Emergency Help',
     'tel:+18324371000',
-    FALSE,
+    TRUE,
     0,
     TRUE
   ),
@@ -37,7 +38,7 @@ INSERT INTO services (title, slug, description, short_description, icon, feature
     'air-conditioning-tune-ups',
     '13-point inspection to catch problems before they become emergencies. Preventive maintenance that saves you money.',
     '13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.',
-    'settings',
+    'tune-up',
     '["13-point inspection", "Prevents breakdowns", "Extends system life", "Improves efficiency"]',
     'Check If You Qualify',
     '/services/air-conditioning-tune-ups',
@@ -50,11 +51,11 @@ INSERT INTO services (title, slug, description, short_description, icon, feature
     'heating',
     'Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We''ll help you pick the right one.',
     'Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We''ll help you pick the right one.',
-    'flame',
+    'heating',
     '["Furnace repair", "Heat pump service", "New system installation", "Emergency service"]',
     'Schedule Service',
     '/services/heating',
-    FALSE,
+    TRUE,
     2,
     TRUE
   ),
@@ -129,19 +130,25 @@ ON CONFLICT DO NOTHING;
 -- NAVIGATION ITEMS
 -- =====================================================
 
--- Header Navigation
+-- Header Navigation (matching Header.tsx)
 INSERT INTO navigation_items (location, label, href, position, is_external, is_visible) VALUES
-  ('header', 'Services', '/services', 0, FALSE, TRUE),
-  ('header', 'Financing', '/financing-payments', 1, FALSE, TRUE),
-  ('header', 'Areas We Serve', '/areas-we-serve', 2, FALSE, TRUE),
-  ('header', 'Contact', '/contact', 3, FALSE, TRUE)
+  ('header', 'Home', '/', 0, FALSE, TRUE),
+  ('header', 'Services', '/services', 1, FALSE, TRUE),
+  ('header', 'Financing', '/financing-payments', 2, FALSE, TRUE),
+  ('header', 'Pay Invoice', '/pay-invoice', 3, FALSE, TRUE),
+  ('header', 'Contact', '/contact', 4, FALSE, TRUE)
 ON CONFLICT DO NOTHING;
 
--- Footer Navigation
+-- Footer Navigation (matching Footer.tsx)
 INSERT INTO navigation_items (location, label, href, position, is_external, is_visible) VALUES
-  ('footer', 'Privacy Policy', '/privacy-policy', 0, FALSE, TRUE),
-  ('footer', 'Terms of Use', '/terms-of-use', 1, FALSE, TRUE),
-  ('footer', 'Sitemap', '/sitemap.xml', 2, FALSE, TRUE)
+  ('footer', 'AC Repair', '/services/air-conditioning-repair', 0, FALSE, TRUE),
+  ('footer', 'Tune-Ups', '/services/air-conditioning-tune-ups', 1, FALSE, TRUE),
+  ('footer', 'Heating', '/services/heating', 2, FALSE, TRUE),
+  ('footer', 'Contact', '/contact', 3, FALSE, TRUE),
+  ('footer', 'Financing', '/financing-payments', 4, FALSE, TRUE),
+  ('footer', 'Pay Invoice', '/pay-invoice', 5, FALSE, TRUE),
+  ('footer', 'Privacy Policy', '/privacy-policy', 6, FALSE, TRUE),
+  ('footer', 'Terms of Use', '/terms-of-use', 7, FALSE, TRUE)
 ON CONFLICT DO NOTHING;
 
 -- =====================================================
@@ -156,23 +163,24 @@ BEGIN
   SELECT id INTO home_page_id FROM pages WHERE slug = 'home';
 
   IF home_page_id IS NOT NULL THEN
-    -- Hero Block
+    -- Hero Block (matching Hero.tsx defaultContent)
     INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
     (
       home_page_id,
       'hero',
       '{
-        "title": "Your Comfort, Our Priority",
-        "titleHighlight": "Our Priority",
-        "subtitle": "Houston''s trusted HVAC experts. Same-day service available for emergencies.",
+        "title": "Free AC Tune-Ups for",
+        "titleHighlight": "Qualifying Homeowners",
+        "subtitle": "Your electric company charges you for this. Let us help you actually use it.",
         "overlay": "medium",
         "trustBadges": [
-          {"id": "1", "icon": "shield-check", "text": "Licensed & Insured"},
-          {"id": "2", "icon": "clock", "text": "Same-Day Service"},
-          {"id": "3", "icon": "star", "text": "5-Star Rated"}
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "license", "text": "TX Licensed"},
+          {"id": "3", "icon": "shield", "text": "EPA Certified"},
+          {"id": "4", "icon": "check", "text": "Fully Insured"}
         ],
         "primaryCta": {
-          "text": "Get Free Quote",
+          "text": "Check If You Qualify",
           "href": "/contact",
           "variant": "primary"
         },
@@ -181,57 +189,59 @@ BEGIN
           "href": "tel:+18324371000",
           "type": "phone"
         },
-        "layout": "centered"
+        "layout": "left-aligned"
       }',
       '{"padding": "lg", "background": "dark"}',
       0,
       TRUE
     ),
-    -- Why Choose Us Block
+    -- Why Choose Us Block (matching WhyChooseUs.tsx defaultContent)
     (
       home_page_id,
       'why-choose-us',
       '{
-        "sectionTitle": "Why Houston Trusts Mr. Air",
+        "sectionTitle": "Why People Call Us Back",
         "features": [
           {
             "id": "1",
-            "icon": "award",
-            "title": "Veteran-Owned",
-            "description": "Service with integrity and discipline",
-            "stat": "20+",
-            "statLabel": "Years Experience"
+            "icon": "certified",
+            "title": "Experienced Pros",
+            "description": "Our guys show up on time, explain what''s wrong in plain English, and fix it right. All major brands.",
+            "stat": "98%",
+            "statLabel": "on-time rate"
           },
           {
             "id": "2",
-            "icon": "clock",
-            "title": "Fast Response",
-            "description": "Same-day service for emergencies",
-            "stat": "2hr",
-            "statLabel": "Avg Response"
+            "icon": "pricing",
+            "title": "Upfront Pricing",
+            "description": "We tell you what it costs before we touch anything. The price we quote is the price you pay.",
+            "stat": "$0",
+            "statLabel": "hidden fees"
           },
           {
             "id": "3",
-            "icon": "dollar-sign",
-            "title": "Honest Pricing",
-            "description": "No hidden fees, ever",
-            "stat": "100%",
-            "statLabel": "Transparent"
+            "icon": "guarantee",
+            "title": "Guaranteed Work",
+            "description": "Not happy? We come back. No arguments, no runaround. That''s how we''ve kept customers for 15 years.",
+            "stat": "4.9/5",
+            "statLabel": "avg rating"
           }
         ],
+        "showImage": true,
+        "imageUrl": "/images/financing/technician-helping.jpg",
         "showVeteranBadge": true
       }',
       '{"padding": "lg", "background": "white"}',
       1,
       TRUE
     ),
-    -- Services Overview Block
+    -- Services Overview Block (matching ServicesOverview.tsx defaultContent)
     (
       home_page_id,
       'services-overview',
       '{
-        "sectionTitle": "When It Breaks, We Fix It. Before It Breaks, We Catch It.",
-        "sectionSubtitle": "Emergency at 2am or just time for a tune-up. We''ve got you.",
+        "sectionTitle": "When It Breaks, We Fix It.",
+        "sectionSubtitle": "Before It Breaks, We Catch It.",
         "serviceIds": "featured",
         "layout": "3-col",
         "showCta": true
@@ -269,19 +279,19 @@ BEGIN
       4,
       TRUE
     ),
-    -- Final CTA Block
+    -- Final CTA Block (matching FinalCTA.tsx defaultContent)
     (
       home_page_id,
       'final-cta',
       '{
-        "title": "Ready to Get Started?",
-        "subtitle": "Schedule your service today and experience the Mr. Air difference.",
+        "title": "Let''s Get Your AC Sorted",
+        "subtitle": "AC acting up? Heater making weird noises? Or just want someone to check things out? Give us a call.",
         "primaryButton": {
-          "text": "Schedule Service",
+          "text": "Schedule Your Service",
           "href": "/contact"
         },
         "secondaryButton": {
-          "text": "Call Now",
+          "text": "(832) 437-1000",
           "href": "tel:+18324371000",
           "type": "phone"
         },

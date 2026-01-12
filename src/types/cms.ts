@@ -53,7 +53,7 @@ export interface TrustBadge {
 export interface ServicesOverviewBlockContent {
   sectionTitle: string;
   sectionSubtitle?: string;
-  serviceIds: string[];
+  serviceIds: string[] | "featured";
   layout: "2-col" | "3-col" | "4-col";
   showCta: boolean;
 }

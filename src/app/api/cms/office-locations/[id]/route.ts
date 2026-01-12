@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { requireAuth } from "@/lib/auth";
 
-// GET /api/cms/navigation/[id]
+// GET /api/cms/office-locations/[id]
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -10,17 +10,17 @@ export async function GET(
   const { id } = await params;
 
   const result = await sql`
-    SELECT * FROM navigation_items WHERE id = ${id}
+    SELECT * FROM office_locations WHERE id = ${id}
   `;
 
   if (result.rows.length === 0) {
-    return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    return NextResponse.json({ error: "Office location not found" }, { status: 404 });
   }
 
   return NextResponse.json(result.rows[0]);
 }
 
-// PUT /api/cms/navigation/[id]
+// PUT /api/cms/office-locations/[id]
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -32,28 +32,34 @@ export async function PUT(
 
   const { id } = await params;
   const body = await request.json();
+  const hours = JSON.stringify(body.hours || {});
 
   const result = await sql`
-    UPDATE navigation_items SET
-      location = ${body.location},
-      label = ${body.label},
-      href = ${body.href},
-      parent_id = ${body.parent_id},
-      position = ${body.position},
-      is_external = ${body.is_external},
-      is_visible = ${body.is_visible}
+    UPDATE office_locations SET
+      name = ${body.name},
+      address = ${body.address},
+      city = ${body.city},
+      state = ${body.state},
+      zip = ${body.zip},
+      latitude = ${body.latitude},
+      longitude = ${body.longitude},
+      phone = ${body.phone},
+      email = ${body.email},
+      hours = ${hours}::jsonb,
+      is_primary = ${body.is_primary},
+      position = ${body.position}
     WHERE id = ${id}
     RETURNING *
   `;
 
   if (result.rows.length === 0) {
-    return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    return NextResponse.json({ error: "Office location not found" }, { status: 404 });
   }
 
   return NextResponse.json(result.rows[0]);
 }
 
-// DELETE /api/cms/navigation/[id]
+// DELETE /api/cms/office-locations/[id]
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -65,7 +71,7 @@ export async function DELETE(
 
   const { id } = await params;
 
-  await sql`DELETE FROM navigation_items WHERE id = ${id}`;
+  await sql`DELETE FROM office_locations WHERE id = ${id}`;
 
   return NextResponse.json({ success: true });
 }

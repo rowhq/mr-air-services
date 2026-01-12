@@ -14,7 +14,7 @@ export const metadata = {
   description: 'Houston\'s trusted HVAC experts. FREE CoolSaver AC Tune-Ups for qualifying homeowners. Professional air conditioning repair, heating services, and maintenance plans. Veteran-owned. Same-day service. Call (832) 437-1000.',
 };
 
-// Database response types (snake_case from Supabase)
+// Database response types (snake_case from PostgreSQL)
 interface DBBlock {
   id: string;
   type: string;
@@ -31,23 +31,103 @@ interface DBPageWithBlocks {
   blocks: DBBlock[];
 }
 
-async function getPageData(): Promise<EditorBlock[] | null> {
-  try {
-    // Use absolute URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/cms/pages/home`, {
-      next: { revalidate: 60 }, // ISR - revalidate every 60 seconds
-      cache: 'force-cache',
-    });
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  short_description: string;
+  icon: string;
+  features: string[];
+  cta_text: string;
+  cta_link: string;
+  is_featured: boolean;
+  position: number;
+}
 
-    if (!response.ok) {
+interface Testimonial {
+  id: string;
+  initials: string;
+  location: string;
+  rating: number;
+  text: string;
+  source: string;
+  is_featured: boolean;
+}
+
+interface OfficeLocation {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  latitude: number;
+  longitude: number;
+  phone: string;
+  email: string;
+  hours: Record<string, string>;
+  is_primary: boolean;
+}
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  page_slug: string | null;
+  position: number;
+  is_published: boolean;
+}
+
+interface PageData {
+  blocks: EditorBlock[];
+  services: Service[];
+  testimonials: Testimonial[];
+  officeLocations: OfficeLocation[];
+  faqs: FAQ[];
+}
+
+async function getPageData(): Promise<PageData | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
+    // Fetch all data in parallel
+    const [pageRes, servicesRes, testimonialsRes, locationsRes, faqsRes] = await Promise.all([
+      fetch(`${baseUrl}/api/cms/pages/home`, {
+        next: { revalidate: 60 },
+        cache: 'force-cache',
+      }),
+      fetch(`${baseUrl}/api/cms/services`, {
+        next: { revalidate: 60 },
+        cache: 'force-cache',
+      }),
+      fetch(`${baseUrl}/api/cms/testimonials`, {
+        next: { revalidate: 60 },
+        cache: 'force-cache',
+      }),
+      fetch(`${baseUrl}/api/cms/office-locations`, {
+        next: { revalidate: 60 },
+        cache: 'force-cache',
+      }),
+      fetch(`${baseUrl}/api/cms/faqs`, {
+        next: { revalidate: 60 },
+        cache: 'force-cache',
+      }),
+    ]);
+
+    if (!pageRes.ok) {
       return null;
     }
 
-    const data: DBPageWithBlocks = await response.json();
+    const pageData: DBPageWithBlocks = await pageRes.json();
+    const services: Service[] = servicesRes.ok ? await servicesRes.json() : [];
+    const testimonials: Testimonial[] = testimonialsRes.ok ? await testimonialsRes.json() : [];
+    const officeLocations: OfficeLocation[] = locationsRes.ok ? await locationsRes.json() : [];
+    const faqs: FAQ[] = faqsRes.ok ? await faqsRes.json() : [];
 
     // Transform database format to editor format
-    const blocks: EditorBlock[] = data.blocks.map((b) => ({
+    const blocks: EditorBlock[] = pageData.blocks.map((b) => ({
       id: b.id,
       type: b.type as EditorBlock['type'],
       content: b.content as BlockContent,
@@ -56,9 +136,8 @@ async function getPageData(): Promise<EditorBlock[] | null> {
       isVisible: b.is_visible,
     }));
 
-    return blocks;
+    return { blocks, services, testimonials, officeLocations, faqs };
   } catch (error) {
-    // CMS not configured or API error - fall back to hardcoded
     console.log('CMS not available, using hardcoded content');
     return null;
   }
@@ -79,11 +158,19 @@ function HardcodedHomePage() {
 }
 
 export default async function HomePage() {
-  const blocks = await getPageData();
+  const data = await getPageData();
 
   // If CMS data is available and has blocks, use dynamic rendering
-  if (blocks && blocks.length > 0) {
-    return <BlockRenderer blocks={blocks} />;
+  if (data && data.blocks.length > 0) {
+    return (
+      <BlockRenderer
+        blocks={data.blocks}
+        services={data.services}
+        testimonials={data.testimonials}
+        officeLocations={data.officeLocations}
+        faqs={data.faqs}
+      />
+    );
   }
 
   // Fall back to hardcoded components

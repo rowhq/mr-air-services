@@ -10,6 +10,7 @@ export default function MediaPage() {
   const [isUploading, setIsUploading] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState<Media | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [editingAltText, setEditingAltText] = useState<string>("");
 
   const fetchMedia = useCallback(async () => {
     try {
@@ -113,6 +114,27 @@ export default function MediaPage() {
     alert("URL copied to clipboard!");
   }
 
+  async function updateAltText(id: string, altText: string) {
+    try {
+      const response = await fetch(`/api/cms/media/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ alt_text: altText }),
+      });
+
+      if (response.ok) {
+        const updated = await response.json();
+        setMedia((prev) => prev.map((m) => (m.id === id ? updated : m)));
+        setSelectedMedia(updated);
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.error}`);
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+  }
+
   return (
     <div className="h-full">
       <div className="flex items-center justify-between mb-6">
@@ -194,7 +216,10 @@ export default function MediaPage() {
                 {media.map((item) => (
                   <div
                     key={item.id}
-                    onClick={() => setSelectedMedia(item)}
+                    onClick={() => {
+                      setSelectedMedia(item);
+                      setEditingAltText(item.alt_text || "");
+                    }}
                     className={`group relative aspect-square rounded-lg overflow-hidden cursor-pointer border-2 transition-all ${
                       selectedMedia?.id === item.id
                         ? "border-blue-500 ring-2 ring-blue-200"
@@ -263,6 +288,27 @@ export default function MediaPage() {
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                       </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-gray-500 mb-1">
+                    Alt Text (SEO/Accesibilidad)
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={editingAltText}
+                      onChange={(e) => setEditingAltText(e.target.value)}
+                      placeholder="Descripcion de la imagen..."
+                      className="flex-1 text-sm px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      onClick={() => updateAltText(selectedMedia.id, editingAltText)}
+                      className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm"
+                    >
+                      Guardar
                     </button>
                   </div>
                 </div>

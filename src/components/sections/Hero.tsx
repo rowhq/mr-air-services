@@ -41,6 +41,8 @@ export function Hero({ content = defaultContent, settings }: HeroProps) {
     trustBadges,
     primaryCta,
     secondaryCta,
+    backgroundImage,
+    backgroundVideo,
   } = content;
 
   const overlayClasses = {
@@ -52,16 +54,28 @@ export function Hero({ content = defaultContent, settings }: HeroProps) {
 
   return (
     <section className="relative min-h-[600px] md:min-h-[700px] lg:min-h-screen overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/images/hero-bg.webp"
-        alt="Mr. Air Services technician working on AC unit"
-        fill
-        priority
-        className="object-cover object-top md:object-center"
-        sizes="100vw"
-        quality={90}
-      />
+      {/* Background Video or Image */}
+      {backgroundVideo ? (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover object-top md:object-center"
+        >
+          <source src={backgroundVideo} type="video/mp4" />
+        </video>
+      ) : (
+        <Image
+          src={backgroundImage || "/images/hero-bg.webp"}
+          alt="Mr. Air Services technician working on AC unit"
+          fill
+          priority
+          className="object-cover object-top md:object-center"
+          sizes="100vw"
+          quality={90}
+        />
+      )}
 
       {/* Overlay */}
       <div className={`absolute inset-0 ${overlayClasses[overlay]}`} />

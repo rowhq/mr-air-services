@@ -7,10 +7,15 @@ import { signOut } from "next-auth/react";
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: "📊" },
   { href: "/admin/editor/home", label: "Editor Visual", icon: "✨" },
+  { href: "/admin/pages", label: "Paginas", icon: "📄" },
   { href: "/admin/services", label: "Servicios", icon: "🔧" },
   { href: "/admin/testimonials", label: "Testimonios", icon: "💬" },
   { href: "/admin/faqs", label: "FAQs", icon: "❓" },
   { href: "/admin/media", label: "Media", icon: "🖼️" },
+  { href: "/admin/leads", label: "Leads", icon: "📩" },
+  { href: "/admin/office-locations", label: "Ubicaciones", icon: "📍" },
+  { href: "/admin/navigation", label: "Navegacion", icon: "🔗" },
+  { href: "/admin/site-config", label: "Configuracion", icon: "⚙️" },
 ];
 
 export default function DashboardLayout({

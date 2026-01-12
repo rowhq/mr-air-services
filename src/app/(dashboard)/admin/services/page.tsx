@@ -94,6 +94,12 @@ export default function ServicesPage() {
               title: "",
               slug: "",
               short_description: "",
+              description: "",
+              icon: "wrench",
+              features: [],
+              cta_text: "Learn More",
+              cta_link: "",
+              position: services.length,
               is_published: true,
               is_featured: false,
             });
@@ -239,6 +245,90 @@ export default function ServicesPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Icono
+                  </label>
+                  <select
+                    value={formData.icon || "wrench"}
+                    onChange={(e) =>
+                      setFormData({ ...formData, icon: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="wrench">Wrench (AC Repair)</option>
+                    <option value="settings">Settings (Tune-Up)</option>
+                    <option value="flame">Flame (Heating)</option>
+                    <option value="plus-circle">Plus Circle</option>
+                    <option value="wind">Wind</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Posicion
+                  </label>
+                  <input
+                    type="number"
+                    value={formData.position ?? 0}
+                    onChange={(e) =>
+                      setFormData({ ...formData, position: parseInt(e.target.value) || 0 })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Texto CTA
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.cta_text || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, cta_text: e.target.value })
+                    }
+                    placeholder="Learn More"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Link CTA
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.cta_link || ""}
+                    onChange={(e) =>
+                      setFormData({ ...formData, cta_link: e.target.value })
+                    }
+                    placeholder="/contact o tel:+18324371000"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Caracteristicas (una por linea)
+                </label>
+                <textarea
+                  value={Array.isArray(formData.features) ? (formData.features as string[]).join("\n") : ""}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      features: e.target.value.split("\n").filter((f) => f.trim()),
+                    })
+                  }
+                  rows={4}
+                  placeholder="Same-day service&#10;Licensed technicians&#10;100% satisfaction guarantee"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
               <div className="flex gap-4">
                 <label className="flex items-center gap-2">
                   <input
