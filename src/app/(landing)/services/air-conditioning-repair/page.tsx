@@ -2,6 +2,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals, SectionNav, DesktopStickyCTA } from '@/components/ui';
 import { FinalCTA, FAQSection, RepairProcess } from '@/components/sections';
+import type { FAQ } from '@/types/database';
+
+// Fetch FAQs from CMS
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/faqs?page=air-conditioning-repair`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return [];
+    return response.json();
+  } catch {
+    return [];
+  }
+}
 
 const sectionNavItems = [
   { id: 'problems', label: 'Common Issues' },
@@ -83,7 +98,8 @@ const repairTypes = [
   },
 ];
 
-const faqs = [
+// Default FAQs (fallback if CMS is empty)
+const defaultFaqs = [
   {
     question: 'How fast can you get here?',
     answer: "Usually same day in Houston. Look, when it's 100 degrees and your AC just died, you don't need someone telling you 'maybe Thursday.' We get it.",
@@ -102,7 +118,12 @@ const faqs = [
   },
 ];
 
-export default function ACRepairPage() {
+export default async function ACRepairPage() {
+  const cmsFaqs = await getFAQs();
+  const faqs = cmsFaqs.length > 0
+    ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : defaultFaqs;
+
   return (
     <>
       {/* Hero */}

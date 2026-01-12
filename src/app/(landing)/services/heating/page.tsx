@@ -1,6 +1,21 @@
 import Link from 'next/link';
 import { Button, Breadcrumbs, TrustSignals, NumberedChecklistGrid, SectionNav } from '@/components/ui';
 import { FinalCTA, FAQSection } from '@/components/sections';
+import type { FAQ } from '@/types/database';
+
+// Fetch FAQs from CMS
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/faqs?page=heating`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return [];
+    return response.json();
+  } catch {
+    return [];
+  }
+}
 
 const sectionNavItems = [
   { id: 'services', label: 'Services' },
@@ -88,7 +103,8 @@ const inspectionPhases = [
   },
 ];
 
-const faqs = [
+// Default FAQs (fallback if CMS is empty)
+const defaultFaqs = [
   {
     question: 'How often do I need to service my heater?',
     answer: "Once a year, before winter. Prevents breakdowns, carbon monoxide leaks, and inefficiency. Think of it like an oil change—skip it and pay later.",
@@ -107,7 +123,12 @@ const faqs = [
   },
 ];
 
-export default function HeatingPage() {
+export default async function HeatingPage() {
+  const cmsFaqs = await getFAQs();
+  const faqs = cmsFaqs.length > 0
+    ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : defaultFaqs;
+
   return (
     <>
       {/* Hero */}
