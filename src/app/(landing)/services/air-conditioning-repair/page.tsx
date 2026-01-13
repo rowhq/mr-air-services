@@ -4,6 +4,35 @@ import { Button, Breadcrumbs, TrustSignals, SectionNav, DesktopStickyCTA } from 
 import { FinalCTA, FAQSection, RepairProcess } from '@/components/sections';
 import type { FAQ } from '@/types/database';
 
+// Types for CMS content
+interface PageContent {
+  hero: {
+    title: string;
+    subtitle: string;
+    backgroundImage: string;
+    trustSignals: string[];
+  };
+  brands: Array<{ name: string; logo: string }>;
+  repairTypes: Array<{ title: string; description: string; icon: string }>;
+  problemsTitle: string;
+  problemsSubtitle: string;
+}
+
+// Fetch page content from CMS
+async function getPageContent(): Promise<PageContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=ac_repair_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value as PageContent;
+  } catch {
+    return null;
+  }
+}
+
 // Fetch FAQs from CMS
 async function getFAQs(): Promise<FAQ[]> {
   try {
@@ -29,74 +58,33 @@ export const metadata = {
   description: 'Fast, reliable AC repair in Houston. Same-day service available. Our experienced technicians fix all makes and models. Call (832) 437-1000 for emergency AC repair.',
 };
 
-const brandsServiced = [
-  { name: 'Ruud', logo: '/images/brands/ruud.svg' },
-  { name: 'Lennox', logo: '/images/brands/lennox.svg' },
-  { name: 'Goodman', logo: '/images/brands/goodman.svg' },
-  { name: 'Trane', logo: '/images/brands/trane.svg' },
-  { name: 'American Standard', logo: '/images/brands/american-standard.svg' },
-  { name: 'Carrier', logo: '/images/brands/carrier.svg' },
-];
-
-const repairTypes = [
-  {
-    title: 'AC Not Cooling',
-    description: 'Refrigerant leaks, compressor issues, or airflow problems',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-        <circle cx="12" cy="12" r="4" strokeWidth={1.5} />
-      </svg>
-    ),
+// Default content (fallback)
+const defaultContent: PageContent = {
+  hero: {
+    title: "AC Dead? We're On It.",
+    subtitle: "Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.",
+    backgroundImage: "/images/services/diagnostics-repairs.webp",
+    trustSignals: ['Same-day service', 'All brands serviced', 'No hidden fees'],
   },
-  {
-    title: 'Strange Noises',
-    description: 'Grinding, squealing, or banging sounds from your unit',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M9 9v6m0 0l-3-3m3 3l3-3" />
-      </svg>
-    ),
-  },
-  {
-    title: "Won't Turn On",
-    description: 'Electrical, thermostat, or capacitor failures',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Frozen Coils',
-    description: 'Ice buildup from restricted airflow or low refrigerant',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Water Leaks',
-    description: 'Clogged drain lines or damaged condensate pans',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 21a8 8 0 01-8-8c0-4 8-11 8-11s8 7 8 11a8 8 0 01-8 8z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 17a4 4 0 01-4-4" />
-      </svg>
-    ),
-  },
-  {
-    title: 'High Energy Bills',
-    description: 'Inefficient operation or failing components',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3v18h18" />
-      </svg>
-    ),
-  },
-];
+  brands: [
+    { name: 'Ruud', logo: '/images/brands/ruud.svg' },
+    { name: 'Lennox', logo: '/images/brands/lennox.svg' },
+    { name: 'Goodman', logo: '/images/brands/goodman.svg' },
+    { name: 'Trane', logo: '/images/brands/trane.svg' },
+    { name: 'American Standard', logo: '/images/brands/american-standard.svg' },
+    { name: 'Carrier', logo: '/images/brands/carrier.svg' },
+  ],
+  repairTypes: [
+    { title: 'AC Not Cooling', description: 'Refrigerant leaks, compressor issues, or airflow problems', icon: 'cooling' },
+    { title: 'Strange Noises', description: 'Grinding, squealing, or banging sounds from your unit', icon: 'noise' },
+    { title: "Won't Turn On", description: 'Electrical, thermostat, or capacitor failures', icon: 'power' },
+    { title: 'Frozen Coils', description: 'Ice buildup from restricted airflow or low refrigerant', icon: 'ice' },
+    { title: 'Water Leaks', description: 'Clogged drain lines or damaged condensate pans', icon: 'water' },
+    { title: 'High Energy Bills', description: 'Inefficient operation or failing components', icon: 'bills' },
+  ],
+  problemsTitle: 'Common AC Problems We Fix',
+  problemsSubtitle: 'With years of Houston experience, we diagnose and repair these issues daily',
+};
 
 // Default FAQs (fallback if CMS is empty)
 const defaultFaqs = [
@@ -118,8 +106,53 @@ const defaultFaqs = [
   },
 ];
 
+// Icon component for repair types
+function RepairIcon({ icon }: { icon: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    cooling: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+        <circle cx="12" cy="12" r="4" strokeWidth={1.5} />
+      </svg>
+    ),
+    noise: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M9 9v6m0 0l-3-3m3 3l3-3" />
+      </svg>
+    ),
+    power: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+      </svg>
+    ),
+    ice: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m11.14 0l-2.83-2.83M9.76 9.76L6.93 6.93" />
+      </svg>
+    ),
+    water: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 21a8 8 0 01-8-8c0-4 8-11 8-11s8 7 8 11a8 8 0 01-8 8z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 17a4 4 0 01-4-4" />
+      </svg>
+    ),
+    bills: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3v18h18" />
+      </svg>
+    ),
+  };
+  return <>{icons[icon] || icons.cooling}</>;
+}
+
 export default async function ACRepairPage() {
-  const cmsFaqs = await getFAQs();
+  const [cmsContent, cmsFaqs] = await Promise.all([
+    getPageContent(),
+    getFAQs(),
+  ]);
+
+  const content = cmsContent || defaultContent;
   const faqs = cmsFaqs.length > 0
     ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
     : defaultFaqs;
@@ -131,7 +164,7 @@ export default async function ACRepairPage() {
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-top md:bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/services/diagnostics-repairs.webp)' }}
+          style={{ backgroundImage: `url(${content.hero.backgroundImage})` }}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
@@ -146,10 +179,10 @@ export default async function ACRepairPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                AC Dead? We're On It.
+                {content.hero.title}
               </h1>
               <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
-                Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.
+                {content.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/contact" className="w-full sm:w-auto">
@@ -163,7 +196,7 @@ export default async function ACRepairPage() {
                   </Button>
                 </a>
               </div>
-              <TrustSignals className="mt-6" variant="dark" items={['Same-day service', 'All brands serviced', 'No hidden fees']} />
+              <TrustSignals className="mt-6" variant="dark" items={content.hero.trustSignals} />
             </div>
           </div>
         </div>
@@ -175,7 +208,7 @@ export default async function ACRepairPage() {
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <span className="text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">We service:</span>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
-              {brandsServiced.map((brand) => (
+              {content.brands.map((brand) => (
                 <Image
                   key={brand.name}
                   src={brand.logo}
@@ -197,21 +230,21 @@ export default async function ACRepairPage() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-neutral-black dark:text-white mb-4">
-              Common AC Problems We Fix
+              {content.problemsTitle}
             </h2>
             <p className="text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto">
-              With years of Houston experience, we diagnose and repair these issues daily
+              {content.problemsSubtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {repairTypes.map((type) => (
+            {content.repairTypes.map((type) => (
               <div
                 key={type.title}
                 className="flex items-start gap-4 p-5 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 group"
               >
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary/20 to-primary/20 text-secondary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
-                  {type.icon}
+                  <RepairIcon icon={type.icon} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-neutral-black dark:text-white mb-1">{type.title}</h3>

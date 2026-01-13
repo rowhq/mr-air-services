@@ -3,10 +3,31 @@ import { Button, Breadcrumbs, CoolSaverCTA } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
 import type { Service } from '@/types/database';
 
+// Types for CMS content
+interface HeroContent {
+  title: string;
+  subtitle: string;
+}
+
 export const metadata = {
   title: 'HVAC Services | Mr. Air Services - Houston AC & Heating',
   description: 'Complete HVAC services in Houston. AC repair, CoolSaver tune-ups, and heating services. Same-day service available.',
 };
+
+// Fetch hero content from CMS
+async function getHeroContent(): Promise<HeroContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=services_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value?.hero as HeroContent;
+  } catch {
+    return null;
+  }
+}
 
 // Fetch services from CMS
 async function getServices(): Promise<Service[]> {
@@ -81,8 +102,19 @@ function ServiceIcon({ icon }: { icon: string }) {
   return <>{icons[icon] || icons['ac-repair']}</>;
 }
 
+// Default hero content
+const defaultHero: HeroContent = {
+  title: 'HVAC Services',
+  subtitle: 'From emergency repairs to preventive maintenance. Same-day service available.',
+};
+
 export default async function ServicesPage() {
-  const cmsServices = await getServices();
+  const [cmsHero, cmsServices] = await Promise.all([
+    getHeroContent(),
+    getServices(),
+  ]);
+
+  const hero = cmsHero || defaultHero;
 
   // Use CMS services if available, otherwise use defaults
   const services = cmsServices.length > 0
@@ -117,10 +149,10 @@ export default async function ServicesPage() {
           <Breadcrumbs items={[{ label: 'Services' }]} />
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
-              HVAC Services
+              {hero.title}
             </h1>
             <p className="text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed">
-              From emergency repairs to preventive maintenance. Same-day service available.
+              {hero.subtitle}
             </p>
           </div>
         </div>

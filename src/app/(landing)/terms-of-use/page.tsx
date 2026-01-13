@@ -1,14 +1,59 @@
+import { BlockRenderer } from '@/components/cms/BlockRenderer';
+import type { EditorBlock, BlockSettings, BlockContent } from '@/types/cms';
+
 export const metadata = {
   title: 'Terms of Use | Mr. Air Services',
   description: 'Terms of use for Mr. Air Services website and services.',
 };
 
-export default function TermsOfUsePage() {
+// Database response types
+interface DBBlock {
+  id: string;
+  type: string;
+  content: unknown;
+  settings: unknown;
+  position: number;
+  is_visible: boolean;
+}
+
+interface DBPageWithBlocks {
+  id: string;
+  slug: string;
+  title: string;
+  blocks: DBBlock[];
+}
+
+async function getPageData(): Promise<EditorBlock[] | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/cms/pages/terms-of-use`, {
+      next: { revalidate: 60 },
+      cache: 'force-cache',
+    });
+
+    if (!res.ok) return null;
+
+    const pageData: DBPageWithBlocks = await res.json();
+
+    return pageData.blocks.map((b) => ({
+      id: b.id,
+      type: b.type as EditorBlock['type'],
+      content: b.content as BlockContent,
+      settings: (b.settings || {}) as BlockSettings,
+      position: b.position,
+      isVisible: b.is_visible,
+    }));
+  } catch {
+    return null;
+  }
+}
+
+// Hardcoded fallback content
+function HardcodedTermsOfUse() {
   return (
     <>
       {/* Hero */}
       <section className="relative min-h-[60vh] pt-32 pb-20 bg-gradient-to-br from-hero-start via-primary-light to-hero-end overflow-hidden">
-        {/* Decorative elements */}
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-white/20 blur-xl"></div>
         <div className="absolute bottom-10 right-20 w-24 h-24 rounded-full bg-primary/20 blur-xl"></div>
 
@@ -81,7 +126,7 @@ export default function TermsOfUsePage() {
 
             <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Disclaimer</h2>
             <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed">
-              The information on this website is provided "as is" without warranties of any kind. We do not guarantee that the website will be error-free or uninterrupted. HVAC advice provided on this site is general in nature and should not replace professional assessment.
+              The information on this website is provided &quot;as is&quot; without warranties of any kind. We do not guarantee that the website will be error-free or uninterrupted. HVAC advice provided on this site is general in nature and should not replace professional assessment.
             </p>
 
             <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-4 mt-10">Third-Party Links</h2>
@@ -119,4 +164,16 @@ export default function TermsOfUsePage() {
       </section>
     </>
   );
+}
+
+export default async function TermsOfUsePage() {
+  const blocks = await getPageData();
+
+  // If CMS data is available and has blocks, use dynamic rendering
+  if (blocks && blocks.length > 0) {
+    return <BlockRenderer blocks={blocks} />;
+  }
+
+  // Fall back to hardcoded content
+  return <HardcodedTermsOfUse />;
 }

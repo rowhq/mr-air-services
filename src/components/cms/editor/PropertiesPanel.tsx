@@ -1,7 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import { useEditorStore } from "@/stores/editor-store";
 import type { BlockSettings, BlockType } from "@/types/cms";
+
+// Icon options for features/stats
+const ICON_OPTIONS = [
+  { value: "shield-check", label: "Shield Check" },
+  { value: "clock", label: "Clock" },
+  { value: "users", label: "Users" },
+  { value: "star", label: "Star" },
+  { value: "award", label: "Award" },
+  { value: "truck", label: "Truck" },
+  { value: "wrench", label: "Wrench" },
+  { value: "thermometer", label: "Thermometer" },
+  { value: "home", label: "Home" },
+  { value: "phone", label: "Phone" },
+  { value: "calendar", label: "Calendar" },
+  { value: "check-circle", label: "Check Circle" },
+  { value: "dollar-sign", label: "Dollar Sign" },
+  { value: "percent", label: "Percent" },
+  { value: "tool", label: "Tool" },
+  { value: "zap", label: "Zap" },
+];
 
 export function PropertiesPanel() {
   const { draftBlocks, selectedBlockId, updateBlockContent, updateBlock } =
@@ -308,7 +329,10 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
         </div>
       );
 
-    case "testimonials":
+    case "testimonials": {
+      const testimonialIds = content.testimonialIds as string[] | "featured" | undefined;
+      const useFeatured = testimonialIds === "featured" || testimonialIds === undefined;
+
       return (
         <div className="space-y-4">
           <TextField
@@ -343,10 +367,50 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             checked={(content.showSource as boolean) || false}
             onChange={(v) => onChange("showSource", v)}
           />
+
+          {/* Testimonial Selection */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Testimonial Selection</h4>
+            <CheckboxField
+              label="Show Featured Testimonials"
+              checked={useFeatured}
+              onChange={(checked) => {
+                if (checked) {
+                  onChange("testimonialIds", "featured");
+                } else {
+                  onChange("testimonialIds", []);
+                }
+              }}
+            />
+            <p className="text-xs text-gray-400 mt-2">
+              {useFeatured
+                ? "Showing testimonials marked as featured in the Testimonials admin."
+                : "Select specific testimonials to display."}
+            </p>
+            {!useFeatured && (
+              <p className="text-xs text-blue-500 mt-2">
+                To select specific testimonials, use the Testimonials admin to manage which are featured.
+              </p>
+            )}
+          </div>
         </div>
       );
+    }
 
-    case "faq":
+    case "faq": {
+      const categories = (content.categories as string[]) || [];
+      const availableCategories = [
+        { value: "general", label: "General" },
+        { value: "ac-repair", label: "AC Repair" },
+        { value: "heating", label: "Heating" },
+        { value: "tune-ups", label: "Tune-ups" },
+        { value: "maintenance", label: "Maintenance" },
+        { value: "financing", label: "Financing" },
+        { value: "installation", label: "Installation" },
+        { value: "air-quality", label: "Air Quality" },
+        { value: "emergency", label: "Emergency Service" },
+      ];
+
       return (
         <div className="space-y-4">
           <TextField
@@ -382,11 +446,38 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             min={1}
             max={50}
           />
-          <p className="text-xs text-gray-400 mt-2">
-            Leave page slug empty to show general FAQs, or enter a page slug to show page-specific FAQs.
-          </p>
+
+          {/* Categories Multi-select */}
+          <div className="pt-4 border-t border-gray-200">
+            <h4 className="text-sm font-medium text-gray-700 mb-3">Filter by Categories</h4>
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {availableCategories.map((cat) => (
+                <label key={cat.value} className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={categories.includes(cat.value)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        onChange("categories", [...categories, cat.value]);
+                      } else {
+                        onChange("categories", categories.filter((c) => c !== cat.value));
+                      }
+                    }}
+                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">{cat.label}</span>
+                </label>
+              ))}
+            </div>
+            <p className="text-xs text-gray-400 mt-3">
+              {categories.length === 0
+                ? "No category filter - showing all FAQs (filtered by page slug if set)."
+                : `Showing FAQs from: ${categories.join(", ")}`}
+            </p>
+          </div>
         </div>
       );
+    }
 
     case "services-grid":
       return (
@@ -524,7 +615,16 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
         </div>
       );
 
-    case "why-choose-us":
+    case "why-choose-us": {
+      const features = (content.features as Array<{
+        id: string;
+        icon: string;
+        title: string;
+        description: string;
+        stat: string;
+        statLabel: string;
+      }>) || [];
+
       return (
         <div className="space-y-4">
           <TextField
@@ -542,11 +642,65 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             checked={(content.showVeteranBadge as boolean) ?? true}
             onChange={(v) => onChange("showVeteranBadge", v)}
           />
-          <p className="text-xs text-gray-400 mt-2">
-            Features can be edited in the database directly.
-          </p>
+
+          {/* Features Array Editor */}
+          <div className="pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-medium text-gray-700">Features</h4>
+              <button
+                onClick={() => {
+                  const newFeature = {
+                    id: crypto.randomUUID(),
+                    icon: "shield-check",
+                    title: "New Feature",
+                    description: "Feature description",
+                    stat: "",
+                    statLabel: "",
+                  };
+                  onChange("features", [...features, newFeature]);
+                }}
+                className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100"
+              >
+                + Add Feature
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {features.map((feature, index) => (
+                <FeatureEditor
+                  key={feature.id}
+                  feature={feature}
+                  index={index}
+                  onChange={(updated) => {
+                    const newFeatures = [...features];
+                    newFeatures[index] = updated;
+                    onChange("features", newFeatures);
+                  }}
+                  onDelete={() => {
+                    onChange("features", features.filter((_, i) => i !== index));
+                  }}
+                  onMoveUp={index > 0 ? () => {
+                    const newFeatures = [...features];
+                    [newFeatures[index - 1], newFeatures[index]] = [newFeatures[index], newFeatures[index - 1]];
+                    onChange("features", newFeatures);
+                  } : undefined}
+                  onMoveDown={index < features.length - 1 ? () => {
+                    const newFeatures = [...features];
+                    [newFeatures[index], newFeatures[index + 1]] = [newFeatures[index + 1], newFeatures[index]];
+                    onChange("features", newFeatures);
+                  } : undefined}
+                />
+              ))}
+              {features.length === 0 && (
+                <p className="text-xs text-gray-400 text-center py-2">
+                  No features yet. Click &quot;Add Feature&quot; to create one.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       );
+    }
 
     case "areas-served":
       return (
@@ -630,7 +784,14 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
         </div>
       );
 
-    case "stats-grid":
+    case "stats-grid": {
+      const stats = (content.stats as Array<{
+        id: string;
+        value: string;
+        label: string;
+        icon?: string;
+      }>) || [];
+
       return (
         <div className="space-y-4">
           <TextField
@@ -648,11 +809,63 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             ]}
             onChange={(v) => onChange("layout", v)}
           />
-          <p className="text-xs text-gray-400 mt-2">
-            Stats items can be edited in the database directly.
-          </p>
+
+          {/* Stats Array Editor */}
+          <div className="pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-medium text-gray-700">Stats</h4>
+              <button
+                onClick={() => {
+                  const newStat = {
+                    id: crypto.randomUUID(),
+                    value: "100+",
+                    label: "Stat Label",
+                    icon: "star",
+                  };
+                  onChange("stats", [...stats, newStat]);
+                }}
+                className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100"
+              >
+                + Add Stat
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {stats.map((stat, index) => (
+                <StatEditor
+                  key={stat.id}
+                  stat={stat}
+                  index={index}
+                  onChange={(updated) => {
+                    const newStats = [...stats];
+                    newStats[index] = updated;
+                    onChange("stats", newStats);
+                  }}
+                  onDelete={() => {
+                    onChange("stats", stats.filter((_, i) => i !== index));
+                  }}
+                  onMoveUp={index > 0 ? () => {
+                    const newStats = [...stats];
+                    [newStats[index - 1], newStats[index]] = [newStats[index], newStats[index - 1]];
+                    onChange("stats", newStats);
+                  } : undefined}
+                  onMoveDown={index < stats.length - 1 ? () => {
+                    const newStats = [...stats];
+                    [newStats[index], newStats[index + 1]] = [newStats[index + 1], newStats[index]];
+                    onChange("stats", newStats);
+                  } : undefined}
+                />
+              ))}
+              {stats.length === 0 && (
+                <p className="text-xs text-gray-400 text-center py-2">
+                  No stats yet. Click &quot;Add Stat&quot; to create one.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       );
+    }
 
     case "contact-info":
       return (
@@ -695,8 +908,15 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
         </div>
       );
 
-    case "repair-process":
-    case "how-it-works":
+    case "repair-process": {
+      const repairSteps = (content.steps as Array<{
+        id: string;
+        number: string;
+        title: string;
+        description: string;
+        badge?: string;
+      }>) || [];
+
       return (
         <div className="space-y-4">
           <TextField
@@ -715,14 +935,158 @@ function ContentFields({ type, content, onChange }: ContentFieldsProps) {
             options={[
               { value: "horizontal", label: "Horizontal" },
               { value: "vertical", label: "Vertical" },
+              { value: "timeline", label: "Timeline" },
             ]}
             onChange={(v) => onChange("layout", v)}
           />
-          <p className="text-xs text-gray-400 mt-2">
-            Process steps can be edited in the database directly.
-          </p>
+
+          {/* Steps Array Editor */}
+          <div className="pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-medium text-gray-700">Process Steps</h4>
+              <button
+                onClick={() => {
+                  const newStep = {
+                    id: crypto.randomUUID(),
+                    number: String(repairSteps.length + 1),
+                    title: "New Step",
+                    description: "Step description",
+                    badge: "",
+                  };
+                  onChange("steps", [...repairSteps, newStep]);
+                }}
+                className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100"
+              >
+                + Add Step
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {repairSteps.map((step, index) => (
+                <RepairStepEditor
+                  key={step.id}
+                  step={step}
+                  index={index}
+                  onChange={(updated) => {
+                    const newSteps = [...repairSteps];
+                    newSteps[index] = updated;
+                    onChange("steps", newSteps);
+                  }}
+                  onDelete={() => {
+                    onChange("steps", repairSteps.filter((_, i) => i !== index));
+                  }}
+                  onMoveUp={index > 0 ? () => {
+                    const newSteps = [...repairSteps];
+                    [newSteps[index - 1], newSteps[index]] = [newSteps[index], newSteps[index - 1]];
+                    onChange("steps", newSteps);
+                  } : undefined}
+                  onMoveDown={index < repairSteps.length - 1 ? () => {
+                    const newSteps = [...repairSteps];
+                    [newSteps[index], newSteps[index + 1]] = [newSteps[index + 1], newSteps[index]];
+                    onChange("steps", newSteps);
+                  } : undefined}
+                />
+              ))}
+              {repairSteps.length === 0 && (
+                <p className="text-xs text-gray-400 text-center py-2">
+                  No steps yet. Click &quot;Add Step&quot; to create one.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       );
+    }
+
+    case "how-it-works": {
+      const howSteps = (content.steps as Array<{
+        id: string;
+        number: string;
+        title: string;
+        shortTitle?: string;
+        description: string;
+      }>) || [];
+
+      return (
+        <div className="space-y-4">
+          <TextField
+            label="Section Title"
+            value={(content.sectionTitle as string) || ""}
+            onChange={(v) => onChange("sectionTitle", v)}
+          />
+          <TextField
+            label="Subtitle"
+            value={(content.sectionSubtitle as string) || ""}
+            onChange={(v) => onChange("sectionSubtitle", v)}
+          />
+          <SelectField
+            label="Layout"
+            value={(content.layout as string) || "cards"}
+            options={[
+              { value: "cards", label: "Cards" },
+              { value: "timeline", label: "Timeline" },
+              { value: "accordion", label: "Accordion" },
+            ]}
+            onChange={(v) => onChange("layout", v)}
+          />
+
+          {/* Steps Array Editor */}
+          <div className="pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-medium text-gray-700">Steps</h4>
+              <button
+                onClick={() => {
+                  const newStep = {
+                    id: crypto.randomUUID(),
+                    number: String(howSteps.length + 1),
+                    title: "New Step",
+                    shortTitle: "",
+                    description: "Step description",
+                  };
+                  onChange("steps", [...howSteps, newStep]);
+                }}
+                className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded hover:bg-blue-100"
+              >
+                + Add Step
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {howSteps.map((step, index) => (
+                <HowItWorksStepEditor
+                  key={step.id}
+                  step={step}
+                  index={index}
+                  onChange={(updated) => {
+                    const newSteps = [...howSteps];
+                    newSteps[index] = updated;
+                    onChange("steps", newSteps);
+                  }}
+                  onDelete={() => {
+                    onChange("steps", howSteps.filter((_, i) => i !== index));
+                  }}
+                  onMoveUp={index > 0 ? () => {
+                    const newSteps = [...howSteps];
+                    [newSteps[index - 1], newSteps[index]] = [newSteps[index], newSteps[index - 1]];
+                    onChange("steps", newSteps);
+                  } : undefined}
+                  onMoveDown={index < howSteps.length - 1 ? () => {
+                    const newSteps = [...howSteps];
+                    [newSteps[index], newSteps[index + 1]] = [newSteps[index + 1], newSteps[index]];
+                    onChange("steps", newSteps);
+                  } : undefined}
+                />
+              ))}
+              {howSteps.length === 0 && (
+                <p className="text-xs text-gray-400 text-center py-2">
+                  No steps yet. Click &quot;Add Step&quot; to create one.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
 
     default:
       return (
@@ -857,5 +1221,291 @@ function CheckboxField({ label, checked, onChange }: CheckboxFieldProps) {
       />
       <span className="text-sm font-medium text-gray-700">{label}</span>
     </label>
+  );
+}
+
+// =====================================================
+// Array Item Editors
+// =====================================================
+
+// Collapsible Item Wrapper
+interface CollapsibleItemProps {
+  title: string;
+  index: number;
+  children: React.ReactNode;
+  onDelete: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+}
+
+function CollapsibleItem({ title, index, children, onDelete, onMoveUp, onMoveDown }: CollapsibleItemProps) {
+  const [isOpen, setIsOpen] = useState(index === 0);
+
+  return (
+    <div className="border border-gray-200 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 transition-colors"
+      >
+        <span className="text-sm font-medium text-gray-700 truncate">{title}</span>
+        <div className="flex items-center gap-1">
+          {onMoveUp && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onMoveUp(); }}
+              className="p-1 text-gray-400 hover:text-gray-600"
+              title="Move up"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+          )}
+          {onMoveDown && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onMoveDown(); }}
+              className="p-1 text-gray-400 hover:text-gray-600"
+              title="Move down"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          )}
+          <button
+            onClick={(e) => { e.stopPropagation(); onDelete(); }}
+            className="p-1 text-red-400 hover:text-red-600"
+            title="Delete"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+          <svg
+            className={`w-4 h-4 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+      {isOpen && (
+        <div className="p-3 space-y-3 bg-white">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Feature Editor (for why-choose-us)
+interface FeatureEditorProps {
+  feature: {
+    id: string;
+    icon: string;
+    title: string;
+    description: string;
+    stat: string;
+    statLabel: string;
+  };
+  index: number;
+  onChange: (feature: FeatureEditorProps["feature"]) => void;
+  onDelete: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+}
+
+function FeatureEditor({ feature, index, onChange, onDelete, onMoveUp, onMoveDown }: FeatureEditorProps) {
+  return (
+    <CollapsibleItem
+      title={feature.title || `Feature ${index + 1}`}
+      index={index}
+      onDelete={onDelete}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+    >
+      <SelectField
+        label="Icon"
+        value={feature.icon || "shield-check"}
+        options={ICON_OPTIONS}
+        onChange={(v) => onChange({ ...feature, icon: v })}
+      />
+      <TextField
+        label="Title"
+        value={feature.title}
+        onChange={(v) => onChange({ ...feature, title: v })}
+      />
+      <TextareaField
+        label="Description"
+        value={feature.description}
+        onChange={(v) => onChange({ ...feature, description: v })}
+        rows={2}
+      />
+      <div className="grid grid-cols-2 gap-2">
+        <TextField
+          label="Stat Value"
+          value={feature.stat}
+          onChange={(v) => onChange({ ...feature, stat: v })}
+          placeholder="e.g. 15+"
+        />
+        <TextField
+          label="Stat Label"
+          value={feature.statLabel}
+          onChange={(v) => onChange({ ...feature, statLabel: v })}
+          placeholder="e.g. years"
+        />
+      </div>
+    </CollapsibleItem>
+  );
+}
+
+// Stat Editor (for stats-grid)
+interface StatEditorProps {
+  stat: {
+    id: string;
+    value: string;
+    label: string;
+    icon?: string;
+  };
+  index: number;
+  onChange: (stat: StatEditorProps["stat"]) => void;
+  onDelete: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+}
+
+function StatEditor({ stat, index, onChange, onDelete, onMoveUp, onMoveDown }: StatEditorProps) {
+  return (
+    <CollapsibleItem
+      title={`${stat.value} - ${stat.label}` || `Stat ${index + 1}`}
+      index={index}
+      onDelete={onDelete}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+    >
+      <TextField
+        label="Value"
+        value={stat.value}
+        onChange={(v) => onChange({ ...stat, value: v })}
+        placeholder="e.g. 100+ or 98%"
+      />
+      <TextField
+        label="Label"
+        value={stat.label}
+        onChange={(v) => onChange({ ...stat, label: v })}
+        placeholder="e.g. Happy Customers"
+      />
+      <SelectField
+        label="Icon (optional)"
+        value={stat.icon || ""}
+        options={[{ value: "", label: "No Icon" }, ...ICON_OPTIONS]}
+        onChange={(v) => onChange({ ...stat, icon: v || undefined })}
+      />
+    </CollapsibleItem>
+  );
+}
+
+// Repair Step Editor (for repair-process)
+interface RepairStepEditorProps {
+  step: {
+    id: string;
+    number: string;
+    title: string;
+    description: string;
+    badge?: string;
+  };
+  index: number;
+  onChange: (step: RepairStepEditorProps["step"]) => void;
+  onDelete: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+}
+
+function RepairStepEditor({ step, index, onChange, onDelete, onMoveUp, onMoveDown }: RepairStepEditorProps) {
+  return (
+    <CollapsibleItem
+      title={`${step.number}. ${step.title}` || `Step ${index + 1}`}
+      index={index}
+      onDelete={onDelete}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+    >
+      <TextField
+        label="Step Number"
+        value={step.number}
+        onChange={(v) => onChange({ ...step, number: v })}
+        placeholder="1, 2, 3..."
+      />
+      <TextField
+        label="Title"
+        value={step.title}
+        onChange={(v) => onChange({ ...step, title: v })}
+      />
+      <TextareaField
+        label="Description"
+        value={step.description}
+        onChange={(v) => onChange({ ...step, description: v })}
+        rows={2}
+      />
+      <TextField
+        label="Badge (optional)"
+        value={step.badge || ""}
+        onChange={(v) => onChange({ ...step, badge: v || undefined })}
+        placeholder="e.g. Free or 24/7"
+      />
+    </CollapsibleItem>
+  );
+}
+
+// How It Works Step Editor
+interface HowItWorksStepEditorProps {
+  step: {
+    id: string;
+    number: string;
+    title: string;
+    shortTitle?: string;
+    description: string;
+  };
+  index: number;
+  onChange: (step: HowItWorksStepEditorProps["step"]) => void;
+  onDelete: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+}
+
+function HowItWorksStepEditor({ step, index, onChange, onDelete, onMoveUp, onMoveDown }: HowItWorksStepEditorProps) {
+  return (
+    <CollapsibleItem
+      title={`${step.number}. ${step.title}` || `Step ${index + 1}`}
+      index={index}
+      onDelete={onDelete}
+      onMoveUp={onMoveUp}
+      onMoveDown={onMoveDown}
+    >
+      <TextField
+        label="Step Number"
+        value={step.number}
+        onChange={(v) => onChange({ ...step, number: v })}
+        placeholder="1, 2, 3..."
+      />
+      <TextField
+        label="Title"
+        value={step.title}
+        onChange={(v) => onChange({ ...step, title: v })}
+      />
+      <TextField
+        label="Short Title (optional)"
+        value={step.shortTitle || ""}
+        onChange={(v) => onChange({ ...step, shortTitle: v || undefined })}
+        placeholder="For compact displays"
+      />
+      <TextareaField
+        label="Description"
+        value={step.description}
+        onChange={(v) => onChange({ ...step, description: v })}
+        rows={2}
+      />
+    </CollapsibleItem>
   );
 }

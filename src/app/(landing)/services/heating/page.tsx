@@ -1,7 +1,53 @@
 import Link from 'next/link';
-import { Button, Breadcrumbs, TrustSignals, NumberedChecklistGrid, SectionNav } from '@/components/ui';
+import { Button, Breadcrumbs, TrustSignals, SectionNav } from '@/components/ui';
 import { FinalCTA, FAQSection } from '@/components/sections';
 import type { FAQ } from '@/types/database';
+
+// Types for CMS content
+interface HeatingService {
+  title: string;
+  description: string;
+  stat: string;
+  statLabel: string;
+  icon: string;
+}
+
+interface InspectionPhase {
+  phase: string;
+  items: string[];
+}
+
+interface WarningSign {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface PageContent {
+  hero: {
+    title: string;
+    subtitle: string;
+    backgroundImage: string;
+  };
+  services: HeatingService[];
+  inspectionPhases: InspectionPhase[];
+  warningSigns: WarningSign[];
+}
+
+// Fetch page content from CMS
+async function getPageContent(): Promise<PageContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=heating_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value as PageContent;
+  } catch {
+    return null;
+  }
+}
 
 // Fetch FAQs from CMS
 async function getFAQs(): Promise<FAQ[]> {
@@ -29,79 +75,29 @@ export const metadata = {
   description: 'Professional heating services in Houston. Furnace repair, heat pump installation, and heating maintenance. Stay warm this winter. Call (832) 437-1000.',
 };
 
-const services = [
-  {
-    title: 'Heating Repair',
-    description: "We fix furnaces, heat pumps, all brands. Same-day emergency service available.",
-    stat: '24/7',
-    statLabel: 'emergency',
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
+// Default content (fallback)
+const defaultContent: PageContent = {
+  hero: {
+    title: "Heat Out? We're On It.",
+    subtitle: "Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.",
+    backgroundImage: "/images/services/heating-services.webp",
   },
-  {
-    title: 'New Installation',
-    description: "Need a new system? We help you pick the right size for your home. Financing available.",
-    stat: 'Free',
-    statLabel: 'estimates',
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-    ),
-  },
-];
-
-const inspectionPhases = [
-  {
-    phase: 'Safety',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-    color: 'bg-primary',
-    items: [
-      'We make sure all safety switches actually work',
-      'We look for dangerous gas leaks',
-      'Carbon monoxide detector test',
-      'Gas lines and vents inspection',
-    ],
-  },
-  {
-    phase: 'Performance',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-    color: 'bg-primary',
-    items: [
-      'We test all electrical connections',
-      'We verify it heats properly',
-      'We adjust the flame and fan',
-      'We clean the burners',
-    ],
-  },
-  {
-    phase: 'Efficiency',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-      </svg>
-    ),
-    color: 'bg-primary',
-    items: [
-      'Thermostat accuracy check',
-      'Filter replacement if needed',
-      'Efficiency rating assessment',
-      'Personalized recommendations',
-    ],
-  },
-];
+  services: [
+    { title: 'Heating Repair', description: "We fix furnaces, heat pumps, all brands. Same-day emergency service available.", stat: '24/7', statLabel: 'emergency', icon: 'repair' },
+    { title: 'New Installation', description: "Need a new system? We help you pick the right size for your home. Financing available.", stat: 'Free', statLabel: 'estimates', icon: 'install' },
+  ],
+  inspectionPhases: [
+    { phase: 'Safety', items: ['We make sure all safety switches actually work', 'We look for dangerous gas leaks', 'Carbon monoxide detector test', 'Gas lines and vents inspection'] },
+    { phase: 'Performance', items: ['We test all electrical connections', 'We verify it heats properly', 'We adjust the flame and fan', 'We clean the burners'] },
+    { phase: 'Efficiency', items: ['Thermostat accuracy check', 'Filter replacement if needed', 'Efficiency rating assessment', 'Personalized recommendations'] },
+  ],
+  warningSigns: [
+    { title: 'Yellow Pilot Light', description: 'Should be blue. Yellow means incomplete combustion—schedule a checkup.', icon: 'flame' },
+    { title: 'Strange Sounds', description: 'Banging, squealing, or rattling usually means parts are wearing out.', icon: 'sound' },
+    { title: 'Short Cycling', description: 'Turns on and off constantly? Could be the thermostat or a dirty filter.', icon: 'cycle' },
+    { title: 'Higher Bills', description: 'Sudden spike in energy costs? Your system may be losing efficiency.', icon: 'bills' },
+  ],
+};
 
 // Default FAQs (fallback if CMS is empty)
 const defaultFaqs = [
@@ -123,8 +119,72 @@ const defaultFaqs = [
   },
 ];
 
+// Icon components
+function ServiceIcon({ icon }: { icon: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    repair: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
+    install: (
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      </svg>
+    ),
+  };
+  return <>{icons[icon] || icons.repair}</>;
+}
+
+function PhaseIcon({ index }: { index: number }) {
+  const icons = [
+    <svg key="safety" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    </svg>,
+    <svg key="performance" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+    </svg>,
+    <svg key="efficiency" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+    </svg>,
+  ];
+  return icons[index] || icons[0];
+}
+
+function WarningIcon({ icon }: { icon: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    flame: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+      </svg>
+    ),
+    sound: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0" />
+      </svg>
+    ),
+    cycle: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+    ),
+    bills: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  };
+  return <>{icons[icon] || icons.flame}</>;
+}
+
 export default async function HeatingPage() {
-  const cmsFaqs = await getFAQs();
+  const [cmsContent, cmsFaqs] = await Promise.all([
+    getPageContent(),
+    getFAQs(),
+  ]);
+
+  const content = cmsContent || defaultContent;
   const faqs = cmsFaqs.length > 0
     ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
     : defaultFaqs;
@@ -136,7 +196,7 @@ export default async function HeatingPage() {
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-top md:bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/services/heating-services.webp)' }}
+          style={{ backgroundImage: `url(${content.hero.backgroundImage})` }}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
@@ -150,10 +210,10 @@ export default async function HeatingPage() {
           />
           <div className="max-w-3xl">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Heat Out? We're On It.
+              {content.hero.title}
             </h1>
             <p className="text-xl text-white/90 mb-8 leading-relaxed max-w-lg">
-              Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.
+              {content.hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/contact" className="w-full sm:w-auto">
@@ -189,13 +249,13 @@ export default async function HeatingPage() {
               Everything Heating
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              From "won't turn on" to "smells weird" to "I need a whole new system." We handle it.
+              From &quot;won&apos;t turn on&quot; to &quot;smells weird&quot; to &quot;I need a whole new system.&quot; We handle it.
             </p>
           </div>
 
           {/* Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {services.map((service) => (
+            {content.services.map((service) => (
               <div
                 key={service.title}
                 className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-8 flex flex-col"
@@ -203,7 +263,7 @@ export default async function HeatingPage() {
                 {/* Icon + Stat row */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="w-14 h-14 rounded-2xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center">
-                    {service.icon}
+                    <ServiceIcon icon={service.icon} />
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-primary">{service.stat}</div>
@@ -238,14 +298,14 @@ export default async function HeatingPage() {
 
           {/* 3 Phase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {inspectionPhases.map((phase, idx) => (
+            {content.inspectionPhases.map((phase, idx) => (
               <div
                 key={phase.phase}
                 className="bg-white dark:bg-neutral-900 rounded-2xl p-6 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors duration-300"
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-10 h-10 rounded-xl ${phase.color} text-white flex items-center justify-center`}>
-                    {phase.icon}
+                  <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center">
+                    <PhaseIcon index={idx} />
                   </div>
                   <div>
                     <div className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">Phase {idx + 1}</div>
@@ -277,7 +337,7 @@ export default async function HeatingPage() {
               <div>
                 <h3 className="text-lg font-bold text-white mb-2">Carbon Monoxide: The Silent Killer</h3>
                 <p className="text-neutral-300 text-sm leading-relaxed">
-                  A cracked heat exchanger can leak odorless, invisible CO into your home. 430+ Americans die from CO poisoning annually—most cases are preventable with regular inspections. Don't skip your yearly tune-up.
+                  A cracked heat exchanger can leak odorless, invisible CO into your home. 430+ Americans die from CO poisoning annually—most cases are preventable with regular inspections. Don&apos;t skip your yearly tune-up.
                 </p>
               </div>
             </div>
@@ -325,51 +385,17 @@ export default async function HeatingPage() {
             </div>
           </div>
 
-          {/* Warning Signs Grid - Simple 4 cards */}
+          {/* Warning Signs Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Yellow Pilot Light */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-secondary/10 dark:bg-secondary/20 text-secondary flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
-                </svg>
+            {content.warningSigns.map((sign, idx) => (
+              <div key={sign.title} className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
+                <div className={`w-12 h-12 rounded-xl ${idx === 0 ? 'bg-secondary/10 dark:bg-secondary/20 text-secondary' : 'bg-primary/10 dark:bg-primary/20 text-primary'} flex items-center justify-center mb-4`}>
+                  <WarningIcon icon={sign.icon} />
+                </div>
+                <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">{sign.title}</h3>
+                <p className="text-neutral-600 dark:text-neutral-400 text-sm">{sign.description}</p>
               </div>
-              <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Yellow Pilot Light</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">Should be blue. Yellow means incomplete combustion—schedule a checkup.</p>
-            </div>
-
-            {/* Strange Sounds */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 0112.728 0" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Strange Sounds</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">Banging, squealing, or rattling usually means parts are wearing out.</p>
-            </div>
-
-            {/* Short Cycling */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Short Cycling</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">Turns on and off constantly? Could be the thermostat or a dirty filter.</p>
-            </div>
-
-            {/* High Bills */}
-            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-2xl p-6 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 text-primary flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-bold text-neutral-black dark:text-white mb-2">Higher Bills</h3>
-              <p className="text-neutral-600 dark:text-neutral-400 text-sm">Sudden spike in energy costs? Your system may be losing efficiency.</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>

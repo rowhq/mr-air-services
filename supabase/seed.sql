@@ -915,3 +915,115 @@ BEGIN
     ON CONFLICT DO NOTHING;
   END IF;
 END $$;
+
+-- =====================================================
+-- SITE CONFIG FOR SERVICE PAGES
+-- =====================================================
+
+-- AC Repair Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('ac_repair_page', '{
+    "hero": {
+      "title": "AC Dead? We''re On It.",
+      "subtitle": "Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.",
+      "backgroundImage": "/images/services/diagnostics-repairs.webp",
+      "trustSignals": ["Same-day service", "All brands serviced", "No hidden fees"]
+    },
+    "brands": [
+      { "name": "Ruud", "logo": "/images/brands/ruud.svg" },
+      { "name": "Lennox", "logo": "/images/brands/lennox.svg" },
+      { "name": "Goodman", "logo": "/images/brands/goodman.svg" },
+      { "name": "Trane", "logo": "/images/brands/trane.svg" },
+      { "name": "American Standard", "logo": "/images/brands/american-standard.svg" },
+      { "name": "Carrier", "logo": "/images/brands/carrier.svg" }
+    ],
+    "repairTypes": [
+      { "title": "AC Not Cooling", "description": "Refrigerant leaks, compressor issues, or airflow problems", "icon": "cooling" },
+      { "title": "Strange Noises", "description": "Grinding, squealing, or banging sounds from your unit", "icon": "noise" },
+      { "title": "Won''t Turn On", "description": "Electrical, thermostat, or capacitor failures", "icon": "power" },
+      { "title": "Frozen Coils", "description": "Ice buildup from restricted airflow or low refrigerant", "icon": "ice" },
+      { "title": "Water Leaks", "description": "Clogged drain lines or damaged condensate pans", "icon": "water" },
+      { "title": "High Energy Bills", "description": "Inefficient operation or failing components", "icon": "bills" }
+    ],
+    "problemsTitle": "Common AC Problems We Fix",
+    "problemsSubtitle": "With years of Houston experience, we diagnose and repair these issues daily"
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Heating Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('heating_page', '{
+    "hero": {
+      "title": "Heat Out? We''re On It.",
+      "subtitle": "Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.",
+      "backgroundImage": "/images/services/heating-services.webp"
+    },
+    "services": [
+      { "title": "Heating Repair", "description": "We fix furnaces, heat pumps, all brands. Same-day emergency service available.", "stat": "24/7", "statLabel": "emergency", "icon": "repair" },
+      { "title": "New Installation", "description": "Need a new system? We help you pick the right size for your home. Financing available.", "stat": "Free", "statLabel": "estimates", "icon": "install" }
+    ],
+    "inspectionPhases": [
+      {
+        "phase": "Safety",
+        "items": ["We make sure all safety switches actually work", "We look for dangerous gas leaks", "Carbon monoxide detector test", "Gas lines and vents inspection"]
+      },
+      {
+        "phase": "Performance",
+        "items": ["We test all electrical connections", "We verify it heats properly", "We adjust the flame and fan", "We clean the burners"]
+      },
+      {
+        "phase": "Efficiency",
+        "items": ["Thermostat accuracy check", "Filter replacement if needed", "Efficiency rating assessment", "Personalized recommendations"]
+      }
+    ],
+    "warningSigns": [
+      { "title": "Yellow Pilot Light", "description": "Should be blue. Yellow means incomplete combustion—schedule a checkup.", "icon": "flame" },
+      { "title": "Strange Sounds", "description": "Banging, squealing, or rattling usually means parts are wearing out.", "icon": "sound" },
+      { "title": "Short Cycling", "description": "Turns on and off constantly? Could be the thermostat or a dirty filter.", "icon": "cycle" },
+      { "title": "Higher Bills", "description": "Sudden spike in energy costs? Your system may be losing efficiency.", "icon": "bills" }
+    ]
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Tune-ups Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('tuneups_page', '{
+    "hero": {
+      "title": "Annual AC Tune-Up & Preventative Maintenance",
+      "subtitle": "Keep your system running at peak efficiency. FREE CoolSaver tune-ups for qualifying homeowners, or schedule your annual inspection today.",
+      "trustSignals": ["NATE certified techs", "100% satisfaction guaranteed", "Veteran owned"]
+    },
+    "checklistItems": [
+      "Inspect refrigerant level",
+      "Inspect and clean condenser coils",
+      "Inspect and clean contactor",
+      "Check and calibrate thermostat",
+      "Inspect airflow for proper specifications",
+      "Inspect the evaporator coil",
+      "Clean electrical and blower compartments",
+      "Tighten electrical connections",
+      "Inspect capacitors and relays",
+      "Inspect all drain lines",
+      "Check compressor for proper amp draw",
+      "Check all motors for proper amp draw",
+      "Oil the motors if required"
+    ],
+    "benefits": [
+      { "title": "Lower Your Energy Bills", "description": "A clean, well-maintained system runs more efficiently. Better efficiency means lower monthly utility costs.", "icon": "dollar" },
+      { "title": "Prevent Costly Repairs", "description": "We catch small issues before they become expensive emergencies. Regular maintenance saves you money long-term.", "icon": "shield" },
+      { "title": "Extend System Lifespan", "description": "A well-maintained system lasts years longer. That''s thousands you''re not spending on a new unit.", "icon": "clock" }
+    ],
+    "checklistTitle": "What We Check",
+    "checklistSubtitle": "A thorough inspection that catches problems before they become expensive emergencies."
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Services Hub Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('services_page', '{
+    "hero": {
+      "title": "HVAC Services",
+      "subtitle": "From emergency repairs to preventive maintenance. Same-day service available."
+    }
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;

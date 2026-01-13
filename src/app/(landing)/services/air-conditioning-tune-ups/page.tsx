@@ -4,6 +4,40 @@ import { FinalCTA, FAQSection } from '@/components/sections';
 import { StickyTuneUpCTA } from '@/components/ui/StickyTuneUpCTA';
 import type { FAQ } from '@/types/database';
 
+// Types for CMS content
+interface Benefit {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface PageContent {
+  hero: {
+    title: string;
+    subtitle: string;
+    trustSignals: string[];
+  };
+  checklistItems: string[];
+  benefits: Benefit[];
+  checklistTitle: string;
+  checklistSubtitle: string;
+}
+
+// Fetch page content from CMS
+async function getPageContent(): Promise<PageContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=tuneups_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value as PageContent;
+  } catch {
+    return null;
+  }
+}
+
 // Fetch FAQs from CMS
 async function getFAQs(): Promise<FAQ[]> {
   try {
@@ -43,54 +77,66 @@ export const metadata = {
   description: 'Annual preventative maintenance programs for AC & heating systems. FREE CoolSaver tune-ups for qualifying homeowners. Keep your system at peak efficiency.',
 };
 
-const checklistItems = [
-  'Inspect refrigerant level',
-  'Inspect and clean condenser coils',
-  'Inspect and clean contactor',
-  'Check and calibrate thermostat',
-  'Inspect airflow for proper specifications',
-  'Inspect the evaporator coil',
-  'Clean electrical and blower compartments',
-  'Tighten electrical connections',
-  'Inspect capacitors and relays',
-  'Inspect all drain lines',
-  'Check compressor for proper amp draw',
-  'Check all motors for proper amp draw',
-  'Oil the motors if required',
-];
+// Default content (fallback)
+const defaultContent: PageContent = {
+  hero: {
+    title: 'Annual AC Tune-Up & Preventative Maintenance',
+    subtitle: 'Keep your system running at peak efficiency. FREE CoolSaver tune-ups for qualifying homeowners, or schedule your annual inspection today.',
+    trustSignals: ['NATE certified techs', '100% satisfaction guaranteed', 'Veteran owned'],
+  },
+  checklistItems: [
+    'Inspect refrigerant level',
+    'Inspect and clean condenser coils',
+    'Inspect and clean contactor',
+    'Check and calibrate thermostat',
+    'Inspect airflow for proper specifications',
+    'Inspect the evaporator coil',
+    'Clean electrical and blower compartments',
+    'Tighten electrical connections',
+    'Inspect capacitors and relays',
+    'Inspect all drain lines',
+    'Check compressor for proper amp draw',
+    'Check all motors for proper amp draw',
+    'Oil the motors if required',
+  ],
+  benefits: [
+    { title: 'Lower Your Energy Bills', description: 'A clean, well-maintained system runs more efficiently. Better efficiency means lower monthly utility costs.', icon: 'dollar' },
+    { title: 'Prevent Costly Repairs', description: 'We catch small issues before they become expensive emergencies. Regular maintenance saves you money long-term.', icon: 'shield' },
+    { title: 'Extend System Lifespan', description: "A well-maintained system lasts years longer. That's thousands you're not spending on a new unit.", icon: 'clock' },
+  ],
+  checklistTitle: 'What We Check',
+  checklistSubtitle: 'A thorough inspection that catches problems before they become expensive emergencies.',
+};
 
-const benefits = [
-  {
-    title: "Lower Your Energy Bills",
-    description: "A clean, well-maintained system runs more efficiently. Better efficiency means lower monthly utility costs.",
-    icon: (
+// Icon component for benefits
+function BenefitIcon({ icon }: { icon: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    dollar: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-  },
-  {
-    title: 'Prevent Costly Repairs',
-    description: "We catch small issues before they become expensive emergencies. Regular maintenance saves you money long-term.",
-    icon: (
+    shield: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-  },
-  {
-    title: 'Extend System Lifespan',
-    description: "A well-maintained system lasts years longer. That's thousands you're not spending on a new unit.",
-    icon: (
+    clock: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-  },
-];
+  };
+  return <>{icons[icon] || icons.dollar}</>;
+}
 
 export default async function ACTuneUpsPage() {
-  const cmsFaqs = await getFAQs();
+  const [cmsContent, cmsFaqs] = await Promise.all([
+    getPageContent(),
+    getFAQs(),
+  ]);
+
+  const content = cmsContent || defaultContent;
   const faqs = cmsFaqs.length > 0
     ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
     : defaultFaqs;
@@ -114,10 +160,10 @@ export default async function ACTuneUpsPage() {
             {/* Left - Main Content */}
             <div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                Annual AC Tune-Up & Preventative Maintenance
+                {content.hero.title}
               </h1>
               <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-lg">
-                Keep your system running at peak efficiency. FREE CoolSaver tune-ups for qualifying homeowners, or schedule your annual inspection today.
+                {content.hero.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <CoolSaverCTA variant="secondary" size="lg" fullWidthMobile className="shadow-2xl shadow-white/10">
@@ -130,7 +176,7 @@ export default async function ACTuneUpsPage() {
                 </a>
               </div>
 
-              <TrustSignals className="mt-6" variant="dark" items={['NATE certified techs', '100% satisfaction guaranteed', 'Veteran owned']} />
+              <TrustSignals className="mt-6" variant="dark" items={content.hero.trustSignals} />
             </div>
 
             {/* Right - Info Card */}
@@ -200,15 +246,15 @@ export default async function ACTuneUpsPage() {
               Complete Inspection
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
-              What We Check
+              {content.checklistTitle}
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-              A thorough inspection that catches problems before they become expensive emergencies.
+              {content.checklistSubtitle}
             </p>
           </div>
 
           <div className="max-w-3xl mx-auto">
-            <ChecklistGrid items={checklistItems} initialCount={8} />
+            <ChecklistGrid items={content.checklistItems} initialCount={8} />
           </div>
         </div>
       </section>
@@ -226,14 +272,14 @@ export default async function ACTuneUpsPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {benefits.map((benefit) => (
+            {content.benefits.map((benefit) => (
               <div
                 key={benefit.title}
                 className="group bg-white dark:bg-neutral-900 rounded-3xl p-8 lg:p-10 border border-neutral-200/50 dark:border-neutral-700/50 hover:shadow-2xl hover:shadow-neutral-300/30 dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="w-14 h-14 rounded-2xl bg-primary/20 dark:bg-primary/30 flex items-center justify-center mb-6 group-hover:bg-primary transition-all duration-300">
                   <div className="text-primary group-hover:text-white transition-colors duration-300">
-                    {benefit.icon}
+                    <BenefitIcon icon={benefit.icon} />
                   </div>
                 </div>
 
