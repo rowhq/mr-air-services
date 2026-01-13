@@ -2,6 +2,9 @@ import { Header, Footer, MobileActionBar } from '@/components/layout';
 import { FloatingCTA } from '@/components/ui';
 import { getSiteData } from '@/lib/site-data';
 
+// Force dynamic rendering to always fetch fresh navigation data
+export const dynamic = 'force-dynamic';
+
 export default async function LandingLayout({
   children,
 }: {
