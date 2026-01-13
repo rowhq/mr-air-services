@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { sql } from '@vercel/postgres';
 import { Button, Breadcrumbs, CoolSaverCTA } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
 import type { Service } from '@/types/database';
@@ -14,30 +15,26 @@ export const metadata = {
   description: 'Complete HVAC services in Houston. AC repair, CoolSaver tune-ups, and heating services. Same-day service available.',
 };
 
-// Fetch hero content from CMS
+// Fetch hero content directly from database
 async function getHeroContent(): Promise<HeroContent | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/cms/config?key=services_page`, {
-      next: { revalidate: 60 },
-    });
-    if (!response.ok) return null;
-    const data = await response.json();
-    return data.value?.hero as HeroContent;
+    const result = await sql`SELECT value FROM site_config WHERE key = 'services_page'`;
+    if (result.rows.length === 0) return null;
+    return (result.rows[0].value as { hero: HeroContent })?.hero || null;
   } catch {
     return null;
   }
 }
 
-// Fetch services from CMS
+// Fetch services directly from database
 async function getServices(): Promise<Service[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/cms/services`, {
-      next: { revalidate: 60 },
-    });
-    if (!response.ok) return [];
-    return response.json();
+    const result = await sql`
+      SELECT * FROM services
+      WHERE is_published = true
+      ORDER BY position
+    `;
+    return result.rows as Service[];
   } catch {
     return [];
   }
