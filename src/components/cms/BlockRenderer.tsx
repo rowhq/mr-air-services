@@ -270,13 +270,18 @@ function ServicesOverviewBlock({
 // Map database icon names to component icon keys
 function mapServiceIcon(icon: string): string {
   const iconMap: Record<string, string> = {
+    // Current DB values
+    "ac-repair": "ac-repair",
+    "tune-up": "tune-up",
+    "heating": "heating",
+    // Legacy values
     wrench: "ac-repair",
     settings: "tune-up",
     flame: "heating",
     "plus-circle": "ac-repair",
     wind: "ac-repair",
   };
-  return iconMap[icon] || "ac-repair";
+  return iconMap[icon] || icon || "ac-repair";
 }
 
 function TestimonialsBlock({
