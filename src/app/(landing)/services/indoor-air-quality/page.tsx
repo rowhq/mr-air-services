@@ -3,8 +3,8 @@ import { BlockRenderer } from '@/components/cms/BlockRenderer';
 import type { EditorBlock, BlockSettings, BlockContent } from '@/types/cms';
 
 export const metadata = {
-  title: 'Heating | Mr. Air Services - Houston Furnace & Heat Pump Experts',
-  description: 'Professional heating services in Houston. Furnace repair, heat pump installation, and heating maintenance. Stay warm this winter. Call (832) 437-1000.',
+  title: 'Indoor Air Quality | Mr. Air Services - Houston Air Quality Solutions',
+  description: 'Improve your indoor air quality in Houston. Air purifiers, UV systems, humidity control, and ventilation solutions. Breathe easier at home.',
 };
 
 export const dynamic = 'force-dynamic';
@@ -79,7 +79,7 @@ interface PageData {
 async function getPageData(): Promise<PageData | null> {
   try {
     const pageResult = await sql`
-      SELECT id FROM pages WHERE slug = 'heating' AND is_published = true
+      SELECT id FROM pages WHERE slug = 'indoor-air-quality' AND is_published = true
     `;
 
     if (pageResult.rows.length === 0) return null;
@@ -112,12 +112,12 @@ async function getPageData(): Promise<PageData | null> {
       officeLocations: locationsResult.rows as OfficeLocation[],
     };
   } catch (error) {
-    console.error('Error fetching heating page data:', error);
+    console.error('Error fetching indoor air quality page data:', error);
     return null;
   }
 }
 
-export default async function HeatingPage() {
+export default async function IndoorAirQualityPage() {
   const data = await getPageData();
 
   if (!data || data.blocks.length === 0) {
@@ -125,7 +125,7 @@ export default async function HeatingPage() {
       <section className="py-32 bg-white dark:bg-neutral-900">
         <div className="container max-w-3xl">
           <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-            Heating Services
+            Indoor Air Quality Services
           </h1>
           <p className="text-neutral-600 dark:text-neutral-400">
             Content is being loaded. Please check back shortly or contact us at (832) 437-1000.

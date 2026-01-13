@@ -19,26 +19,83 @@ interface DBBlock {
   is_visible: boolean;
 }
 
-async function getPageBlocks(): Promise<EditorBlock[]> {
+interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  short_description: string;
+  icon: string;
+  features: string[];
+  cta_text: string;
+  cta_link: string;
+  is_featured: boolean;
+  position: number;
+}
+
+interface Testimonial {
+  id: string;
+  initials: string;
+  location: string;
+  rating: number;
+  text: string;
+  source: string;
+  is_featured: boolean;
+}
+
+interface OfficeLocation {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  latitude: number;
+  longitude: number;
+  phone: string;
+  email: string;
+  hours: Record<string, string>;
+  is_primary: boolean;
+}
+
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  page_slug: string | null;
+  position: number;
+  is_published: boolean;
+}
+
+interface PageData {
+  blocks: EditorBlock[];
+  services: Service[];
+  testimonials: Testimonial[];
+  officeLocations: OfficeLocation[];
+  faqs: FAQ[];
+}
+
+async function getPageData(): Promise<PageData | null> {
   try {
-    // Get page ID
     const pageResult = await sql`
       SELECT id FROM pages WHERE slug = 'pay-invoice' AND is_published = true
     `;
 
-    if (pageResult.rows.length === 0) return [];
+    if (pageResult.rows.length === 0) return null;
 
     const pageId = pageResult.rows[0].id;
 
-    // Get blocks for this page
-    const blocksResult = await sql`
-      SELECT id, type, content, settings, position, is_visible
-      FROM blocks
-      WHERE page_id = ${pageId} AND is_visible = true
-      ORDER BY position
-    `;
+    const [blocksResult, servicesResult, testimonialsResult, faqsResult, locationsResult] = await Promise.all([
+      sql`SELECT id, type, content, settings, position, is_visible
+          FROM blocks WHERE page_id = ${pageId} AND is_visible = true ORDER BY position`,
+      sql`SELECT * FROM services WHERE is_published = true ORDER BY position`,
+      sql`SELECT * FROM testimonials WHERE is_published = true ORDER BY position`,
+      sql`SELECT * FROM faqs WHERE is_published = true ORDER BY position`,
+      sql`SELECT * FROM office_locations ORDER BY position`,
+    ]);
 
-    return (blocksResult.rows as DBBlock[]).map((b) => ({
+    const blocks: EditorBlock[] = (blocksResult.rows as DBBlock[]).map((b) => ({
       id: b.id,
       type: b.type as EditorBlock['type'],
       content: b.content as BlockContent,
@@ -46,17 +103,24 @@ async function getPageBlocks(): Promise<EditorBlock[]> {
       position: b.position,
       isVisible: b.is_visible,
     }));
+
+    return {
+      blocks,
+      services: servicesResult.rows as Service[],
+      testimonials: testimonialsResult.rows as Testimonial[],
+      faqs: faqsResult.rows as FAQ[],
+      officeLocations: locationsResult.rows as OfficeLocation[],
+    };
   } catch (error) {
-    console.error('Error fetching pay-invoice blocks:', error);
-    return [];
+    console.error('Error fetching pay-invoice page data:', error);
+    return null;
   }
 }
 
 export default async function PayInvoicePage() {
-  const blocks = await getPageBlocks();
+  const data = await getPageData();
 
-  if (blocks.length === 0) {
-    // Minimal fallback - content should come from CMS
+  if (!data || data.blocks.length === 0) {
     return (
       <section className="py-32 bg-white dark:bg-neutral-900">
         <div className="container max-w-3xl">
@@ -71,5 +135,13 @@ export default async function PayInvoicePage() {
     );
   }
 
-  return <BlockRenderer blocks={blocks} />;
+  return (
+    <BlockRenderer
+      blocks={data.blocks}
+      services={data.services}
+      testimonials={data.testimonials}
+      faqs={data.faqs}
+      officeLocations={data.officeLocations}
+    />
+  );
 }

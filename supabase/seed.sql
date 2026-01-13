@@ -619,6 +619,21 @@ BEGIN
     ),
     (
       tuneups_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Tune-Up FAQs",
+        "sectionSubtitle": "Common questions about AC maintenance",
+        "pageSlug": "air-conditioning-tune-ups",
+        "categories": ["tune-ups"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      tuneups_page_id,
       'final-cta',
       '{
         "title": "Ready for Your Tune-Up?",
@@ -635,7 +650,7 @@ BEGIN
         "background": "gradient"
       }',
       '{"padding": "lg", "background": "gradient"}',
-      2,
+      3,
       TRUE
     )
     ON CONFLICT DO NOTHING;
@@ -697,6 +712,21 @@ BEGIN
     ),
     (
       financing_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Financing FAQs",
+        "sectionSubtitle": "Common questions about payment options",
+        "pageSlug": "financing-payments",
+        "categories": ["financing"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      financing_page_id,
       'final-cta',
       '{
         "title": "Ready to Get Started?",
@@ -713,7 +743,7 @@ BEGIN
         "background": "gradient"
       }',
       '{"padding": "lg", "background": "gradient"}',
-      2,
+      3,
       TRUE
     )
     ON CONFLICT DO NOTHING;

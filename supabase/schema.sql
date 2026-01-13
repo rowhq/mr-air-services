@@ -334,7 +334,9 @@ INSERT INTO pages (slug, title, description, is_published) VALUES
   ('financing-payments', 'Financing & Payments', 'Flexible financing options for HVAC services', TRUE),
   ('privacy-policy', 'Privacy Policy', 'Privacy policy for Mr. Air Services', TRUE),
   ('terms-of-use', 'Terms of Use', 'Terms of use for Mr. Air Services website', TRUE),
-  ('pay-invoice', 'Pay Invoice', 'Online invoice payment portal', TRUE)
+  ('pay-invoice', 'Pay Invoice', 'Online invoice payment portal', TRUE),
+  ('air-conditioning-installation', 'AC Installation', 'Professional AC installation services in Houston', TRUE),
+  ('indoor-air-quality', 'Indoor Air Quality', 'Indoor air quality solutions for Houston homes', TRUE)
 ON CONFLICT (slug) DO NOTHING;
 
 -- =====================================================
