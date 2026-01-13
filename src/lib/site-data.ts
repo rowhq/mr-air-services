@@ -1,3 +1,4 @@
+import { sql } from "@vercel/postgres";
 import type {
   SiteConfig,
   NavigationItem,
@@ -6,9 +7,7 @@ import type {
   SiteDataProps,
 } from "@/types/site-config";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-
-// Default config values in case API fails
+// Default config values in case DB fails
 const defaultConfig: SiteConfig = {
   company: {
     name: "Mr. Air Services",
@@ -35,25 +34,24 @@ const defaultConfig: SiteConfig = {
   },
 };
 
-// Fetch site configuration from CMS
+// Fetch site configuration directly from database
 async function fetchConfig(): Promise<SiteConfig> {
   try {
-    const res = await fetch(`${BASE_URL}/api/cms/config`, {
-      next: { revalidate: 60 }, // Revalidate every 60 seconds
-    });
+    const result = await sql`
+      SELECT key, value FROM site_config
+      WHERE key IN ('company', 'hours', 'social', 'seo')
+    `;
 
-    if (!res.ok) {
-      console.error("Failed to fetch config:", res.status);
-      return defaultConfig;
+    const configMap: Record<string, unknown> = {};
+    for (const row of result.rows) {
+      configMap[row.key] = row.value;
     }
 
-    const data = await res.json();
-
     return {
-      company: data.company || defaultConfig.company,
-      hours: data.hours || defaultConfig.hours,
-      social: data.social || defaultConfig.social,
-      seo: data.seo || defaultConfig.seo,
+      company: (configMap.company as SiteConfig["company"]) || defaultConfig.company,
+      hours: (configMap.hours as SiteConfig["hours"]) || defaultConfig.hours,
+      social: (configMap.social as SiteConfig["social"]) || defaultConfig.social,
+      seo: (configMap.seo as SiteConfig["seo"]) || defaultConfig.seo,
     };
   } catch (error) {
     console.error("Error fetching config:", error);
@@ -61,57 +59,44 @@ async function fetchConfig(): Promise<SiteConfig> {
   }
 }
 
-// Fetch navigation items from CMS
+// Fetch navigation items directly from database
 async function fetchNavigation(): Promise<NavigationItem[]> {
   try {
-    const res = await fetch(`${BASE_URL}/api/cms/navigation`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch navigation:", res.status);
-      return [];
-    }
-
-    return res.json();
+    const result = await sql`
+      SELECT * FROM navigation_items
+      WHERE is_visible = true
+      ORDER BY position
+    `;
+    return result.rows as NavigationItem[];
   } catch (error) {
     console.error("Error fetching navigation:", error);
     return [];
   }
 }
 
-// Fetch services from CMS
+// Fetch services directly from database
 async function fetchServices(): Promise<ServiceItem[]> {
   try {
-    const res = await fetch(`${BASE_URL}/api/cms/services`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch services:", res.status);
-      return [];
-    }
-
-    return res.json();
+    const result = await sql`
+      SELECT * FROM services
+      WHERE is_published = true
+      ORDER BY position
+    `;
+    return result.rows as ServiceItem[];
   } catch (error) {
     console.error("Error fetching services:", error);
     return [];
   }
 }
 
-// Fetch office locations from CMS
+// Fetch office locations directly from database
 async function fetchLocations(): Promise<OfficeLocation[]> {
   try {
-    const res = await fetch(`${BASE_URL}/api/cms/office-locations`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch locations:", res.status);
-      return [];
-    }
-
-    return res.json();
+    const result = await sql`
+      SELECT * FROM office_locations
+      ORDER BY position
+    `;
+    return result.rows as OfficeLocation[];
   } catch (error) {
     console.error("Error fetching locations:", error);
     return [];
