@@ -58,6 +58,32 @@ INSERT INTO services (title, slug, description, short_description, icon, feature
     TRUE,
     2,
     TRUE
+  ),
+  (
+    'AC Installation',
+    'air-conditioning-installation',
+    'Need a new AC? We''ll help you choose the right system for your home and budget. Professional installation with financing available.',
+    'Need a new AC? We''ll help you choose the right system for your home and budget. Professional installation with financing available.',
+    'ac-install',
+    '["Free estimates", "Top brands available", "Professional installation", "Financing options"]',
+    'Get Free Estimate',
+    '/services/air-conditioning-installation',
+    FALSE,
+    3,
+    TRUE
+  ),
+  (
+    'Indoor Air Quality',
+    'indoor-air-quality',
+    'Improve your home''s air quality with filtration, purification, and ventilation solutions. Breathe easier with cleaner, healthier air.',
+    'Improve your home''s air quality with filtration, purification, and ventilation solutions.',
+    'air-quality',
+    '["Air purification systems", "Humidity control", "Duct cleaning", "Allergen reduction"]',
+    'Improve Your Air',
+    '/services/indoor-air-quality',
+    FALSE,
+    4,
+    TRUE
   )
 ON CONFLICT (slug) DO NOTHING;
 
@@ -98,6 +124,22 @@ INSERT INTO faqs (page_slug, category, question, answer, position, is_published)
   ('heating', 'heating', 'What types of heating systems do you service?', 'We service all types including gas furnaces, electric furnaces, heat pumps, and dual-fuel systems.', 0, TRUE),
   ('heating', 'heating', 'When should I replace my furnace?', 'Most furnaces last 15-20 years. If yours is approaching that age and needing frequent repairs, it''s time to consider replacement.', 1, TRUE),
   ('heating', 'heating', 'Why is my heater blowing cold air?', 'Could be a thermostat issue, pilot light problem, or clogged filter. We''ll diagnose it quickly and give you options.', 2, TRUE)
+ON CONFLICT DO NOTHING;
+
+-- AC Installation FAQs
+INSERT INTO faqs (page_slug, category, question, answer, position, is_published) VALUES
+  ('air-conditioning-installation', 'ac-installation', 'How do I know what size AC I need?', 'We calculate the right size based on your home''s square footage, insulation, windows, and other factors. Too big or too small both waste energy and money.', 0, TRUE),
+  ('air-conditioning-installation', 'ac-installation', 'What brands do you install?', 'We install all major brands including Ruud, Lennox, Goodman, Trane, American Standard, and Carrier. We''ll help you pick the right one for your budget.', 1, TRUE),
+  ('air-conditioning-installation', 'ac-installation', 'How long does installation take?', 'Most residential installations take 1 day. Complex jobs or ductwork modifications might take 2 days.', 2, TRUE),
+  ('air-conditioning-installation', 'ac-installation', 'Do you offer financing?', 'Yes! We offer flexible financing with 0% APR options for qualified buyers. Apply in 5 minutes and get an instant decision.', 3, TRUE)
+ON CONFLICT DO NOTHING;
+
+-- Indoor Air Quality FAQs
+INSERT INTO faqs (page_slug, category, question, answer, position, is_published) VALUES
+  ('indoor-air-quality', 'air-quality', 'What affects indoor air quality?', 'Dust, pet dander, pollen, mold spores, VOCs from cleaning products, and humidity levels all affect your indoor air. Poor ventilation makes it worse.', 0, TRUE),
+  ('indoor-air-quality', 'air-quality', 'Do I need an air purifier?', 'If anyone in your home has allergies, asthma, or respiratory issues, an air purifier can make a big difference. We can assess your specific needs.', 1, TRUE),
+  ('indoor-air-quality', 'air-quality', 'How often should I clean my ducts?', 'Every 3-5 years for most homes, or sooner if you notice dust buildup, musty odors, or recent construction.', 2, TRUE),
+  ('indoor-air-quality', 'air-quality', 'What humidity level is best?', 'Between 30-50% is ideal for comfort and health. Too low causes dry skin and static; too high promotes mold growth.', 3, TRUE)
 ON CONFLICT DO NOTHING;
 
 -- Tune-Up FAQs
@@ -1072,3 +1114,319 @@ INSERT INTO site_config (key, value) VALUES
     }
   }')
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- AC Installation Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('ac_installation_page', '{
+    "hero": {
+      "title": "New AC Installation",
+      "subtitle": "Need a new system? We''ll help you choose the right AC for your home and budget. Professional installation with financing available.",
+      "backgroundImage": "/images/services/ac-installation.webp",
+      "trustSignals": ["Free estimates", "Top brands", "Financing available"]
+    },
+    "brands": [
+      { "name": "Ruud", "logo": "/images/brands/ruud.svg" },
+      { "name": "Lennox", "logo": "/images/brands/lennox.svg" },
+      { "name": "Goodman", "logo": "/images/brands/goodman.svg" },
+      { "name": "Trane", "logo": "/images/brands/trane.svg" },
+      { "name": "American Standard", "logo": "/images/brands/american-standard.svg" },
+      { "name": "Carrier", "logo": "/images/brands/carrier.svg" }
+    ],
+    "benefits": [
+      { "title": "Right Size System", "description": "We calculate exactly what your home needs. No oversizing, no undersizing.", "icon": "ruler", "stat": "100%", "statLabel": "proper sizing" },
+      { "title": "Energy Savings", "description": "Modern systems use 30-50% less energy than units from 10+ years ago.", "icon": "leaf", "stat": "30-50%", "statLabel": "energy savings" },
+      { "title": "Warranty Coverage", "description": "Manufacturer warranties plus our workmanship guarantee for complete protection.", "icon": "shield", "stat": "10yr", "statLabel": "warranty" }
+    ],
+    "process": [
+      { "step": "1", "title": "Free Estimate", "description": "We assess your home and recommend the right system" },
+      { "step": "2", "title": "Choose Your System", "description": "Pick from top brands with various efficiency ratings" },
+      { "step": "3", "title": "Professional Install", "description": "Our licensed techs install it right, usually in one day" },
+      { "step": "4", "title": "Stay Cool", "description": "Enjoy reliable comfort with full warranty coverage" }
+    ]
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Indoor Air Quality Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('indoor_air_quality_page', '{
+    "hero": {
+      "title": "Indoor Air Quality",
+      "subtitle": "Breathe easier at home. We offer air purification, humidity control, and ventilation solutions to improve your family''s health and comfort.",
+      "backgroundImage": "/images/services/indoor-air-quality.webp",
+      "trustSignals": ["Cleaner air", "Healthier home", "Expert solutions"]
+    },
+    "services": [
+      { "title": "Air Purification", "description": "Remove allergens, bacteria, and viruses from your home''s air", "icon": "air", "stat": "99%", "statLabel": "particles removed" },
+      { "title": "Humidity Control", "description": "Balance humidity for comfort and to prevent mold growth", "icon": "humidity", "stat": "30-50%", "statLabel": "ideal range" },
+      { "title": "Duct Cleaning", "description": "Remove dust, debris, and contaminants from your ductwork", "icon": "duct", "stat": "5yr", "statLabel": "recommended" },
+      { "title": "Ventilation", "description": "Fresh air exchange systems for better indoor air quality", "icon": "ventilation", "stat": "24/7", "statLabel": "fresh air" }
+    ],
+    "problems": [
+      { "title": "Allergies & Asthma", "description": "Airborne particles trigger symptoms. We can help filter them out." },
+      { "title": "Dust Buildup", "description": "Excessive dust means your system isn''t filtering properly." },
+      { "title": "Musty Odors", "description": "Could indicate mold or mildew in your ducts or system." },
+      { "title": "Dry Air", "description": "Low humidity causes dry skin, static, and respiratory issues." }
+    ],
+    "benefits": [
+      { "title": "Healthier Family", "description": "Reduce allergens and pollutants that affect your family''s health" },
+      { "title": "Better Sleep", "description": "Clean air and proper humidity help you sleep better" },
+      { "title": "Protect Your Home", "description": "Proper humidity prevents wood damage and mold growth" }
+    ]
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- AC INSTALLATION PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  ac_install_page_id UUID;
+BEGIN
+  SELECT id INTO ac_install_page_id FROM pages WHERE slug = 'air-conditioning-installation';
+
+  IF ac_install_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      ac_install_page_id,
+      'hero',
+      '{
+        "title": "AC",
+        "titleHighlight": "Installation",
+        "subtitle": "Need a new system? We''ll help you choose the right AC for your home and budget.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "check", "text": "Free Estimates"},
+          {"id": "3", "icon": "dollar", "text": "Financing Available"}
+        ],
+        "primaryCta": {
+          "text": "Get Free Estimate",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "secondaryCta": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      ac_install_page_id,
+      'why-choose-us',
+      '{
+        "sectionTitle": "Why Replace Your AC?",
+        "features": [
+          {
+            "id": "1",
+            "icon": "leaf",
+            "title": "Energy Savings",
+            "description": "Modern systems use 30-50% less energy than units from 10+ years ago. Lower bills every month.",
+            "stat": "30-50%",
+            "statLabel": "energy savings"
+          },
+          {
+            "id": "2",
+            "icon": "shield",
+            "title": "Reliable Comfort",
+            "description": "New systems cool evenly and quietly. No more hot spots or loud cycling.",
+            "stat": "10yr",
+            "statLabel": "warranty"
+          },
+          {
+            "id": "3",
+            "icon": "check",
+            "title": "Peace of Mind",
+            "description": "Full manufacturer warranty plus our workmanship guarantee. We stand behind our work.",
+            "stat": "100%",
+            "statLabel": "satisfaction"
+          }
+        ],
+        "showImage": false,
+        "showVeteranBadge": true
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      ac_install_page_id,
+      'how-it-works',
+      '{
+        "sectionTitle": "Our Installation Process",
+        "sectionSubtitle": "From estimate to cool air in 4 simple steps",
+        "steps": [
+          {"id": "1", "number": "01", "title": "Free Estimate", "shortTitle": "We assess your home", "description": "Calculate exact needs"},
+          {"id": "2", "number": "02", "title": "Choose System", "shortTitle": "Pick your brand", "description": "Top brands available"},
+          {"id": "3", "number": "03", "title": "Install Day", "shortTitle": "Professional setup", "description": "Usually one day"},
+          {"id": "4", "number": "04", "title": "Stay Cool", "shortTitle": "Enjoy comfort", "description": "Full warranty"}
+        ],
+        "layout": "cards"
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      ac_install_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Installation FAQs",
+        "sectionSubtitle": "Common questions about getting a new AC",
+        "pageSlug": "air-conditioning-installation",
+        "categories": ["ac-installation"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "white"}',
+      3,
+      TRUE
+    ),
+    (
+      ac_install_page_id,
+      'final-cta',
+      '{
+        "title": "Ready for a New AC?",
+        "subtitle": "Get a free estimate. No pressure, no obligation.",
+        "primaryButton": {
+          "text": "Get Free Estimate",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      4,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;
+
+-- =====================================================
+-- INDOOR AIR QUALITY PAGE BLOCKS
+-- =====================================================
+
+DO $$
+DECLARE
+  iaq_page_id UUID;
+BEGIN
+  SELECT id INTO iaq_page_id FROM pages WHERE slug = 'indoor-air-quality';
+
+  IF iaq_page_id IS NOT NULL THEN
+    INSERT INTO blocks (page_id, type, content, settings, position, is_visible) VALUES
+    (
+      iaq_page_id,
+      'hero',
+      '{
+        "title": "Indoor Air",
+        "titleHighlight": "Quality",
+        "subtitle": "Breathe easier at home. Air purification, humidity control, and ventilation solutions.",
+        "overlay": "medium",
+        "trustBadges": [
+          {"id": "1", "icon": "badge", "text": "Veteran Owned"},
+          {"id": "2", "icon": "shield", "text": "Healthier Air"},
+          {"id": "3", "icon": "check", "text": "Expert Solutions"}
+        ],
+        "primaryCta": {
+          "text": "Improve Your Air",
+          "href": "/contact",
+          "variant": "primary"
+        },
+        "secondaryCta": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "layout": "left-aligned"
+      }',
+      '{"padding": "lg", "background": "dark"}',
+      0,
+      TRUE
+    ),
+    (
+      iaq_page_id,
+      'why-choose-us',
+      '{
+        "sectionTitle": "Air Quality Solutions",
+        "features": [
+          {
+            "id": "1",
+            "icon": "air",
+            "title": "Air Purification",
+            "description": "Remove allergens, bacteria, and viruses from your home''s air with advanced filtration systems.",
+            "stat": "99%",
+            "statLabel": "particles removed"
+          },
+          {
+            "id": "2",
+            "icon": "humidity",
+            "title": "Humidity Control",
+            "description": "Balance humidity for comfort and health. Prevent mold growth and dry air problems.",
+            "stat": "30-50%",
+            "statLabel": "ideal humidity"
+          },
+          {
+            "id": "3",
+            "icon": "duct",
+            "title": "Duct Cleaning",
+            "description": "Remove years of dust, debris, and contaminants from your ductwork for cleaner air flow.",
+            "stat": "3-5yr",
+            "statLabel": "recommended"
+          }
+        ],
+        "showImage": false,
+        "showVeteranBadge": true
+      }',
+      '{"padding": "lg", "background": "white"}',
+      1,
+      TRUE
+    ),
+    (
+      iaq_page_id,
+      'faq',
+      '{
+        "sectionTitle": "Air Quality FAQs",
+        "sectionSubtitle": "Common questions about improving your indoor air",
+        "pageSlug": "indoor-air-quality",
+        "categories": ["air-quality"],
+        "layout": "accordion",
+        "maxItems": 10
+      }',
+      '{"padding": "lg", "background": "gray"}',
+      2,
+      TRUE
+    ),
+    (
+      iaq_page_id,
+      'final-cta',
+      '{
+        "title": "Ready to Breathe Easier?",
+        "subtitle": "Let us assess your home''s air quality and recommend solutions.",
+        "primaryButton": {
+          "text": "Get Assessment",
+          "href": "/contact"
+        },
+        "secondaryButton": {
+          "text": "(832) 437-1000",
+          "href": "tel:+18324371000",
+          "type": "phone"
+        },
+        "background": "gradient"
+      }',
+      '{"padding": "lg", "background": "gradient"}',
+      3,
+      TRUE
+    )
+    ON CONFLICT DO NOTHING;
+  END IF;
+END $$;

@@ -252,5 +252,14 @@ INSERT INTO pages (slug, title, description, is_published) VALUES
   ('home', 'Home', 'Homepage of Mr. Air Services', TRUE),
   ('services', 'Services', 'Our HVAC Services', TRUE),
   ('contact', 'Contact', 'Contact Us', TRUE),
-  ('about', 'About', 'About Mr. Air Services', FALSE)
+  ('about', 'About', 'About Mr. Air Services', FALSE),
+  ('air-conditioning-repair', 'AC Repair', 'Professional AC repair services in Houston', TRUE),
+  ('heating', 'Heating', 'Heating repair and installation services', TRUE),
+  ('air-conditioning-tune-ups', 'CoolSaver Tune-Ups', 'Preventive AC maintenance and tune-ups', TRUE),
+  ('air-conditioning-installation', 'AC Installation', 'Professional AC installation services in Houston', TRUE),
+  ('indoor-air-quality', 'Indoor Air Quality', 'Indoor air quality solutions for Houston homes', TRUE),
+  ('financing-payments', 'Financing & Payments', 'Flexible financing options for HVAC services', TRUE),
+  ('privacy-policy', 'Privacy Policy', 'Privacy policy for Mr. Air Services', TRUE),
+  ('terms-of-use', 'Terms of Use', 'Terms of use for Mr. Air Services website', TRUE),
+  ('pay-invoice', 'Pay Invoice', 'Online invoice payment portal', TRUE)
 ON CONFLICT (slug) DO NOTHING;
