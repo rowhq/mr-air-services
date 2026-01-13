@@ -1,119 +1,151 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { SessionProvider } from "next-auth/react";
+import { Sidebar, MobileNav, ExternalLinkIcon, ChevronRightIcon, HomeIcon } from "@/components/admin";
 
-const navItems = [
-  { href: "/admin", label: "Dashboard", icon: "📊" },
-  { href: "/admin/editor/home", label: "Editor Visual", icon: "✨" },
-  { href: "/admin/pages", label: "Paginas", icon: "📄" },
-  { href: "/admin/services", label: "Servicios", icon: "🔧" },
-  { href: "/admin/testimonials", label: "Testimonios", icon: "💬" },
-  { href: "/admin/faqs", label: "FAQs", icon: "❓" },
-  { href: "/admin/media", label: "Media", icon: "🖼️" },
-  { href: "/admin/leads", label: "Leads", icon: "📩" },
-  { href: "/admin/office-locations", label: "Ubicaciones", icon: "📍" },
-  { href: "/admin/navigation", label: "Navegacion", icon: "🔗" },
-  { href: "/admin/site-config", label: "Configuracion", icon: "⚙️" },
-];
+// Page titles and sections for breadcrumbs
+const pageConfig: Record<string, { title: string; section?: string }> = {
+  "/admin": { title: "Dashboard" },
+  "/admin/pages": { title: "Paginas", section: "Contenido" },
+  "/admin/services": { title: "Servicios", section: "Contenido" },
+  "/admin/testimonials": { title: "Testimonios", section: "Contenido" },
+  "/admin/faqs": { title: "FAQs", section: "Contenido" },
+  "/admin/media": { title: "Media", section: "Contenido" },
+  "/admin/leads": { title: "Leads" },
+  "/admin/office-locations": { title: "Ubicaciones", section: "Configuracion" },
+  "/admin/navigation": { title: "Navegacion", section: "Configuracion" },
+  "/admin/site-config": { title: "Configuracion", section: "Configuracion" },
+  "/admin/editor": { title: "Editor Visual", section: "Principal" },
+};
 
-const pageEditorItems = [
-  { href: "/admin/page-editors/financing", label: "Financing", icon: "💳" },
-  { href: "/admin/page-editors/ac-repair", label: "AC Repair", icon: "❄️" },
-  { href: "/admin/page-editors/heating", label: "Heating", icon: "🔥" },
-  { href: "/admin/page-editors/tune-ups", label: "Tune-Ups", icon: "🔧" },
-  { href: "/admin/page-editors/pay-invoice", label: "Pay Invoice", icon: "💵" },
-];
+function getPageInfo(pathname: string): { title: string; section?: string } {
+  // Check exact match first
+  if (pageConfig[pathname]) {
+    return pageConfig[pathname];
+  }
+  // Check if path starts with a known route
+  for (const [route, config] of Object.entries(pageConfig)) {
+    if (pathname.startsWith(route + "/")) {
+      return config;
+    }
+  }
+  return { title: "Panel de Control" };
+}
+
+function getBreadcrumbs(pathname: string): Array<{ label: string; href?: string }> {
+  const { title, section } = getPageInfo(pathname);
+  const breadcrumbs: Array<{ label: string; href?: string }> = [
+    { label: "Admin", href: "/admin" },
+  ];
+
+  if (section) {
+    breadcrumbs.push({ label: section });
+  }
+
+  breadcrumbs.push({ label: title });
+
+  return breadcrumbs;
+}
+
+function DashboardContent({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Don't show sidebar on login page or visual editor
+  if (pathname === "/login" || pathname.includes("/admin/editor/")) {
+    return <>{children}</>;
+  }
+
+  const { title: pageTitle } = getPageInfo(pathname);
+  const breadcrumbs = getBreadcrumbs(pathname);
+
+  return (
+    <div className="min-h-screen flex bg-gray-100">
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block">
+        <Sidebar className="h-screen sticky top-0" />
+      </div>
+
+      {/* Mobile Navigation */}
+      <MobileNav isOpen={mobileMenuOpen} onToggle={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <Sidebar className="h-full" />
+      </MobileNav>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Header */}
+        <header className="
+          sticky top-0 z-20
+          bg-white border-b border-gray-200
+          px-4 lg:px-6 py-3
+        ">
+          <div className="flex items-center justify-between">
+            {/* Left side - spacer for mobile menu button */}
+            <div className="w-10 lg:hidden" />
+
+            {/* Title and Breadcrumbs */}
+            <div className="flex-1 min-w-0">
+              {/* Breadcrumbs - hidden on mobile */}
+              <nav className="hidden sm:flex items-center gap-1 text-sm text-gray-500 mb-1">
+                <HomeIcon className="w-3.5 h-3.5" />
+                {breadcrumbs.map((crumb, index) => (
+                  <span key={index} className="flex items-center gap-1">
+                    <ChevronRightIcon className="w-3 h-3" />
+                    {crumb.href ? (
+                      <Link href={crumb.href} className="hover:text-blue-600 transition-colors">
+                        {crumb.label}
+                      </Link>
+                    ) : (
+                      <span className={index === breadcrumbs.length - 1 ? "text-gray-900 font-medium" : ""}>
+                        {crumb.label}
+                      </span>
+                    )}
+                  </span>
+                ))}
+              </nav>
+
+              {/* Title */}
+              <h1 className="text-lg font-semibold text-gray-900 truncate">
+                {pageTitle}
+              </h1>
+            </div>
+
+            {/* Right side - View site link */}
+            <Link
+              href="/"
+              target="_blank"
+              className="
+                hidden sm:flex items-center gap-1.5
+                text-sm text-blue-600 hover:text-blue-700
+                font-medium transition-colors
+              "
+            >
+              <span>Ver sitio</span>
+              <ExternalLinkIcon className="w-4 h-4" />
+            </Link>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 p-4 lg:p-6">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+}
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
-  // Don't show sidebar on login page or editor
-  if (pathname === "/login" || pathname.includes("/admin/editor/")) {
-    return <>{children}</>;
-  }
-
-  const handleLogout = async () => {
-    await signOut({ callbackUrl: "/login" });
-  };
-
   return (
-    <div className="min-h-screen flex">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col">
-        <div className="p-6">
-          <h1 className="text-xl font-bold">Mr. Air Services</h1>
-          <p className="text-sm text-gray-400">Panel de Administracion</p>
-        </div>
-        <nav className="mt-6 flex-1 overflow-y-auto">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-6 py-3 hover:bg-gray-800 transition ${
-                pathname === item.href || pathname.startsWith(item.href + "/")
-                  ? "bg-gray-800 border-r-4 border-blue-500"
-                  : ""
-              }`}
-            >
-              <span>{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          ))}
-
-          {/* Page Editors Section */}
-          <div className="mt-4 pt-4 border-t border-gray-700">
-            <p className="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
-              Editores de Pagina
-            </p>
-            {pageEditorItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-6 py-2.5 hover:bg-gray-800 transition text-sm ${
-                  pathname === item.href
-                    ? "bg-gray-800 border-r-4 border-blue-500"
-                    : "text-gray-400"
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </div>
-        </nav>
-        <div className="p-4 border-t border-gray-800">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition"
-          >
-            <span>🚪</span>
-            <span>Cerrar Sesion</span>
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow-sm h-16 flex items-center justify-between px-6">
-          <h2 className="text-lg font-semibold">Panel de Control</h2>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              target="_blank"
-              className="text-blue-600 hover:underline text-sm"
-            >
-              Ver sitio web →
-            </Link>
-          </div>
-        </header>
-        <main className="flex-1 p-6 bg-gray-50">{children}</main>
-      </div>
-    </div>
+    <SessionProvider>
+      <DashboardContent>{children}</DashboardContent>
+    </SessionProvider>
   );
 }

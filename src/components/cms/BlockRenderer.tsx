@@ -336,16 +336,33 @@ function ServicesOverviewBlock({
 // Map database icon names to component icon keys
 function mapServiceIcon(icon: string): string {
   const iconMap: Record<string, string> = {
-    // Current DB values
+    // HVAC Principal
     "ac-repair": "ac-repair",
     "tune-up": "tune-up",
     "heating": "heating",
-    // Legacy values
-    wrench: "ac-repair",
-    settings: "tune-up",
-    flame: "heating",
+    // Servicios
+    "snowflake": "snowflake",
+    "thermometer": "thermometer",
+    "fan": "fan",
+    "droplets": "droplets",
+    "wind": "wind",
+    // Tipo de Servicio
+    "home": "home",
+    "building": "building",
+    "clock": "clock",
+    "zap": "zap",
+    // Calidad
+    "shield": "shield",
+    "check-circle": "check-circle",
+    "star": "star",
+    "award": "award",
+    // Herramientas
+    "wrench": "wrench",
+    "settings": "settings",
+    "tools": "tools",
+    // Legacy mappings (backwards compatibility)
+    "flame": "heating",
     "plus-circle": "ac-repair",
-    wind: "ac-repair",
   };
   return iconMap[icon] || icon || "ac-repair";
 }

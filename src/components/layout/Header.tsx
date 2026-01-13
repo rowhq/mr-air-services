@@ -7,8 +7,9 @@ import Image from 'next/image';
 import { Button, ThemeToggle } from '@/components/ui';
 import type { SiteDataProps } from '@/types/site-config';
 
-// Service icons mapping (same as ServicesOverview for consistency)
+// Service icons mapping - expanded library (18 icons)
 const serviceIcons: Record<string, ReactNode> = {
+  // HVAC Principal
   'ac-repair': (
     <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -26,6 +27,98 @@ const serviceIcons: Record<string, ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
     </svg>
   ),
+  // Servicios
+  'snowflake': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07M8 12l4-4 4 4M12 16l-4-4 4-4" />
+    </svg>
+  ),
+  'thermometer': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14 4v10.54a4 4 0 11-4 0V4a2 2 0 014 0z" />
+    </svg>
+  ),
+  'fan': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 12c-2-2.96-6-2.5-6 1.5 0 2.76 2 5 4 5.5m2-7c2.96-2 2.5-6-1.5-6-2.76 0-5 2-5.5 4m7 2c2 2.96 6 2.5 6-1.5 0-2.76-2-5-4-5.5m-2 7c-2.96 2-2.5 6 1.5 6 2.76 0 5-2 5.5-4" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" />
+    </svg>
+  ),
+  'droplets': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+    </svg>
+  ),
+  'wind': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
+    </svg>
+  ),
+  // Tipo de Servicio
+  'home': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+      <polyline strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} points="9,22 9,12 15,12 15,22" />
+    </svg>
+  ),
+  'building': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 21h18M9 21V6a1 1 0 011-1h4a1 1 0 011 1v15M5 21V11a1 1 0 011-1h2M17 21V11a1 1 0 011 1h2M12 9h.01M12 12h.01M12 15h.01" />
+    </svg>
+  ),
+  'clock': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} cx="12" cy="12" r="10" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6l4 2" />
+    </svg>
+  ),
+  'zap': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  ),
+  // Calidad
+  'shield': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
+  'check-circle': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M22 4L12 14.01l-3-3" />
+    </svg>
+  ),
+  'star': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  ),
+  'award': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <circle strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} cx="12" cy="8" r="7" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.21 13.89L7 23l5-3 5 3-1.21-9.12" />
+    </svg>
+  ),
+  // Herramientas
+  'wrench': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+    </svg>
+  ),
+  'settings': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <circle strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  'tools': (
+    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 21v-5l6-6" />
+    </svg>
+  ),
+  // Default fallback
   'default': (
     <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />

@@ -258,11 +258,35 @@ export default function ServicesPage() {
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="wrench">Wrench (AC Repair)</option>
-                    <option value="settings">Settings (Tune-Up)</option>
-                    <option value="flame">Flame (Heating)</option>
-                    <option value="plus-circle">Plus Circle</option>
-                    <option value="wind">Wind</option>
+                    <optgroup label="HVAC Principal">
+                      <option value="ac-repair">❄️ AC Repair</option>
+                      <option value="heating">🔥 Heating</option>
+                      <option value="tune-up">⚙️ Tune-Up / Maintenance</option>
+                    </optgroup>
+                    <optgroup label="Servicios">
+                      <option value="snowflake">❄️ Snowflake (Refrigeracion)</option>
+                      <option value="thermometer">🌡️ Thermometer (Temperatura)</option>
+                      <option value="fan">💨 Fan (Ventilacion)</option>
+                      <option value="droplets">💧 Droplets (Humedad)</option>
+                      <option value="wind">🌬️ Wind (Aire)</option>
+                    </optgroup>
+                    <optgroup label="Tipo de Servicio">
+                      <option value="home">🏠 Home (Residencial)</option>
+                      <option value="building">🏢 Building (Comercial)</option>
+                      <option value="clock">🕐 Clock (24/7)</option>
+                      <option value="zap">⚡ Zap (Emergencia)</option>
+                    </optgroup>
+                    <optgroup label="Calidad">
+                      <option value="shield">🛡️ Shield (Garantia)</option>
+                      <option value="check-circle">✓ Check Circle (Verificado)</option>
+                      <option value="star">⭐ Star (Premium)</option>
+                      <option value="award">🏆 Award (Certificado)</option>
+                    </optgroup>
+                    <optgroup label="Herramientas">
+                      <option value="wrench">🔧 Wrench (Reparacion)</option>
+                      <option value="settings">⚙️ Settings (Configuracion)</option>
+                      <option value="tools">🛠️ Tools (Herramientas)</option>
+                    </optgroup>
                   </select>
                 </div>
                 <div>
