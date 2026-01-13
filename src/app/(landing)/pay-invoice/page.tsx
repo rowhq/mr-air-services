@@ -1,147 +1,79 @@
-import { sql } from '@vercel/postgres';
-import { BlockRenderer } from '@/components/cms/BlockRenderer';
-import type { EditorBlock, BlockSettings, BlockContent } from '@/types/cms';
+import Link from 'next/link';
+import { Breadcrumbs } from '@/components/ui';
+import { InvoicePaymentForm } from '@/components/forms/InvoicePaymentForm';
 
 export const metadata = {
   title: 'Pay Your Invoice | Mr. Air Services - Secure Online Payment',
   description: 'Pay your Mr. Air Services invoice quickly and securely online. Accept all major credit cards, debit cards, and bank transfers.',
 };
 
-export const dynamic = 'force-dynamic';
-
-// Database response types
-interface DBBlock {
-  id: string;
-  type: string;
-  content: unknown;
-  settings: unknown;
-  position: number;
-  is_visible: boolean;
-}
-
-interface Service {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  short_description: string;
-  icon: string;
-  features: string[];
-  cta_text: string;
-  cta_link: string;
-  is_featured: boolean;
-  position: number;
-}
-
-interface Testimonial {
-  id: string;
-  initials: string;
-  location: string;
-  rating: number;
-  text: string;
-  source: string;
-  is_featured: boolean;
-}
-
-interface OfficeLocation {
-  id: string;
-  name: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  latitude: number;
-  longitude: number;
-  phone: string;
-  email: string;
-  hours: Record<string, string>;
-  is_primary: boolean;
-}
-
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  page_slug: string | null;
-  position: number;
-  is_published: boolean;
-}
-
-interface PageData {
-  blocks: EditorBlock[];
-  services: Service[];
-  testimonials: Testimonial[];
-  officeLocations: OfficeLocation[];
-  faqs: FAQ[];
-}
-
-async function getPageData(): Promise<PageData | null> {
-  try {
-    const pageResult = await sql`
-      SELECT id FROM pages WHERE slug = 'pay-invoice' AND is_published = true
-    `;
-
-    if (pageResult.rows.length === 0) return null;
-
-    const pageId = pageResult.rows[0].id;
-
-    const [blocksResult, servicesResult, testimonialsResult, faqsResult, locationsResult] = await Promise.all([
-      sql`SELECT id, type, content, settings, position, is_visible
-          FROM blocks WHERE page_id = ${pageId} AND is_visible = true ORDER BY position`,
-      sql`SELECT * FROM services WHERE is_published = true ORDER BY position`,
-      sql`SELECT * FROM testimonials WHERE is_published = true ORDER BY position`,
-      sql`SELECT * FROM faqs WHERE is_published = true ORDER BY position`,
-      sql`SELECT * FROM office_locations ORDER BY position`,
-    ]);
-
-    const blocks: EditorBlock[] = (blocksResult.rows as DBBlock[]).map((b) => ({
-      id: b.id,
-      type: b.type as EditorBlock['type'],
-      content: b.content as BlockContent,
-      settings: (b.settings || {}) as BlockSettings,
-      position: b.position,
-      isVisible: b.is_visible,
-    }));
-
-    return {
-      blocks,
-      services: servicesResult.rows as Service[],
-      testimonials: testimonialsResult.rows as Testimonial[],
-      faqs: faqsResult.rows as FAQ[],
-      officeLocations: locationsResult.rows as OfficeLocation[],
-    };
-  } catch (error) {
-    console.error('Error fetching pay-invoice page data:', error);
-    return null;
-  }
-}
-
-export default async function PayInvoicePage() {
-  const data = await getPageData();
-
-  if (!data || data.blocks.length === 0) {
-    return (
-      <section className="py-32 bg-white dark:bg-neutral-900">
-        <div className="container max-w-3xl">
-          <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-            Pay Your Invoice
-          </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            Content is being loaded. Please check back shortly or contact us at (832) 437-1000.
-          </p>
-        </div>
-      </section>
-    );
-  }
-
+export default function PayInvoicePage() {
   return (
-    <BlockRenderer
-      blocks={data.blocks}
-      services={data.services}
-      testimonials={data.testimonials}
-      faqs={data.faqs}
-      officeLocations={data.officeLocations}
-    />
+    <section className="relative min-h-screen pt-32 pb-16 bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
+      {/* Subtle pattern/texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#374151_1px,transparent_1px)] [background-size:20px_20px] opacity-50 pointer-events-none" />
+
+      <div className="container relative">
+        <Breadcrumbs items={[{ label: 'Pay Invoice' }]} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center mt-8">
+          {/* Left - Info */}
+          <div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
+              Pay Your Invoice
+            </h1>
+            <p className="text-xl text-neutral-600 dark:text-neutral-300 mb-10 max-w-md leading-relaxed">
+              Quick, secure payment. Takes less than a minute.
+            </p>
+
+            {/* Trust Signals */}
+            <div className="flex flex-wrap gap-6 mb-12">
+              {['Secure payment', 'All cards accepted', 'Instant confirmation'].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full bg-primary/15 dark:bg-primary/25 flex items-center justify-center">
+                    <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-neutral-700 dark:text-neutral-200 font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Need Help Box */}
+            <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6">
+              <h3 className="font-bold text-neutral-900 dark:text-white text-lg mb-2">
+                Need Help?
+              </h3>
+              <p className="text-neutral-500 dark:text-neutral-400 mb-4">
+                Questions about your invoice or payment options?
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="tel:+18324371000"
+                  className="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold transition-colors"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  (832) 437-1000
+                </a>
+                <Link
+                  href="/financing-payments"
+                  className="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors underline underline-offset-4"
+                >
+                  View financing options
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right - Form Card */}
+          <div className="bg-white dark:bg-neutral-800 rounded-2xl p-4 sm:p-6 md:p-8">
+            <InvoicePaymentForm />
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
