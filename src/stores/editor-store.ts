@@ -259,6 +259,7 @@ export const useEditorStore = create<EditorStore>()(
       deviceMode: "desktop",
       draftBlocks: [],
       hasUnsavedChanges: false,
+      previewData: null,
       history: [],
       historyIndex: -1,
       isLoading: false,
@@ -361,6 +362,29 @@ export const useEditorStore = create<EditorStore>()(
         } catch (error) {
           console.error("Failed to publish:", error);
           set({ isPublishing: false });
+        }
+      },
+
+      loadPreviewData: async () => {
+        try {
+          const [servicesRes, testimonialsRes, faqsRes, locationsRes] =
+            await Promise.all([
+              fetch("/api/cms/services"),
+              fetch("/api/cms/testimonials"),
+              fetch("/api/cms/faqs"),
+              fetch("/api/cms/office-locations"),
+            ]);
+
+          const services = servicesRes.ok ? await servicesRes.json() : [];
+          const testimonials = testimonialsRes.ok ? await testimonialsRes.json() : [];
+          const faqs = faqsRes.ok ? await faqsRes.json() : [];
+          const officeLocations = locationsRes.ok ? await locationsRes.json() : [];
+
+          set({
+            previewData: { services, testimonials, faqs, officeLocations },
+          });
+        } catch (error) {
+          console.error("Failed to load preview data:", error);
         }
       },
 

@@ -14,13 +14,14 @@ export default function EditorPage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const { loadPage, page, isLoading, viewMode } = useEditorStore();
+  const { loadPage, loadPreviewData, page, isLoading } = useEditorStore();
 
   useEffect(() => {
     if (slug) {
       loadPage(slug);
+      loadPreviewData(); // Load preview data for live preview
     }
-  }, [slug, loadPage]);
+  }, [slug, loadPage, loadPreviewData]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -81,14 +82,14 @@ export default function EditorPage() {
       <EditorHeader pageTitle={page.title} />
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar - Blocks */}
-        {viewMode === "edit" && <BlocksSidebar />}
+        {/* Left Sidebar - Blocks (always visible for editing) */}
+        <BlocksSidebar />
 
         {/* Main Canvas */}
         <EditorCanvas />
 
-        {/* Right Sidebar - Properties */}
-        {viewMode === "edit" && <PropertiesPanel />}
+        {/* Right Sidebar - Properties (always visible for editing) */}
+        <PropertiesPanel />
       </div>
     </div>
   );

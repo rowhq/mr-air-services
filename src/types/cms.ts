@@ -392,6 +392,55 @@ export interface PageWithBlocks {
   blocks: EditorBlock[];
 }
 
+// Preview data for live preview
+export interface PreviewData {
+  services: {
+    id: string;
+    title: string;
+    slug: string;
+    description: string;
+    short_description: string;
+    icon: string;
+    features: string[];
+    cta_text: string;
+    cta_link: string;
+    is_featured: boolean;
+    position: number;
+  }[];
+  testimonials: {
+    id: string;
+    initials: string;
+    location: string;
+    rating: number;
+    text: string;
+    source: string;
+    is_featured: boolean;
+  }[];
+  faqs: {
+    id: string;
+    question: string;
+    answer: string;
+    category: string;
+    page_slug: string | null;
+    position: number;
+    is_published: boolean;
+  }[];
+  officeLocations: {
+    id: string;
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    latitude: number;
+    longitude: number;
+    phone: string;
+    email: string;
+    hours: Record<string, string>;
+    is_primary: boolean;
+  }[];
+}
+
 // Editor state
 export interface EditorState {
   // Current page
@@ -410,6 +459,9 @@ export interface EditorState {
   draftBlocks: EditorBlock[];
   hasUnsavedChanges: boolean;
 
+  // Preview data for live preview
+  previewData: PreviewData | null;
+
   // History
   history: EditorBlock[][];
   historyIndex: number;
@@ -426,6 +478,7 @@ export interface EditorActions {
   loadPage: (slug: string) => Promise<void>;
   saveDraft: () => Promise<void>;
   publish: () => Promise<void>;
+  loadPreviewData: () => Promise<void>;
 
   // Block management
   selectBlock: (id: string | null) => void;

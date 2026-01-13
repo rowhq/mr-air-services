@@ -18,6 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { EditorBlock } from "@/types/cms";
+import { BlockRenderer } from "@/components/cms/BlockRenderer";
 
 interface SortableBlockProps {
   block: EditorBlock;
@@ -281,8 +282,7 @@ function BlockPreview({ block }: { block: EditorBlock }) {
 }
 
 export function EditorCanvas() {
-  const { draftBlocks, deviceMode, reorderBlocks, viewMode, page } = useEditorStore();
-  const pageSlug = page?.slug || "home";
+  const { draftBlocks, deviceMode, reorderBlocks, viewMode, previewData } = useEditorStore();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -305,6 +305,7 @@ export function EditorCanvas() {
     mobile: "375px",
   };
 
+  // Live preview mode - renders actual components with draft data
   if (viewMode === "preview") {
     return (
       <div className="flex-1 bg-gray-100 overflow-auto">
@@ -315,11 +316,22 @@ export function EditorCanvas() {
             minHeight: "100%",
           }}
         >
-          <iframe
-            src={`/preview/${pageSlug}`}
-            className="w-full h-full min-h-screen"
-            title="Page Preview"
-          />
+          {previewData ? (
+            <BlockRenderer
+              blocks={draftBlocks}
+              services={previewData.services}
+              testimonials={previewData.testimonials}
+              faqs={previewData.faqs}
+              officeLocations={previewData.officeLocations}
+            />
+          ) : (
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center text-gray-500">
+                <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                <p>Loading preview...</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
