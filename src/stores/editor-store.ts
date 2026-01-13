@@ -136,6 +136,113 @@ const defaultBlockContent: Record<BlockType, BlockContent> = {
     ],
     layout: "cards",
   },
+  // New block types for full CMS coverage
+  "legal-content": {
+    title: "Legal Document",
+    lastUpdated: "January 2025",
+    sections: [
+      { id: "intro", heading: "Introduction", content: "<p>Add your legal content here...</p>" },
+    ],
+    contactInfo: { phone: "(832) 437-1000", email: "info@mrairservices.com" },
+  },
+  "contact-form": {
+    title: "Get In Touch",
+    subtitle: "Fill out the form or call us directly.",
+    successMessage: { title: "Message Sent!", description: "We'll get back to you within 24 hours." },
+    serviceOptions: [
+      { id: "1", label: "AC Repair", icon: "wrench" },
+      { id: "2", label: "Heating", icon: "flame" },
+      { id: "3", label: "Tune-Up", icon: "settings" },
+    ],
+    preferredTimes: ["Morning (8AM-12PM)", "Afternoon (12PM-5PM)", "First Available"],
+    submitButtonText: "Submit Form",
+    showBusinessInfo: true,
+    showServiceArea: true,
+  },
+  "brand-logos": {
+    sectionTitle: "Brands We Service",
+    sectionSubtitle: "",
+    brands: [
+      { id: "1", name: "Carrier" },
+      { id: "2", name: "Trane" },
+      { id: "3", name: "Lennox" },
+    ],
+    layout: "inline",
+  },
+  "problem-grid": {
+    sectionTitle: "Common Problems We Fix",
+    sectionSubtitle: "",
+    problems: [
+      { id: "1", title: "Not Cooling", description: "AC running but not cooling your home", icon: "❄️" },
+      { id: "2", title: "Strange Noises", description: "Unusual sounds from your unit", icon: "🔊" },
+    ],
+    layout: "3-col",
+  },
+  "warning-signs": {
+    sectionTitle: "Warning Signs",
+    sectionSubtitle: "Know when to call for help",
+    signs: [
+      { id: "1", title: "Yellow Pilot Light", description: "Could indicate carbon monoxide", icon: "⚠️", isEmergency: true },
+      { id: "2", title: "Strange Smells", description: "Gas or burning odors", icon: "👃", isEmergency: false },
+    ],
+  },
+  "inspection-phases": {
+    sectionTitle: "Our Inspection Process",
+    sectionSubtitle: "",
+    phases: [
+      { id: "1", name: "Safety Check", icon: "🛡️", items: ["Carbon monoxide test", "Gas leak inspection"] },
+      { id: "2", name: "Performance", icon: "📊", items: ["Temperature check", "Airflow measurement"] },
+    ],
+  },
+  "checklist-grid": {
+    sectionTitle: "What We Check",
+    sectionSubtitle: "Comprehensive inspection checklist",
+    items: ["Thermostat calibration", "Filter condition", "Coil cleaning", "Refrigerant levels"],
+    initialVisibleCount: 6,
+    showExpandButton: true,
+  },
+  "benefits-grid": {
+    sectionTitle: "Benefits",
+    sectionSubtitle: "",
+    benefits: [
+      { id: "1", title: "Lower Bills", description: "Save on energy costs", icon: "💰" },
+      { id: "2", title: "Longer Life", description: "Extend equipment lifespan", icon: "⏰" },
+    ],
+    layout: "3-col",
+  },
+  "comparison-section": {
+    sectionTitle: "Why Financing Makes Sense",
+    sectionSubtitle: "",
+    leftOption: {
+      title: "Without Financing",
+      description: "Pay everything upfront or sweat it out",
+      icon: "😰",
+      variant: "negative",
+    },
+    rightOption: {
+      title: "With Financing",
+      description: "Get comfort now, pay over time",
+      icon: "😊",
+      variant: "positive",
+    },
+    floatingStat: { value: "5 min", label: "to apply" },
+  },
+  "payment-form": {
+    title: "Pay Your Invoice",
+    subtitle: "Quick, secure payment",
+    paymentUrl: "https://pay.example.com",
+    trustSignals: [
+      { id: "1", icon: "🔒", text: "Secure payment" },
+      { id: "2", icon: "💳", text: "All cards accepted" },
+    ],
+    helpBox: {
+      title: "Need Help?",
+      description: "Questions about your invoice?",
+      phone: "(832) 437-1000",
+      financingText: "View financing options",
+      financingLink: "/financing-payments",
+    },
+  },
 };
 
 export const useEditorStore = create<EditorStore>()(

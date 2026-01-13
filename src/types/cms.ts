@@ -13,7 +13,18 @@ export type BlockType =
   | "image-text"
   | "stats-grid"
   | "repair-process"
-  | "how-it-works";
+  | "how-it-works"
+  // New block types for full CMS coverage
+  | "legal-content"
+  | "contact-form"
+  | "brand-logos"
+  | "problem-grid"
+  | "warning-signs"
+  | "inspection-phases"
+  | "checklist-grid"
+  | "benefits-grid"
+  | "comparison-section"
+  | "payment-form";
 
 export interface BlockSettings {
   padding?: "none" | "sm" | "md" | "lg" | "xl";
@@ -180,6 +191,157 @@ export interface HowItWorksBlockContent {
   layout: "cards" | "timeline" | "accordion";
 }
 
+// === NEW BLOCK TYPES FOR FULL CMS COVERAGE ===
+
+export interface LegalContentBlockContent {
+  title: string;
+  lastUpdated: string;
+  sections: {
+    id: string;
+    heading: string;
+    content: string; // HTML content
+    listItems?: string[];
+  }[];
+  contactInfo?: {
+    phone: string;
+    email: string;
+  };
+}
+
+export interface ContactFormBlockContent {
+  title: string;
+  subtitle: string;
+  successMessage: {
+    title: string;
+    description: string;
+  };
+  serviceOptions: {
+    id: string;
+    label: string;
+    icon: string;
+  }[];
+  preferredTimes: string[];
+  submitButtonText: string;
+  showBusinessInfo: boolean;
+  showServiceArea: boolean;
+}
+
+export interface BrandLogosBlockContent {
+  sectionTitle?: string;
+  sectionSubtitle?: string;
+  brands: {
+    id: string;
+    name: string;
+    logo?: string;
+  }[];
+  layout: "inline" | "grid";
+}
+
+export interface ProblemGridBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  problems: {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+  }[];
+  layout: "2-col" | "3-col";
+}
+
+export interface WarningSignsBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  signs: {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+    isEmergency?: boolean;
+  }[];
+  emergencyBanner?: {
+    title: string;
+    description: string;
+    ctaText: string;
+    ctaHref: string;
+  };
+}
+
+export interface InspectionPhasesBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  phases: {
+    id: string;
+    name: string;
+    icon: string;
+    items: string[];
+  }[];
+  safetyCallout?: {
+    title: string;
+    content: string;
+  };
+}
+
+export interface ChecklistGridBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  items: string[];
+  initialVisibleCount: number;
+  showExpandButton: boolean;
+}
+
+export interface BenefitsGridBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  benefits: {
+    id: string;
+    title: string;
+    description: string;
+    icon: string;
+  }[];
+  layout: "2-col" | "3-col" | "4-col";
+}
+
+export interface ComparisonSectionBlockContent {
+  sectionTitle: string;
+  sectionSubtitle?: string;
+  leftOption: {
+    title: string;
+    description: string;
+    icon: string;
+    variant: "negative" | "neutral";
+  };
+  rightOption: {
+    title: string;
+    description: string;
+    icon: string;
+    variant: "positive";
+  };
+  floatingStat?: {
+    value: string;
+    label: string;
+  };
+  imageUrl?: string;
+}
+
+export interface PaymentFormBlockContent {
+  title: string;
+  subtitle: string;
+  paymentUrl: string;
+  trustSignals: {
+    id: string;
+    icon: string;
+    text: string;
+  }[];
+  helpBox: {
+    title: string;
+    description: string;
+    phone: string;
+    financingText: string;
+    financingLink: string;
+  };
+}
+
 // Union type for all block content
 export type BlockContent =
   | HeroBlockContent
@@ -194,7 +356,18 @@ export type BlockContent =
   | StatsGridBlockContent
   | AreasServedBlockContent
   | RepairProcessBlockContent
-  | HowItWorksBlockContent;
+  | HowItWorksBlockContent
+  // New block content types
+  | LegalContentBlockContent
+  | ContactFormBlockContent
+  | BrandLogosBlockContent
+  | ProblemGridBlockContent
+  | WarningSignsBlockContent
+  | InspectionPhasesBlockContent
+  | ChecklistGridBlockContent
+  | BenefitsGridBlockContent
+  | ComparisonSectionBlockContent
+  | PaymentFormBlockContent;
 
 // Editor Block (with full typing)
 export interface EditorBlock {
