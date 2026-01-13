@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { useEditorStore } from "@/stores/editor-store";
 import {
   EditorHeader,
-  BlocksSidebar,
   EditorCanvas,
   PropertiesPanel,
 } from "@/components/cms/editor";
@@ -82,10 +81,7 @@ export default function EditorPage() {
       <EditorHeader pageTitle={page.title} />
 
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Sidebar - Blocks (always visible for editing) */}
-        <BlocksSidebar />
-
-        {/* Main Canvas */}
+        {/* Main Canvas with floating block inserter */}
         <EditorCanvas />
 
         {/* Right Sidebar - Properties (always visible for editing) */}

@@ -95,11 +95,18 @@ interface BlockRendererProps {
   testimonials?: Testimonial[];
   officeLocations?: OfficeLocation[];
   faqs?: FAQ[];
+  // Editing mode props for click-to-select
+  isEditing?: boolean;
+  selectedBlockId?: string | null;
+  hoveredBlockId?: string | null;
+  onBlockClick?: (id: string) => void;
+  onBlockHover?: (id: string | null) => void;
 }
 
 /**
  * BlockRenderer - Renders CMS blocks dynamically with resolved data
  * Now properly passes services, testimonials, and locations to components
+ * Supports click-to-select in editing mode
  */
 export function BlockRenderer({
   blocks,
@@ -107,6 +114,11 @@ export function BlockRenderer({
   testimonials = [],
   officeLocations = [],
   faqs = [],
+  isEditing = false,
+  selectedBlockId,
+  hoveredBlockId,
+  onBlockClick,
+  onBlockHover,
 }: BlockRendererProps) {
   const visibleBlocks = blocks
     .filter((b) => b.isVisible)
@@ -114,19 +126,90 @@ export function BlockRenderer({
 
   return (
     <>
-      {visibleBlocks.map((block) => (
-        <BlockWrapper key={block.id} settings={block.settings}>
-          <Block
-            block={block}
-            services={services}
-            testimonials={testimonials}
-            officeLocations={officeLocations}
-            faqs={faqs}
-          />
-        </BlockWrapper>
-      ))}
+      {visibleBlocks.map((block) => {
+        const isSelected = selectedBlockId === block.id;
+        const isHovered = hoveredBlockId === block.id;
+
+        const blockContent = (
+          <BlockWrapper key={block.id} settings={block.settings}>
+            <Block
+              block={block}
+              services={services}
+              testimonials={testimonials}
+              officeLocations={officeLocations}
+              faqs={faqs}
+            />
+          </BlockWrapper>
+        );
+
+        // In editing mode, wrap with clickable overlay
+        if (isEditing) {
+          return (
+            <div
+              key={block.id}
+              className={`relative transition-all duration-150 cursor-pointer ${
+                isSelected
+                  ? "ring-2 ring-blue-500 ring-offset-2"
+                  : isHovered
+                    ? "ring-2 ring-blue-300 ring-offset-1"
+                    : ""
+              }`}
+              onClick={() => onBlockClick?.(block.id)}
+              onMouseEnter={() => onBlockHover?.(block.id)}
+              onMouseLeave={() => onBlockHover?.(null)}
+            >
+              {/* Selection indicator label */}
+              {(isSelected || isHovered) && (
+                <div
+                  className={`absolute -top-3 left-4 px-2 py-0.5 text-xs font-medium rounded z-10 ${
+                    isSelected
+                      ? "bg-blue-500 text-white"
+                      : "bg-blue-300 text-blue-900"
+                  }`}
+                >
+                  {getBlockLabel(block.type)}
+                </div>
+              )}
+              {blockContent}
+            </div>
+          );
+        }
+
+        return blockContent;
+      })}
     </>
   );
+}
+
+// Helper to get human-readable block labels
+function getBlockLabel(type: string): string {
+  const labels: Record<string, string> = {
+    hero: "Hero",
+    "services-overview": "Services",
+    "services-grid": "Services Grid",
+    testimonials: "Testimonials",
+    faq: "FAQ",
+    "why-choose-us": "Why Choose Us",
+    "areas-served": "Areas Served",
+    "final-cta": "Call to Action",
+    "text-content": "Text Block",
+    "image-text": "Image + Text",
+    "stats-grid": "Stats",
+    "contact-info": "Contact Info",
+    "repair-process": "Repair Process",
+    "how-it-works": "How It Works",
+    "legal-content": "Legal Content",
+    "contact-form": "Contact Form",
+    "brand-logos": "Brand Logos",
+    "problem-grid": "Problem Grid",
+    "warning-signs": "Warning Signs",
+    "inspection-phases": "Inspection Phases",
+    "checklist-grid": "Checklist",
+    "benefits-grid": "Benefits",
+    "comparison-section": "Comparison",
+    "payment-form": "Payment Form",
+  };
+  return labels[type] || type;
 }
 
 interface BlockWrapperProps {

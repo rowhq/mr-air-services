@@ -19,6 +19,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import type { EditorBlock } from "@/types/cms";
 import { BlockRenderer } from "@/components/cms/BlockRenderer";
+import { FloatingBlockInserter, BlockGapInserter } from "./FloatingBlockInserter";
 
 interface SortableBlockProps {
   block: EditorBlock;
@@ -282,7 +283,17 @@ function BlockPreview({ block }: { block: EditorBlock }) {
 }
 
 export function EditorCanvas() {
-  const { draftBlocks, deviceMode, reorderBlocks, viewMode, previewData } = useEditorStore();
+  const {
+    draftBlocks,
+    deviceMode,
+    reorderBlocks,
+    viewMode,
+    previewData,
+    selectedBlockId,
+    hoveredBlockId,
+    selectBlock,
+    hoverBlock,
+  } = useEditorStore();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -306,6 +317,7 @@ export function EditorCanvas() {
   };
 
   // Live preview mode - renders actual components with draft data
+  // Blocks are clickable to select them for editing
   if (viewMode === "preview") {
     return (
       <div className="flex-1 bg-gray-100 overflow-auto">
@@ -323,6 +335,11 @@ export function EditorCanvas() {
               testimonials={previewData.testimonials}
               faqs={previewData.faqs}
               officeLocations={previewData.officeLocations}
+              isEditing={true}
+              selectedBlockId={selectedBlockId}
+              hoveredBlockId={hoveredBlockId}
+              onBlockClick={selectBlock}
+              onBlockHover={hoverBlock}
             />
           ) : (
             <div className="flex items-center justify-center h-64">
@@ -332,6 +349,11 @@ export function EditorCanvas() {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Floating inserter button */}
+        <div className="fixed bottom-6 right-80 z-50">
+          <FloatingBlockInserter />
         </div>
       </div>
     );
@@ -362,7 +384,7 @@ export function EditorCanvas() {
               />
             </svg>
             <p className="text-lg font-medium">No blocks yet</p>
-            <p className="text-sm">Click a block in the sidebar to add it</p>
+            <p className="text-sm">Click the + button to add your first block</p>
           </div>
         ) : (
           <DndContext
@@ -375,13 +397,25 @@ export function EditorCanvas() {
               strategy={verticalListSortingStrategy}
             >
               <div className="space-y-6">
-                {draftBlocks.map((block) => (
-                  <SortableBlock key={block.id} block={block} />
+                {/* Gap inserter before first block */}
+                <BlockGapInserter position={0} />
+
+                {draftBlocks.map((block, index) => (
+                  <div key={block.id}>
+                    <SortableBlock block={block} />
+                    {/* Gap inserter after each block */}
+                    <BlockGapInserter position={index + 1} />
+                  </div>
                 ))}
               </div>
             </SortableContext>
           </DndContext>
         )}
+      </div>
+
+      {/* Floating inserter button */}
+      <div className="fixed bottom-6 right-80 z-50">
+        <FloatingBlockInserter />
       </div>
     </div>
   );
