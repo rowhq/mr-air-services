@@ -4,6 +4,51 @@ import { Button, Breadcrumbs, TrustSignals } from '@/components/ui';
 import { FinalCTA, FAQSection } from '@/components/sections';
 import type { FAQ } from '@/types/database';
 
+// Types for CMS content
+interface HowItWorksStep {
+  step: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface RealitySection {
+  title: string;
+  subtitle: string;
+  withoutFinancing: { title: string; description: string };
+  withFinancing: { title: string; description: string };
+  floatingStatValue: string;
+  floatingStatLabel: string;
+}
+
+interface PageContent {
+  hero: {
+    title: string;
+    subtitle: string;
+    description: string;
+    backgroundImage: string;
+  };
+  trustSignals: string[];
+  howItWorks: HowItWorksStep[];
+  realitySection: RealitySection;
+  financingUrl: string;
+}
+
+// Fetch page content from CMS
+async function getPageContent(): Promise<PageContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=financing_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value as PageContent;
+  } catch {
+    return null;
+  }
+}
+
 // Fetch FAQs from CMS
 async function getFAQs(): Promise<FAQ[]> {
   try {
@@ -23,50 +68,58 @@ export const metadata = {
   description: 'Affordable HVAC financing options in Houston. 5-minute application, quick approval. Options for all credit profiles. No prepayment penalties.',
 };
 
-const FINANCING_URL = 'https://apply.svcfin.com/home/dealerAuthentication?id=400319926&key=1742219857';
+// Default content (fallback)
+const defaultContent: PageContent = {
+  hero: {
+    title: "Don't Sweat the Bill",
+    subtitle: "New AC isn't cheap. Neither is sleeping in a 90-degree house. We've got financing so you don't have to choose between comfort and your budget.",
+    description: "5-minute application. Decision before we leave. Options for all credit profiles.",
+    backgroundImage: "/images/financing/happy-home.jpg",
+  },
+  trustSignals: ["Quick Decision", "5-Min Apply", "No Penalties"],
+  financingUrl: "https://apply.svcfin.com/home/dealerAuthentication?id=400319926&key=1742219857",
+  howItWorks: [
+    { step: "1", title: "Get a Quote", description: "We tell you exactly what it costs. No hidden fees, no surprises.", icon: "calculator" },
+    { step: "2", title: "Apply in 5 Minutes", description: "Your tech helps you right there. Quick form, basic info.", icon: "phone" },
+    { step: "3", title: "Instant Decision", description: "You'll know before we leave. If one lender says no, we try others.", icon: "check" },
+    { step: "4", title: "Stay Comfortable", description: "We do the work. You make easy monthly payments. Done.", icon: "home" },
+  ],
+  realitySection: {
+    title: "Don't Let a Big Bill Catch You Off Guard",
+    subtitle: "We get it—nobody budgets for a dead AC. That's why we make financing simple:",
+    withoutFinancing: { title: "Without Financing", description: "Big upfront cost. Credit card debt. Drained savings." },
+    withFinancing: { title: "With Financing", description: "Easy monthly payments. Keep your savings. Stay comfortable." },
+    floatingStatValue: "5 min",
+    floatingStatLabel: "to apply",
+  },
+};
 
-const howItWorks = [
-  {
-    step: '1',
-    title: 'Get a Quote',
-    description: 'We tell you exactly what it costs. No hidden fees, no surprises.',
-    icon: (
+// Icon component for how it works steps
+function StepIcon({ icon }: { icon: string }) {
+  const icons: Record<string, React.ReactNode> = {
+    calculator: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
       </svg>
     ),
-  },
-  {
-    step: '2',
-    title: 'Apply in 5 Minutes',
-    description: 'Your tech helps you right there. Quick form, basic info.',
-    icon: (
+    phone: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
       </svg>
     ),
-  },
-  {
-    step: '3',
-    title: 'Instant Decision',
-    description: "You'll know before we leave. If one lender says no, we try others.",
-    icon: (
+    check: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-  },
-  {
-    step: '4',
-    title: 'Stay Comfortable',
-    description: 'We do the work. You make easy monthly payments. Done.',
-    icon: (
+    home: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
       </svg>
     ),
-  },
-];
+  };
+  return <>{icons[icon] || icons.calculator}</>;
+}
 
 // Default FAQs (fallback if CMS is empty)
 const defaultFaqs = [
@@ -101,10 +154,16 @@ const defaultFaqs = [
 ];
 
 export default async function FinancingPage() {
-  const cmsFaqs = await getFAQs();
+  const [cmsContent, cmsFaqs] = await Promise.all([
+    getPageContent(),
+    getFAQs(),
+  ]);
+
+  const content = cmsContent || defaultContent;
   const faqs = cmsFaqs.length > 0
     ? cmsFaqs.map(f => ({ question: f.question, answer: f.answer }))
     : defaultFaqs;
+
   return (
     <>
       {/* Hero with Background Photo */}
@@ -112,7 +171,7 @@ export default async function FinancingPage() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/financing/happy-home.jpg"
+            src={content.hero.backgroundImage}
             alt="Comfortable modern home"
             fill
             className="object-cover"
@@ -126,18 +185,18 @@ export default async function FinancingPage() {
           <div className="max-w-3xl">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Don't Sweat the Bill
+                {content.hero.title}
               </h1>
               <p className="text-xl text-white/90 mb-6 leading-relaxed max-w-lg">
-                New AC isn't cheap. Neither is sleeping in a 90-degree house. We've got financing so you don't have to choose between comfort and your budget.
+                {content.hero.subtitle}
               </p>
               <p className="text-lg text-white/70 mb-8">
-                5-minute application. Decision before we leave. Options for all credit profiles.
+                {content.hero.description}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <a
-                  href={FINANCING_URL}
+                  href={content.financingUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto"
@@ -155,24 +214,14 @@ export default async function FinancingPage() {
 
               {/* Trust Stats */}
               <div className="flex flex-wrap gap-6 text-white">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">Quick Decision</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">5-Min Apply</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">No Penalties</span>
-                </div>
+                {content.trustSignals.map((signal) => (
+                  <div key={signal} className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">{signal}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -197,18 +246,18 @@ export default async function FinancingPage() {
               </div>
               {/* Floating stat card */}
               <div className="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-xl">
-                <div className="text-3xl font-bold">5 min</div>
-                <div className="text-sm opacity-90">to apply</div>
+                <div className="text-3xl font-bold">{content.realitySection.floatingStatValue}</div>
+                <div className="text-sm opacity-90">{content.realitySection.floatingStatLabel}</div>
               </div>
             </div>
 
             {/* Content Side */}
             <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
-                Don't Let a Big Bill <br />Catch You Off Guard
+                {content.realitySection.title}
               </h2>
               <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-                We get it—nobody budgets for a dead AC. That's why we make financing simple:
+                {content.realitySection.subtitle}
               </p>
 
               <div className="space-y-4 mb-8">
@@ -219,8 +268,8 @@ export default async function FinancingPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-black dark:text-white">Without Financing</div>
-                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">Big upfront cost. Credit card debt. Drained savings.</div>
+                    <div className="font-semibold text-neutral-black dark:text-white">{content.realitySection.withoutFinancing.title}</div>
+                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">{content.realitySection.withoutFinancing.description}</div>
                   </div>
                 </div>
 
@@ -231,14 +280,14 @@ export default async function FinancingPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-black dark:text-white">With Financing</div>
-                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">Easy monthly payments. Keep your savings. Stay comfortable.</div>
+                    <div className="font-semibold text-neutral-black dark:text-white">{content.realitySection.withFinancing.title}</div>
+                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">{content.realitySection.withFinancing.description}</div>
                   </div>
                 </div>
               </div>
 
               <a
-                href={FINANCING_URL}
+                href={content.financingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full sm:w-auto"
@@ -268,14 +317,14 @@ export default async function FinancingPage() {
           {/* Desktop: Horizontal Cards */}
           <div className="hidden lg:block">
             <div className="grid grid-cols-4 gap-6">
-              {howItWorks.map((item, idx) => (
+              {content.howItWorks.map((item, idx) => (
                 <div
                   key={item.step}
                   className="group relative animate-fade-in-up"
                   style={{ animationDelay: `${idx * 100}ms` }}
                 >
                   {/* Connector Line */}
-                  {idx < howItWorks.length - 1 && (
+                  {idx < content.howItWorks.length - 1 && (
                     <div className="absolute top-10 left-[60%] w-[calc(100%-20%)] h-[2px] bg-gradient-to-r from-primary/40 to-primary/10" />
                   )}
 
@@ -287,7 +336,7 @@ export default async function FinancingPage() {
                         {item.step}
                       </div>
                       <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                        {item.icon}
+                        <StepIcon icon={item.icon} />
                       </div>
                     </div>
 
@@ -310,7 +359,7 @@ export default async function FinancingPage() {
               <div className="absolute left-5 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-primary/50 to-primary/20" />
 
               <div className="space-y-6">
-                {howItWorks.map((item, idx) => (
+                {content.howItWorks.map((item, idx) => (
                   <div
                     key={item.step}
                     className="relative pl-14 animate-fade-in-up"
@@ -325,7 +374,7 @@ export default async function FinancingPage() {
                     <div className="bg-neutral-50 dark:bg-neutral-800 rounded-xl p-5">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                          {item.icon}
+                          <StepIcon icon={item.icon} />
                         </div>
                         <h3 className="text-lg font-semibold text-neutral-black dark:text-white">
                           {item.title}
@@ -344,7 +393,7 @@ export default async function FinancingPage() {
           {/* CTA */}
           <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
             <a
-              href={FINANCING_URL}
+              href={content.financingUrl}
               target="_blank"
               rel="noopener noreferrer"
             >

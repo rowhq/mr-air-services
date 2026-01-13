@@ -6,8 +6,39 @@ import { Button } from '@/components/ui';
 // Note: metadata must be in a separate file for client components
 // See contact/metadata.ts
 
+// Service option type from CMS
+interface ServiceOption {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+// Business info from CMS
+interface BusinessInfo {
+  phone: string;
+  email: string;
+  hours: string;
+}
+
+// Default service options (fallback)
+const defaultServiceOptions: ServiceOption[] = [
+  { id: 'ac-repair', label: 'AC Repair', icon: 'ac-repair' },
+  { id: 'ac-tune-up', label: 'AC Tune-Up', icon: 'ac-tune-up' },
+  { id: 'heating', label: 'Heating', icon: 'heating' },
+  { id: 'new-installation', label: 'Installation', icon: 'new-installation' },
+  { id: 'maintenance', label: 'Maintenance', icon: 'maintenance' },
+  { id: 'other', label: 'Other', icon: 'other' },
+];
+
+// Default business info (fallback)
+const defaultBusinessInfo: BusinessInfo = {
+  phone: '(832) 437-1000',
+  email: 'info@mrairservices.com',
+  hours: 'Mon–Fri: 8AM–5PM',
+};
+
 // SVG Icons for services
-const ServiceIcons = {
+const ServiceIcons: Record<string, React.ReactNode> = {
   'ac-repair': (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
@@ -43,15 +74,6 @@ const ServiceIcons = {
   ),
 };
 
-const serviceOptions = [
-  { id: 'ac-repair', label: 'AC Repair' },
-  { id: 'ac-tune-up', label: 'AC Tune-Up' },
-  { id: 'heating', label: 'Heating' },
-  { id: 'new-installation', label: 'Installation' },
-  { id: 'maintenance', label: 'Maintenance' },
-  { id: 'other', label: 'Other' },
-];
-
 function getIsOpen(): { isOpen: boolean; statusText: string } {
   const now = new Date();
   const day = now.getDay();
@@ -81,11 +103,46 @@ export default function ContactPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   const [openStatus, setOpenStatus] = useState({ isOpen: false, statusText: 'Closed' });
+  const [serviceOptions, setServiceOptions] = useState<ServiceOption[]>(defaultServiceOptions);
+  const [businessInfo, setBusinessInfo] = useState<BusinessInfo>(defaultBusinessInfo);
 
   useEffect(() => {
     setMounted(true);
     setOpenStatus(getIsOpen());
     const interval = setInterval(() => setOpenStatus(getIsOpen()), 60000);
+
+    // Fetch services from CMS
+    fetch('/api/cms/services')
+      .then(res => res.ok ? res.json() : [])
+      .then(services => {
+        if (services.length > 0) {
+          const options: ServiceOption[] = services.map((s: { slug: string; title: string; icon?: string }) => ({
+            id: s.slug || s.title.toLowerCase().replace(/\s+/g, '-'),
+            label: s.title,
+            icon: s.icon || 'other',
+          }));
+          // Always add "Other" option
+          if (!options.find(o => o.id === 'other')) {
+            options.push({ id: 'other', label: 'Other', icon: 'other' });
+          }
+          setServiceOptions(options);
+        }
+      })
+      .catch(() => {/* Use defaults */});
+
+    // Fetch business info from CMS
+    Promise.all([
+      fetch('/api/cms/config?key=company_phone').then(r => r.ok ? r.json() : null),
+      fetch('/api/cms/config?key=company_email').then(r => r.ok ? r.json() : null),
+      fetch('/api/cms/config?key=business_hours').then(r => r.ok ? r.json() : null),
+    ]).then(([phoneData, emailData, hoursData]) => {
+      setBusinessInfo({
+        phone: phoneData?.value || defaultBusinessInfo.phone,
+        email: emailData?.value || defaultBusinessInfo.email,
+        hours: hoursData?.value || defaultBusinessInfo.hours,
+      });
+    }).catch(() => {/* Use defaults */});
+
     return () => clearInterval(interval);
   }, []);
 
@@ -175,7 +232,7 @@ export default function ContactPage() {
 
             {/* Phone - Hero CTA */}
             <a
-              href="tel:+18324371000"
+              href={`tel:${businessInfo.phone.replace(/[^0-9+]/g, '')}`}
               className="group flex items-center gap-5 p-6 rounded-2xl bg-secondary hover:bg-secondary-hover transition-all mb-6"
             >
               <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
@@ -185,7 +242,7 @@ export default function ContactPage() {
               </div>
               <div className="flex-1">
                 <p className="text-white/80 text-sm mb-1">Call us now</p>
-                <p className="text-2xl font-bold text-white">(832) 437-1000</p>
+                <p className="text-2xl font-bold text-white">{businessInfo.phone}</p>
               </div>
               <svg className="w-6 h-6 text-white/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -195,7 +252,7 @@ export default function ContactPage() {
             {/* Quick Info Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
               <a
-                href="mailto:info@mrairservices.com"
+                href={`mailto:${businessInfo.email}`}
                 className="group p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all"
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -205,7 +262,7 @@ export default function ContactPage() {
                   <span className="text-xs text-neutral-500 dark:text-neutral-400">Email</span>
                 </div>
                 <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 group-hover:text-secondary transition-colors truncate">
-                  info@mrairservices.com
+                  {businessInfo.email}
                 </p>
               </a>
 
@@ -224,7 +281,7 @@ export default function ContactPage() {
                   </span>
                 </div>
                 <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
-                  Mon–Fri: 8AM–5PM
+                  {businessInfo.hours}
                 </p>
               </div>
             </div>
@@ -394,7 +451,7 @@ export default function ContactPage() {
                             ? 'bg-secondary text-white'
                             : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 group-hover:bg-secondary/10 group-hover:text-secondary'
                         }`}>
-                          {ServiceIcons[service.id as keyof typeof ServiceIcons]}
+                          {ServiceIcons[service.icon] || ServiceIcons['other']}
                         </div>
                         <span className={`font-medium ${
                           formData.services.includes(service.id)

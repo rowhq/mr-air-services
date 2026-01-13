@@ -2,12 +2,62 @@ import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui';
 import { InvoicePaymentForm } from '@/components/forms/InvoicePaymentForm';
 
+// Types for CMS content
+interface TrustSignal {
+  icon: string;
+  text: string;
+}
+
+interface HelpBox {
+  title: string;
+  phone: string;
+  financingText: string;
+  financingLink: string;
+}
+
+interface PageContent {
+  trustSignals: TrustSignal[];
+  helpBox: HelpBox;
+}
+
+// Fetch page content from CMS
+async function getPageContent(): Promise<PageContent | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/cms/config?key=pay_invoice_page`, {
+      next: { revalidate: 60 },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.value as PageContent;
+  } catch {
+    return null;
+  }
+}
+
+// Default content (fallback)
+const defaultContent: PageContent = {
+  trustSignals: [
+    { icon: 'lock', text: 'Secure payment' },
+    { icon: 'card', text: 'All cards accepted' },
+    { icon: 'check', text: 'Instant confirmation' },
+  ],
+  helpBox: {
+    title: 'Need Help?',
+    phone: '(832) 437-1000',
+    financingText: 'View financing options',
+    financingLink: '/financing-payments',
+  },
+};
+
 export const metadata = {
   title: 'Pay Your Invoice | Mr. Air Services - Secure Online Payment',
   description: 'Pay your Mr. Air Services invoice quickly and securely online. Accept all major credit cards, debit cards, and bank transfers.',
 };
 
-export default function PayInvoicePage() {
+export default async function PayInvoicePage() {
+  const cmsContent = await getPageContent();
+  const content = cmsContent || defaultContent;
   return (
     <section className="relative min-h-screen pt-32 pb-16 bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
       {/* Subtle pattern/texture */}
@@ -28,14 +78,14 @@ export default function PayInvoicePage() {
 
             {/* Trust Signals */}
             <div className="flex flex-wrap gap-6 mb-12">
-              {['Secure payment', 'All cards accepted', 'Instant confirmation'].map((item) => (
-                <div key={item} className="flex items-center gap-2">
+              {content.trustSignals.map((item) => (
+                <div key={item.text} className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-primary/15 dark:bg-primary/25 flex items-center justify-center">
                     <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <span className="text-neutral-700 dark:text-neutral-200 font-medium">{item}</span>
+                  <span className="text-neutral-700 dark:text-neutral-200 font-medium">{item.text}</span>
                 </div>
               ))}
             </div>
@@ -43,26 +93,26 @@ export default function PayInvoicePage() {
             {/* Need Help Box */}
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6">
               <h3 className="font-bold text-neutral-900 dark:text-white text-lg mb-2">
-                Need Help?
+                {content.helpBox.title}
               </h3>
               <p className="text-neutral-500 dark:text-neutral-400 mb-4">
                 Questions about your invoice or payment options?
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="tel:+18324371000"
+                  href={`tel:${content.helpBox.phone.replace(/[^0-9+]/g, '')}`}
                   className="inline-flex items-center gap-2 text-primary hover:text-primary-hover font-semibold transition-colors"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  (832) 437-1000
+                  {content.helpBox.phone}
                 </a>
                 <Link
-                  href="/financing-payments"
+                  href={content.helpBox.financingLink}
                   className="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors underline underline-offset-4"
                 >
-                  View financing options
+                  {content.helpBox.financingText}
                 </Link>
               </div>
             </div>

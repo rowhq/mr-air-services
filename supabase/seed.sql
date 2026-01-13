@@ -1027,3 +1027,48 @@ INSERT INTO site_config (key, value) VALUES
     }
   }')
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Financing Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('financing_page', '{
+    "hero": {
+      "title": "Don''t Sweat the Bill",
+      "subtitle": "New AC isn''t cheap. Neither is sleeping in a 90-degree house. We''ve got financing so you don''t have to choose between comfort and your budget.",
+      "description": "5-minute application. Decision before we leave. Options for all credit profiles.",
+      "backgroundImage": "/images/financing/happy-home.jpg"
+    },
+    "trustSignals": ["Quick Decision", "5-Min Apply", "No Penalties"],
+    "financingUrl": "https://apply.svcfin.com/home/dealerAuthentication?id=400319926&key=1742219857",
+    "howItWorks": [
+      { "step": "1", "title": "Get a Quote", "description": "We tell you exactly what it costs. No hidden fees, no surprises.", "icon": "calculator" },
+      { "step": "2", "title": "Apply in 5 Minutes", "description": "Your tech helps you right there. Quick form, basic info.", "icon": "phone" },
+      { "step": "3", "title": "Instant Decision", "description": "You''ll know before we leave. If one lender says no, we try others.", "icon": "check" },
+      { "step": "4", "title": "Stay Comfortable", "description": "We do the work. You make easy monthly payments. Done.", "icon": "home" }
+    ],
+    "realitySection": {
+      "title": "Don''t Let a Big Bill Catch You Off Guard",
+      "subtitle": "We get it—nobody budgets for a dead AC. That''s why we make financing simple:",
+      "withoutFinancing": { "title": "Without Financing", "description": "Big upfront cost. Credit card debt. Drained savings." },
+      "withFinancing": { "title": "With Financing", "description": "Easy monthly payments. Keep your savings. Stay comfortable." },
+      "floatingStatValue": "5 min",
+      "floatingStatLabel": "to apply"
+    }
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- Pay Invoice Page Content
+INSERT INTO site_config (key, value) VALUES
+  ('pay_invoice_page', '{
+    "trustSignals": [
+      { "icon": "lock", "text": "Secure payment" },
+      { "icon": "card", "text": "All cards accepted" },
+      { "icon": "check", "text": "Instant confirmation" }
+    ],
+    "helpBox": {
+      "title": "Need Help?",
+      "phone": "(832) 437-1000",
+      "financingText": "Need financing options?",
+      "financingLink": "/financing-payments"
+    }
+  }')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
