@@ -254,12 +254,12 @@ function ServicesOverviewBlock({
   // Transform database format to component format
   const serviceItems = resolvedServices.map((s) => ({
     title: s.title,
-    description: s.short_description || s.description,
+    description: s.description || s.short_description,
     href: `/services/${s.slug}`,
     cta: s.cta_link,
     ctaLabel: s.cta_text || "Learn More",
     isEmergency: s.slug === "air-conditioning-repair",
-    featured: s.is_featured,
+    featured: s.slug === "air-conditioning-tune-ups",
     useModal: s.slug === "air-conditioning-tune-ups",
     icon: mapServiceIcon(s.icon),
   }));

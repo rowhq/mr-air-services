@@ -113,20 +113,46 @@ export default async function ServicesPage() {
 
   const hero = cmsHero || defaultHero;
 
+  // Services page specific content (different from Home and Header)
+  const servicesPageContent: Record<string, { description: string; features: string[]; cta: string }> = {
+    'air-conditioning-repair': {
+      description: "AC not cooling? Strange noises? We diagnose and fix all makes and models.",
+      features: ['All major brands', 'Upfront pricing', 'Parts warranty'],
+      cta: 'Schedule Repair',
+    },
+    'heating': {
+      description: "Stay warm during Houston's cold snaps. Furnaces, heat pumps, and all heating systems.",
+      features: ['Furnace repair', 'Heat pumps', 'Emergency service'],
+      cta: 'Schedule Service',
+    },
+    'air-conditioning-tune-ups': {
+      description: '13-point inspection. Catch small issues before they become expensive repairs.',
+      features: ['13-point inspection', 'Filter replacement', 'Coil cleaning'],
+      cta: 'Check If You Qualify',
+    },
+  };
+
+  // Order for services page: AC Repair, Heating, CoolSaver (different from Home)
+  const servicesPageOrder = ['air-conditioning-repair', 'heating', 'air-conditioning-tune-ups'];
+
   // Use CMS services if available, otherwise use defaults
   const services = cmsServices.length > 0
-    ? cmsServices.map(s => ({
-        id: s.id,
-        title: s.title,
-        slug: s.slug,
-        short_description: s.short_description || s.description,
-        icon: s.icon || 'ac-repair',
-        features: Array.isArray(s.features) ? (s.features as string[]) : [],
-        cta_text: s.cta_text || 'Learn More',
-        badge: s.is_featured ? 'Featured' : undefined,
-        is_coolsaver: s.slug?.includes('tune-up'),
-        is_emergency: s.slug?.includes('repair'),
-      }))
+    ? servicesPageOrder
+        .map(slug => cmsServices.find(s => s.slug === slug))
+        .filter((s): s is NonNullable<typeof s> => s !== undefined)
+        .map(s => ({
+          id: s.id,
+          title: s.title,
+          slug: s.slug,
+          short_description: servicesPageContent[s.slug]?.description || s.short_description || s.description,
+          icon: s.icon || 'ac-repair',
+          features: servicesPageContent[s.slug]?.features || (Array.isArray(s.features) ? (s.features as string[]) : []),
+          cta_text: servicesPageContent[s.slug]?.cta || s.cta_text || 'Learn More',
+          badge: s.slug === 'air-conditioning-repair' ? 'Same-Day' :
+                 s.slug === 'air-conditioning-tune-ups' ? 'FREE for Qualifying' : undefined,
+          is_coolsaver: s.slug?.includes('tune-up'),
+          is_emergency: s.slug?.includes('repair'),
+        }))
     : defaultServices;
   return (
     <>
