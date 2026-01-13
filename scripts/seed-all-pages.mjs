@@ -1,103 +1,112 @@
 /**
- * Seed All CMS Pages with Blocks
+ * Restore Service Pages with Original Content (CMS Editable)
  *
- * This script populates the production database with all the CMS blocks
- * that should have been inserted by seed.sql but weren't.
+ * This script:
+ * 1. Removes incorrectly created pages (AC Installation, Indoor Air Quality)
+ * 2. Clears existing generic blocks from correct pages
+ * 3. Inserts detailed blocks matching the original hardcoded content
  *
- * Run: node scripts/seed-all-pages.mjs
+ * Run: DOTENV_CONFIG_PATH=.env.local node -r dotenv/config scripts/seed-all-pages.mjs
  */
 
 import { sql } from '@vercel/postgres';
 import 'dotenv/config';
 
-// Page definitions that should exist (matching production schema)
-const pageDefinitions = [
-  { slug: 'services', title: 'Services', description: 'Professional HVAC services for Houston homeowners' },
-  { slug: 'air-conditioning-repair', title: 'AC Repair', description: 'Fast, reliable AC repair in Houston. 24/7 emergency service.' },
-  { slug: 'heating', title: 'Heating Services', description: 'Expert heating repair, maintenance, and installation in Houston.' },
-  { slug: 'air-conditioning-tune-ups', title: 'AC Tune-Ups', description: 'Professional AC maintenance to keep your system running efficiently.' },
-  { slug: 'air-conditioning-installation', title: 'AC Installation', description: 'Professional AC installation in Houston. New systems and replacements.' },
-  { slug: 'indoor-air-quality', title: 'Indoor Air Quality', description: 'Improve your indoor air quality with our solutions.' },
-  { slug: 'financing-payments', title: 'Financing & Payments', description: 'Flexible financing options for HVAC services.' },
-  { slug: 'pay-invoice', title: 'Pay Invoice', description: 'Pay your invoice online securely.' }
-];
+// =====================================================
+// CLEANUP FUNCTIONS
+// =====================================================
 
-// Create missing pages
-async function ensurePagesExist() {
-  console.log('📄 Checking/creating pages...\n');
+async function cleanupIncorrectPages() {
+  console.log('\n🧹 Cleaning up incorrect pages...\n');
 
-  for (const page of pageDefinitions) {
+  const incorrectSlugs = ['air-conditioning-installation', 'indoor-air-quality'];
+
+  for (const slug of incorrectSlugs) {
     try {
-      // Check if page exists
-      const existing = await sql`SELECT id FROM pages WHERE slug = ${page.slug}`;
-
-      if (existing.rows.length === 0) {
-        // Create the page
-        await sql`
-          INSERT INTO pages (slug, title, description, is_published)
-          VALUES (${page.slug}, ${page.title}, ${page.description}, true)
-        `;
-        console.log(`   + Created page: ${page.slug}`);
+      // First delete blocks for this page
+      const pageResult = await sql`SELECT id FROM pages WHERE slug = ${slug}`;
+      if (pageResult.rows.length > 0) {
+        const pageId = pageResult.rows[0].id;
+        await sql`DELETE FROM blocks WHERE page_id = ${pageId}`;
+        await sql`DELETE FROM pages WHERE id = ${pageId}`;
+        console.log(`   ✓ Deleted page: ${slug}`);
       } else {
-        console.log(`   ✓ Page exists: ${page.slug}`);
+        console.log(`   - Page ${slug} doesn't exist (OK)`);
       }
     } catch (error) {
-      console.error(`   ✗ Error creating ${page.slug}: ${error.message}`);
+      console.error(`   ✗ Error deleting ${slug}: ${error.message}`);
     }
   }
-
-  console.log('');
 }
 
-// Helper to insert blocks for a page
+async function clearExistingBlocks(slug) {
+  try {
+    const pageResult = await sql`SELECT id FROM pages WHERE slug = ${slug}`;
+    if (pageResult.rows.length === 0) return;
+
+    const pageId = pageResult.rows[0].id;
+    const result = await sql`DELETE FROM blocks WHERE page_id = ${pageId}`;
+    console.log(`   - Cleared existing blocks from ${slug}`);
+  } catch (error) {
+    console.error(`   ✗ Error clearing blocks from ${slug}: ${error.message}`);
+  }
+}
+
+// =====================================================
+// SEED FUNCTION
+// =====================================================
+
 async function seedPage(slug, blocks) {
   try {
-    // Get page ID
-    const pageResult = await sql`SELECT id FROM pages WHERE slug = ${slug}`;
+    // Ensure page exists
+    let pageResult = await sql`SELECT id FROM pages WHERE slug = ${slug}`;
+
     if (pageResult.rows.length === 0) {
-      console.log(`⚠️  Page "${slug}" not found in database`);
-      return false;
+      // Create the page
+      await sql`
+        INSERT INTO pages (slug, title, description, is_published)
+        VALUES (${slug}, ${blocks[0]?.pageTitle || slug}, ${blocks[0]?.pageDescription || ''}, true)
+      `;
+      pageResult = await sql`SELECT id FROM pages WHERE slug = ${slug}`;
+      console.log(`   + Created page: ${slug}`);
     }
+
     const pageId = pageResult.rows[0].id;
 
-    // Check if page already has blocks
-    const existingResult = await sql`SELECT COUNT(*) as count FROM blocks WHERE page_id = ${pageId}`;
-    const existingCount = parseInt(existingResult.rows[0].count);
+    // Clear existing blocks
+    await sql`DELETE FROM blocks WHERE page_id = ${pageId}`;
 
-    if (existingCount > 0) {
-      console.log(`✓  ${slug}: already has ${existingCount} blocks, skipping`);
-      return true;
-    }
-
-    // Insert each block
+    // Insert new blocks
     for (const block of blocks) {
       await sql`
         INSERT INTO blocks (page_id, type, content, settings, position, is_visible)
-        VALUES (${pageId}, ${block.type}, ${JSON.stringify(block.content)}, ${JSON.stringify(block.settings)}, ${block.position}, true)
+        VALUES (${pageId}, ${block.type}, ${JSON.stringify(block.content)}, ${JSON.stringify(block.settings || {})}, ${block.position}, true)
       `;
     }
 
-    console.log(`✓  ${slug}: inserted ${blocks.length} blocks`);
+    console.log(`   ✓ ${slug}: inserted ${blocks.length} blocks`);
     return true;
   } catch (error) {
-    console.error(`✗  ${slug}: Error - ${error.message}`);
+    console.error(`   ✗ ${slug}: Error - ${error.message}`);
     return false;
   }
 }
 
 // =====================================================
-// PAGE CONTENT DEFINITIONS
+// PAGE CONTENT - SERVICES (Main Page)
 // =====================================================
 
 const servicesPageBlocks = [
   {
+    pageTitle: 'Services',
+    pageDescription: 'Professional HVAC services for Houston homeowners',
     type: 'hero',
     position: 0,
     content: {
-      title: 'Our',
+      title: 'HVAC',
       titleHighlight: 'Services',
-      subtitle: 'Professional HVAC services for Houston homeowners',
-      overlay: 'medium',
+      subtitle: 'From emergency repairs to preventive maintenance. Same-day service available.',
+      overlay: 'dark',
       trustBadges: [
         { id: '1', icon: 'badge', text: 'Veteran Owned' },
         { id: '2', icon: 'license', text: 'TX Licensed' },
@@ -112,9 +121,9 @@ const servicesPageBlocks = [
     type: 'services-grid',
     position: 1,
     content: {
-      sectionTitle: 'What We Do',
-      sectionSubtitle: "From repairs to installations, we've got you covered",
-      serviceIds: [],
+      sectionTitle: '',
+      sectionSubtitle: '',
+      serviceIds: 'featured',
       layout: '3-col',
       showCta: true
     },
@@ -125,7 +134,7 @@ const servicesPageBlocks = [
     position: 2,
     content: {
       title: 'Ready to Get Started?',
-      subtitle: 'Schedule your service today.',
+      subtitle: 'Schedule your service today and experience the Mr. Air difference.',
       primaryButton: { text: 'Contact Us', href: '/contact' },
       secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       background: 'gradient'
@@ -134,148 +143,118 @@ const servicesPageBlocks = [
   }
 ];
 
+// =====================================================
+// PAGE CONTENT - AC REPAIR
+// =====================================================
+
 const acRepairPageBlocks = [
   {
+    pageTitle: 'AC Repair',
+    pageDescription: 'Fast, reliable AC repair in Houston. Same-day service available.',
     type: 'hero',
     position: 0,
     content: {
-      title: 'AC Repair',
-      titleHighlight: 'Houston',
-      subtitle: 'When your AC quits, you need it fixed. Fast, fair, done right.',
-      overlay: 'medium',
+      title: "AC Dead?",
+      titleHighlight: "We're On It.",
+      subtitle: "Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.",
+      backgroundImage: '/images/services/diagnostics-repairs.webp',
+      overlay: 'dark',
       trustBadges: [
-        { id: '1', icon: 'badge', text: 'Veteran Owned' },
-        { id: '2', icon: 'clock', text: 'Same-Day Service' },
-        { id: '3', icon: 'shield', text: 'All Brands' }
+        { id: '1', icon: 'clock', text: 'Same-day service' },
+        { id: '2', icon: 'shield', text: 'All brands serviced' },
+        { id: '3', icon: 'check', text: 'No hidden fees' }
       ],
-      primaryCta: { text: 'Get Help Now', href: '/contact', variant: 'primary' },
-      secondaryCta: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
+      primaryCta: { text: 'Schedule AC Repair', href: '/contact', variant: 'secondary' },
+      secondaryCta: { text: 'Call (832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       layout: 'left-aligned'
     },
     settings: { padding: 'lg', background: 'dark' }
   },
   {
-    type: 'repair-process',
+    type: 'brand-logos',
     position: 1,
     content: {
-      sectionTitle: 'How We Work',
-      sectionSubtitle: 'No runaround. No surprises.',
-      steps: [
-        { id: '1', number: '01', title: 'You Call', description: 'We answer and schedule a visit', badge: 'Same day' },
-        { id: '2', number: '02', title: 'We Diagnose', description: 'Find the real problem', badge: 'Honest assessment' },
-        { id: '3', number: '03', title: 'You Approve', description: 'Know the price before we start', badge: 'No hidden fees' },
-        { id: '4', number: '04', title: 'We Fix It', description: 'Quality parts, proper installation', badge: 'Guaranteed' }
+      sectionTitle: 'We service:',
+      brands: [
+        { id: '1', name: 'Ruud', logo: '/images/brands/ruud.svg' },
+        { id: '2', name: 'Lennox', logo: '/images/brands/lennox.svg' },
+        { id: '3', name: 'Goodman', logo: '/images/brands/goodman.svg' },
+        { id: '4', name: 'Trane', logo: '/images/brands/trane.svg' },
+        { id: '5', name: 'American Standard', logo: '/images/brands/american-standard.svg' },
+        { id: '6', name: 'Carrier', logo: '/images/brands/carrier.svg' }
       ],
-      layout: 'horizontal'
+      layout: 'inline'
+    },
+    settings: { padding: 'sm', background: 'gray' }
+  },
+  {
+    type: 'problem-grid',
+    position: 2,
+    content: {
+      sectionTitle: 'Common AC Problems We Fix',
+      sectionSubtitle: 'With years of Houston experience, we diagnose and repair these issues daily',
+      problems: [
+        { id: '1', title: 'AC Not Cooling', description: 'Refrigerant leaks, compressor issues, or airflow problems', icon: 'snowflake' },
+        { id: '2', title: 'Strange Noises', description: 'Grinding, squealing, or banging sounds from your unit', icon: 'volume' },
+        { id: '3', title: "Won't Turn On", description: 'Electrical, thermostat, or capacitor failures', icon: 'power' },
+        { id: '4', title: 'Frozen Coils', description: 'Ice buildup from restricted airflow or low refrigerant', icon: 'ice' },
+        { id: '5', title: 'Water Leaks', description: 'Clogged drain lines or damaged condensate pans', icon: 'droplet' },
+        { id: '6', title: 'High Energy Bills', description: 'Inefficient operation or failing components', icon: 'chart' }
+      ],
+      layout: '3-col'
     },
     settings: { padding: 'lg', background: 'white' }
   },
   {
     type: 'faq',
-    position: 2,
+    position: 3,
     content: {
       sectionTitle: 'Common Questions',
-      sectionSubtitle: "Straight answers to what you're probably wondering",
+      sectionSubtitle: '',
+      categories: [],
       pageSlug: 'air-conditioning-repair',
-      categories: ['ac-repair'],
       layout: 'accordion',
-      maxItems: 10
+      maxItems: 4
     },
     settings: { padding: 'lg', background: 'gray' }
   },
   {
     type: 'final-cta',
-    position: 3,
+    position: 4,
     content: {
-      title: 'AC Problems?',
-      subtitle: "Let's get it fixed. Call now or schedule online.",
-      primaryButton: { text: 'Schedule Repair', href: '/contact' },
+      title: 'AC Emergency?',
+      subtitle: "Don't sweat it. We offer same-day service for urgent repairs.",
+      primaryButton: { text: 'Get Help Now', href: '/contact' },
       secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       background: 'gradient'
     },
     settings: { padding: 'lg', background: 'gradient' }
   }
 ];
+
+// =====================================================
+// PAGE CONTENT - HEATING
+// =====================================================
 
 const heatingPageBlocks = [
   {
+    pageTitle: 'Heating Services',
+    pageDescription: 'Expert heating repair, maintenance, and installation in Houston.',
     type: 'hero',
     position: 0,
     content: {
-      title: 'Heating Services',
-      titleHighlight: 'Houston',
-      subtitle: 'Furnace acting up? Heat pump on the fritz? We fix it.',
-      overlay: 'medium',
+      title: "Heat Out?",
+      titleHighlight: "We're On It.",
+      subtitle: "Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.",
+      backgroundImage: '/images/services/heating-services.webp',
+      overlay: 'dark',
       trustBadges: [
-        { id: '1', icon: 'badge', text: 'Veteran Owned' },
-        { id: '2', icon: 'certified', text: 'Licensed & Insured' },
-        { id: '3', icon: 'shield', text: 'All Systems' }
+        { id: '1', icon: 'clock', text: '24/7 emergency' },
+        { id: '2', icon: 'shield', text: 'All systems' },
+        { id: '3', icon: 'badge', text: 'Veteran Owned' }
       ],
-      primaryCta: { text: 'Schedule Service', href: '/contact', variant: 'primary' },
-      secondaryCta: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      layout: 'left-aligned'
-    },
-    settings: { padding: 'lg', background: 'dark' }
-  },
-  {
-    type: 'how-it-works',
-    position: 1,
-    content: {
-      sectionTitle: 'Getting Started Is Easy',
-      sectionSubtitle: 'From call to comfort in 4 simple steps',
-      steps: [
-        { id: '1', number: '01', title: 'Contact Us', shortTitle: 'Get in touch', description: 'Call or book online' },
-        { id: '2', number: '02', title: 'Pick a Time', shortTitle: 'Schedule your visit', description: 'Same-day available' },
-        { id: '3', number: '03', title: 'We Arrive', shortTitle: 'Expert service', description: 'On time, every time' },
-        { id: '4', number: '04', title: 'Stay Warm', shortTitle: 'Problem solved', description: 'Guaranteed work' }
-      ],
-      layout: 'cards'
-    },
-    settings: { padding: 'lg', background: 'white' }
-  },
-  {
-    type: 'faq',
-    position: 2,
-    content: {
-      sectionTitle: 'Heating FAQs',
-      sectionSubtitle: 'What you need to know',
-      pageSlug: 'heating',
-      categories: ['heating'],
-      layout: 'accordion',
-      maxItems: 10
-    },
-    settings: { padding: 'lg', background: 'gray' }
-  },
-  {
-    type: 'final-cta',
-    position: 3,
-    content: {
-      title: 'Need Heating Help?',
-      subtitle: "Don't freeze—call us today.",
-      primaryButton: { text: 'Schedule Service', href: '/contact' },
-      secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      background: 'gradient'
-    },
-    settings: { padding: 'lg', background: 'gradient' }
-  }
-];
-
-const tuneUpsPageBlocks = [
-  {
-    type: 'hero',
-    position: 0,
-    content: {
-      title: 'CoolSaver',
-      titleHighlight: 'Tune-Ups',
-      subtitle: '13-point inspection. Catch problems before they become emergencies.',
-      overlay: 'medium',
-      trustBadges: [
-        { id: '1', icon: 'check', text: '13-Point Inspection' },
-        { id: '2', icon: 'shield', text: 'Prevents Breakdowns' },
-        { id: '3', icon: 'star', text: 'FREE for Qualifying Homeowners' }
-      ],
-      primaryCta: { text: 'Check If You Qualify', href: '/contact', variant: 'primary' },
-      secondaryCta: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
+      primaryCta: { text: 'Schedule Heating Service', href: '/contact', variant: 'secondary' },
+      secondaryCta: { text: 'Call (832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       layout: 'left-aligned'
     },
     settings: { padding: 'lg', background: 'dark' }
@@ -284,58 +263,94 @@ const tuneUpsPageBlocks = [
     type: 'why-choose-us',
     position: 1,
     content: {
-      sectionTitle: "What's Included",
+      sectionTitle: 'Everything Heating',
       features: [
         {
           id: '1',
-          icon: 'check',
-          title: 'Complete Inspection',
-          description: 'We check every component of your system—refrigerant levels, electrical connections, airflow, and more.',
-          stat: '13',
-          statLabel: 'point inspection'
+          icon: 'wrench',
+          title: 'Heating Repair',
+          description: "We fix furnaces, heat pumps, all brands. Same-day emergency service available.",
+          stat: '24/7',
+          statLabel: 'emergency'
         },
         {
           id: '2',
-          icon: 'shield',
-          title: 'Prevent Costly Repairs',
-          description: "Small problems caught early don't become expensive emergencies later.",
-          stat: '90%',
-          statLabel: 'of breakdowns preventable'
-        },
-        {
-          id: '3',
-          icon: 'leaf',
-          title: 'Lower Energy Bills',
-          description: 'A tuned-up system runs more efficiently, saving you money every month.',
-          stat: '15%',
-          statLabel: 'avg energy savings'
+          icon: 'plus',
+          title: 'New Installation',
+          description: "Need a new system? We help you pick the right size for your home. Financing available.",
+          stat: 'Free',
+          statLabel: 'estimates'
         }
       ],
       showImage: false,
-      showVeteranBadge: true
+      showVeteranBadge: false
     },
     settings: { padding: 'lg', background: 'white' }
   },
   {
-    type: 'faq',
+    type: 'inspection-phases',
     position: 2,
     content: {
-      sectionTitle: 'Tune-Up FAQs',
-      sectionSubtitle: 'Common questions about AC maintenance',
-      pageSlug: 'air-conditioning-tune-ups',
-      categories: ['tune-ups'],
-      layout: 'accordion',
-      maxItems: 10
+      sectionTitle: 'Our Heating Tune-Up Process',
+      sectionSubtitle: 'Comprehensive inspection to keep you safe and warm',
+      phases: [
+        {
+          id: '1',
+          name: 'Safety',
+          icon: 'shield',
+          items: [
+            'We check all safety switches work',
+            'We look for dangerous gas leaks',
+            'Carbon monoxide detector test',
+            'Gas lines and vents inspection'
+          ]
+        },
+        {
+          id: '2',
+          name: 'Performance',
+          icon: 'zap',
+          items: [
+            'We test all electrical connections',
+            'We verify it heats properly',
+            'We adjust the flame and fan',
+            'We clean the burners'
+          ]
+        },
+        {
+          id: '3',
+          name: 'Efficiency',
+          icon: 'chart',
+          items: [
+            'Thermostat accuracy check',
+            'Filter replacement if needed',
+            'Efficiency rating assessment',
+            'Personalized recommendations'
+          ]
+        }
+      ]
     },
     settings: { padding: 'lg', background: 'gray' }
   },
   {
-    type: 'final-cta',
+    type: 'faq',
     position: 3,
     content: {
-      title: 'Ready for Your Tune-Up?',
-      subtitle: "Don't wait for your AC to fail on the hottest day of the year.",
-      primaryButton: { text: 'Schedule Tune-Up', href: '/contact' },
+      sectionTitle: 'Heating FAQs',
+      sectionSubtitle: '',
+      categories: [],
+      pageSlug: 'heating',
+      layout: 'accordion',
+      maxItems: 4
+    },
+    settings: { padding: 'lg', background: 'white' }
+  },
+  {
+    type: 'final-cta',
+    position: 4,
+    content: {
+      title: 'Need Heating Help?',
+      subtitle: "Don't freeze—call us today for fast, reliable heating service.",
+      primaryButton: { text: 'Schedule Service', href: '/contact' },
       secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       background: 'gradient'
     },
@@ -343,14 +358,129 @@ const tuneUpsPageBlocks = [
   }
 ];
 
-const financingPageBlocks = [
+// =====================================================
+// PAGE CONTENT - AC TUNE-UPS
+// =====================================================
+
+const tuneUpsPageBlocks = [
   {
+    pageTitle: 'CoolSaver Tune-Ups',
+    pageDescription: 'Professional AC maintenance to keep your system running efficiently.',
     type: 'hero',
     position: 0,
     content: {
-      title: 'Financing',
-      titleHighlight: '& Payments',
-      subtitle: "Flexible options to fit your budget. Don't let cost stop you from staying comfortable.",
+      title: 'CoolSaver',
+      titleHighlight: 'Tune-Ups',
+      subtitle: '13-point inspection. Catch problems before they become emergencies. FREE for qualifying homeowners.',
+      overlay: 'dark',
+      trustBadges: [
+        { id: '1', icon: 'badge', text: 'NATE certified techs' },
+        { id: '2', icon: 'check', text: '100% satisfaction' },
+        { id: '3', icon: 'shield', text: 'Veteran owned' }
+      ],
+      primaryCta: { text: 'Check If You Qualify', href: '/contact', variant: 'primary' },
+      secondaryCta: { text: 'Call (832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
+      layout: 'centered'
+    },
+    settings: { padding: 'lg', background: 'dark' }
+  },
+  {
+    type: 'checklist-grid',
+    position: 1,
+    content: {
+      sectionTitle: 'What We Check',
+      sectionSubtitle: 'Our comprehensive 13-point inspection covers every critical component',
+      items: [
+        'Inspect refrigerant level',
+        'Inspect and clean condenser coils',
+        'Inspect and clean contactor',
+        'Check and calibrate thermostat',
+        'Inspect airflow for proper specifications',
+        'Inspect the evaporator coil',
+        'Clean electrical and blower compartments',
+        'Tighten electrical connections',
+        'Inspect capacitors and relays',
+        'Inspect all drain lines',
+        'Check compressor for proper amp draw',
+        'Check all motors for proper amp draw',
+        'Oil the motors if required'
+      ],
+      initialVisibleCount: 8,
+      showExpandButton: true
+    },
+    settings: { padding: 'lg', background: 'white' }
+  },
+  {
+    type: 'benefits-grid',
+    position: 2,
+    content: {
+      sectionTitle: 'Why Get a Tune-Up?',
+      sectionSubtitle: 'Regular maintenance pays for itself',
+      benefits: [
+        {
+          id: '1',
+          title: 'Lower Your Energy Bills',
+          description: 'A well-maintained AC runs more efficiently, using less energy to cool your home.',
+          icon: 'dollar'
+        },
+        {
+          id: '2',
+          title: 'Prevent Costly Repairs',
+          description: 'Catch small issues before they turn into expensive emergency repairs.',
+          icon: 'shield'
+        },
+        {
+          id: '3',
+          title: 'Extend System Lifespan',
+          description: 'Regular maintenance can add years to your AC system, protecting your investment.',
+          icon: 'clock'
+        }
+      ],
+      layout: '3-col'
+    },
+    settings: { padding: 'lg', background: 'gray' }
+  },
+  {
+    type: 'faq',
+    position: 3,
+    content: {
+      sectionTitle: 'Tune-Up FAQs',
+      sectionSubtitle: '',
+      categories: [],
+      pageSlug: 'air-conditioning-tune-ups',
+      layout: 'accordion',
+      maxItems: 4
+    },
+    settings: { padding: 'lg', background: 'white' }
+  },
+  {
+    type: 'final-cta',
+    position: 4,
+    content: {
+      title: 'Ready for Your Tune-Up?',
+      subtitle: 'Schedule your 13-point inspection today. FREE for qualifying homeowners.',
+      primaryButton: { text: 'Check If You Qualify', href: '/contact' },
+      secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
+      background: 'gradient'
+    },
+    settings: { padding: 'lg', background: 'gradient' }
+  }
+];
+
+// =====================================================
+// PAGE CONTENT - FINANCING
+// =====================================================
+
+const financingPageBlocks = [
+  {
+    pageTitle: 'Financing & Payments',
+    pageDescription: 'Flexible financing options for HVAC services.',
+    type: 'hero',
+    position: 0,
+    content: {
+      title: 'Flexible',
+      titleHighlight: 'Financing',
+      subtitle: "Don't let cost stop you from staying comfortable. Flexible options to fit your budget.",
       overlay: 'medium',
       trustBadges: [
         { id: '1', icon: 'check', text: '0% APR Available' },
@@ -358,7 +488,7 @@ const financingPageBlocks = [
         { id: '3', icon: 'shield', text: 'No Hidden Fees' }
       ],
       primaryCta: { text: 'Apply Now', href: '/contact', variant: 'primary' },
-      layout: 'left-aligned'
+      layout: 'centered'
     },
     settings: { padding: 'lg', background: 'dark' }
   },
@@ -366,12 +496,12 @@ const financingPageBlocks = [
     type: 'stats-grid',
     position: 1,
     content: {
-      title: 'Financing Options',
+      title: '',
       stats: [
-        { id: '1', value: '0%', label: 'APR Available', icon: 'percent' },
-        { id: '2', value: '60', label: 'Month Terms', icon: 'calendar' },
-        { id: '3', value: '$0', label: 'Down Payment', icon: 'dollar' },
-        { id: '4', value: '2min', label: 'Approval Time', icon: 'clock' }
+        { id: '1', value: '0%', label: 'APR Available' },
+        { id: '2', value: '60', label: 'Month Terms' },
+        { id: '3', value: '$0', label: 'Down Payment' },
+        { id: '4', value: '2min', label: 'Approval Time' }
       ],
       layout: '4-col'
     },
@@ -381,12 +511,12 @@ const financingPageBlocks = [
     type: 'faq',
     position: 2,
     content: {
-      sectionTitle: 'Financing FAQs',
-      sectionSubtitle: 'Common questions about payment options',
+      sectionTitle: 'Common Questions',
+      sectionSubtitle: 'About payment options',
+      categories: [],
       pageSlug: 'financing-payments',
-      categories: ['financing'],
       layout: 'accordion',
-      maxItems: 10
+      maxItems: 4
     },
     settings: { padding: 'lg', background: 'gray' }
   },
@@ -395,24 +525,30 @@ const financingPageBlocks = [
     position: 3,
     content: {
       title: 'Ready to Get Started?',
-      subtitle: 'Apply for financing or pay your invoice online.',
+      subtitle: 'Apply for financing in minutes. No obligation.',
       primaryButton: { text: 'Contact Us', href: '/contact' },
-      secondaryButton: { text: 'Pay Invoice', href: '/pay-invoice', type: 'link' },
+      secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
       background: 'gradient'
     },
     settings: { padding: 'lg', background: 'gradient' }
   }
 ];
 
+// =====================================================
+// PAGE CONTENT - PAY INVOICE
+// =====================================================
+
 const payInvoicePageBlocks = [
   {
+    pageTitle: 'Pay Invoice',
+    pageDescription: 'Pay your invoice online securely.',
     type: 'hero',
     position: 0,
     content: {
       title: 'Pay Your',
       titleHighlight: 'Invoice',
       subtitle: 'Quick, secure online payment. Have your invoice number ready.',
-      overlay: 'light',
+      overlay: 'medium',
       trustBadges: [
         { id: '1', icon: 'shield', text: 'Secure Payment' },
         { id: '2', icon: 'check', text: 'Instant Confirmation' }
@@ -420,203 +556,21 @@ const payInvoicePageBlocks = [
       primaryCta: { text: 'Pay Now', href: '#payment-form', variant: 'primary' },
       layout: 'centered'
     },
-    settings: { padding: 'md', background: 'white' }
+    settings: { padding: 'lg', background: 'dark' }
   },
   {
     type: 'contact-info',
     position: 1,
     content: {
       title: 'Need Help?',
-      subtitle: "Questions about your invoice? We're here to help.",
+      subtitle: 'Contact us if you have questions about your invoice',
       showPhone: true,
       showEmail: true,
-      showHours: true,
+      showHours: false,
       showLocations: false,
       showMap: false
     },
     settings: { padding: 'lg', background: 'gray' }
-  }
-];
-
-const acInstallationPageBlocks = [
-  {
-    type: 'hero',
-    position: 0,
-    content: {
-      title: 'AC',
-      titleHighlight: 'Installation',
-      subtitle: "Need a new system? We'll help you choose the right AC for your home and budget.",
-      overlay: 'medium',
-      trustBadges: [
-        { id: '1', icon: 'badge', text: 'Veteran Owned' },
-        { id: '2', icon: 'check', text: 'Free Estimates' },
-        { id: '3', icon: 'dollar', text: 'Financing Available' }
-      ],
-      primaryCta: { text: 'Get Free Estimate', href: '/contact', variant: 'primary' },
-      secondaryCta: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      layout: 'left-aligned'
-    },
-    settings: { padding: 'lg', background: 'dark' }
-  },
-  {
-    type: 'why-choose-us',
-    position: 1,
-    content: {
-      sectionTitle: 'Why Replace Your AC?',
-      features: [
-        {
-          id: '1',
-          icon: 'leaf',
-          title: 'Energy Savings',
-          description: 'Modern systems use 30-50% less energy than units from 10+ years ago. Lower bills every month.',
-          stat: '30-50%',
-          statLabel: 'energy savings'
-        },
-        {
-          id: '2',
-          icon: 'shield',
-          title: 'Reliable Comfort',
-          description: 'New systems cool evenly and quietly. No more hot spots or loud cycling.',
-          stat: '10yr',
-          statLabel: 'warranty'
-        },
-        {
-          id: '3',
-          icon: 'check',
-          title: 'Peace of Mind',
-          description: 'Full manufacturer warranty plus our workmanship guarantee. We stand behind our work.',
-          stat: '100%',
-          statLabel: 'satisfaction'
-        }
-      ],
-      showImage: false,
-      showVeteranBadge: true
-    },
-    settings: { padding: 'lg', background: 'white' }
-  },
-  {
-    type: 'how-it-works',
-    position: 2,
-    content: {
-      sectionTitle: 'Our Installation Process',
-      sectionSubtitle: 'From estimate to cool air in 4 simple steps',
-      steps: [
-        { id: '1', number: '01', title: 'Free Estimate', shortTitle: 'We assess your home', description: 'Calculate exact needs' },
-        { id: '2', number: '02', title: 'Choose System', shortTitle: 'Pick your brand', description: 'Top brands available' },
-        { id: '3', number: '03', title: 'Install Day', shortTitle: 'Professional setup', description: 'Usually one day' },
-        { id: '4', number: '04', title: 'Stay Cool', shortTitle: 'Enjoy comfort', description: 'Full warranty' }
-      ],
-      layout: 'cards'
-    },
-    settings: { padding: 'lg', background: 'gray' }
-  },
-  {
-    type: 'faq',
-    position: 3,
-    content: {
-      sectionTitle: 'Installation FAQs',
-      sectionSubtitle: 'Common questions about getting a new AC',
-      pageSlug: 'air-conditioning-installation',
-      categories: ['ac-installation'],
-      layout: 'accordion',
-      maxItems: 10
-    },
-    settings: { padding: 'lg', background: 'white' }
-  },
-  {
-    type: 'final-cta',
-    position: 4,
-    content: {
-      title: 'Ready for a New AC?',
-      subtitle: 'Get a free estimate. No pressure, no obligation.',
-      primaryButton: { text: 'Get Free Estimate', href: '/contact' },
-      secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      background: 'gradient'
-    },
-    settings: { padding: 'lg', background: 'gradient' }
-  }
-];
-
-const indoorAirQualityPageBlocks = [
-  {
-    type: 'hero',
-    position: 0,
-    content: {
-      title: 'Indoor Air',
-      titleHighlight: 'Quality',
-      subtitle: 'Breathe easier at home. Air purification, humidity control, and ventilation solutions.',
-      overlay: 'medium',
-      trustBadges: [
-        { id: '1', icon: 'badge', text: 'Veteran Owned' },
-        { id: '2', icon: 'shield', text: 'Healthier Air' },
-        { id: '3', icon: 'check', text: 'Expert Solutions' }
-      ],
-      primaryCta: { text: 'Improve Your Air', href: '/contact', variant: 'primary' },
-      secondaryCta: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      layout: 'left-aligned'
-    },
-    settings: { padding: 'lg', background: 'dark' }
-  },
-  {
-    type: 'why-choose-us',
-    position: 1,
-    content: {
-      sectionTitle: 'Air Quality Solutions',
-      features: [
-        {
-          id: '1',
-          icon: 'air',
-          title: 'Air Purification',
-          description: "Remove allergens, bacteria, and viruses from your home's air with advanced filtration systems.",
-          stat: '99%',
-          statLabel: 'particles removed'
-        },
-        {
-          id: '2',
-          icon: 'humidity',
-          title: 'Humidity Control',
-          description: 'Balance humidity for comfort and health. Prevent mold growth and dry air problems.',
-          stat: '30-50%',
-          statLabel: 'ideal humidity'
-        },
-        {
-          id: '3',
-          icon: 'duct',
-          title: 'Duct Cleaning',
-          description: 'Remove years of dust, debris, and contaminants from your ductwork for cleaner air flow.',
-          stat: '3-5yr',
-          statLabel: 'recommended'
-        }
-      ],
-      showImage: false,
-      showVeteranBadge: true
-    },
-    settings: { padding: 'lg', background: 'white' }
-  },
-  {
-    type: 'faq',
-    position: 2,
-    content: {
-      sectionTitle: 'Air Quality FAQs',
-      sectionSubtitle: 'Common questions about improving your indoor air',
-      pageSlug: 'indoor-air-quality',
-      categories: ['air-quality'],
-      layout: 'accordion',
-      maxItems: 10
-    },
-    settings: { padding: 'lg', background: 'gray' }
-  },
-  {
-    type: 'final-cta',
-    position: 3,
-    content: {
-      title: 'Ready to Breathe Easier?',
-      subtitle: "Let us assess your home's air quality and recommend solutions.",
-      primaryButton: { text: 'Get Assessment', href: '/contact' },
-      secondaryButton: { text: '(832) 437-1000', href: 'tel:+18324371000', type: 'phone' },
-      background: 'gradient'
-    },
-    settings: { padding: 'lg', background: 'gradient' }
   }
 ];
 
@@ -625,25 +579,23 @@ const indoorAirQualityPageBlocks = [
 // =====================================================
 
 async function main() {
-  console.log('\n🚀 Starting CMS Page Seeding...\n');
+  console.log('\n🚀 Restoring Service Pages with Original Content...\n');
 
-  // First, ensure all pages exist
-  await ensurePagesExist();
+  // Step 1: Clean up incorrect pages
+  await cleanupIncorrectPages();
 
-  console.log('📦 Inserting blocks...\n');
+  // Step 2: Seed correct pages with detailed content
+  console.log('\n📦 Inserting detailed blocks...\n');
   console.log('=' .repeat(50));
 
   const results = [];
 
-  // Seed each page
   results.push(await seedPage('services', servicesPageBlocks));
   results.push(await seedPage('air-conditioning-repair', acRepairPageBlocks));
   results.push(await seedPage('heating', heatingPageBlocks));
   results.push(await seedPage('air-conditioning-tune-ups', tuneUpsPageBlocks));
   results.push(await seedPage('financing-payments', financingPageBlocks));
   results.push(await seedPage('pay-invoice', payInvoicePageBlocks));
-  results.push(await seedPage('air-conditioning-installation', acInstallationPageBlocks));
-  results.push(await seedPage('indoor-air-quality', indoorAirQualityPageBlocks));
 
   console.log('=' .repeat(50));
 
@@ -661,8 +613,7 @@ async function main() {
     LEFT JOIN blocks b ON p.id = b.page_id
     WHERE p.slug IN (
       'services', 'air-conditioning-repair', 'heating',
-      'air-conditioning-tune-ups', 'financing-payments', 'pay-invoice',
-      'air-conditioning-installation', 'indoor-air-quality'
+      'air-conditioning-tune-ups', 'financing-payments', 'pay-invoice'
     )
     GROUP BY p.slug
     ORDER BY p.slug
@@ -671,6 +622,18 @@ async function main() {
   for (const row of verification.rows) {
     const status = row.block_count > 0 ? '✓' : '✗';
     console.log(`   ${status} ${row.slug}: ${row.block_count} blocks`);
+  }
+
+  // Verify incorrect pages are gone
+  console.log('\n🔍 Verifying cleanup:\n');
+  const cleanupCheck = await sql`
+    SELECT slug FROM pages WHERE slug IN ('air-conditioning-installation', 'indoor-air-quality')
+  `;
+
+  if (cleanupCheck.rows.length === 0) {
+    console.log('   ✓ Incorrect pages removed successfully');
+  } else {
+    console.log('   ✗ Some incorrect pages still exist:', cleanupCheck.rows.map(r => r.slug));
   }
 
   console.log('\n🎉 Done!\n');
