@@ -5,67 +5,75 @@ import { uploadFile } from "@/lib/blob";
 
 // GET /api/cms/media - List all media
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const folder = searchParams.get("folder");
+  try {
+    const { searchParams } = new URL(request.url);
+    const folder = searchParams.get("folder");
 
-  let result;
-  if (folder) {
-    result = await sql`
-      SELECT * FROM media
-      WHERE folder = ${folder}
-      ORDER BY created_at DESC
-    `;
-  } else {
-    result = await sql`
-      SELECT * FROM media
-      ORDER BY created_at DESC
-    `;
+    let result;
+    if (folder) {
+      result = await sql`
+        SELECT * FROM media
+        WHERE folder = ${folder}
+        ORDER BY created_at DESC
+      `;
+    } else {
+      result = await sql`
+        SELECT * FROM media
+        ORDER BY created_at DESC
+      `;
+    }
+
+    return NextResponse.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching media:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch media" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(result.rows);
 }
 
 // POST /api/cms/media - Upload file
 export async function POST(request: NextRequest) {
-  const user = await requireAuth();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const formData = await request.formData();
-  const file = formData.get("file") as File;
-  const folder = (formData.get("folder") as string) || "general";
-  const altText = formData.get("altText") as string;
-
-  if (!file) {
-    return NextResponse.json({ error: "No file provided" }, { status: 400 });
-  }
-
-  // Validate file type
-  const allowedTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/gif",
-    "image/webp",
-    "image/svg+xml",
-  ];
-  if (!allowedTypes.includes(file.type)) {
-    return NextResponse.json(
-      { error: "Invalid file type. Only images are allowed." },
-      { status: 400 }
-    );
-  }
-
-  // Validate file size (max 5MB)
-  const maxSize = 5 * 1024 * 1024;
-  if (file.size > maxSize) {
-    return NextResponse.json(
-      { error: "File too large. Maximum size is 5MB." },
-      { status: 400 }
-    );
-  }
-
   try {
+    const user = await requireAuth();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const formData = await request.formData();
+    const file = formData.get("file") as File;
+    const folder = (formData.get("folder") as string) || "general";
+    const altText = formData.get("altText") as string;
+
+    if (!file) {
+      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+    }
+
+    // Validate file type
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "image/svg+xml",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      return NextResponse.json(
+        { error: "Invalid file type. Only images are allowed." },
+        { status: 400 }
+      );
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return NextResponse.json(
+        { error: "File too large. Maximum size is 5MB." },
+        { status: 400 }
+      );
+    }
+
     // Upload to Vercel Blob
     const { url, filename } = await uploadFile(file, folder);
 
@@ -78,7 +86,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (error) {
-    console.error("Upload error:", error);
+    console.error("Error uploading media:", error);
     return NextResponse.json(
       { error: "Failed to upload file" },
       { status: 500 }

@@ -7,17 +7,25 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await params;
+  try {
+    const { id } = await params;
 
-  const result = await sql`
-    SELECT * FROM navigation_items WHERE id = ${id}
-  `;
+    const result = await sql`
+      SELECT * FROM navigation_items WHERE id = ${id}
+    `;
 
-  if (result.rows.length === 0) {
-    return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching navigation item:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch navigation item" },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json(result.rows[0]);
 }
 
 // PUT /api/cms/navigation/[id]
@@ -25,32 +33,40 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = await requireAuth();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const user = await requireAuth();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const body = await request.json();
+
+    const result = await sql`
+      UPDATE navigation_items SET
+        location = ${body.location},
+        label = ${body.label},
+        href = ${body.href},
+        parent_id = ${body.parent_id},
+        position = ${body.position},
+        is_external = ${body.is_external},
+        is_visible = ${body.is_visible}
+      WHERE id = ${id}
+      RETURNING *
+    `;
+
+    if (result.rows.length === 0) {
+      return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error updating navigation item:", error);
+    return NextResponse.json(
+      { error: "Failed to update navigation item" },
+      { status: 500 }
+    );
   }
-
-  const { id } = await params;
-  const body = await request.json();
-
-  const result = await sql`
-    UPDATE navigation_items SET
-      location = ${body.location},
-      label = ${body.label},
-      href = ${body.href},
-      parent_id = ${body.parent_id},
-      position = ${body.position},
-      is_external = ${body.is_external},
-      is_visible = ${body.is_visible}
-    WHERE id = ${id}
-    RETURNING *
-  `;
-
-  if (result.rows.length === 0) {
-    return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
-  }
-
-  return NextResponse.json(result.rows[0]);
 }
 
 // DELETE /api/cms/navigation/[id]
@@ -58,14 +74,26 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const user = await requireAuth();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const user = await requireAuth();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    const result = await sql`DELETE FROM navigation_items WHERE id = ${id}`;
+
+    if (result.rowCount === 0) {
+      return NextResponse.json({ error: "Navigation item not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting navigation item:", error);
+    return NextResponse.json(
+      { error: "Failed to delete navigation item" },
+      { status: 500 }
+    );
   }
-
-  const { id } = await params;
-
-  await sql`DELETE FROM navigation_items WHERE id = ${id}`;
-
-  return NextResponse.json({ success: true });
 }
