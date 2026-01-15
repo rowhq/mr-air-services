@@ -5,32 +5,34 @@ interface PreviewPageProps {
 }
 
 // Deep merge helper for nested objects
-function deepMerge<T extends Record<string, unknown>>(defaults: T, overrides: Partial<T> | null | undefined): T {
+function deepMerge<T>(defaults: T, overrides: Partial<T> | null | undefined): T {
   if (!overrides) return defaults;
 
-  const result = { ...defaults };
+  const result = { ...defaults } as Record<string, unknown>;
+  const overridesRecord = overrides as Record<string, unknown>;
+  const defaultsRecord = defaults as Record<string, unknown>;
 
-  for (const key in overrides) {
-    const overrideValue = overrides[key];
-    const defaultValue = defaults[key];
+  for (const key in overridesRecord) {
+    const overrideValue = overridesRecord[key];
+    const defaultValue = defaultsRecord[key];
 
     if (overrideValue === undefined) continue;
 
     if (Array.isArray(defaultValue) && Array.isArray(overrideValue)) {
       result[key] = overrideValue.map((item, index) => {
         if (typeof item === 'object' && item !== null && defaultValue[index]) {
-          return deepMerge(defaultValue[index] as Record<string, unknown>, item as Record<string, unknown>);
+          return deepMerge(defaultValue[index], item);
         }
         return item ?? defaultValue[index];
-      }) as T[Extract<keyof T, string>];
+      });
     } else if (typeof defaultValue === 'object' && defaultValue !== null && typeof overrideValue === 'object' && overrideValue !== null) {
-      result[key] = deepMerge(defaultValue as Record<string, unknown>, overrideValue as Record<string, unknown>) as T[Extract<keyof T, string>];
+      result[key] = deepMerge(defaultValue, overrideValue);
     } else {
-      result[key] = overrideValue as T[Extract<keyof T, string>];
+      result[key] = overrideValue;
     }
   }
 
-  return result;
+  return result as T;
 }
 
 async function getPreviewConfig(previewId: string): Promise<Partial<TuneUpsPageConfig> | null> {

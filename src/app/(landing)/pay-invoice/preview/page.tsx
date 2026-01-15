@@ -4,33 +4,16 @@ interface PreviewPageProps {
   searchParams: Promise<{ preview?: string }>;
 }
 
-// Deep merge helper for nested objects
-function deepMerge<T extends Record<string, unknown>>(defaults: T, overrides: Partial<T> | null | undefined): T {
+// Simple merge for flat config objects
+function mergeConfig(defaults: PayInvoiceConfig, overrides: Partial<PayInvoiceConfig> | null | undefined): PayInvoiceConfig {
   if (!overrides) return defaults;
 
-  const result = { ...defaults };
-
-  for (const key in overrides) {
-    const overrideValue = overrides[key];
-    const defaultValue = defaults[key];
-
-    if (overrideValue === undefined) continue;
-
-    if (Array.isArray(defaultValue) && Array.isArray(overrideValue)) {
-      result[key] = overrideValue.map((item, index) => {
-        if (typeof item === 'object' && item !== null && defaultValue[index]) {
-          return deepMerge(defaultValue[index] as Record<string, unknown>, item as Record<string, unknown>);
-        }
-        return item ?? defaultValue[index];
-      }) as T[Extract<keyof T, string>];
-    } else if (typeof defaultValue === 'object' && defaultValue !== null && typeof overrideValue === 'object' && overrideValue !== null) {
-      result[key] = deepMerge(defaultValue as Record<string, unknown>, overrideValue as Record<string, unknown>) as T[Extract<keyof T, string>];
-    } else {
-      result[key] = overrideValue as T[Extract<keyof T, string>];
-    }
-  }
-
-  return result;
+  return {
+    ...defaults,
+    ...overrides,
+    // Preserve array defaults if not overridden
+    trustSignals: overrides.trustSignals ?? defaults.trustSignals,
+  };
 }
 
 async function getPreviewConfig(previewId: string): Promise<Partial<PayInvoiceConfig> | null> {
@@ -60,7 +43,7 @@ export default async function PayInvoicePreviewPage({ searchParams }: PreviewPag
   if (previewId) {
     const previewConfig = await getPreviewConfig(previewId);
     if (previewConfig) {
-      config = deepMerge(defaultPayInvoiceConfig, previewConfig);
+      config = mergeConfig(defaultPayInvoiceConfig, previewConfig);
     }
   }
 
