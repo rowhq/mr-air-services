@@ -76,7 +76,7 @@ const defaultConfig: HeatingPageConfig = {
   services: {
     badge: "Heating Services",
     title: "Everything Heating",
-    description: "From "won't turn on" to "smells weird" to "I need a whole new system." We handle it.",
+    description: "From \"won't turn on\" to \"smells weird\" to \"I need a whole new system.\" We handle it.",
     items: [
       {
         title: "Heating Repair",
