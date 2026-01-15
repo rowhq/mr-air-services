@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals } from '@/components/ui';
-import { FAQSection } from '@/components/sections';
+import { FinalCTA, FAQSection } from '@/components/sections';
 
 export const metadata = {
   title: 'Financing & Payments | Mr. Air Services - Flexible HVAC Financing Houston',
@@ -342,28 +342,22 @@ export default function FinancingPage() {
         items={faqs}
       />
 
-      {/* Invoice Payment - Simple Link */}
-      <section className="py-12 bg-neutral-50 dark:bg-neutral-800">
-        <div className="container">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
-            <p className="text-neutral-600 dark:text-neutral-400">
-              Already a customer with an invoice?
-            </p>
-            <Link href="/pay-invoice">
-              <Button variant="outline" size="sm">
-                Pay Your Invoice
-              </Button>
-            </Link>
-            <span className="text-neutral-400 dark:text-neutral-500 hidden sm:inline">|</span>
-            <a
-              href="tel:+18324371000"
-              className="text-primary hover:underline text-sm"
-            >
-              Questions? (832) 437-1000
-            </a>
-          </div>
-        </div>
-      </section>
+      <FinalCTA
+        content={{
+          title: "Already a customer with an invoice?",
+          subtitle: "Pay your invoice quickly and securely online.",
+          primaryButton: {
+            text: "Pay Your Invoice",
+            href: "/pay-invoice",
+          },
+          secondaryButton: {
+            text: "Questions? (832) 437-1000",
+            href: "tel:+18324371000",
+            type: "phone",
+          },
+          background: "gradient",
+        }}
+      />
     </>
   );
 }
