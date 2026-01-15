@@ -38,7 +38,8 @@ const baseSections = [
   {
     title: "Contenido",
     items: [
-      { href: "/admin/pages", label: "Paginas", icon: FileTextIcon },
+      { href: "/admin/page-content", label: "Contenido Paginas", icon: FileTextIcon, id: "page-content" },
+      { href: "/admin/pages", label: "Paginas (Blocks)", icon: FileTextIcon },
       { href: "/admin/services", label: "Servicios", icon: WrenchIcon },
       { href: "/admin/testimonials", label: "Testimonios", icon: MessageSquareIcon },
       { href: "/admin/faqs", label: "FAQs", icon: HelpCircleIcon },
