@@ -12,7 +12,7 @@
 -- Password: Admin123!
 -- IMPORTANT: Change this password in production!
 
-INSERT INTO cms_users (email, password_hash, name, role) VALUES
+INSERT INTO users (email, password_hash, name, role) VALUES
   (
     'admin@mrairservices.com',
     '$2a$10$XQxBtX5dFLDr8MLPUUmz4OGKnHS0k/PK.Kdgt3TdLVvOvfJvKJ6Hy',
