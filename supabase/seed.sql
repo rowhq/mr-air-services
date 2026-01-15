@@ -5,6 +5,23 @@
 -- =====================================================
 
 -- =====================================================
+-- ADMIN USER
+-- =====================================================
+-- Default admin credentials:
+-- Email: admin@mrairservices.com
+-- Password: Admin123!
+-- IMPORTANT: Change this password in production!
+
+INSERT INTO cms_users (email, password_hash, name, role) VALUES
+  (
+    'admin@mrairservices.com',
+    '$2a$10$rQEY9zAqFz8wDH5mVZJEv.Y3H5N8B4JQ9Z3ZFz8R6L0Kj5X2W3Y4u',
+    'Admin',
+    'admin'
+  )
+ON CONFLICT (email) DO NOTHING;
+
+-- =====================================================
 -- OFFICE LOCATIONS
 -- =====================================================
 
