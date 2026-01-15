@@ -9,8 +9,7 @@ import { Sidebar, MobileNav, ExternalLinkIcon, ChevronRightIcon, HomeIcon } from
 // Page titles and sections for breadcrumbs
 const pageConfig: Record<string, { title: string; section?: string }> = {
   "/admin": { title: "Dashboard" },
-  "/admin/page-content": { title: "Contenido Paginas", section: "Contenido" },
-  "/admin/pages": { title: "Paginas", section: "Contenido" },
+  "/admin/pages": { title: "Páginas", section: "Contenido" },
   "/admin/services": { title: "Servicios", section: "Contenido" },
   "/admin/testimonials": { title: "Testimonios", section: "Contenido" },
   "/admin/faqs": { title: "FAQs", section: "Contenido" },

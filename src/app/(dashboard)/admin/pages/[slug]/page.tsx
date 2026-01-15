@@ -32,7 +32,7 @@ async function getConfigValues(keys: string[]): Promise<Record<string, string>> 
   }
 }
 
-export default async function PageContentEditorPage({ params }: PageProps) {
+export default async function PageEditorPage({ params }: PageProps) {
   const { slug } = await params;
   const schema = pageSchemas[slug];
 
@@ -47,13 +47,13 @@ export default async function PageContentEditorPage({ params }: PageProps) {
     <div>
       {/* Back Link */}
       <Link
-        href="/admin/page-content"
-        className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-primary mb-6 transition-colors"
+        href="/admin/pages"
+        className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 hover:text-blue-600 mb-6 transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
-        Volver a Contenido de Páginas
+        Volver a Páginas
       </Link>
 
       <ConfigEditorForm
