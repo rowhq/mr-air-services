@@ -15,11 +15,11 @@
 INSERT INTO users (email, password_hash, name, role) VALUES
   (
     'admin@mrairservices.com',
-    '$2a$10$XQxBtX5dFLDr8MLPUUmz4OGKnHS0k/PK.Kdgt3TdLVvOvfJvKJ6Hy',
+    '$2b$10$8K47hZYGOHQVMHL0rmUhg.1bM5AS6qNmv/QKNGLP46CNZgeBg0aIW',
     'Admin',
     'admin'
   )
-ON CONFLICT (email) DO NOTHING;
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
 -- =====================================================
 -- OFFICE LOCATIONS
