@@ -52,7 +52,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">AC Repair</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
-                AC not cooling? Strange noises? We diagnose and fix all makes and models.
+                AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.
               </p>
               <ul className="space-y-2 mb-6">
                 {['All major brands', 'Upfront pricing', 'Parts warranty'].map((feature) => (
@@ -81,7 +81,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">Heating</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
-                Stay warm during Houston's cold snaps. Furnaces, heat pumps, and all heating systems.
+                Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We'll help you pick the right one.
               </p>
               <ul className="space-y-2 mb-6">
                 {['Furnace repair', 'Heat pumps', 'Emergency service'].map((feature) => (
@@ -114,7 +114,7 @@ export default function ServicesPage() {
               </div>
               <h3 className="text-xl font-bold text-neutral-black dark:text-white mb-3">CoolSaver Tune-Ups</h3>
               <p className="text-neutral-600 dark:text-neutral-400 mb-6 leading-relaxed text-sm">
-                13-point inspection. Catch small issues before they become expensive repairs.
+                13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.
               </p>
               <ul className="space-y-2 mb-6">
                 {['13-point inspection', 'Filter replacement', 'Coil cleaning'].map((feature) => (
