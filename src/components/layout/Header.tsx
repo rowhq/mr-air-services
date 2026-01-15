@@ -481,50 +481,65 @@ export function Header({ siteData }: HeaderProps) {
             </div>
 
             <nav className="space-y-1">
-              {navigationItems.map((item) => (
-                <div key={item.name}>
-                  {item.children ? (
-                    <div>
-                      <button
-                        onClick={() => setServicesOpen(!servicesOpen)}
-                        className="w-full flex items-center justify-between py-3 text-white text-lg font-medium border-b border-white/20"
+              {navigationItems.map((item) => {
+                const isActive = item.children
+                  ? pathname === item.href || pathname.startsWith(item.href + '/')
+                  : pathname === item.href;
+
+                return (
+                  <div key={item.name}>
+                    {item.children ? (
+                      <div>
+                        <button
+                          onClick={() => setServicesOpen(!servicesOpen)}
+                          className={`w-full flex items-center justify-between py-3 text-lg border-b border-white/20 ${
+                            isActive ? 'text-white font-bold' : 'text-white font-medium'
+                          }`}
+                        >
+                          {item.name}
+                          <svg
+                            className={`w-5 h-5 transition-transform ${servicesOpen ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
+                        {servicesOpen && (
+                          <div className="pl-4 py-2 space-y-1">
+                            {item.children.map((child) => {
+                              const isChildActive = pathname === child.href;
+                              return (
+                                <Link
+                                  key={child.name}
+                                  href={child.href}
+                                  className={`block py-2 ${
+                                    isChildActive ? 'text-white font-bold' : 'text-white/80 hover:text-white'
+                                  }`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  {child.name}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        className={`block py-3 text-lg border-b border-white/20 ${
+                          isActive ? 'text-white font-bold' : 'text-white font-medium'
+                        }`}
+                        onClick={() => setMobileMenuOpen(false)}
                       >
                         {item.name}
-                        <svg
-                          className={`w-5 h-5 transition-transform ${servicesOpen ? 'rotate-180' : ''}`}
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
-                      {servicesOpen && (
-                        <div className="pl-4 py-2 space-y-1">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.name}
-                              href={child.href}
-                              className="block py-2 text-white/80 hover:text-white"
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {child.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="block py-3 text-white text-lg font-medium border-b border-white/20"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )}
-                </div>
-              ))}
+                      </Link>
+                    )}
+                  </div>
+                );
+              })}
             </nav>
 
             <div className="mt-8 space-y-4">
