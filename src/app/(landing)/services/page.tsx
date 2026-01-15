@@ -1,16 +1,13 @@
 import Link from 'next/link';
 import { Button, Breadcrumbs, CoolSaverCTA } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
-import { BlockRenderer } from '@/components/cms/BlockRenderer';
-import { getPageData } from '@/lib/cms-page-data';
 
 export const metadata = {
   title: 'HVAC Services | Mr. Air Services - Houston AC & Heating',
   description: 'Complete HVAC services in Houston. AC repair, CoolSaver tune-ups, and heating services. Same-day service available.',
 };
 
-// Current design preserved as fallback
-function HardcodedServicesPage() {
+export default function ServicesPage() {
   return (
     <>
       {/* Hero - Clean Apple style, no blobs */}
@@ -141,24 +138,4 @@ function HardcodedServicesPage() {
       <FinalCTA />
     </>
   );
-}
-
-export default async function ServicesPage() {
-  const data = await getPageData('services');
-
-  // If CMS data is available and has blocks, use dynamic rendering
-  if (data && data.blocks.length > 0) {
-    return (
-      <BlockRenderer
-        blocks={data.blocks}
-        services={data.services}
-        testimonials={data.testimonials}
-        officeLocations={data.officeLocations}
-        faqs={data.faqs}
-      />
-    );
-  }
-
-  // Fall back to current hardcoded design
-  return <HardcodedServicesPage />;
 }

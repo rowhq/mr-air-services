@@ -1,9 +1,6 @@
-import Link from 'next/link';
 import { Button, Breadcrumbs, TrustSignals, ChecklistGrid, CoolSaverCTA } from '@/components/ui';
 import { FinalCTA } from '@/components/sections';
 import { StickyTuneUpCTA } from '@/components/ui/StickyTuneUpCTA';
-import { BlockRenderer } from '@/components/cms/BlockRenderer';
-import { getPageData } from '@/lib/cms-page-data';
 
 export const metadata = {
   title: 'Annual AC Tune-Up & Preventative Maintenance | Mr. Air Services Houston',
@@ -56,8 +53,7 @@ const benefits = [
   },
 ];
 
-// Current design preserved as fallback
-function HardcodedTuneUpsPage() {
+export default function ACTuneUpsPage() {
   return (
     <>
       {/* Sticky Mobile CTA */}
@@ -216,24 +212,4 @@ function HardcodedTuneUpsPage() {
       <FinalCTA />
     </>
   );
-}
-
-export default async function ACTuneUpsPage() {
-  const data = await getPageData('air-conditioning-tune-ups');
-
-  // If CMS data is available and has blocks, use dynamic rendering
-  if (data && data.blocks.length > 0) {
-    return (
-      <BlockRenderer
-        blocks={data.blocks}
-        services={data.services}
-        testimonials={data.testimonials}
-        officeLocations={data.officeLocations}
-        faqs={data.faqs}
-      />
-    );
-  }
-
-  // Fall back to current hardcoded design
-  return <HardcodedTuneUpsPage />;
 }

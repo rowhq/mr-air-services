@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import { Button, Breadcrumbs, TrustSignals, NumberedChecklistGrid, SectionNav } from '@/components/ui';
+import { Button, Breadcrumbs, TrustSignals, SectionNav } from '@/components/ui';
 import { FinalCTA, FAQSection } from '@/components/sections';
-import { BlockRenderer } from '@/components/cms/BlockRenderer';
-import { getPageData } from '@/lib/cms-page-data';
 
 const sectionNavItems = [
   { id: 'services', label: 'Services' },
@@ -109,8 +107,7 @@ const faqs = [
   },
 ];
 
-// Current design preserved as fallback
-function HardcodedHeatingPage() {
+export default function HeatingPage() {
   return (
     <>
       {/* Hero */}
@@ -367,24 +364,4 @@ function HardcodedHeatingPage() {
       <FinalCTA />
     </>
   );
-}
-
-export default async function HeatingPage() {
-  const data = await getPageData('heating');
-
-  // If CMS data is available and has blocks, use dynamic rendering
-  if (data && data.blocks.length > 0) {
-    return (
-      <BlockRenderer
-        blocks={data.blocks}
-        services={data.services}
-        testimonials={data.testimonials}
-        officeLocations={data.officeLocations}
-        faqs={data.faqs}
-      />
-    );
-  }
-
-  // Fall back to current hardcoded design
-  return <HardcodedHeatingPage />;
 }

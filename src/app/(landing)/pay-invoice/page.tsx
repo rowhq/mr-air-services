@@ -1,16 +1,13 @@
 import Link from 'next/link';
 import { Breadcrumbs } from '@/components/ui';
 import { InvoicePaymentForm } from '@/components/forms/InvoicePaymentForm';
-import { BlockRenderer } from '@/components/cms/BlockRenderer';
-import { getPageData } from '@/lib/cms-page-data';
 
 export const metadata = {
   title: 'Pay Your Invoice | Mr. Air Services - Secure Online Payment',
   description: 'Pay your Mr. Air Services invoice quickly and securely online. Accept all major credit cards, debit cards, and bank transfers.',
 };
 
-// Current design preserved as fallback
-function HardcodedPayInvoicePage() {
+export default function PayInvoicePage() {
   return (
     <section className="relative min-h-screen pt-32 pb-16 bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
       {/* Subtle pattern/texture */}
@@ -79,24 +76,4 @@ function HardcodedPayInvoicePage() {
       </div>
     </section>
   );
-}
-
-export default async function PayInvoicePage() {
-  const data = await getPageData('pay-invoice');
-
-  // If CMS data is available and has blocks, use dynamic rendering
-  if (data && data.blocks.length > 0) {
-    return (
-      <BlockRenderer
-        blocks={data.blocks}
-        services={data.services}
-        testimonials={data.testimonials}
-        officeLocations={data.officeLocations}
-        faqs={data.faqs}
-      />
-    );
-  }
-
-  // Fall back to current hardcoded design
-  return <HardcodedPayInvoicePage />;
 }
