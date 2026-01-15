@@ -11,6 +11,7 @@ const FINANCING_URL = 'https://apply.svcfin.com/home/dealerAuthentication?id=400
 
 // Config interface for CMS-editable fields
 interface FinancingPageConfig {
+  [key: string]: unknown;
   hero: {
     title: string;
     description: string;

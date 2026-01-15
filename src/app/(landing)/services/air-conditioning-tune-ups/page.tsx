@@ -9,6 +9,7 @@ export const metadata = {
 
 // Config interface for CMS-editable fields
 interface TuneUpsPageConfig {
+  [key: string]: unknown;
   hero: {
     title: string;
     description: string;

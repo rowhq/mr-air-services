@@ -20,6 +20,7 @@ interface FAQConfig {
 }
 
 interface ACRepairPageConfig {
+  [key: string]: unknown;
   hero: {
     title: string;
     description: string;

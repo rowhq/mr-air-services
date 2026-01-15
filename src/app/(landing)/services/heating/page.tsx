@@ -16,6 +16,7 @@ export const metadata = {
 
 // Config interface for CMS-editable fields
 interface HeatingPageConfig {
+  [key: string]: unknown;
   hero: {
     title: string;
     description: string;
