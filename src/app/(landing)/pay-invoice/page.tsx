@@ -7,7 +7,90 @@ export const metadata = {
   description: 'Pay your Mr. Air Services invoice quickly and securely online. Accept all major credit cards, debit cards, and bank transfers.',
 };
 
-export default function PayInvoicePage() {
+// Config interface for CMS-editable fields
+interface PayInvoiceConfig {
+  title: string;
+  description: string;
+  trustSignals: string[];
+  helpTitle: string;
+  helpDescription: string;
+  financingLinkText: string;
+}
+
+// Default values (current hardcoded text)
+const defaultConfig: PayInvoiceConfig = {
+  title: 'Pay Your Invoice',
+  description: 'Quick, secure payment. Takes less than a minute.',
+  trustSignals: ['Secure payment', 'All cards accepted', 'Instant confirmation'],
+  helpTitle: 'Need Help?',
+  helpDescription: 'Questions about your invoice or payment options?',
+  financingLinkText: 'View financing options',
+};
+
+// Fetch config from CMS
+async function getPayInvoiceConfig(): Promise<Partial<PayInvoiceConfig> | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
+    const configKeys = [
+      'pay_invoice_title',
+      'pay_invoice_description',
+      'pay_invoice_trust_1',
+      'pay_invoice_trust_2',
+      'pay_invoice_trust_3',
+      'pay_invoice_help_title',
+      'pay_invoice_help_description',
+      'pay_invoice_financing_link',
+    ];
+
+    const responses = await Promise.all(
+      configKeys.map(key =>
+        fetch(`${baseUrl}/api/cms/config?key=${key}`, {
+          next: { revalidate: 60 },
+          cache: 'force-cache',
+        }).then(r => r.ok ? r.json() : null).catch(() => null)
+      )
+    );
+
+    const configMap: Record<string, string | null> = {};
+    configKeys.forEach((key, index) => {
+      configMap[key] = responses[index]?.value || null;
+    });
+
+    const hasValues = Object.values(configMap).some(v => v !== null);
+    if (!hasValues) {
+      return null;
+    }
+
+    // Build trust signals array only if any are set
+    const trustSignals: string[] = [];
+    if (configMap['pay_invoice_trust_1']) trustSignals.push(configMap['pay_invoice_trust_1']);
+    if (configMap['pay_invoice_trust_2']) trustSignals.push(configMap['pay_invoice_trust_2']);
+    if (configMap['pay_invoice_trust_3']) trustSignals.push(configMap['pay_invoice_trust_3']);
+
+    return {
+      title: configMap['pay_invoice_title'] || undefined,
+      description: configMap['pay_invoice_description'] || undefined,
+      trustSignals: trustSignals.length > 0 ? trustSignals : undefined,
+      helpTitle: configMap['pay_invoice_help_title'] || undefined,
+      helpDescription: configMap['pay_invoice_help_description'] || undefined,
+      financingLinkText: configMap['pay_invoice_financing_link'] || undefined,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export default async function PayInvoicePage() {
+  const cmsConfig = await getPayInvoiceConfig();
+
+  // Merge CMS config with defaults
+  const config: PayInvoiceConfig = {
+    ...defaultConfig,
+    ...cmsConfig,
+    trustSignals: cmsConfig?.trustSignals || defaultConfig.trustSignals,
+  };
+
   return (
     <section className="relative min-h-screen pt-32 pb-16 bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
       {/* Subtle pattern/texture */}
@@ -20,15 +103,15 @@ export default function PayInvoicePage() {
           {/* Left - Info */}
           <div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
-              Pay Your Invoice
+              {config.title}
             </h1>
             <p className="text-xl text-neutral-600 dark:text-neutral-300 mb-10 max-w-md leading-relaxed">
-              Quick, secure payment. Takes less than a minute.
+              {config.description}
             </p>
 
             {/* Trust Signals */}
             <div className="flex flex-wrap gap-6 mb-12">
-              {['Secure payment', 'All cards accepted', 'Instant confirmation'].map((item) => (
+              {config.trustSignals.map((item) => (
                 <div key={item} className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-primary/15 dark:bg-primary/25 flex items-center justify-center">
                     <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -43,10 +126,10 @@ export default function PayInvoicePage() {
             {/* Need Help Box */}
             <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6">
               <h3 className="font-bold text-neutral-900 dark:text-white text-lg mb-2">
-                Need Help?
+                {config.helpTitle}
               </h3>
               <p className="text-neutral-500 dark:text-neutral-400 mb-4">
-                Questions about your invoice or payment options?
+                {config.helpDescription}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -62,7 +145,7 @@ export default function PayInvoicePage() {
                   href="/financing-payments"
                   className="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors underline underline-offset-4"
                 >
-                  View financing options
+                  {config.financingLinkText}
                 </Link>
               </div>
             </div>

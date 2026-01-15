@@ -9,81 +9,355 @@ export const metadata = {
 
 const FINANCING_URL = 'https://apply.svcfin.com/home/dealerAuthentication?id=400319926&key=1742219857';
 
-const howItWorks = [
-  {
-    step: '1',
-    title: 'Get a Quote',
-    description: 'We tell you exactly what it costs. No hidden fees, no surprises.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    ),
+// Config interface for CMS-editable fields
+interface FinancingPageConfig {
+  hero: {
+    title: string;
+    description: string;
+    subtitle: string;
+    primaryButton: string;
+    secondaryButton: string;
+    trustSignals: string[];
+  };
+  reality: {
+    title: string;
+    description: string;
+    withoutFinancingTitle: string;
+    withoutFinancingDescription: string;
+    withFinancingTitle: string;
+    withFinancingDescription: string;
+    floatingStatValue: string;
+    floatingStatLabel: string;
+    button: string;
+  };
+  howItWorks: {
+    badge: string;
+    title: string;
+    description: string;
+    button: string;
+    steps: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  faq: {
+    subtitle: string;
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
+  finalCta: {
+    title: string;
+    subtitle: string;
+    primaryButtonText: string;
+    secondaryButtonText: string;
+  };
+}
+
+// Default values (current hardcoded text)
+const defaultConfig: FinancingPageConfig = {
+  hero: {
+    title: "Don't Sweat the Bill",
+    description: "New AC isn't cheap. Neither is sleeping in a 90-degree house. We've got financing so you don't have to choose between comfort and your budget.",
+    subtitle: "5-minute application. Decision before we leave. Options for all credit profiles.",
+    primaryButton: "Apply for Financing",
+    secondaryButton: "Call (832) 437-1000",
+    trustSignals: ["Quick Decision", "5-Min Apply", "No Penalties"],
   },
-  {
-    step: '2',
-    title: 'Apply in 5 Minutes',
-    description: 'Your tech helps you right there. Quick form, basic info.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    ),
+  reality: {
+    title: "Don't Let a Big Bill Catch You Off Guard",
+    description: "We get it—nobody budgets for a dead AC. That's why we make financing simple:",
+    withoutFinancingTitle: "Without Financing",
+    withoutFinancingDescription: "Big upfront cost. Credit card debt. Drained savings.",
+    withFinancingTitle: "With Financing",
+    withFinancingDescription: "Easy monthly payments. Keep your savings. Stay comfortable.",
+    floatingStatValue: "5 min",
+    floatingStatLabel: "to apply",
+    button: "See Your Payment Options",
   },
-  {
-    step: '3',
-    title: 'Instant Decision',
-    description: "You'll know before we leave. If one lender says no, we try others.",
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+  howItWorks: {
+    badge: "Simple Process",
+    title: "How It Works",
+    description: "From quote to approval in one visit. No waiting, no wondering.",
+    button: "Start Your Application",
+    steps: [
+      {
+        title: "Get a Quote",
+        description: "We tell you exactly what it costs. No hidden fees, no surprises.",
+      },
+      {
+        title: "Apply in 5 Minutes",
+        description: "Your tech helps you right there. Quick form, basic info.",
+      },
+      {
+        title: "Instant Decision",
+        description: "You'll know before we leave. If one lender says no, we try others.",
+      },
+      {
+        title: "Stay Comfortable",
+        description: "We do the work. You make easy monthly payments. Done.",
+      },
+    ],
   },
-  {
-    step: '4',
-    title: 'Stay Comfortable',
-    description: 'We do the work. You make easy monthly payments. Done.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-      </svg>
-    ),
+  faq: {
+    subtitle: "Questions about financing? We've got real answers.",
+    items: [
+      {
+        question: "What credit score do I need?",
+        answer: "Honestly? We work with a bunch of different lenders. Even if your credit's seen better days, we can usually find something.",
+      },
+      {
+        question: "What's the interest rate?",
+        answer: "Rates depend on your credit profile and term length. Apply to see your personalized options—it only takes 5 minutes and you'll know right away.",
+      },
+      {
+        question: "How do I apply?",
+        answer: "Takes 5 minutes. Your tech can help you on the spot, or call our office. You'll know if you're approved before we leave.",
+      },
+      {
+        question: "What if I get denied?",
+        answer: "We've got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. Your AC broke—that's stressful enough without worrying about credit.",
+      },
+      {
+        question: "Can I pay it off early?",
+        answer: "Yep. No prepayment penalties. Pay it off whenever you want without extra fees.",
+      },
+      {
+        question: "What's the minimum to finance?",
+        answer: "Minimums vary by lender. Most major repairs and new system installations qualify. Ask us for details.",
+      },
+      {
+        question: "Any discounts for veterans or seniors?",
+        answer: "Absolutely. We've got discounts for seniors, military, and first responders. Just ask when you schedule. We don't make you jump through hoops.",
+      },
+    ],
   },
+  finalCta: {
+    title: "Already a customer with an invoice?",
+    subtitle: "Pay your invoice quickly and securely online.",
+    primaryButtonText: "Pay Your Invoice",
+    secondaryButtonText: "Questions? (832) 437-1000",
+  },
+};
+
+// Icons kept hardcoded (part of design)
+const stepIcons = [
+  <svg key="quote" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+  </svg>,
+  <svg key="apply" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+  </svg>,
+  <svg key="decision" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
+  <svg key="comfort" className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+  </svg>,
 ];
 
-const faqs = [
-  {
-    question: 'What credit score do I need?',
-    answer: "Honestly? We work with a bunch of different lenders. Even if your credit's seen better days, we can usually find something.",
-  },
-  {
-    question: "What's the interest rate?",
-    answer: "Rates depend on your credit profile and term length. Apply to see your personalized options—it only takes 5 minutes and you'll know right away.",
-  },
-  {
-    question: 'How do I apply?',
-    answer: "Takes 5 minutes. Your tech can help you on the spot, or call our office. You'll know if you're approved before we leave.",
-  },
-  {
-    question: 'What if I get denied?',
-    answer: "We've got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. Your AC broke—that's stressful enough without worrying about credit.",
-  },
-  {
-    question: 'Can I pay it off early?',
-    answer: "Yep. No prepayment penalties. Pay it off whenever you want without extra fees.",
-  },
-  {
-    question: "What's the minimum to finance?",
-    answer: "Minimums vary by lender. Most major repairs and new system installations qualify. Ask us for details.",
-  },
-  {
-    question: 'Any discounts for veterans or seniors?',
-    answer: "Absolutely. We've got discounts for seniors, military, and first responders. Just ask when you schedule. We don't make you jump through hoops.",
-  },
-];
+// Fetch config from CMS
+async function getFinancingPageConfig(): Promise<Partial<FinancingPageConfig> | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-export default function FinancingPage() {
+    const configKeys = [
+      // Hero
+      'financing_page_hero_title',
+      'financing_page_hero_description',
+      'financing_page_hero_subtitle',
+      'financing_page_hero_primary_button',
+      'financing_page_hero_secondary_button',
+      'financing_page_trust_1',
+      'financing_page_trust_2',
+      'financing_page_trust_3',
+      // Reality section
+      'financing_page_reality_title',
+      'financing_page_reality_description',
+      'financing_page_without_title',
+      'financing_page_without_description',
+      'financing_page_with_title',
+      'financing_page_with_description',
+      'financing_page_stat_value',
+      'financing_page_stat_label',
+      'financing_page_reality_button',
+      // How it works
+      'financing_page_hiw_badge',
+      'financing_page_hiw_title',
+      'financing_page_hiw_description',
+      'financing_page_hiw_button',
+      'financing_page_step_1_title',
+      'financing_page_step_1_description',
+      'financing_page_step_2_title',
+      'financing_page_step_2_description',
+      'financing_page_step_3_title',
+      'financing_page_step_3_description',
+      'financing_page_step_4_title',
+      'financing_page_step_4_description',
+      // FAQ
+      'financing_page_faq_subtitle',
+      'financing_page_faq_1_question',
+      'financing_page_faq_1_answer',
+      'financing_page_faq_2_question',
+      'financing_page_faq_2_answer',
+      'financing_page_faq_3_question',
+      'financing_page_faq_3_answer',
+      'financing_page_faq_4_question',
+      'financing_page_faq_4_answer',
+      'financing_page_faq_5_question',
+      'financing_page_faq_5_answer',
+      'financing_page_faq_6_question',
+      'financing_page_faq_6_answer',
+      'financing_page_faq_7_question',
+      'financing_page_faq_7_answer',
+      // Final CTA
+      'financing_page_cta_title',
+      'financing_page_cta_subtitle',
+      'financing_page_cta_primary',
+      'financing_page_cta_secondary',
+    ];
+
+    const responses = await Promise.all(
+      configKeys.map(key =>
+        fetch(`${baseUrl}/api/cms/config?key=${key}`, {
+          next: { revalidate: 60 },
+          cache: 'force-cache',
+        }).then(r => r.ok ? r.json() : null).catch(() => null)
+      )
+    );
+
+    const configMap: Record<string, string | null> = {};
+    configKeys.forEach((key, index) => {
+      configMap[key] = responses[index]?.value || null;
+    });
+
+    const hasValues = Object.values(configMap).some(v => v !== null);
+    if (!hasValues) {
+      return null;
+    }
+
+    // Build trust signals array
+    const trustSignals: string[] = [];
+    if (configMap['financing_page_trust_1']) trustSignals.push(configMap['financing_page_trust_1']);
+    if (configMap['financing_page_trust_2']) trustSignals.push(configMap['financing_page_trust_2']);
+    if (configMap['financing_page_trust_3']) trustSignals.push(configMap['financing_page_trust_3']);
+
+    // Build FAQ items
+    const faqItems: Array<{ question: string; answer: string }> = [];
+    for (let i = 1; i <= 7; i++) {
+      const question = configMap[`financing_page_faq_${i}_question`];
+      const answer = configMap[`financing_page_faq_${i}_answer`];
+      if (question || answer) {
+        faqItems.push({
+          question: question || undefined,
+          answer: answer || undefined,
+        } as { question: string; answer: string });
+      }
+    }
+
+    return {
+      hero: {
+        title: configMap['financing_page_hero_title'] || undefined,
+        description: configMap['financing_page_hero_description'] || undefined,
+        subtitle: configMap['financing_page_hero_subtitle'] || undefined,
+        primaryButton: configMap['financing_page_hero_primary_button'] || undefined,
+        secondaryButton: configMap['financing_page_hero_secondary_button'] || undefined,
+        trustSignals: trustSignals.length > 0 ? trustSignals : undefined,
+      },
+      reality: {
+        title: configMap['financing_page_reality_title'] || undefined,
+        description: configMap['financing_page_reality_description'] || undefined,
+        withoutFinancingTitle: configMap['financing_page_without_title'] || undefined,
+        withoutFinancingDescription: configMap['financing_page_without_description'] || undefined,
+        withFinancingTitle: configMap['financing_page_with_title'] || undefined,
+        withFinancingDescription: configMap['financing_page_with_description'] || undefined,
+        floatingStatValue: configMap['financing_page_stat_value'] || undefined,
+        floatingStatLabel: configMap['financing_page_stat_label'] || undefined,
+        button: configMap['financing_page_reality_button'] || undefined,
+      },
+      howItWorks: {
+        badge: configMap['financing_page_hiw_badge'] || undefined,
+        title: configMap['financing_page_hiw_title'] || undefined,
+        description: configMap['financing_page_hiw_description'] || undefined,
+        button: configMap['financing_page_hiw_button'] || undefined,
+        steps: [
+          {
+            title: configMap['financing_page_step_1_title'] || undefined,
+            description: configMap['financing_page_step_1_description'] || undefined,
+          },
+          {
+            title: configMap['financing_page_step_2_title'] || undefined,
+            description: configMap['financing_page_step_2_description'] || undefined,
+          },
+          {
+            title: configMap['financing_page_step_3_title'] || undefined,
+            description: configMap['financing_page_step_3_description'] || undefined,
+          },
+          {
+            title: configMap['financing_page_step_4_title'] || undefined,
+            description: configMap['financing_page_step_4_description'] || undefined,
+          },
+        ],
+      },
+      faq: {
+        subtitle: configMap['financing_page_faq_subtitle'] || undefined,
+        items: faqItems.length > 0 ? faqItems : undefined,
+      },
+      finalCta: {
+        title: configMap['financing_page_cta_title'] || undefined,
+        subtitle: configMap['financing_page_cta_subtitle'] || undefined,
+        primaryButtonText: configMap['financing_page_cta_primary'] || undefined,
+        secondaryButtonText: configMap['financing_page_cta_secondary'] || undefined,
+      },
+    } as Partial<FinancingPageConfig>;
+  } catch {
+    return null;
+  }
+}
+
+// Deep merge helper for nested objects
+function deepMerge<T extends Record<string, unknown>>(defaults: T, overrides: Partial<T> | null | undefined): T {
+  if (!overrides) return defaults;
+
+  const result = { ...defaults };
+
+  for (const key in overrides) {
+    const overrideValue = overrides[key];
+    const defaultValue = defaults[key];
+
+    if (overrideValue === undefined) continue;
+
+    if (Array.isArray(defaultValue) && Array.isArray(overrideValue)) {
+      result[key] = overrideValue.map((item, index) => {
+        if (typeof item === 'object' && item !== null && defaultValue[index]) {
+          return deepMerge(defaultValue[index] as Record<string, unknown>, item as Record<string, unknown>);
+        }
+        return item ?? defaultValue[index];
+      }) as T[Extract<keyof T, string>];
+    } else if (typeof defaultValue === 'object' && defaultValue !== null && typeof overrideValue === 'object' && overrideValue !== null) {
+      result[key] = deepMerge(defaultValue as Record<string, unknown>, overrideValue as Record<string, unknown>) as T[Extract<keyof T, string>];
+    } else {
+      result[key] = overrideValue as T[Extract<keyof T, string>];
+    }
+  }
+
+  return result;
+}
+
+export default async function FinancingPage() {
+  const cmsConfig = await getFinancingPageConfig();
+
+  // Merge CMS config with defaults
+  const config = deepMerge(defaultConfig, cmsConfig);
+
+  // Build how it works with icons
+  const howItWorks = config.howItWorks.steps.map((step, idx) => ({
+    ...step,
+    step: String(idx + 1),
+    icon: stepIcons[idx],
+  }));
+
   return (
     <>
       {/* Hero with Background Photo */}
@@ -105,13 +379,13 @@ export default function FinancingPage() {
           <div className="max-w-3xl">
             <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Don't Sweat the Bill
+                {config.hero.title}
               </h1>
               <p className="text-xl text-white/90 mb-6 leading-relaxed max-w-lg">
-                New AC isn't cheap. Neither is sleeping in a 90-degree house. We've got financing so you don't have to choose between comfort and your budget.
+                {config.hero.description}
               </p>
               <p className="text-lg text-white/70 mb-8">
-                5-minute application. Decision before we leave. Options for all credit profiles.
+                {config.hero.subtitle}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -122,36 +396,26 @@ export default function FinancingPage() {
                   className="w-full sm:w-auto"
                 >
                   <Button variant="secondary" size="lg" fullWidthMobile>
-                    Apply for Financing
+                    {config.hero.primaryButton}
                   </Button>
                 </a>
                 <a href="tel:+18324371000" className="w-full sm:w-auto">
                   <Button variant="outline" size="lg" fullWidthMobile className="border-white text-white hover:bg-white/10">
-                    Call (832) 437-1000
+                    {config.hero.secondaryButton}
                   </Button>
                 </a>
               </div>
 
               {/* Trust Stats */}
               <div className="flex flex-wrap gap-6 text-white">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">Quick Decision</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">5-Min Apply</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-sm font-medium">No Penalties</span>
-                </div>
+                {config.hero.trustSignals.map((signal) => (
+                  <div key={signal} className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    <span className="text-sm font-medium">{signal}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -176,18 +440,18 @@ export default function FinancingPage() {
               </div>
               {/* Floating stat card */}
               <div className="absolute -bottom-6 -right-6 bg-primary text-white p-4 rounded-xl">
-                <div className="text-3xl font-bold">5 min</div>
-                <div className="text-sm opacity-90">to apply</div>
+                <div className="text-3xl font-bold">{config.reality.floatingStatValue}</div>
+                <div className="text-sm opacity-90">{config.reality.floatingStatLabel}</div>
               </div>
             </div>
 
             {/* Content Side */}
             <div className="animate-fade-in-up" style={{ animationDelay: '150ms' }}>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-6 leading-tight">
-                Don't Let a Big Bill <br />Catch You Off Guard
+                {config.reality.title}
               </h2>
               <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
-                We get it—nobody budgets for a dead AC. That's why we make financing simple:
+                {config.reality.description}
               </p>
 
               <div className="space-y-4 mb-8">
@@ -198,8 +462,8 @@ export default function FinancingPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-black dark:text-white">Without Financing</div>
-                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">Big upfront cost. Credit card debt. Drained savings.</div>
+                    <div className="font-semibold text-neutral-black dark:text-white">{config.reality.withoutFinancingTitle}</div>
+                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">{config.reality.withoutFinancingDescription}</div>
                   </div>
                 </div>
 
@@ -210,8 +474,8 @@ export default function FinancingPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-neutral-black dark:text-white">With Financing</div>
-                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">Easy monthly payments. Keep your savings. Stay comfortable.</div>
+                    <div className="font-semibold text-neutral-black dark:text-white">{config.reality.withFinancingTitle}</div>
+                    <div className="text-neutral-600 dark:text-neutral-400 text-sm">{config.reality.withFinancingDescription}</div>
                   </div>
                 </div>
               </div>
@@ -223,7 +487,7 @@ export default function FinancingPage() {
                 className="block w-full sm:w-auto"
               >
                 <Button variant="secondary" size="lg" fullWidthMobile>
-                  See Your Payment Options
+                  {config.reality.button}
                 </Button>
               </a>
             </div>
@@ -235,12 +499,12 @@ export default function FinancingPage() {
       <section className="py-20 lg:py-28 bg-white dark:bg-neutral-900 overflow-hidden">
         <div className="container">
           <div className="text-center mb-16 animate-fade-in-up">
-            <p className="text-primary font-semibold text-sm tracking-wide uppercase mb-3">Simple Process</p>
+            <p className="text-primary font-semibold text-sm tracking-wide uppercase mb-3">{config.howItWorks.badge}</p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
-              How It Works
+              {config.howItWorks.title}
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-xl mx-auto">
-              From quote to approval in one visit. No waiting, no wondering.
+              {config.howItWorks.description}
             </p>
           </div>
 
@@ -328,7 +592,7 @@ export default function FinancingPage() {
               rel="noopener noreferrer"
             >
               <Button variant="secondary" size="lg">
-                Start Your Application
+                {config.howItWorks.button}
               </Button>
             </a>
           </div>
@@ -337,20 +601,20 @@ export default function FinancingPage() {
 
       {/* FAQs */}
       <FAQSection
-        subtitle="Questions about financing? We've got real answers."
-        items={faqs}
+        subtitle={config.faq.subtitle}
+        items={config.faq.items}
       />
 
       <FinalCTA
         content={{
-          title: "Already a customer with an invoice?",
-          subtitle: "Pay your invoice quickly and securely online.",
+          title: config.finalCta.title,
+          subtitle: config.finalCta.subtitle,
           primaryButton: {
-            text: "Pay Your Invoice",
+            text: config.finalCta.primaryButtonText,
             href: "/pay-invoice",
           },
           secondaryButton: {
-            text: "Questions? (832) 437-1000",
+            text: config.finalCta.secondaryButtonText,
             href: "tel:+18324371000",
             type: "phone",
           },
