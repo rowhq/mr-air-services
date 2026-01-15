@@ -998,32 +998,31 @@ ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 INSERT INTO site_config (key, value) VALUES
   -- Hero
-  ('services_page_hero_title', 'HVAC Services'),
-  ('services_page_hero_description', 'From emergency repairs to preventive maintenance. Same-day service available.'),
+  ('services_hero_title', 'HVAC Services'),
+  ('services_hero_description', 'From emergency repairs to preventive maintenance. Same-day service available.'),
   -- AC Repair Card
-  ('services_page_ac_badge', 'Same-Day'),
-  ('services_page_ac_title', 'AC Repair'),
-  ('services_page_ac_description', 'AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.'),
-  ('services_page_ac_feature_1', 'All major brands'),
-  ('services_page_ac_feature_2', 'Upfront pricing'),
-  ('services_page_ac_feature_3', 'Parts warranty'),
-  ('services_page_ac_button', 'Schedule Repair'),
+  ('services_ac_badge', 'Same-Day'),
+  ('services_ac_title', 'AC Repair'),
+  ('services_ac_description', 'AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.'),
+  ('services_ac_feature_1', 'All major brands'),
+  ('services_ac_feature_2', 'Upfront pricing'),
+  ('services_ac_feature_3', 'Parts warranty'),
+  ('services_ac_button', 'Schedule Repair'),
   -- Heating Card
-  ('services_page_heating_badge', 'All Brands'),
-  ('services_page_heating_title', 'Heating'),
-  ('services_page_heating_description', 'Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We''ll help you pick the right one.'),
-  ('services_page_heating_feature_1', 'Furnaces & heat pumps'),
-  ('services_page_heating_feature_2', 'Emergency service'),
-  ('services_page_heating_feature_3', 'Free estimates'),
-  ('services_page_heating_button', 'Get Help Now'),
+  ('services_heating_title', 'Heating'),
+  ('services_heating_description', 'Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We''ll help you pick the right one.'),
+  ('services_heating_feature_1', 'Furnace repair'),
+  ('services_heating_feature_2', 'Heat pumps'),
+  ('services_heating_feature_3', 'Emergency service'),
+  ('services_heating_button', 'Schedule Service'),
   -- Tune-Ups Card
-  ('services_page_tuneups_badge', 'FREE for Qualifying'),
-  ('services_page_tuneups_title', 'CoolSaver Tune-Ups'),
-  ('services_page_tuneups_description', '13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.'),
-  ('services_page_tuneups_feature_1', 'Prevent breakdowns'),
-  ('services_page_tuneups_feature_2', 'Lower energy bills'),
-  ('services_page_tuneups_feature_3', 'Extend system life'),
-  ('services_page_tuneups_button', 'Check If You Qualify')
+  ('services_tuneups_badge', 'FREE for Qualifying'),
+  ('services_tuneups_title', 'CoolSaver Tune-Ups'),
+  ('services_tuneups_description', '13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.'),
+  ('services_tuneups_feature_1', '13-point inspection'),
+  ('services_tuneups_feature_2', 'Filter replacement'),
+  ('services_tuneups_feature_3', 'Coil cleaning'),
+  ('services_tuneups_button', 'Check If You Qualify')
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 -- =====================================================
@@ -1032,37 +1031,41 @@ ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 INSERT INTO site_config (key, value) VALUES
   -- Hero
-  ('ac_repair_page_hero_title', 'AC Dead? We''re On It.'),
-  ('ac_repair_page_hero_description', 'Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.'),
-  ('ac_repair_page_hero_primary_button', 'Schedule Repair'),
-  ('ac_repair_page_hero_secondary_button', 'Call (832) 437-1000'),
+  ('ac_repair_hero_title', 'AC Dead? We''re On It.'),
+  ('ac_repair_hero_description', 'Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.'),
+  ('ac_repair_hero_primary_button', 'Schedule AC Repair'),
+  ('ac_repair_hero_secondary_button', 'Call (832) 437-1000'),
+  ('ac_repair_hero_trust_1', 'Same-day service'),
+  ('ac_repair_hero_trust_2', 'All brands serviced'),
+  ('ac_repair_hero_trust_3', 'No hidden fees'),
+  -- Brands
+  ('ac_repair_brands_label', 'We service:'),
   -- Problems Section
-  ('ac_repair_page_problems_badge', 'Common Issues'),
-  ('ac_repair_page_problems_title', 'We Fix These Every Day'),
-  ('ac_repair_page_problems_description', 'Houston heat is brutal on AC systems. Here''s what we see most often.'),
-  -- Repair Types
-  ('ac_repair_page_repair_1_title', 'AC Not Cooling'),
-  ('ac_repair_page_repair_1_description', 'Refrigerant leaks, compressor issues, or airflow problems—we''ll find it and fix it.'),
-  ('ac_repair_page_repair_2_title', 'Strange Noises'),
-  ('ac_repair_page_repair_2_description', 'Grinding, squealing, or banging? Usually means parts are failing. Best to catch it early.'),
-  ('ac_repair_page_repair_3_title', 'Won''t Turn On'),
-  ('ac_repair_page_repair_3_description', 'Could be electrical, thermostat, or the unit itself. We diagnose fast.'),
-  ('ac_repair_page_repair_4_title', 'Frozen Coils'),
-  ('ac_repair_page_repair_4_description', 'Ice on your AC unit means something''s wrong—low refrigerant, dirty coils, or airflow issues.'),
-  ('ac_repair_page_repair_5_title', 'Water Leaks'),
-  ('ac_repair_page_repair_5_description', 'Clogged drain line or a bigger problem? We''ll figure it out and stop the leak.'),
-  ('ac_repair_page_repair_6_title', 'High Energy Bills'),
-  ('ac_repair_page_repair_6_description', 'If your bills spiked, your system''s working too hard. Often an easy fix.'),
-  -- FAQ
-  ('ac_repair_page_faq_subtitle', 'Straight answers to common questions.'),
-  ('ac_repair_page_faq_1_question', 'How fast can you get here?'),
-  ('ac_repair_page_faq_1_answer', 'Usually same day in Houston. Look, when it''s 100 degrees and your AC just died, you don''t need someone telling you ''maybe Thursday.'' We get it.'),
-  ('ac_repair_page_faq_2_question', 'Do you work on my brand?'),
-  ('ac_repair_page_faq_2_answer', 'Ruud, Lennox, Goodman, Trane, American Standard, Carrier—we service all major brands. If it cools air, we''ve worked on it.'),
-  ('ac_repair_page_faq_3_question', 'What''s this gonna cost me?'),
-  ('ac_repair_page_faq_3_answer', 'Depends what''s broken. But you''ll know the exact price before we start. No "oh by the way" charges at the end.'),
-  ('ac_repair_page_faq_4_question', 'Should I just replace this thing?'),
-  ('ac_repair_page_faq_4_answer', 'If your unit is 10-15+ years old and the repair costs more than half a new system, replacement usually makes more sense. We''ll tell you straight—no upselling.')
+  ('ac_repair_problems_title', 'Common AC Problems We Fix'),
+  ('ac_repair_problems_subtitle', 'With years of Houston experience, we diagnose and repair these issues daily'),
+  -- Problem Types (note: _desc not _description)
+  ('ac_repair_problem_1_title', 'AC Not Cooling'),
+  ('ac_repair_problem_1_desc', 'Refrigerant leaks, compressor issues, or airflow problems'),
+  ('ac_repair_problem_2_title', 'Strange Noises'),
+  ('ac_repair_problem_2_desc', 'Grinding, squealing, or banging sounds from your unit'),
+  ('ac_repair_problem_3_title', 'Won''t Turn On'),
+  ('ac_repair_problem_3_desc', 'Electrical, thermostat, or capacitor failures'),
+  ('ac_repair_problem_4_title', 'Frozen Coils'),
+  ('ac_repair_problem_4_desc', 'Ice buildup from restricted airflow or low refrigerant'),
+  ('ac_repair_problem_5_title', 'Water Leaks'),
+  ('ac_repair_problem_5_desc', 'Clogged drain lines or damaged condensate pans'),
+  ('ac_repair_problem_6_title', 'High Energy Bills'),
+  ('ac_repair_problem_6_desc', 'Inefficient operation or failing components'),
+  -- FAQ (note: _q and _a not _question and _answer)
+  ('ac_repair_faq_subtitle', 'Got questions? We''ve got answers.'),
+  ('ac_repair_faq_1_q', 'How fast can you get here?'),
+  ('ac_repair_faq_1_a', 'Usually same day in Houston. Look, when it''s 100 degrees and your AC just died, you don''t need someone telling you ''maybe Thursday.'' We get it.'),
+  ('ac_repair_faq_2_q', 'Do you work on my brand?'),
+  ('ac_repair_faq_2_a', 'Ruud, Lennox, Goodman, Trane, American Standard, Carrier—we service all major brands. If it cools air, we''ve worked on it.'),
+  ('ac_repair_faq_3_q', 'What''s this gonna cost me?'),
+  ('ac_repair_faq_3_a', 'Depends what''s broken. But you''ll know the exact price before we start. No "oh by the way" charges at the end.'),
+  ('ac_repair_faq_4_q', 'Should I just replace this thing?'),
+  ('ac_repair_faq_4_a', 'If your unit is 10-15+ years old and the repair costs more than half a new system, replacement usually makes more sense. We''ll tell you straight—no upselling.')
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 -- =====================================================
