@@ -15,7 +15,7 @@
 INSERT INTO cms_users (email, password_hash, name, role) VALUES
   (
     'admin@mrairservices.com',
-    '$2a$10$rQEY9zAqFz8wDH5mVZJEv.Y3H5N8B4JQ9Z3ZFz8R6L0Kj5X2W3Y4u',
+    '$2a$10$XQxBtX5dFLDr8MLPUUmz4OGKnHS0k/PK.Kdgt3TdLVvOvfJvKJ6Hy',
     'Admin',
     'admin'
   )
