@@ -959,3 +959,279 @@ INSERT INTO site_config (key, value) VALUES
   ('contact_page_success_message', 'Thank you for contacting Mr. Air Services. We''ll respond within 24 hours.'),
   ('contact_page_service_area', 'Serving Greater Houston Area')
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- PAY INVOICE PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  ('pay_invoice_title', 'Pay Your Invoice'),
+  ('pay_invoice_description', 'Quick, secure payment. Takes less than a minute.'),
+  ('pay_invoice_trust_1', 'Secure payment'),
+  ('pay_invoice_trust_2', 'All cards accepted'),
+  ('pay_invoice_trust_3', 'Instant confirmation'),
+  ('pay_invoice_help_title', 'Need Help?'),
+  ('pay_invoice_help_description', 'Questions about your invoice or payment options?'),
+  ('pay_invoice_financing_link', 'View financing options')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- SERVICES HUB PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  -- Hero
+  ('services_page_hero_title', 'HVAC Services'),
+  ('services_page_hero_description', 'From emergency repairs to preventive maintenance. Same-day service available.'),
+  -- AC Repair Card
+  ('services_page_ac_badge', 'Same-Day'),
+  ('services_page_ac_title', 'AC Repair'),
+  ('services_page_ac_description', 'AC not cooling? Making weird noises? We diagnose fast and fix it right. Same-day service available.'),
+  ('services_page_ac_feature_1', 'All major brands'),
+  ('services_page_ac_feature_2', 'Upfront pricing'),
+  ('services_page_ac_feature_3', 'Parts warranty'),
+  ('services_page_ac_button', 'Schedule Repair'),
+  -- Heating Card
+  ('services_page_heating_badge', 'All Brands'),
+  ('services_page_heating_title', 'Heating'),
+  ('services_page_heating_description', 'Furnace acting up? Heat pump on the fritz? We fix it. Need a new system? We''ll help you pick the right one.'),
+  ('services_page_heating_feature_1', 'Furnaces & heat pumps'),
+  ('services_page_heating_feature_2', 'Emergency service'),
+  ('services_page_heating_feature_3', 'Free estimates'),
+  ('services_page_heating_button', 'Get Help Now'),
+  -- Tune-Ups Card
+  ('services_page_tuneups_badge', 'FREE for Qualifying'),
+  ('services_page_tuneups_title', 'CoolSaver Tune-Ups'),
+  ('services_page_tuneups_description', '13-point inspection to catch problems before they become emergencies. FREE for qualifying homeowners.'),
+  ('services_page_tuneups_feature_1', 'Prevent breakdowns'),
+  ('services_page_tuneups_feature_2', 'Lower energy bills'),
+  ('services_page_tuneups_feature_3', 'Extend system life'),
+  ('services_page_tuneups_button', 'Check If You Qualify')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- AC REPAIR PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  -- Hero
+  ('ac_repair_page_hero_title', 'AC Dead? We''re On It.'),
+  ('ac_repair_page_hero_description', 'Fast diagnosis, straight quotes, fixed right the first time. Same-day service available.'),
+  ('ac_repair_page_hero_primary_button', 'Schedule Repair'),
+  ('ac_repair_page_hero_secondary_button', 'Call (832) 437-1000'),
+  -- Problems Section
+  ('ac_repair_page_problems_badge', 'Common Issues'),
+  ('ac_repair_page_problems_title', 'We Fix These Every Day'),
+  ('ac_repair_page_problems_description', 'Houston heat is brutal on AC systems. Here''s what we see most often.'),
+  -- Repair Types
+  ('ac_repair_page_repair_1_title', 'AC Not Cooling'),
+  ('ac_repair_page_repair_1_description', 'Refrigerant leaks, compressor issues, or airflow problems—we''ll find it and fix it.'),
+  ('ac_repair_page_repair_2_title', 'Strange Noises'),
+  ('ac_repair_page_repair_2_description', 'Grinding, squealing, or banging? Usually means parts are failing. Best to catch it early.'),
+  ('ac_repair_page_repair_3_title', 'Won''t Turn On'),
+  ('ac_repair_page_repair_3_description', 'Could be electrical, thermostat, or the unit itself. We diagnose fast.'),
+  ('ac_repair_page_repair_4_title', 'Frozen Coils'),
+  ('ac_repair_page_repair_4_description', 'Ice on your AC unit means something''s wrong—low refrigerant, dirty coils, or airflow issues.'),
+  ('ac_repair_page_repair_5_title', 'Water Leaks'),
+  ('ac_repair_page_repair_5_description', 'Clogged drain line or a bigger problem? We''ll figure it out and stop the leak.'),
+  ('ac_repair_page_repair_6_title', 'High Energy Bills'),
+  ('ac_repair_page_repair_6_description', 'If your bills spiked, your system''s working too hard. Often an easy fix.'),
+  -- FAQ
+  ('ac_repair_page_faq_subtitle', 'Straight answers to common questions.'),
+  ('ac_repair_page_faq_1_question', 'How fast can you get here?'),
+  ('ac_repair_page_faq_1_answer', 'Usually same day in Houston. Look, when it''s 100 degrees and your AC just died, you don''t need someone telling you ''maybe Thursday.'' We get it.'),
+  ('ac_repair_page_faq_2_question', 'Do you work on my brand?'),
+  ('ac_repair_page_faq_2_answer', 'Ruud, Lennox, Goodman, Trane, American Standard, Carrier—we service all major brands. If it cools air, we''ve worked on it.'),
+  ('ac_repair_page_faq_3_question', 'What''s this gonna cost me?'),
+  ('ac_repair_page_faq_3_answer', 'Depends what''s broken. But you''ll know the exact price before we start. No "oh by the way" charges at the end.'),
+  ('ac_repair_page_faq_4_question', 'Should I just replace this thing?'),
+  ('ac_repair_page_faq_4_answer', 'If your unit is 10-15+ years old and the repair costs more than half a new system, replacement usually makes more sense. We''ll tell you straight—no upselling.')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- HEATING PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  -- Hero
+  ('heating_page_hero_title', 'Heat Out? We''re On It.'),
+  ('heating_page_hero_description', 'Furnaces, heat pumps, all brands. Same-day emergency service when you need it most.'),
+  ('heating_page_hero_primary_button', 'Schedule Heating Service'),
+  ('heating_page_hero_secondary_button', 'Call (832) 437-1000'),
+  -- Services Section
+  ('heating_page_services_badge', 'Heating Services'),
+  ('heating_page_services_title', 'Everything Heating'),
+  ('heating_page_services_description', 'From "won''t turn on" to "smells weird" to "I need a whole new system." We handle it.'),
+  -- Service 1
+  ('heating_page_service_1_title', 'Heating Repair'),
+  ('heating_page_service_1_description', 'We fix furnaces, heat pumps, all brands. Same-day emergency service available.'),
+  ('heating_page_service_1_stat', '24/7'),
+  ('heating_page_service_1_stat_label', 'emergency'),
+  -- Service 2
+  ('heating_page_service_2_title', 'New Installation'),
+  ('heating_page_service_2_description', 'Need a new system? We help you pick the right size for your home. Financing available.'),
+  ('heating_page_service_2_stat', 'Free'),
+  ('heating_page_service_2_stat_label', 'estimates'),
+  -- Inspection Section
+  ('heating_page_inspection_title', '12-Point Furnace Inspection'),
+  ('heating_page_inspection_description', 'Our inspection covers Safety, Performance, and Efficiency—the three pillars of a healthy heating system.'),
+  -- Phase 1
+  ('heating_page_phase_1_name', 'Safety'),
+  ('heating_page_phase_1_item_1', 'We make sure all safety switches actually work'),
+  ('heating_page_phase_1_item_2', 'We look for dangerous gas leaks'),
+  ('heating_page_phase_1_item_3', 'Carbon monoxide detector test'),
+  ('heating_page_phase_1_item_4', 'Gas lines and vents inspection'),
+  -- Phase 2
+  ('heating_page_phase_2_name', 'Performance'),
+  ('heating_page_phase_2_item_1', 'We test all electrical connections'),
+  ('heating_page_phase_2_item_2', 'We verify it heats properly'),
+  ('heating_page_phase_2_item_3', 'We adjust the flame and fan'),
+  ('heating_page_phase_2_item_4', 'We clean the burners'),
+  -- Phase 3
+  ('heating_page_phase_3_name', 'Efficiency'),
+  ('heating_page_phase_3_item_1', 'Thermostat accuracy check'),
+  ('heating_page_phase_3_item_2', 'Filter replacement if needed'),
+  ('heating_page_phase_3_item_3', 'Efficiency rating assessment'),
+  ('heating_page_phase_3_item_4', 'Personalized recommendations'),
+  -- Safety Callout
+  ('heating_page_safety_title', 'Carbon Monoxide: The Silent Killer'),
+  ('heating_page_safety_description', 'A cracked heat exchanger can leak odorless, invisible CO into your home. 430+ Americans die from CO poisoning annually—most cases are preventable with regular inspections. Don''t skip your yearly tune-up.'),
+  -- Warnings Section
+  ('heating_page_warnings_badge', 'Know the Signs'),
+  ('heating_page_warnings_title', 'Is Your Heater Asking for Help?'),
+  ('heating_page_warnings_description', 'Your heating system gives you clues before it fails. Here are the 4 most important signs.'),
+  ('heating_page_emergency_title', 'Smell Gas? Get Out Now.'),
+  ('heating_page_emergency_subtitle', 'Leave immediately. Don''t flip switches. Call from outside.'),
+  -- Warning Cards
+  ('heating_page_warning_1_title', 'Yellow Pilot Light'),
+  ('heating_page_warning_1_description', 'Should be blue. Yellow means incomplete combustion—schedule a checkup.'),
+  ('heating_page_warning_2_title', 'Strange Sounds'),
+  ('heating_page_warning_2_description', 'Banging, squealing, or rattling usually means parts are wearing out.'),
+  ('heating_page_warning_3_title', 'Short Cycling'),
+  ('heating_page_warning_3_description', 'Turns on and off constantly? Could be the thermostat or a dirty filter.'),
+  ('heating_page_warning_4_title', 'Higher Bills'),
+  ('heating_page_warning_4_description', 'Sudden spike in energy costs? Your system may be losing efficiency.'),
+  -- FAQ
+  ('heating_page_faq_subtitle', 'Everything you need to know about heating services.'),
+  ('heating_page_faq_1_question', 'How often do I need to service my heater?'),
+  ('heating_page_faq_1_answer', 'Once a year, before winter. Prevents breakdowns, carbon monoxide leaks, and inefficiency. Think of it like an oil change—skip it and pay later.'),
+  ('heating_page_faq_2_question', 'Furnace or heat pump—what''s the difference?'),
+  ('heating_page_faq_2_answer', 'Furnaces burn fuel to make heat. Heat pumps move heat from outside air. For Houston''s mild winters, heat pumps are usually cheaper to run. We''ll help you pick.'),
+  ('heating_page_faq_3_question', 'How long will my heater last?'),
+  ('heating_page_faq_3_answer', 'Furnaces: 15-20 years. Heat pumps: 10-15 years. With maintenance. Without it? Less. We can look at yours and tell you if it''s worth fixing or time to replace.'),
+  ('heating_page_faq_4_question', 'Can I finance a new system?'),
+  ('heating_page_faq_4_answer', 'Yep. We''ve got flexible financing so you don''t have to choose between heat and groceries. Ask us about payment plans when we give you a quote.')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- TUNE-UPS PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  -- Hero
+  ('tuneups_page_hero_title', 'Annual AC Tune-Up & Preventative Maintenance'),
+  ('tuneups_page_hero_description', 'Keep your system running at peak efficiency. FREE CoolSaver tune-ups for qualifying homeowners, or schedule your annual inspection today.'),
+  ('tuneups_page_hero_primary_button', 'Check If You Qualify — FREE'),
+  ('tuneups_page_hero_secondary_button', 'Call (832) 437-1000'),
+  ('tuneups_page_trust_1', 'NATE certified techs'),
+  ('tuneups_page_trust_2', '100% satisfaction guaranteed'),
+  ('tuneups_page_trust_3', 'Veteran owned'),
+  -- Info Card
+  ('tuneups_page_card_badge', 'Annual Maintenance'),
+  ('tuneups_page_card_title', 'AC Inspection & Tune-Up'),
+  ('tuneups_page_card_key_highlight', 'Any system 1 year or older'),
+  ('tuneups_page_card_key_point', 'should have an annual inspection/tune-up to get the most from your investment.'),
+  ('tuneups_page_card_feature_1', 'Increase system efficiency'),
+  ('tuneups_page_card_feature_2', 'Prevent unexpected breakdowns'),
+  ('tuneups_page_card_feature_3', 'Ensure adequate cooling'),
+  ('tuneups_page_card_feature_4', 'Lower electrical costs'),
+  ('tuneups_page_card_contact_label', 'Questions? Contact us:'),
+  ('tuneups_page_card_email', 'customerservice@mrairservices.com'),
+  -- Checklist Section
+  ('tuneups_page_checklist_badge', 'Complete Inspection'),
+  ('tuneups_page_checklist_title', 'What We Check'),
+  ('tuneups_page_checklist_description', 'A thorough inspection that catches problems before they become expensive emergencies.'),
+  ('tuneups_page_checklist_1', 'Inspect refrigerant level'),
+  ('tuneups_page_checklist_2', 'Inspect and clean condenser coils'),
+  ('tuneups_page_checklist_3', 'Inspect and clean contactor'),
+  ('tuneups_page_checklist_4', 'Check and calibrate thermostat'),
+  ('tuneups_page_checklist_5', 'Inspect airflow for proper specifications'),
+  ('tuneups_page_checklist_6', 'Inspect the evaporator coil'),
+  ('tuneups_page_checklist_7', 'Clean electrical and blower compartments'),
+  ('tuneups_page_checklist_8', 'Tighten electrical connections'),
+  ('tuneups_page_checklist_9', 'Inspect capacitors and relays'),
+  ('tuneups_page_checklist_10', 'Inspect all drain lines'),
+  ('tuneups_page_checklist_11', 'Check compressor for proper amp draw'),
+  ('tuneups_page_checklist_12', 'Check all motors for proper amp draw'),
+  ('tuneups_page_checklist_13', 'Oil the motors if required'),
+  -- Benefits Section
+  ('tuneups_page_benefits_title', 'Three Reasons to'),
+  ('tuneups_page_benefits_highlight', 'Act Today'),
+  ('tuneups_page_benefits_subtitle', 'Not tomorrow. Not next month. Today.'),
+  ('tuneups_page_benefit_1_title', 'Lower Your Energy Bills'),
+  ('tuneups_page_benefit_1_description', 'A clean, well-maintained system runs more efficiently. Better efficiency means lower monthly utility costs.'),
+  ('tuneups_page_benefit_2_title', 'Prevent Costly Repairs'),
+  ('tuneups_page_benefit_2_description', 'We catch small issues before they become expensive emergencies. Regular maintenance saves you money long-term.'),
+  ('tuneups_page_benefit_3_title', 'Extend System Lifespan'),
+  ('tuneups_page_benefit_3_description', 'A well-maintained system lasts years longer. That''s thousands you''re not spending on a new unit.')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+
+-- =====================================================
+-- FINANCING PAGE CONFIGURATION
+-- =====================================================
+
+INSERT INTO site_config (key, value) VALUES
+  -- Hero
+  ('financing_page_hero_title', 'Don''t Sweat the Bill'),
+  ('financing_page_hero_description', 'New AC isn''t cheap. Neither is sleeping in a 90-degree house. We''ve got financing so you don''t have to choose between comfort and your budget.'),
+  ('financing_page_hero_subtitle', '5-minute application. Decision before we leave. Options for all credit profiles.'),
+  ('financing_page_hero_primary_button', 'Apply for Financing'),
+  ('financing_page_hero_secondary_button', 'Call (832) 437-1000'),
+  ('financing_page_trust_1', 'Quick Decision'),
+  ('financing_page_trust_2', '5-Min Apply'),
+  ('financing_page_trust_3', 'No Penalties'),
+  -- Reality Section
+  ('financing_page_reality_title', 'Don''t Let a Big Bill Catch You Off Guard'),
+  ('financing_page_reality_description', 'We get it—nobody budgets for a dead AC. That''s why we make financing simple:'),
+  ('financing_page_without_title', 'Without Financing'),
+  ('financing_page_without_description', 'Big upfront cost. Credit card debt. Drained savings.'),
+  ('financing_page_with_title', 'With Financing'),
+  ('financing_page_with_description', 'Easy monthly payments. Keep your savings. Stay comfortable.'),
+  ('financing_page_stat_value', '5 min'),
+  ('financing_page_stat_label', 'to apply'),
+  ('financing_page_reality_button', 'See Your Payment Options'),
+  -- How It Works Section
+  ('financing_page_hiw_badge', 'Simple Process'),
+  ('financing_page_hiw_title', 'How It Works'),
+  ('financing_page_hiw_description', 'From quote to approval in one visit. No waiting, no wondering.'),
+  ('financing_page_hiw_button', 'Start Your Application'),
+  ('financing_page_step_1_title', 'Get a Quote'),
+  ('financing_page_step_1_description', 'We tell you exactly what it costs. No hidden fees, no surprises.'),
+  ('financing_page_step_2_title', 'Apply in 5 Minutes'),
+  ('financing_page_step_2_description', 'Your tech helps you right there. Quick form, basic info.'),
+  ('financing_page_step_3_title', 'Instant Decision'),
+  ('financing_page_step_3_description', 'You''ll know before we leave. If one lender says no, we try others.'),
+  ('financing_page_step_4_title', 'Stay Comfortable'),
+  ('financing_page_step_4_description', 'We do the work. You make easy monthly payments. Done.'),
+  -- FAQ Section
+  ('financing_page_faq_subtitle', 'Questions about financing? We''ve got real answers.'),
+  ('financing_page_faq_1_question', 'What credit score do I need?'),
+  ('financing_page_faq_1_answer', 'Honestly? We work with a bunch of different lenders. Even if your credit''s seen better days, we can usually find something.'),
+  ('financing_page_faq_2_question', 'What''s the interest rate?'),
+  ('financing_page_faq_2_answer', 'Rates depend on your credit profile and term length. Apply to see your personalized options—it only takes 5 minutes and you''ll know right away.'),
+  ('financing_page_faq_3_question', 'How do I apply?'),
+  ('financing_page_faq_3_answer', 'Takes 5 minutes. Your tech can help you on the spot, or call our office. You''ll know if you''re approved before we leave.'),
+  ('financing_page_faq_4_question', 'What if I get denied?'),
+  ('financing_page_faq_4_answer', 'We''ve got multiple financing partners. If one says no, we try others. Most people who apply get approved somewhere. Your AC broke—that''s stressful enough without worrying about credit.'),
+  ('financing_page_faq_5_question', 'Can I pay it off early?'),
+  ('financing_page_faq_5_answer', 'Yep. No prepayment penalties. Pay it off whenever you want without extra fees.'),
+  ('financing_page_faq_6_question', 'What''s the minimum to finance?'),
+  ('financing_page_faq_6_answer', 'Minimums vary by lender. Most major repairs and new system installations qualify. Ask us for details.'),
+  ('financing_page_faq_7_question', 'Any discounts for veterans or seniors?'),
+  ('financing_page_faq_7_answer', 'Absolutely. We''ve got discounts for seniors, military, and first responders. Just ask when you schedule. We don''t make you jump through hoops.'),
+  -- Final CTA
+  ('financing_page_cta_title', 'Already a customer with an invoice?'),
+  ('financing_page_cta_subtitle', 'Pay your invoice quickly and securely online.'),
+  ('financing_page_cta_primary', 'Pay Your Invoice'),
+  ('financing_page_cta_secondary', 'Questions? (832) 437-1000')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
