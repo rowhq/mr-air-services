@@ -1460,3 +1460,30 @@ BEGIN
     ON CONFLICT DO NOTHING;
   END IF;
 END $$;
+
+-- =====================================================
+-- CONTACT PAGE CONFIGURATION
+-- =====================================================
+
+-- Contact Page Content (all text is CMS-editable)
+INSERT INTO site_config (key, value) VALUES
+  ('contact_page_title', 'Get In Touch'),
+  ('contact_page_subtitle', 'Fill out the form or call us directly.'),
+  ('contact_page_call_cta', 'Call us now'),
+  ('contact_page_form_title', 'Send a Message'),
+  ('contact_page_form_subtitle', 'We''ll get back to you within 24 hours.'),
+  ('contact_page_label_name', 'Full Name'),
+  ('contact_page_label_email', 'Email Address'),
+  ('contact_page_label_phone', 'Phone Number'),
+  ('contact_page_label_time', 'Preferred Time'),
+  ('contact_page_label_services', 'Services Needed'),
+  ('contact_page_label_message', 'Tell us about your HVAC needs...'),
+  ('contact_page_time_morning', 'Morning (8AM - 12PM)'),
+  ('contact_page_time_afternoon', 'Afternoon (12PM - 5PM)'),
+  ('contact_page_time_flexible', 'Flexible'),
+  ('contact_page_submit_button', 'Submit Form'),
+  ('contact_page_privacy_text', 'By submitting, you agree to our'),
+  ('contact_page_success_title', 'Message Sent!'),
+  ('contact_page_success_message', 'Thank you for contacting Mr. Air Services. We''ll respond within 24 hours.'),
+  ('contact_page_service_area', 'Serving Greater Houston Area')
+ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;

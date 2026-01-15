@@ -1,0 +1,612 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui';
+
+// Service option type from CMS
+interface ServiceOption {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+// Business info from CMS
+interface BusinessInfo {
+  phone: string;
+  email: string;
+  hours: string;
+}
+
+// Page content configuration from CMS
+export interface ContactPageConfig {
+  title: string;
+  subtitle: string;
+  callCtaLabel: string;
+  formTitle: string;
+  formSubtitle: string;
+  labels: {
+    name: string;
+    email: string;
+    phone: string;
+    preferredTime: string;
+    services: string;
+    message: string;
+  };
+  placeholders: {
+    message: string;
+  };
+  timeOptions: {
+    morning: string;
+    afternoon: string;
+    flexible: string;
+  };
+  submitButton: string;
+  privacyText: string;
+  successTitle: string;
+  successMessage: string;
+  serviceArea: string;
+}
+
+// Default config values (fallback)
+const defaultConfig: ContactPageConfig = {
+  title: 'Get In Touch',
+  subtitle: 'Fill out the form or call us directly.',
+  callCtaLabel: 'Call us now',
+  formTitle: 'Send a Message',
+  formSubtitle: "We'll get back to you within 24 hours.",
+  labels: {
+    name: 'Full Name',
+    email: 'Email Address',
+    phone: 'Phone Number',
+    preferredTime: 'Preferred Time',
+    services: 'Services Needed',
+    message: 'Tell us about your HVAC needs...',
+  },
+  placeholders: {
+    message: 'Tell us about your HVAC needs...',
+  },
+  timeOptions: {
+    morning: 'Morning (8AM - 12PM)',
+    afternoon: 'Afternoon (12PM - 5PM)',
+    flexible: 'Flexible',
+  },
+  submitButton: 'Submit Form',
+  privacyText: 'By submitting, you agree to our',
+  successTitle: 'Message Sent!',
+  successMessage: "Thank you for contacting Mr. Air Services. We'll respond within 24 hours.",
+  serviceArea: 'Serving Greater Houston Area',
+};
+
+// Default service options (fallback)
+const defaultServiceOptions: ServiceOption[] = [
+  { id: 'ac-repair', label: 'AC Repair', icon: 'ac-repair' },
+  { id: 'ac-tune-up', label: 'AC Tune-Up', icon: 'ac-tune-up' },
+  { id: 'heating', label: 'Heating', icon: 'heating' },
+  { id: 'new-installation', label: 'Installation', icon: 'new-installation' },
+  { id: 'maintenance', label: 'Maintenance', icon: 'maintenance' },
+  { id: 'other', label: 'Other', icon: 'other' },
+];
+
+// Default business info (fallback)
+const defaultBusinessInfo: BusinessInfo = {
+  phone: '(832) 437-1000',
+  email: 'info@mrairservices.com',
+  hours: 'Mon–Fri: 8AM–5PM',
+};
+
+// SVG Icons for services
+const ServiceIcons: Record<string, React.ReactNode> = {
+  'ac-repair': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+      <circle cx="12" cy="12" r="4" strokeWidth={1.5} />
+    </svg>
+  ),
+  'ac-tune-up': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>
+  ),
+  'heating': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+    </svg>
+  ),
+  'new-installation': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+    </svg>
+  ),
+  'maintenance': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+    </svg>
+  ),
+  'other': (
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+    </svg>
+  ),
+};
+
+function getIsOpen(): { isOpen: boolean; statusText: string } {
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+
+  if (day >= 1 && day <= 5 && hour >= 8 && hour < 17) {
+    return { isOpen: true, statusText: 'Open Now' };
+  }
+  if (day === 6) {
+    return { isOpen: false, statusText: 'By Appointment' };
+  }
+  return { isOpen: false, statusText: 'Closed' };
+}
+
+interface ContactPageClientProps {
+  config?: Partial<ContactPageConfig>;
+  initialServices?: ServiceOption[];
+  initialBusinessInfo?: Partial<BusinessInfo>;
+}
+
+export function ContactPageClient({
+  config: configProp,
+  initialServices,
+  initialBusinessInfo
+}: ContactPageClientProps) {
+  // Merge provided config with defaults
+  const config: ContactPageConfig = {
+    ...defaultConfig,
+    ...configProp,
+    labels: { ...defaultConfig.labels, ...configProp?.labels },
+    placeholders: { ...defaultConfig.placeholders, ...configProp?.placeholders },
+    timeOptions: { ...defaultConfig.timeOptions, ...configProp?.timeOptions },
+  };
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    preferredTime: '',
+    services: [] as string[],
+    message: '',
+  });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const [openStatus, setOpenStatus] = useState({ isOpen: false, statusText: 'Closed' });
+  const [serviceOptions, setServiceOptions] = useState<ServiceOption[]>(initialServices || defaultServiceOptions);
+  const [businessInfo, setBusinessInfo] = useState<BusinessInfo>({
+    ...defaultBusinessInfo,
+    ...initialBusinessInfo,
+  });
+
+  useEffect(() => {
+    setMounted(true);
+    setOpenStatus(getIsOpen());
+    const interval = setInterval(() => setOpenStatus(getIsOpen()), 60000);
+
+    // Fetch services from CMS if not provided
+    if (!initialServices) {
+      fetch('/api/cms/services')
+        .then(res => res.ok ? res.json() : [])
+        .then(services => {
+          if (services.length > 0) {
+            const options: ServiceOption[] = services.map((s: { slug: string; title: string; icon?: string }) => ({
+              id: s.slug || s.title.toLowerCase().replace(/\s+/g, '-'),
+              label: s.title,
+              icon: s.icon || 'other',
+            }));
+            // Always add "Other" option
+            if (!options.find(o => o.id === 'other')) {
+              options.push({ id: 'other', label: 'Other', icon: 'other' });
+            }
+            setServiceOptions(options);
+          }
+        })
+        .catch(() => {/* Use defaults */});
+    }
+
+    // Fetch business info from CMS if not provided
+    if (!initialBusinessInfo) {
+      Promise.all([
+        fetch('/api/cms/config?key=company_phone').then(r => r.ok ? r.json() : null),
+        fetch('/api/cms/config?key=company_email').then(r => r.ok ? r.json() : null),
+        fetch('/api/cms/config?key=business_hours').then(r => r.ok ? r.json() : null),
+      ]).then(([phoneData, emailData, hoursData]) => {
+        setBusinessInfo({
+          phone: phoneData?.value || defaultBusinessInfo.phone,
+          email: emailData?.value || defaultBusinessInfo.email,
+          hours: hoursData?.value || defaultBusinessInfo.hours,
+        });
+      }).catch(() => {/* Use defaults */});
+    }
+
+    return () => clearInterval(interval);
+  }, [initialServices, initialBusinessInfo]);
+
+  const handleServiceToggle = (serviceId: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      services: prev.services.includes(serviceId)
+        ? prev.services.filter((s) => s !== serviceId)
+        : [...prev.services, serviceId],
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch('/api/cms/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          preferredTime: formData.preferredTime,
+          services: formData.services,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to submit form');
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const isFieldActive = (field: string, value: string) => focusedField === field || value.length > 0;
+
+  if (submitted) {
+    return (
+      <section className="min-h-screen flex items-center bg-white dark:bg-neutral-900">
+        <div className="container py-20">
+          <div className="max-w-2xl mx-auto text-center bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-12">
+            <div className="w-20 h-20 mx-auto bg-green-500 rounded-full flex items-center justify-center mb-8">
+              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-neutral-black dark:text-white mb-4">
+              {config.successTitle}
+            </h1>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
+              {config.successMessage}
+            </p>
+            <a href={`tel:${businessInfo.phone.replace(/[^0-9+]/g, '')}`} className="block w-full sm:w-auto">
+              <Button variant="secondary" size="lg" fullWidthMobile>
+                Call {businessInfo.phone}
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="min-h-screen pt-32 pb-20 bg-white dark:bg-neutral-900">
+      <div className="container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
+          {/* Left Column - Title & Contact Info */}
+          <div className={`lg:pt-8 transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-black dark:text-white mb-4 leading-tight">
+              {config.title}
+            </h1>
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 max-w-md">
+              {config.subtitle}
+            </p>
+
+            {/* Phone - Hero CTA */}
+            <a
+              href={`tel:${businessInfo.phone.replace(/[^0-9+]/g, '')}`}
+              className="group flex items-center gap-5 p-6 rounded-2xl bg-secondary hover:bg-secondary-hover transition-all mb-6"
+            >
+              <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+              </div>
+              <div className="flex-1">
+                <p className="text-white/80 text-sm mb-1">{config.callCtaLabel}</p>
+                <p className="text-2xl font-bold text-white">{businessInfo.phone}</p>
+              </div>
+              <svg className="w-6 h-6 text-white/60 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+
+            {/* Quick Info Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <a
+                href={`mailto:${businessInfo.email}`}
+                className="group p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400">Email</span>
+                </div>
+                <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 group-hover:text-secondary transition-colors truncate">
+                  {businessInfo.email}
+                </p>
+              </a>
+
+              <div className="p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <svg className="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400">Hours</span>
+                  <span className={`ml-auto text-xs font-medium px-2 py-0.5 rounded-full ${
+                    openStatus.isOpen
+                      ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+                      : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500'
+                  }`}>
+                    {openStatus.isOpen ? 'Open' : 'Closed'}
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-300">
+                  {businessInfo.hours}
+                </p>
+              </div>
+            </div>
+
+            {/* Service Area - Compact */}
+            <div className="flex items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400">
+              <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>{config.serviceArea}</span>
+            </div>
+          </div>
+
+          {/* Right Column - Form */}
+          <div className={`transition-opacity duration-500 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="bg-neutral-50 dark:bg-neutral-800 rounded-3xl p-5 sm:p-6 md:p-10">
+              <div className="mb-8">
+                <h2 className="text-2xl font-bold text-neutral-black dark:text-white mb-2">{config.formTitle}</h2>
+                <p className="text-neutral-500 dark:text-neutral-400">{config.formSubtitle}</p>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Name & Email Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onFocus={() => setFocusedField('name')}
+                      onBlur={() => setFocusedField(null)}
+                      className="peer w-full pl-14 pr-5 pt-6 pb-2 rounded-full border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-black dark:text-white focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all"
+                    />
+                    <label
+                      htmlFor="name"
+                      className={`absolute left-14 transition-all duration-200 pointer-events-none ${
+                        isFieldActive('name', formData.name)
+                          ? 'top-2 text-xs text-secondary'
+                          : 'top-1/2 -translate-y-1/2 text-neutral-400'
+                      }`}
+                    >
+                      {config.labels.name}
+                    </label>
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="email"
+                      id="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField(null)}
+                      className="peer w-full pl-14 pr-5 pt-6 pb-2 rounded-full border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-black dark:text-white focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all"
+                    />
+                    <label
+                      htmlFor="email"
+                      className={`absolute left-14 transition-all duration-200 pointer-events-none ${
+                        isFieldActive('email', formData.email)
+                          ? 'top-2 text-xs text-secondary'
+                          : 'top-1/2 -translate-y-1/2 text-neutral-400'
+                      }`}
+                    >
+                      {config.labels.email}
+                    </label>
+                  </div>
+                </div>
+
+                {/* Phone & Preferred Time Row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="relative">
+                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onFocus={() => setFocusedField('phone')}
+                      onBlur={() => setFocusedField(null)}
+                      className="peer w-full pl-14 pr-5 pt-6 pb-2 rounded-full border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-black dark:text-white focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all"
+                    />
+                    <label
+                      htmlFor="phone"
+                      className={`absolute left-14 transition-all duration-200 pointer-events-none ${
+                        isFieldActive('phone', formData.phone)
+                          ? 'top-2 text-xs text-secondary'
+                          : 'top-1/2 -translate-y-1/2 text-neutral-400'
+                      }`}
+                    >
+                      {config.labels.phone}
+                    </label>
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none z-10">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <select
+                      id="preferredTime"
+                      value={formData.preferredTime}
+                      onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                      onFocus={() => setFocusedField('preferredTime')}
+                      onBlur={() => setFocusedField(null)}
+                      className={`w-full pl-14 pr-10 pt-6 pb-2 rounded-full border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all appearance-none cursor-pointer ${
+                        formData.preferredTime ? 'text-neutral-black dark:text-white' : 'text-neutral-400'
+                      }`}
+                    >
+                      <option value="">Select time</option>
+                      <option value="morning">{config.timeOptions.morning}</option>
+                      <option value="afternoon">{config.timeOptions.afternoon}</option>
+                      <option value="flexible">{config.timeOptions.flexible}</option>
+                    </select>
+                    <label
+                      htmlFor="preferredTime"
+                      className="absolute left-14 top-2 text-xs text-secondary pointer-events-none"
+                    >
+                      {config.labels.preferredTime}
+                    </label>
+                    <div className="absolute right-5 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Services - 2 Column Grid with SVG Icons */}
+                <div>
+                  <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-3">
+                    {config.labels.services}
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {serviceOptions.map((service) => (
+                      <button
+                        key={service.id}
+                        type="button"
+                        onClick={() => handleServiceToggle(service.id)}
+                        className={`group flex flex-col items-center text-center gap-2 p-3 rounded-xl border transition-all duration-200 ${
+                          formData.services.includes(service.id)
+                            ? 'border-secondary bg-secondary/5'
+                            : 'border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 hover:border-secondary/50'
+                        }`}
+                      >
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                          formData.services.includes(service.id)
+                            ? 'bg-secondary text-white'
+                            : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 group-hover:bg-secondary/10 group-hover:text-secondary'
+                        }`}>
+                          {ServiceIcons[service.icon] || ServiceIcons['other']}
+                        </div>
+                        <span className={`text-xs font-medium ${
+                          formData.services.includes(service.id)
+                            ? 'text-secondary'
+                            : 'text-neutral-600 dark:text-neutral-400'
+                        }`}>
+                          {service.label}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Message Textarea */}
+                <div className="relative">
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    maxLength={500}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    onFocus={() => setFocusedField('message')}
+                    onBlur={() => setFocusedField(null)}
+                    className="peer w-full px-5 pt-8 pb-4 rounded-2xl border border-neutral-200 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-black dark:text-white focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-all resize-none"
+                  />
+                  <label
+                    htmlFor="message"
+                    className={`absolute left-5 transition-all duration-200 pointer-events-none ${
+                      isFieldActive('message', formData.message)
+                        ? 'top-2 text-xs text-secondary'
+                        : 'top-4 text-neutral-400'
+                    }`}
+                  >
+                    {config.labels.message}
+                  </label>
+                  <div className="absolute bottom-3 right-4 text-xs text-neutral-400">
+                    {formData.message.length}/500
+                  </div>
+                </div>
+
+                {/* Error Message */}
+                {submitError && (
+                  <div className="p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                    <p className="text-sm text-red-600 dark:text-red-400">{submitError}</p>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  loading={isSubmitting}
+                  className="group"
+                >
+                  {config.submitButton}
+                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Button>
+
+                <p className="text-center text-xs text-neutral-500 dark:text-neutral-400">
+                  {config.privacyText}{' '}
+                  <a href="/privacy-policy" className="text-secondary hover:underline">Privacy Policy</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

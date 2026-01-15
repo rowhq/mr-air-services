@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals, SectionNav, DesktopStickyCTA } from '@/components/ui';
 import { FinalCTA, FAQSection, RepairProcess } from '@/components/sections';
+import { BlockRenderer } from '@/components/cms/BlockRenderer';
+import { getPageData } from '@/lib/cms-page-data';
 
 const sectionNavItems = [
   { id: 'problems', label: 'Common Issues' },
@@ -102,7 +104,8 @@ const faqs = [
   },
 ];
 
-export default function ACRepairPage() {
+// Current design preserved as fallback
+function HardcodedACRepairPage() {
   return (
     <>
       {/* Hero */}
@@ -217,4 +220,24 @@ export default function ACRepairPage() {
       <DesktopStickyCTA />
     </>
   );
+}
+
+export default async function ACRepairPage() {
+  const data = await getPageData('air-conditioning-repair');
+
+  // If CMS data is available and has blocks, use dynamic rendering
+  if (data && data.blocks.length > 0) {
+    return (
+      <BlockRenderer
+        blocks={data.blocks}
+        services={data.services}
+        testimonials={data.testimonials}
+        officeLocations={data.officeLocations}
+        faqs={data.faqs}
+      />
+    );
+  }
+
+  // Fall back to current hardcoded design
+  return <HardcodedACRepairPage />;
 }
