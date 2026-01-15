@@ -317,8 +317,12 @@ export function Header({ siteData }: HeaderProps) {
 
             {/* Center - Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-6">
-              {navigationItems.map((item) => (
-                item.children ? (
+              {navigationItems.map((item) => {
+                const isActive = item.children
+                  ? pathname === item.href || pathname.startsWith(item.href + '/')
+                  : pathname === item.href;
+
+                return item.children ? (
                   <div
                     key={item.name}
                     onMouseEnter={handleMouseEnter}
@@ -327,7 +331,11 @@ export function Header({ siteData }: HeaderProps) {
                     <Link
                       href={item.href}
                       onClick={() => setServicesMenuOpen(false)}
-                      className="flex items-center gap-1.5 text-white/90 hover:text-white font-medium transition-colors py-2"
+                      className={`flex items-center gap-1.5 transition-colors py-2 ${
+                        isActive
+                          ? 'text-white font-bold'
+                          : 'text-white/90 hover:text-white font-medium'
+                      }`}
                     >
                       {item.name}
                       <svg
@@ -344,12 +352,16 @@ export function Header({ siteData }: HeaderProps) {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-white/90 hover:text-white font-medium transition-colors"
+                    className={`transition-colors ${
+                      isActive
+                        ? 'text-white font-bold'
+                        : 'text-white/90 hover:text-white font-medium'
+                    }`}
                   >
                     {item.name}
                   </Link>
-                )
-              ))}
+                );
+              })}
             </div>
 
             {/* Right Side - CTA & Mobile Menu */}
