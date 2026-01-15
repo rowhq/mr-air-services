@@ -15,7 +15,7 @@
 INSERT INTO users (email, password_hash, name, role) VALUES
   (
     'admin@mrairservices.com',
-    '$2b$10$8K47hZYGOHQVMHL0rmUhg.1bM5AS6qNmv/QKNGLP46CNZgeBg0aIW',
+    '$2b$10$3RuRc6KIAEtjqH3V3PLBP.J75IlKTx1U2IvfgBcgyEBbImHd97pFy',
     'Admin',
     'admin'
   )
