@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button, Breadcrumbs, TrustSignals } from '@/components/ui';
-import { FinalCTA, FAQSection } from '@/components/sections';
+import { FAQSection } from '@/components/sections';
 
 export const metadata = {
   title: 'Financing & Payments | Mr. Air Services - Flexible HVAC Financing Houston',
@@ -364,8 +364,6 @@ export default function FinancingPage() {
           </div>
         </div>
       </section>
-
-      <FinalCTA />
     </>
   );
 }
