@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@vercel/postgres";
+import { sql, db } from "@vercel/postgres";
 import { requireAuth } from "@/lib/auth";
 
 interface ConfigUpdate {
@@ -20,10 +20,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch all requested keys
-    const result = await sql`
-      SELECT key, value FROM site_config WHERE key = ANY(${keys}::text[])
-    `;
+    // Fetch all requested keys using parameterized query for arrays
+    const client = await db.connect();
+    const result = await client.query(
+      'SELECT key, value FROM site_config WHERE key = ANY($1::text[])',
+      [keys]
+    );
+    client.release();
 
     // Transform to key-value map
     const configMap: Record<string, string> = {};

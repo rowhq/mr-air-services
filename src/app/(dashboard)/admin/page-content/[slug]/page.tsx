@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { pageSchemas, getAllKeysFromSchema } from '@/lib/cms/page-schemas';
 import { ConfigEditorForm } from '@/components/cms/ConfigEditorForm';
-import { sql } from '@vercel/postgres';
+import { db } from '@vercel/postgres';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -12,9 +12,12 @@ async function getConfigValues(keys: string[]): Promise<Record<string, string>> 
   if (keys.length === 0) return {};
 
   try {
-    const result = await sql`
-      SELECT key, value FROM site_config WHERE key = ANY(${keys}::text[])
-    `;
+    const client = await db.connect();
+    const result = await client.query(
+      'SELECT key, value FROM site_config WHERE key = ANY($1::text[])',
+      [keys]
+    );
+    client.release();
 
     const configMap: Record<string, string> = {};
     for (const row of result.rows) {
