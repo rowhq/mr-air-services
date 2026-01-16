@@ -222,6 +222,9 @@ export function Testimonials({
   const effectiveMaxItems = layout === 'carousel' ? 10 : maxItems;
   const displayTestimonials = testimonials.slice(0, effectiveMaxItems);
 
+  // Only use carousel if configured AND there are more than 3 testimonials
+  const shouldUseCarousel = layout === 'carousel' && displayTestimonials.length > 3;
+
   return (
     <section className="py-24 md:py-32 bg-neutral-50 dark:bg-neutral-800 relative overflow-hidden">
       {/* Subtle geometric accent */}
@@ -248,8 +251,8 @@ export function Testimonials({
           </Link>
         </div>
 
-        {/* Testimonials - Grid or Carousel */}
-        {layout === 'carousel' ? (
+        {/* Testimonials - Grid or Carousel (carousel only if > 3 items) */}
+        {shouldUseCarousel ? (
           <TestimonialsCarousel testimonials={displayTestimonials} showSource={showSource ?? true} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
