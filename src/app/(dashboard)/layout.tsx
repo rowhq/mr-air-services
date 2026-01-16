@@ -12,7 +12,6 @@ const pageConfig: Record<string, { title: string; section?: string }> = {
   "/admin/pages": { title: "Pages", section: "Content" },
   "/admin/services": { title: "Services", section: "Content" },
   "/admin/testimonials": { title: "Testimonials", section: "Content" },
-  "/admin/faqs": { title: "FAQs", section: "Content" },
   "/admin/media": { title: "Media", section: "Content" },
   "/admin/leads": { title: "Leads" },
   "/admin/office-locations": { title: "Locations", section: "Settings" },
