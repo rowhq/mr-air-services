@@ -57,22 +57,11 @@ interface OfficeLocation {
   is_primary: boolean;
 }
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  page_slug: string | null;
-  position: number;
-  is_published: boolean;
-}
-
 interface PageData {
   blocks: EditorBlock[];
   services: Service[];
   testimonials: Testimonial[];
   officeLocations: OfficeLocation[];
-  faqs: FAQ[];
 }
 
 async function getPageData(slug: string): Promise<PageData | null> {
@@ -80,7 +69,7 @@ async function getPageData(slug: string): Promise<PageData | null> {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
     // Fetch all data in parallel
-    const [pageRes, servicesRes, testimonialsRes, locationsRes, faqsRes] =
+    const [pageRes, servicesRes, testimonialsRes, locationsRes] =
       await Promise.all([
         fetch(`${baseUrl}/api/cms/pages/${slug}`, {
           cache: "no-store", // Always fetch fresh for preview
@@ -92,9 +81,6 @@ async function getPageData(slug: string): Promise<PageData | null> {
           cache: "no-store",
         }),
         fetch(`${baseUrl}/api/cms/office-locations`, {
-          cache: "no-store",
-        }),
-        fetch(`${baseUrl}/api/cms/faqs`, {
           cache: "no-store",
         }),
       ]);
@@ -111,7 +97,6 @@ async function getPageData(slug: string): Promise<PageData | null> {
     const officeLocations: OfficeLocation[] = locationsRes.ok
       ? await locationsRes.json()
       : [];
-    const faqs: FAQ[] = faqsRes.ok ? await faqsRes.json() : [];
 
     // Transform database format to editor format
     const blocks: EditorBlock[] = pageData.blocks.map((b) => ({
@@ -123,7 +108,7 @@ async function getPageData(slug: string): Promise<PageData | null> {
       isVisible: b.is_visible,
     }));
 
-    return { blocks, services, testimonials, officeLocations, faqs };
+    return { blocks, services, testimonials, officeLocations };
   } catch (error) {
     console.error("Preview fetch error:", error);
     return null;
@@ -174,7 +159,6 @@ export default async function PreviewPage({
       services={data.services}
       testimonials={data.testimonials}
       officeLocations={data.officeLocations}
-      faqs={data.faqs}
     />
   );
 }

@@ -333,7 +333,6 @@ export function EditorCanvas() {
               blocks={draftBlocks}
               services={previewData.services}
               testimonials={previewData.testimonials}
-              faqs={previewData.faqs}
               officeLocations={previewData.officeLocations}
               isEditing={true}
               selectedBlockId={selectedBlockId}

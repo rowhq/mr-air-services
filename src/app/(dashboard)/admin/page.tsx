@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import type { Page, Service, Testimonial, FAQ } from "@/types/database";
+import type { Page, Service, Testimonial } from "@/types/database";
 
 interface Stats {
   pages: number;
   services: number;
   testimonials: number;
-  faqs: number;
 }
 
 export default function AdminDashboard() {
@@ -16,7 +15,6 @@ export default function AdminDashboard() {
     pages: 0,
     services: 0,
     testimonials: 0,
-    faqs: 0,
   });
   const [pages, setPages] = useState<Page[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,25 +22,22 @@ export default function AdminDashboard() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [pagesRes, servicesRes, testimonialsRes, faqsRes] =
+        const [pagesRes, servicesRes, testimonialsRes] =
           await Promise.all([
             fetch("/api/cms/pages"),
             fetch("/api/cms/services"),
             fetch("/api/cms/testimonials"),
-            fetch("/api/cms/faqs"),
           ]);
 
         const pagesData: Page[] = await pagesRes.json();
         const servicesData: Service[] = await servicesRes.json();
         const testimonialsData: Testimonial[] = await testimonialsRes.json();
-        const faqsData: FAQ[] = await faqsRes.json();
 
         setPages(pagesData);
         setStats({
           pages: pagesData.length,
           services: servicesData.length,
           testimonials: testimonialsData.length,
-          faqs: faqsData.length,
         });
       } catch (error) {
         console.error("Failed to load dashboard data:", error);
@@ -133,26 +128,6 @@ export default function AdminDashboard() {
             </svg>
           }
           color="purple"
-        />
-        <StatCard
-          label="FAQs"
-          value={stats.faqs}
-          icon={
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          }
-          color="orange"
         />
       </div>
 

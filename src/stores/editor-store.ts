@@ -367,21 +367,19 @@ export const useEditorStore = create<EditorStore>()(
 
       loadPreviewData: async () => {
         try {
-          const [servicesRes, testimonialsRes, faqsRes, locationsRes] =
+          const [servicesRes, testimonialsRes, locationsRes] =
             await Promise.all([
               fetch("/api/cms/services"),
               fetch("/api/cms/testimonials"),
-              fetch("/api/cms/faqs"),
               fetch("/api/cms/office-locations"),
             ]);
 
           const services = servicesRes.ok ? await servicesRes.json() : [];
           const testimonials = testimonialsRes.ok ? await testimonialsRes.json() : [];
-          const faqs = faqsRes.ok ? await faqsRes.json() : [];
           const officeLocations = locationsRes.ok ? await locationsRes.json() : [];
 
           set({
-            previewData: { services, testimonials, faqs, officeLocations },
+            previewData: { services, testimonials, officeLocations },
           });
         } catch (error) {
           console.error("Failed to load preview data:", error);

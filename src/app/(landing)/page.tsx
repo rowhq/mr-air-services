@@ -70,22 +70,11 @@ interface OfficeLocation {
   is_primary: boolean;
 }
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  page_slug: string | null;
-  position: number;
-  is_published: boolean;
-}
-
 interface PageData {
   blocks: EditorBlock[];
   services: Service[];
   testimonials: Testimonial[];
   officeLocations: OfficeLocation[];
-  faqs: FAQ[];
 }
 
 async function getPageData(): Promise<PageData | null> {
@@ -93,7 +82,7 @@ async function getPageData(): Promise<PageData | null> {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
     // Fetch all data in parallel
-    const [pageRes, servicesRes, testimonialsRes, locationsRes, faqsRes] = await Promise.all([
+    const [pageRes, servicesRes, testimonialsRes, locationsRes] = await Promise.all([
       fetch(`${baseUrl}/api/cms/pages/home`, {
         next: { revalidate: 60 },
         cache: 'force-cache',
@@ -110,10 +99,6 @@ async function getPageData(): Promise<PageData | null> {
         next: { revalidate: 60 },
         cache: 'force-cache',
       }),
-      fetch(`${baseUrl}/api/cms/faqs`, {
-        next: { revalidate: 60 },
-        cache: 'force-cache',
-      }),
     ]);
 
     if (!pageRes.ok) {
@@ -124,7 +109,6 @@ async function getPageData(): Promise<PageData | null> {
     const services: Service[] = servicesRes.ok ? await servicesRes.json() : [];
     const testimonials: Testimonial[] = testimonialsRes.ok ? await testimonialsRes.json() : [];
     const officeLocations: OfficeLocation[] = locationsRes.ok ? await locationsRes.json() : [];
-    const faqs: FAQ[] = faqsRes.ok ? await faqsRes.json() : [];
 
     // Transform database format to editor format
     const blocks: EditorBlock[] = pageData.blocks.map((b) => ({
@@ -136,7 +120,7 @@ async function getPageData(): Promise<PageData | null> {
       isVisible: b.is_visible,
     }));
 
-    return { blocks, services, testimonials, officeLocations, faqs };
+    return { blocks, services, testimonials, officeLocations };
   } catch (error) {
     console.log('CMS not available, using hardcoded content');
     return null;
@@ -168,7 +152,6 @@ export default async function HomePage() {
         services={data.services}
         testimonials={data.testimonials}
         officeLocations={data.officeLocations}
-        faqs={data.faqs}
       />
     );
   }

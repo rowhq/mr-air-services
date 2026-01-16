@@ -56,29 +56,18 @@ export interface OfficeLocation {
   is_primary: boolean;
 }
 
-export interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  page_slug: string | null;
-  position: number;
-  is_published: boolean;
-}
-
 export interface PageData {
   blocks: EditorBlock[];
   services: Service[];
   testimonials: Testimonial[];
   officeLocations: OfficeLocation[];
-  faqs: FAQ[];
 }
 
 export async function getPageData(slug: string): Promise<PageData | null> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-    const [pageRes, servicesRes, testimonialsRes, locationsRes, faqsRes] = await Promise.all([
+    const [pageRes, servicesRes, testimonialsRes, locationsRes] = await Promise.all([
       fetch(`${baseUrl}/api/cms/pages/${slug}`, {
         next: { revalidate: 60 },
         cache: 'force-cache',
@@ -95,10 +84,6 @@ export async function getPageData(slug: string): Promise<PageData | null> {
         next: { revalidate: 60 },
         cache: 'force-cache',
       }),
-      fetch(`${baseUrl}/api/cms/faqs`, {
-        next: { revalidate: 60 },
-        cache: 'force-cache',
-      }),
     ]);
 
     if (!pageRes.ok) {
@@ -109,7 +94,6 @@ export async function getPageData(slug: string): Promise<PageData | null> {
     const services: Service[] = servicesRes.ok ? await servicesRes.json() : [];
     const testimonials: Testimonial[] = testimonialsRes.ok ? await testimonialsRes.json() : [];
     const officeLocations: OfficeLocation[] = locationsRes.ok ? await locationsRes.json() : [];
-    const faqs: FAQ[] = faqsRes.ok ? await faqsRes.json() : [];
 
     const blocks: EditorBlock[] = pageData.blocks.map((b) => ({
       id: b.id,
@@ -120,7 +104,7 @@ export async function getPageData(slug: string): Promise<PageData | null> {
       isVisible: b.is_visible,
     }));
 
-    return { blocks, services, testimonials, officeLocations, faqs };
+    return { blocks, services, testimonials, officeLocations };
   } catch (error) {
     console.log(`CMS not available for ${slug} page, using hardcoded content`);
     return null;

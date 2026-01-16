@@ -79,22 +79,11 @@ interface OfficeLocation {
   is_primary: boolean;
 }
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  page_slug: string | null;
-  position: number;
-  is_published: boolean;
-}
-
 interface BlockRendererProps {
   blocks: EditorBlock[];
   services?: Service[];
   testimonials?: Testimonial[];
   officeLocations?: OfficeLocation[];
-  faqs?: FAQ[];
   // Editing mode props for click-to-select
   isEditing?: boolean;
   selectedBlockId?: string | null;
@@ -113,7 +102,6 @@ export function BlockRenderer({
   services = [],
   testimonials = [],
   officeLocations = [],
-  faqs = [],
   isEditing = false,
   selectedBlockId,
   hoveredBlockId,
@@ -137,7 +125,6 @@ export function BlockRenderer({
               services={services}
               testimonials={testimonials}
               officeLocations={officeLocations}
-              faqs={faqs}
             />
           </BlockWrapper>
         );
@@ -227,10 +214,9 @@ interface BlockProps {
   services: Service[];
   testimonials: Testimonial[];
   officeLocations: OfficeLocation[];
-  faqs: FAQ[];
 }
 
-function Block({ block, services, testimonials, officeLocations, faqs }: BlockProps) {
+function Block({ block, services, testimonials, officeLocations }: BlockProps) {
   switch (block.type) {
     case "hero":
       return <HeroBlock content={block.content as HeroBlockContent} />;
@@ -253,7 +239,7 @@ function Block({ block, services, testimonials, officeLocations, faqs }: BlockPr
       );
 
     case "faq":
-      return <FAQBlock content={block.content as FAQBlockContent} allFaqs={faqs} />;
+      return <FAQBlock content={block.content as FAQBlockContent} />;
 
     case "final-cta":
       return <FinalCTABlock content={block.content as FinalCTABlockContent} />;
@@ -488,38 +474,12 @@ function TestimonialsBlock({
 
 function FAQBlock({
   content,
-  allFaqs,
 }: {
   content: FAQBlockContent;
-  allFaqs: FAQ[];
 }) {
-  // Filter FAQs by categories or page_slug if specified
-  let resolvedFaqs = allFaqs;
-
-  if (content.pageSlug) {
-    resolvedFaqs = allFaqs.filter((f) => f.page_slug === content.pageSlug);
-  }
-
-  if (content.categories && content.categories.length > 0) {
-    resolvedFaqs = resolvedFaqs.filter((f) =>
-      content.categories.includes(f.category)
-    );
-  }
-
-  // Limit to maxItems
-  if (content.maxItems) {
-    resolvedFaqs = resolvedFaqs.slice(0, content.maxItems);
-  }
-
-  // Transform to component format
-  const faqItems = resolvedFaqs.map((f) => ({
-    id: f.id,
-    question: f.question,
-    answer: f.answer,
-    category: f.category,
-  }));
-
-  return <FAQSection content={content} faqs={faqItems} />;
+  // FAQs are now managed per-page via site_config, not from a centralized faqs table
+  // This block renders with the content configuration but no dynamic FAQs
+  return <FAQSection content={content} />;
 }
 
 function FinalCTABlock({ content }: { content: FinalCTABlockContent }) {

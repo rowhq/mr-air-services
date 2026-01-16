@@ -173,41 +173,6 @@ export interface Database {
           created_at?: string;
         };
       };
-      faqs: {
-        Row: {
-          id: string;
-          page_slug: string | null;
-          category: string;
-          question: string;
-          answer: string;
-          position: number;
-          is_published: boolean;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          page_slug?: string | null;
-          category?: string;
-          question: string;
-          answer: string;
-          position?: number;
-          is_published?: boolean;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?: string;
-          page_slug?: string | null;
-          category?: string;
-          question?: string;
-          answer?: string;
-          position?: number;
-          is_published?: boolean;
-          created_at?: string;
-          updated_at?: string;
-        };
-      };
       office_locations: {
         Row: {
           id: string;
@@ -444,7 +409,6 @@ export type Page = Tables<"pages">;
 export type Block = Tables<"blocks">;
 export type Service = Tables<"services">;
 export type Testimonial = Tables<"testimonials">;
-export type FAQ = Tables<"faqs">;
 export type OfficeLocation = Tables<"office_locations">;
 export type NavigationItem = Tables<"navigation_items">;
 export type Media = Tables<"media">;

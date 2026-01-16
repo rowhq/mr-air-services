@@ -416,15 +416,6 @@ export interface PreviewData {
     source: string;
     is_featured: boolean;
   }[];
-  faqs: {
-    id: string;
-    question: string;
-    answer: string;
-    category: string;
-    page_slug: string | null;
-    position: number;
-    is_published: boolean;
-  }[];
   officeLocations: {
     id: string;
     name: string;
