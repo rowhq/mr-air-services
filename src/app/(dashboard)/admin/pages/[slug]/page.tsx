@@ -4,6 +4,9 @@ import { pageSchemas, getAllKeysFromSchema } from '@/lib/cms/page-schemas';
 import { ConfigEditorForm } from '@/components/cms/ConfigEditorForm';
 import { db } from '@vercel/postgres';
 
+// Force dynamic to always fetch fresh data in admin
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -65,6 +68,3 @@ export default async function PageEditorPage({ params }: PageProps) {
   );
 }
 
-export async function generateStaticParams() {
-  return Object.keys(pageSchemas).map((slug) => ({ slug }));
-}
