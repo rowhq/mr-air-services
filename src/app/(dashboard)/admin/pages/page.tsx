@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import { getEditablePages } from '@/lib/cms/page-schemas';
+import { ToastProvider, useToast } from '@/components/ui/Toast';
 
 // Service pages that use config editor
 const servicePages = getEditablePages();
@@ -28,29 +29,106 @@ interface Page {
   title: string;
   description: string | null;
   is_published: boolean;
+  updated_at?: string;
 }
 
-export default function PagesPage() {
+interface PageStats {
+  slug: string;
+  filledFields: number;
+  totalFields: number;
+  lastModified: string | null;
+}
+
+// Helper to format relative time
+function formatRelativeTime(dateString: string | null): string {
+  if (!dateString) return '';
+
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 1) return 'just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// Helper to get completion color
+function getCompletionColor(filled: number, total: number): string {
+  if (total === 0) return 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500';
+  const percent = (filled / total) * 100;
+  if (percent === 100) return 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400';
+  if (percent >= 50) return 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400';
+  return 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500';
+}
+
+function PagesPageContent() {
   const [dbPages, setDbPages] = useState<Page[]>([]);
+  const [pageStats, setPageStats] = useState<PageStats[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const { toast } = useToast();
 
   useEffect(() => {
-    async function loadPages() {
+    async function loadData() {
       try {
-        const res = await fetch('/api/cms/pages');
-        const data = await res.json();
-        setDbPages(data);
+        const [pagesRes, statsRes] = await Promise.all([
+          fetch('/api/cms/pages'),
+          fetch('/api/cms/pages/stats'),
+        ]);
+        const [pagesData, statsData] = await Promise.all([
+          pagesRes.json(),
+          statsRes.json(),
+        ]);
+        setDbPages(pagesData);
+        setPageStats(statsData);
       } catch (error) {
         console.error('Failed to load pages:', error);
       } finally {
         setIsLoading(false);
       }
     }
-    loadPages();
+    loadData();
   }, []);
 
+  // Get stats for a service page
+  const getStats = (slug: string): PageStats | undefined => {
+    return pageStats.find(s => s.slug === slug);
+  };
+
+  // Filter pages based on search
+  const filteredServicePages = useMemo(() => {
+    if (!searchQuery) return servicePages;
+    const query = searchQuery.toLowerCase();
+    return servicePages.filter(p =>
+      p.title.toLowerCase().includes(query) ||
+      p.slug.toLowerCase().includes(query)
+    );
+  }, [searchQuery]);
+
   // Filter out service pages from DB pages (they're shown in the first section)
-  const otherPages = dbPages.filter(p => !serviceSlugs.includes(p.slug));
+  const otherPages = useMemo(() => {
+    const filtered = dbPages.filter(p => !serviceSlugs.includes(p.slug));
+    if (!searchQuery) return filtered;
+    const query = searchQuery.toLowerCase();
+    return filtered.filter(p =>
+      p.title.toLowerCase().includes(query) ||
+      p.slug.toLowerCase().includes(query)
+    );
+  }, [dbPages, searchQuery]);
+
+  // Copy URL to clipboard
+  const copyUrl = (url: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(window.location.origin + url);
+    toast('URL copied to clipboard');
+  };
 
   if (isLoading) {
     return (
@@ -63,12 +141,32 @@ export default function PagesPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          Pages
-        </h1>
-        <p className="text-neutral-600 dark:text-neutral-400 mt-2">
-          Manage all site pages. Service pages use the content editor, other pages use the visual editor.
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
+              Pages
+            </h1>
+            <p className="text-neutral-600 dark:text-neutral-400 mt-2">
+              Manage all site pages. Service pages use the content editor, other pages use the visual editor.
+            </p>
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="mt-4">
+          <div className="relative">
+            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search pages..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full max-w-md pl-10 pr-4 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-900 dark:text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Service Pages Section */}
@@ -78,12 +176,18 @@ export default function PagesPage() {
           Service Pages
           <span className="text-xs font-normal text-neutral-500 ml-2">Content Editor</span>
         </h2>
+        {filteredServicePages.length === 0 ? (
+          <p className="text-neutral-500 dark:text-neutral-400 text-sm py-8 text-center">
+            No service pages match your search.
+          </p>
+        ) : (
         <div className="grid gap-3">
-          {servicePages.map((page) => (
-            <Link
+          {filteredServicePages.map((page) => {
+            const stats = getStats(page.slug);
+            return (
+            <div
               key={page.slug}
-              href={`/admin/pages/${page.slug}`}
-              className="block bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-5 hover:border-blue-500 hover:shadow-md transition-all group"
+              className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-5 hover:border-blue-500 hover:shadow-md transition-all group"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -91,31 +195,67 @@ export default function PagesPage() {
                     {pageIcons[page.slug] || '📄'}
                   </span>
                   <div>
-                    <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-semibold text-neutral-900 dark:text-white">
                       {page.title}
                     </h3>
-                    <div className="flex items-center gap-3 mt-1">
+                    <div className="flex items-center gap-3 mt-1 flex-wrap">
                       <span className="text-xs text-neutral-400 font-mono">
                         {page.productionUrl}
                       </span>
-                      <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded">
-                        {page.fieldCount} fields
-                      </span>
+                      {stats && stats.lastModified && (
+                        <span className="text-xs text-neutral-400">
+                          Edited {formatRelativeTime(stats.lastModified)}
+                        </span>
+                      )}
+                      {stats && (
+                        <span className={`text-xs px-2 py-0.5 rounded ${getCompletionColor(stats.filledFields, stats.totalFields)}`}>
+                          {stats.filledFields}/{stats.totalFields} fields
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-blue-600">
-                  <span className="text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    Edit Content
-                  </span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                <div className="flex items-center gap-1">
+                  {/* Copy URL */}
+                  <button
+                    onClick={(e) => copyUrl(page.productionUrl, e)}
+                    className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                    title="Copy URL"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </button>
+                  {/* View Live */}
+                  <a
+                    href={page.productionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                    title="View Live"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                  {/* Edit Content */}
+                  <Link
+                    href={`/admin/pages/${page.slug}`}
+                    className="flex items-center gap-2 px-3 py-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                  >
+                    <span className="text-sm font-medium">Edit</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
                 </div>
               </div>
-            </Link>
-          ))}
+            </div>
+            );
+          })}
         </div>
+        )}
       </div>
 
       {/* Other Pages Section */}
@@ -128,10 +268,9 @@ export default function PagesPage() {
           </h2>
           <div className="grid gap-3">
             {otherPages.map((page) => (
-              <Link
+              <div
                 key={page.id}
-                href={`/admin/editor/${page.slug}`}
-                className="block bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-5 hover:border-purple-500 hover:shadow-md transition-all group"
+                className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-5 hover:border-purple-500 hover:shadow-md transition-all group"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -139,13 +278,18 @@ export default function PagesPage() {
                       {pageIcons[page.slug] || '📄'}
                     </span>
                     <div>
-                      <h3 className="font-semibold text-neutral-900 dark:text-white group-hover:text-purple-600 transition-colors">
+                      <h3 className="font-semibold text-neutral-900 dark:text-white">
                         {page.title}
                       </h3>
-                      <div className="flex items-center gap-3 mt-1">
+                      <div className="flex items-center gap-3 mt-1 flex-wrap">
                         <span className="text-xs text-neutral-400 font-mono">
                           /{page.slug}
                         </span>
+                        {page.updated_at && (
+                          <span className="text-xs text-neutral-400">
+                            Edited {formatRelativeTime(page.updated_at)}
+                          </span>
+                        )}
                         <span className={`text-xs px-2 py-0.5 rounded ${
                           page.is_published
                             ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
@@ -156,16 +300,43 @@ export default function PagesPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-purple-600">
-                    <span className="text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                      Visual Editor
-                    </span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                  <div className="flex items-center gap-1">
+                    {/* Copy URL */}
+                    <button
+                      onClick={(e) => copyUrl(`/${page.slug}`, e)}
+                      className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                      title="Copy URL"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                    </button>
+                    {/* View Live */}
+                    <a
+                      href={`/${page.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                      title="View Live"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                    {/* Edit */}
+                    <Link
+                      href={`/admin/editor/${page.slug}`}
+                      className="flex items-center gap-2 px-3 py-2 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-colors"
+                    >
+                      <span className="text-sm font-medium">Edit</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
@@ -187,5 +358,13 @@ export default function PagesPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PagesPage() {
+  return (
+    <ToastProvider>
+      <PagesPageContent />
+    </ToastProvider>
   );
 }
