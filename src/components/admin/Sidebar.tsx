@@ -28,7 +28,7 @@ const baseSections = [
   {
     title: "Main",
     items: [
-      { href: "/admin", label: "Dashboard", icon: LayoutDashboardIcon },
+      { href: "/admin", label: "Dashboard", icon: LayoutDashboardIcon, exactMatch: true, id: "dashboard" },
       { href: "/admin/editor/home", label: "Visual Editor", icon: PaletteIcon, id: "visual-editor" },
     ],
   },
@@ -139,10 +139,10 @@ export function Sidebar({ className = "" }: SidebarProps) {
   const sections = baseSections.map((section) => ({
     ...section,
     items: section.items.map((item) => {
-      if (item.id === "leads") {
+      if ("id" in item && item.id === "leads") {
         return { ...item, badge: leadsCount };
       }
-      if (item.id === "visual-editor" && hasUnsavedChanges) {
+      if ("id" in item && item.id === "visual-editor" && hasUnsavedChanges) {
         return { ...item, hasUnsavedIndicator: true };
       }
       return item;

@@ -10,6 +10,7 @@ interface NavItem {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   badge?: number;
   hasUnsavedIndicator?: boolean;
+  exactMatch?: boolean;
 }
 
 interface SidebarSectionProps {
@@ -63,7 +64,11 @@ export function SidebarSection({
           <SidebarItem
             key={item.href}
             {...item}
-            isActive={pathname === item.href || pathname.startsWith(item.href + "/")}
+            isActive={
+              item.exactMatch
+                ? pathname === item.href
+                : pathname === item.href || pathname.startsWith(item.href + "/")
+            }
             collapsed={collapsed}
             searchQuery={searchQuery}
           />
@@ -104,7 +109,11 @@ export function SidebarSection({
           <SidebarItem
             key={item.href}
             {...item}
-            isActive={pathname === item.href || pathname.startsWith(item.href + "/")}
+            isActive={
+              item.exactMatch
+                ? pathname === item.href
+                : pathname === item.href || pathname.startsWith(item.href + "/")
+            }
             collapsed={collapsed}
             searchQuery={searchQuery}
           />
