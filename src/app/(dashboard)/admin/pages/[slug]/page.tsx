@@ -24,8 +24,12 @@ async function getConfigValues(keys: string[]): Promise<Record<string, string>> 
 
     const configMap: Record<string, string> = {};
     for (const row of result.rows) {
-      // Value is stored as JSON, extract the actual string value
-      configMap[row.key] = typeof row.value === 'string' ? row.value : row.value;
+      // JSONB values are auto-parsed by @vercel/postgres
+      // Ensure we get the string value correctly
+      const value = row.value;
+      if (value !== null && value !== undefined) {
+        configMap[row.key] = typeof value === 'string' ? value : String(value);
+      }
     }
 
     return configMap;
