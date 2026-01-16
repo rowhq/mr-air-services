@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { requireAuth } from "@/lib/auth";
 import { uploadFile } from "@/lib/blob";
+import imageSize from "image-size";
+
+// Extract image dimensions from file buffer
+async function getImageDimensions(file: File): Promise<{ width: number | null; height: number | null }> {
+  try {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const dimensions = imageSize(buffer);
+    return {
+      width: dimensions.width || null,
+      height: dimensions.height || null,
+    };
+  } catch {
+    return { width: null, height: null };
+  }
+}
 
 // GET /api/cms/media - List all media
 export async function GET(request: NextRequest) {
@@ -74,13 +89,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get image dimensions
+    const { width, height } = await getImageDimensions(file);
+
     // Upload to Vercel Blob
     const { url, filename } = await uploadFile(file, folder);
 
     // Save metadata to database
     const result = await sql`
-      INSERT INTO media (filename, original_name, mime_type, size, url, alt_text, folder)
-      VALUES (${filename}, ${file.name}, ${file.type}, ${file.size}, ${url}, ${altText || null}, ${folder})
+      INSERT INTO media (filename, original_name, mime_type, size, url, alt_text, folder, width, height)
+      VALUES (${filename}, ${file.name}, ${file.type}, ${file.size}, ${url}, ${altText || null}, ${folder}, ${width}, ${height})
       RETURNING *
     `;
 

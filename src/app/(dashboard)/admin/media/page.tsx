@@ -330,9 +330,15 @@ function MediaPageContent() {
               <h3 className="font-semibold text-gray-900 mb-1 truncate" title={selectedMedia.original_name}>
                 {selectedMedia.original_name}
               </h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-sm text-gray-500 mb-1">
                 {formatFileSize(selectedMedia.size)} · {selectedMedia.mime_type.split("/")[1].toUpperCase()}
               </p>
+              {selectedMedia.width && selectedMedia.height && (
+                <p className="text-sm text-gray-500 mb-4">
+                  {selectedMedia.width} × {selectedMedia.height} px
+                </p>
+              )}
+              {(!selectedMedia.width || !selectedMedia.height) && <div className="mb-4" />}
               <p className="text-xs text-gray-400 mb-4">
                 Uploaded {new Date(selectedMedia.created_at).toLocaleDateString("en-US", {
                   year: "numeric",

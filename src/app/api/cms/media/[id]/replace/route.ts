@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
 import { requireAuth } from "@/lib/auth";
 import { uploadFile, deleteFile } from "@/lib/blob";
+import imageSize from "image-size";
+
+// Extract image dimensions from file buffer
+async function getImageDimensions(file: File): Promise<{ width: number | null; height: number | null }> {
+  try {
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const dimensions = imageSize(buffer);
+    return {
+      width: dimensions.width || null,
+      height: dimensions.height || null,
+    };
+  } catch {
+    return { width: null, height: null };
+  }
+}
 
 // POST /api/cms/media/[id]/replace - Replace image file
 export async function POST(
@@ -59,6 +74,9 @@ export async function POST(
       );
     }
 
+    // Get image dimensions
+    const { width, height } = await getImageDimensions(file);
+
     // Upload new file to Vercel Blob (same folder as original)
     const { url: newUrl, filename: newFilename } = await uploadFile(
       file,
@@ -81,7 +99,9 @@ export async function POST(
         original_name = ${file.name},
         mime_type = ${file.type},
         size = ${file.size},
-        url = ${newUrl}
+        url = ${newUrl},
+        width = ${width},
+        height = ${height}
       WHERE id = ${id}
       RETURNING *
     `;
