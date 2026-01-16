@@ -4,8 +4,9 @@
 export interface FieldSchema {
   key: string;
   label: string;
-  type: 'text' | 'textarea' | 'number';
+  type: 'text' | 'textarea' | 'number' | 'image';
   placeholder?: string;
+  helpText?: string;
 }
 
 export interface SectionSchema {
@@ -32,11 +33,22 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/services',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'services_seo_title', label: 'Meta Title', type: 'text', placeholder: 'HVAC Services | Mr. Air Services', helpText: 'Title shown in search results and browser tab' },
+          { key: 'services_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Professional HVAC services in Houston...', helpText: 'Description shown in search results (150-160 chars)' },
+          { key: 'services_seo_image', label: 'OG Image', type: 'image', placeholder: 'https://...', helpText: 'Image shown when shared on social media' },
+        ]
+      },
+      {
         id: 'hero',
         title: 'Hero Section',
         fields: [
           { key: 'services_hero_title', label: 'Title', type: 'text', placeholder: 'HVAC Services' },
           { key: 'services_hero_description', label: 'Description', type: 'textarea', placeholder: 'From emergency repairs to preventive maintenance...' },
+          { key: 'services_hero_image', label: 'Background Image', type: 'image', placeholder: 'https://...', helpText: 'Hero section background image' },
         ]
       },
       {
@@ -89,11 +101,22 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/services/air-conditioning-repair',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'ac_repair_seo_title', label: 'Meta Title', type: 'text', placeholder: 'AC Repair Houston | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'ac_repair_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Fast, reliable AC repair in Houston...', helpText: 'Description shown in search results' },
+          { key: 'ac_repair_seo_image', label: 'OG Image', type: 'image', helpText: 'Image for social media sharing' },
+        ]
+      },
+      {
         id: 'hero',
         title: 'Hero Section',
         fields: [
           { key: 'ac_repair_hero_title', label: 'Title', type: 'text', placeholder: "AC Dead? We're On It." },
           { key: 'ac_repair_hero_description', label: 'Description', type: 'textarea', placeholder: 'Fast diagnosis, straight quotes, fixed right the first time...' },
+          { key: 'ac_repair_hero_image', label: 'Background Image', type: 'image', helpText: 'Hero background image' },
           { key: 'ac_repair_hero_primary_button', label: 'Primary Button', type: 'text', placeholder: 'Schedule AC Repair' },
           { key: 'ac_repair_hero_secondary_button', label: 'Secondary Button', type: 'text', placeholder: 'Call (832) 437-1000' },
           { key: 'ac_repair_hero_trust_1', label: 'Trust Signal 1', type: 'text', placeholder: 'Same-day service' },
@@ -155,10 +178,21 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/services/heating',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'heating_seo_title', label: 'Meta Title', type: 'text', placeholder: 'Heating Services Houston | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'heating_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Professional heating services in Houston. Furnace repair, heat pump installation...', helpText: 'Description shown in search results' },
+          { key: 'heating_seo_image', label: 'OG Image', type: 'image', helpText: 'Image for social media sharing' },
+        ]
+      },
+      {
         id: 'hero',
         title: 'Hero Section',
         fields: [
           { key: 'heating_page_hero_title', label: 'Title', type: 'text', placeholder: "Heat Out? We're On It." },
+          { key: 'heating_page_hero_image', label: 'Background Image', type: 'image', helpText: 'Hero background image' },
           { key: 'heating_page_hero_description', label: 'Description', type: 'textarea', placeholder: 'Furnaces, heat pumps, all brands...' },
           { key: 'heating_page_hero_primary_button', label: 'Primary Button', type: 'text', placeholder: 'Schedule Heating Service' },
           { key: 'heating_page_hero_secondary_button', label: 'Secondary Button', type: 'text', placeholder: 'Call (832) 437-1000' },
@@ -258,10 +292,21 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/services/air-conditioning-tune-ups',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'tuneups_seo_title', label: 'Meta Title', type: 'text', placeholder: 'AC Tune-Up Houston | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'tuneups_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Annual preventative maintenance programs for AC & heating systems...', helpText: 'Description shown in search results' },
+          { key: 'tuneups_seo_image', label: 'OG Image', type: 'image', helpText: 'Image for social media sharing' },
+        ]
+      },
+      {
         id: 'hero',
         title: 'Hero Section',
         fields: [
           { key: 'tuneups_page_hero_title', label: 'Title', type: 'text', placeholder: 'Annual AC Tune-Up & Preventative Maintenance' },
+          { key: 'tuneups_page_hero_image', label: 'Background Image', type: 'image', helpText: 'Hero background image' },
           { key: 'tuneups_page_hero_description', label: 'Description', type: 'textarea', placeholder: 'Keep your system running at peak efficiency...' },
           { key: 'tuneups_page_hero_primary_button', label: 'Primary Button', type: 'text', placeholder: 'Check If You Qualify — FREE' },
           { key: 'tuneups_page_hero_secondary_button', label: 'Secondary Button', type: 'text', placeholder: 'Call (832) 437-1000' },
@@ -335,10 +380,21 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/financing-payments',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'financing_seo_title', label: 'Meta Title', type: 'text', placeholder: 'HVAC Financing Houston | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'financing_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Affordable HVAC financing options in Houston. 5-minute application...', helpText: 'Description shown in search results' },
+          { key: 'financing_seo_image', label: 'OG Image', type: 'image', helpText: 'Image for social media sharing' },
+        ]
+      },
+      {
         id: 'hero',
         title: 'Hero Section',
         fields: [
           { key: 'financing_page_hero_title', label: 'Title', type: 'text', placeholder: "Don't Sweat the Bill" },
+          { key: 'financing_page_hero_image', label: 'Background Image', type: 'image', helpText: 'Hero background image' },
           { key: 'financing_page_hero_description', label: 'Description', type: 'textarea', placeholder: "New AC isn't cheap. Neither is sleeping in a 90-degree house..." },
           { key: 'financing_page_hero_subtitle', label: 'Subtitle', type: 'text', placeholder: '5-minute application. Decision before we leave...' },
           { key: 'financing_page_hero_primary_button', label: 'Primary Button', type: 'text', placeholder: 'Apply for Financing' },
@@ -424,6 +480,15 @@ export const pageSchemas: Record<string, PageSchema> = {
     productionUrl: '/pay-invoice',
     sections: [
       {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'pay_invoice_seo_title', label: 'Meta Title', type: 'text', placeholder: 'Pay Invoice | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'pay_invoice_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Pay your HVAC service invoice quickly and securely online...', helpText: 'Description shown in search results' },
+        ]
+      },
+      {
         id: 'main',
         title: 'Main Content',
         fields: [
@@ -435,6 +500,69 @@ export const pageSchemas: Record<string, PageSchema> = {
           { key: 'pay_invoice_help_title', label: 'Help Title', type: 'text', placeholder: 'Need Help?' },
           { key: 'pay_invoice_help_description', label: 'Help Description', type: 'textarea', placeholder: 'Questions about your invoice or payment options?' },
           { key: 'pay_invoice_financing_link', label: 'Financing Link Text', type: 'text', placeholder: 'View financing options' },
+        ]
+      },
+    ]
+  },
+
+  // =====================================================
+  // CONTACT PAGE
+  // =====================================================
+  'contact': {
+    title: 'Contact',
+    description: 'Contact page with form and business info',
+    productionUrl: '/contact',
+    sections: [
+      {
+        id: 'seo',
+        title: 'SEO',
+        description: 'Search engine optimization settings for this page',
+        fields: [
+          { key: 'contact_seo_title', label: 'Meta Title', type: 'text', placeholder: 'Contact Us | Mr. Air Services', helpText: 'Title shown in search results' },
+          { key: 'contact_seo_description', label: 'Meta Description', type: 'textarea', placeholder: 'Contact Mr. Air Services for all your HVAC needs in Houston...', helpText: 'Description shown in search results' },
+        ]
+      },
+      {
+        id: 'header',
+        title: 'Page Header',
+        fields: [
+          { key: 'contact_page_title', label: 'Title', type: 'text', placeholder: 'Get In Touch' },
+          { key: 'contact_page_subtitle', label: 'Subtitle', type: 'textarea', placeholder: "Whether you need emergency repairs or want to schedule maintenance..." },
+          { key: 'contact_page_call_cta', label: 'Call CTA Label', type: 'text', placeholder: 'Or call us now:' },
+          { key: 'contact_page_service_area', label: 'Service Area', type: 'text', placeholder: 'Greater Houston Area' },
+        ]
+      },
+      {
+        id: 'form',
+        title: 'Contact Form',
+        fields: [
+          { key: 'contact_page_form_title', label: 'Form Title', type: 'text', placeholder: 'Request Service' },
+          { key: 'contact_page_form_subtitle', label: 'Form Subtitle', type: 'text', placeholder: "Fill out the form below and we'll get back to you shortly." },
+          { key: 'contact_page_label_name', label: 'Name Label', type: 'text', placeholder: 'Full Name' },
+          { key: 'contact_page_label_email', label: 'Email Label', type: 'text', placeholder: 'Email Address' },
+          { key: 'contact_page_label_phone', label: 'Phone Label', type: 'text', placeholder: 'Phone Number' },
+          { key: 'contact_page_label_time', label: 'Time Label', type: 'text', placeholder: 'Preferred Time' },
+          { key: 'contact_page_label_services', label: 'Services Label', type: 'text', placeholder: 'Services Needed' },
+          { key: 'contact_page_label_message', label: 'Message Label', type: 'text', placeholder: 'Tell us about your HVAC needs...' },
+        ]
+      },
+      {
+        id: 'time-options',
+        title: 'Time Options',
+        fields: [
+          { key: 'contact_page_time_morning', label: 'Morning Option', type: 'text', placeholder: 'Morning (8AM - 12PM)' },
+          { key: 'contact_page_time_afternoon', label: 'Afternoon Option', type: 'text', placeholder: 'Afternoon (12PM - 5PM)' },
+          { key: 'contact_page_time_flexible', label: 'Flexible Option', type: 'text', placeholder: 'Flexible' },
+        ]
+      },
+      {
+        id: 'submit',
+        title: 'Form Submission',
+        fields: [
+          { key: 'contact_page_submit_button', label: 'Submit Button', type: 'text', placeholder: 'Send Message' },
+          { key: 'contact_page_privacy_text', label: 'Privacy Text', type: 'textarea', placeholder: 'By submitting this form, you agree to our Privacy Policy.' },
+          { key: 'contact_page_success_title', label: 'Success Title', type: 'text', placeholder: 'Message Sent!' },
+          { key: 'contact_page_success_message', label: 'Success Message', type: 'textarea', placeholder: "We've received your message and will get back to you shortly." },
         ]
       },
     ]
