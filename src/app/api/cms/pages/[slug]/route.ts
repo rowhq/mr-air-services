@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
+
+// Map page slugs to their actual URL paths
+function getPagePath(slug: string): string {
+  const pathMap: Record<string, string> = {
+    'home': '/',
+    'privacy-policy': '/privacy-policy',
+    'terms-of-use': '/terms-of-use',
+    'contact': '/contact',
+    'services': '/services',
+  };
+  return pathMap[slug] || `/${slug}`;
+}
 
 // GET /api/cms/pages/[slug] - Get page with blocks
 export async function GET(
@@ -72,6 +85,16 @@ export async function PUT(
 
     if (result.rows.length === 0) {
       return NextResponse.json({ error: "Page not found" }, { status: 404 });
+    }
+
+    // Revalidate the page cache when publishing
+    if (body.is_published) {
+      const pagePath = getPagePath(slug);
+      revalidatePath(pagePath);
+      // Also revalidate the home page if it might include this content
+      if (pagePath !== '/') {
+        revalidatePath('/');
+      }
     }
 
     return NextResponse.json(result.rows[0]);
