@@ -1,8 +1,9 @@
 /**
  * Migration script to update dimensions for existing images in the database.
- * Run with: npx tsx scripts/migrate-image-dimensions.ts
+ * Run with: pnpm migrate:image-dimensions
  */
 
+import "dotenv/config";
 import { sql } from "@vercel/postgres";
 import imageSize from "image-size";
 
