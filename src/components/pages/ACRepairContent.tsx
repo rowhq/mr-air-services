@@ -157,9 +157,9 @@ export function ACRepairContent({ config, faqs, isPreview = false }: ACRepairCon
       {/* Brands We Service - Trust builder right after hero */}
       <section className="py-8 bg-neutral-50 dark:bg-neutral-800">
         <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+          <div className="flex flex-col items-start gap-4">
             <span className="text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{config.brandsLabel}</span>
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8">
+            <div className="flex items-center gap-4 sm:gap-6 md:gap-8 w-full">
               {brandsServiced.map((brand) => (
                 <Image
                   key={brand.name}
