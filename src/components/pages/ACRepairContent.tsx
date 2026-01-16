@@ -95,10 +95,13 @@ const repairTypeIcons = [
 
 interface ACRepairContentProps {
   config: ACRepairPageConfig;
+  faqs?: { question: string; answer: string }[];
   isPreview?: boolean;
 }
 
-export function ACRepairContent({ config, isPreview = false }: ACRepairContentProps) {
+export function ACRepairContent({ config, faqs, isPreview = false }: ACRepairContentProps) {
+  // Use passed FAQs if available, otherwise use config FAQs
+  const faqItems = faqs || config.faq.items;
   return (
     <>
       {/* Preview indicator */}
@@ -212,7 +215,7 @@ export function ACRepairContent({ config, isPreview = false }: ACRepairContentPr
       <div id="faq" className="scroll-mt-20">
         <FAQSection
           subtitle={config.faq.subtitle}
-          items={config.faq.items}
+          items={faqItems}
         />
       </div>
 

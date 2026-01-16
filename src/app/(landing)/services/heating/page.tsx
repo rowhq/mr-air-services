@@ -1,5 +1,14 @@
 import { HeatingContent, HeatingPageConfig, defaultHeatingConfig } from '@/components/pages/HeatingContent';
 
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  page_slug: string | null;
+  position: number;
+}
+
 export const metadata = {
   title: 'Heating | Mr. Air Services - Houston Furnace & Heat Pump Experts',
   description: 'Professional heating services in Houston. Furnace repair, heat pump installation, and heating maintenance. Stay warm this winter. Call (832) 437-1000.',
@@ -244,11 +253,33 @@ async function getHeatingPageConfig(): Promise<Partial<HeatingPageConfig> | null
   }
 }
 
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/cms/faqs?page=heating`, {
+      next: { revalidate: 60 },
+      cache: 'force-cache',
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export default async function HeatingPage() {
-  const cmsConfig = await getHeatingPageConfig();
+  const [cmsConfig, dbFaqs] = await Promise.all([
+    getHeatingPageConfig(),
+    getFAQs(),
+  ]);
 
   // Merge CMS config with defaults
   const config = deepMerge(defaultHeatingConfig, cmsConfig);
 
-  return <HeatingContent config={config} />;
+  // Use FAQs from database if available
+  const faqs = dbFaqs.length > 0
+    ? dbFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : undefined;
+
+  return <HeatingContent config={config} faqs={faqs} />;
 }

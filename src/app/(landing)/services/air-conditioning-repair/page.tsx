@@ -1,5 +1,14 @@
 import { ACRepairContent, ACRepairPageConfig, defaultACRepairConfig } from '@/components/pages/ACRepairContent';
 
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  page_slug: string | null;
+  position: number;
+}
+
 export const metadata = {
   title: 'Air Conditioning Repair | Mr. Air Services - Houston AC Repair Experts',
   description: 'Fast, reliable AC repair in Houston. Same-day service available. Our experienced technicians fix all makes and models. Call (832) 437-1000 for emergency AC repair.',
@@ -119,8 +128,25 @@ async function getACRepairPageConfig(): Promise<Partial<ACRepairPageConfig> | nu
   }
 }
 
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/cms/faqs?page=air-conditioning-repair`, {
+      next: { revalidate: 60 },
+      cache: 'force-cache',
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export default async function ACRepairPage() {
-  const cmsConfig = await getACRepairPageConfig();
+  const [cmsConfig, dbFaqs] = await Promise.all([
+    getACRepairPageConfig(),
+    getFAQs(),
+  ]);
 
   // Merge CMS config with defaults
   const config: ACRepairPageConfig = {
@@ -130,5 +156,10 @@ export default async function ACRepairPage() {
     faq: { ...defaultACRepairConfig.faq, ...cmsConfig?.faq },
   };
 
-  return <ACRepairContent config={config} />;
+  // Use FAQs from database if available, otherwise use config
+  const faqs = dbFaqs.length > 0
+    ? dbFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : config.faq.items;
+
+  return <ACRepairContent config={config} faqs={faqs} />;
 }

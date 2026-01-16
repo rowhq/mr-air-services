@@ -1,5 +1,14 @@
 import { FinancingContent, FinancingPageConfig, defaultFinancingConfig } from '@/components/pages/FinancingContent';
 
+interface FAQ {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  page_slug: string | null;
+  position: number;
+}
+
 export const metadata = {
   title: 'Financing & Payments | Mr. Air Services - Flexible HVAC Financing Houston',
   description: 'Affordable HVAC financing options in Houston. 5-minute application, quick approval. Options for all credit profiles. No prepayment penalties.',
@@ -193,11 +202,33 @@ async function getFinancingPageConfig(): Promise<Partial<FinancingPageConfig> | 
   }
 }
 
+async function getFAQs(): Promise<FAQ[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/cms/faqs?page=financing-payments`, {
+      next: { revalidate: 60 },
+      cache: 'force-cache',
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export default async function FinancingPage() {
-  const cmsConfig = await getFinancingPageConfig();
+  const [cmsConfig, dbFaqs] = await Promise.all([
+    getFinancingPageConfig(),
+    getFAQs(),
+  ]);
 
   // Merge CMS config with defaults
   const config = deepMerge(defaultFinancingConfig, cmsConfig);
 
-  return <FinancingContent config={config} />;
+  // Use FAQs from database if available
+  const faqs = dbFaqs.length > 0
+    ? dbFaqs.map(f => ({ question: f.question, answer: f.answer }))
+    : undefined;
+
+  return <FinancingContent config={config} faqs={faqs} />;
 }

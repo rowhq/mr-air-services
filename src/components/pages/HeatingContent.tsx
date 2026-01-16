@@ -213,10 +213,13 @@ const warningIcons = [
 
 interface HeatingContentProps {
   config: HeatingPageConfig;
+  faqs?: { question: string; answer: string }[];
   isPreview?: boolean;
 }
 
-export function HeatingContent({ config, isPreview = false }: HeatingContentProps) {
+export function HeatingContent({ config, faqs, isPreview = false }: HeatingContentProps) {
+  // Use passed FAQs if available, otherwise use config FAQs
+  const faqItems = faqs || config.faq.items;
   // Build services array with icons
   const services = config.services.items.map((item, idx) => ({
     ...item,
@@ -466,7 +469,7 @@ export function HeatingContent({ config, isPreview = false }: HeatingContentProp
       <div id="faq" className="scroll-mt-20">
         <FAQSection
           subtitle={config.faq.subtitle}
-          items={config.faq.items}
+          items={faqItems}
         />
       </div>
 
