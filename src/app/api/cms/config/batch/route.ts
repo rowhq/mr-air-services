@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql, db } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 
 interface ConfigUpdate {
@@ -53,7 +54,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { configs } = body as { configs: ConfigUpdate[] };
+    const { configs, pagePath } = body as { configs: ConfigUpdate[]; pagePath?: string };
 
     if (!configs || !Array.isArray(configs) || configs.length === 0) {
       return NextResponse.json(
@@ -74,6 +75,15 @@ export async function PUT(request: NextRequest) {
         RETURNING key, value
       `;
       results.push(result.rows[0]);
+    }
+
+    // Revalidate the page cache so changes appear immediately
+    if (pagePath) {
+      revalidatePath(pagePath);
+      // Also revalidate home page since it may include content from other pages
+      if (pagePath !== '/') {
+        revalidatePath('/');
+      }
     }
 
     return NextResponse.json({

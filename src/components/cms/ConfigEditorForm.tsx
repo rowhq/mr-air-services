@@ -40,7 +40,10 @@ export function ConfigEditorForm({ schema, initialValues, slug }: ConfigEditorFo
       const response = await fetch('/api/cms/config/batch', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ configs }),
+        body: JSON.stringify({
+          configs,
+          pagePath: schema.productionUrl,
+        }),
       });
 
       if (!response.ok) {
