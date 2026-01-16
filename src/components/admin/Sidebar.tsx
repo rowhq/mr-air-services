@@ -20,8 +20,6 @@ import {
   ChevronLeftIcon,
   SearchIcon,
   ExternalLinkIcon,
-  SunIcon,
-  MoonIcon,
   WifiIcon,
   WifiOffIcon,
 } from "./icons";
@@ -68,7 +66,6 @@ interface SidebarProps {
 export function Sidebar({ className = "" }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDark, setIsDark] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
   const [leadsCount, setLeadsCount] = useState(0);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -81,30 +78,6 @@ export function Sidebar({ className = "" }: SidebarProps) {
       setCollapsed(JSON.parse(saved));
     }
   }, []);
-
-  // Load dark mode preference
-  useEffect(() => {
-    const saved = localStorage.getItem("admin-dark-mode");
-    if (saved !== null) {
-      setIsDark(JSON.parse(saved));
-    }
-  }, []);
-
-  // Apply dark mode
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
-
-  // Toggle dark mode
-  const toggleDarkMode = () => {
-    const newState = !isDark;
-    setIsDark(newState);
-    localStorage.setItem("admin-dark-mode", JSON.stringify(newState));
-  };
 
   // Monitor online status
   useEffect(() => {
@@ -221,18 +194,6 @@ export function Sidebar({ className = "" }: SidebarProps) {
           </div>
         )}
         <div className="flex items-center gap-1">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-            title={isDark ? "Light mode" : "Dark mode"}
-          >
-            {isDark ? (
-              <SunIcon className="w-5 h-5" />
-            ) : (
-              <MoonIcon className="w-5 h-5" />
-            )}
-          </button>
           {/* Collapse Toggle */}
           <button
             onClick={toggleCollapse}
