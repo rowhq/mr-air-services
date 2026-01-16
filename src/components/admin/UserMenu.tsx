@@ -28,7 +28,7 @@ export function UserMenu({ collapsed }: UserMenuProps) {
             hover:bg-gray-800 hover:text-white
             transition-colors
           "
-          title="Cerrar sesion"
+          title="Sign out"
         >
           <LogOutIcon className="w-5 h-5" />
 
@@ -41,7 +41,7 @@ export function UserMenu({ collapsed }: UserMenuProps) {
             transition-all duration-150 z-50
             shadow-lg border border-gray-700
           ">
-            Cerrar sesion
+            Sign out
           </div>
         </button>
       </div>
@@ -66,7 +66,7 @@ export function UserMenu({ collapsed }: UserMenuProps) {
         <button
           onClick={handleLogout}
           className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
-          title="Cerrar sesion"
+          title="Sign out"
         >
           <LogOutIcon className="w-4 h-4" />
         </button>

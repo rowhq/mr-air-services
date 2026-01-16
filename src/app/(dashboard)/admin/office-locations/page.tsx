@@ -88,7 +88,7 @@ export default function OfficeLocationsPage() {
   }
 
   async function deleteLocation(id: string) {
-    if (!confirm("Seguro que deseas eliminar esta ubicacion?")) return;
+    if (!confirm("Are you sure you want to delete this location?")) return;
 
     try {
       await fetch(`/api/cms/office-locations/${id}`, { method: "DELETE" });
@@ -132,12 +132,12 @@ export default function OfficeLocationsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Ubicaciones de Oficina</h1>
+        <h1 className="text-2xl font-bold">Office Locations</h1>
         <button
           onClick={startCreate}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Nueva Ubicacion
+          + New Location
         </button>
       </div>
 
@@ -156,7 +156,7 @@ export default function OfficeLocationsPage() {
                   <h3 className="font-bold text-gray-900">{location.name}</h3>
                   {location.is_primary && (
                     <span className="text-xs text-blue-600 font-medium">
-                      Principal
+                      Primary
                     </span>
                   )}
                 </div>
@@ -177,13 +177,13 @@ export default function OfficeLocationsPage() {
                     onClick={() => startEdit(location)}
                     className="text-blue-600 hover:underline text-sm"
                   >
-                    Editar
+                    Edit
                   </button>
                   <button
                     onClick={() => deleteLocation(location.id)}
                     className="text-red-600 hover:underline text-sm"
                   >
-                    Eliminar
+                    Delete
                   </button>
                 </div>
                 {!location.is_primary && (
@@ -191,7 +191,7 @@ export default function OfficeLocationsPage() {
                     onClick={() => setPrimary(location)}
                     className="text-gray-500 hover:text-blue-600 text-sm"
                   >
-                    Hacer principal
+                    Make primary
                   </button>
                 )}
               </div>
@@ -202,12 +202,12 @@ export default function OfficeLocationsPage() {
 
       {locations.length === 0 && (
         <div className="text-center py-12 bg-white rounded-xl">
-          <p className="text-gray-500">No hay ubicaciones configuradas</p>
+          <p className="text-gray-500">No locations configured</p>
           <button
             onClick={startCreate}
             className="mt-4 text-blue-600 hover:underline"
           >
-            Agregar primera ubicacion
+            Add first location
           </button>
         </div>
       )}
@@ -218,13 +218,13 @@ export default function OfficeLocationsPage() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-bold">
-                {editingId === "new" ? "Nueva Ubicacion" : "Editar Ubicacion"}
+                {editingId === "new" ? "New Location" : "Edit Location"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Nombre
+                  Name
                 </label>
                 <input
                   type="text"
@@ -239,7 +239,7 @@ export default function OfficeLocationsPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Direccion
+                  Address
                 </label>
                 <input
                   type="text"
@@ -255,7 +255,7 @@ export default function OfficeLocationsPage() {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Ciudad
+                    City
                   </label>
                   <input
                     type="text"
@@ -269,7 +269,7 @@ export default function OfficeLocationsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Estado
+                    State
                   </label>
                   <input
                     type="text"
@@ -282,7 +282,7 @@ export default function OfficeLocationsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Codigo Postal
+                    Zip Code
                   </label>
                   <input
                     type="text"
@@ -299,7 +299,7 @@ export default function OfficeLocationsPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Telefono
+                    Phone
                   </label>
                   <input
                     type="text"
@@ -367,24 +367,24 @@ export default function OfficeLocationsPage() {
               </div>
 
               <div className="border-t pt-4 mt-4">
-                <h3 className="font-semibold text-gray-900 mb-3">Horarios</h3>
+                <h3 className="font-semibold text-gray-900 mb-3">Hours</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.entries(defaultHours).map(([day]) => (
                     <div key={day}>
                       <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
                         {day === "monday"
-                          ? "Lunes"
+                          ? "Monday"
                           : day === "tuesday"
-                          ? "Martes"
+                          ? "Tuesday"
                           : day === "wednesday"
-                          ? "Miercoles"
+                          ? "Wednesday"
                           : day === "thursday"
-                          ? "Jueves"
+                          ? "Thursday"
                           : day === "friday"
-                          ? "Viernes"
+                          ? "Friday"
                           : day === "saturday"
-                          ? "Sabado"
-                          : "Domingo"}
+                          ? "Saturday"
+                          : "Sunday"}
                       </label>
                       <input
                         type="text"
@@ -411,7 +411,7 @@ export default function OfficeLocationsPage() {
                     className="w-4 h-4 text-blue-600"
                   />
                   <span className="text-sm text-gray-700">
-                    Ubicacion Principal
+                    Primary Location
                   </span>
                 </label>
               </div>
@@ -421,13 +421,13 @@ export default function OfficeLocationsPage() {
                 onClick={cancelEdit}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={saveLocation}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Guardar
+                Save
               </button>
             </div>
           </div>

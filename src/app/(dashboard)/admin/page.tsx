@@ -69,7 +69,7 @@ export default function AdminDashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
-          label="Paginas"
+          label="Pages"
           value={stats.pages}
           icon={
             <svg
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
           color="blue"
         />
         <StatCard
-          label="Servicios"
+          label="Services"
           value={stats.services}
           icon={
             <svg
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
           color="green"
         />
         <StatCard
-          label="Testimonios"
+          label="Testimonials"
           value={stats.testimonials}
           icon={
             <svg
@@ -159,12 +159,12 @@ export default function AdminDashboard() {
       {/* Pages Section */}
       <div className="bg-white p-6 rounded-xl shadow-sm mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Paginas</h2>
+          <h2 className="text-lg font-semibold">Pages</h2>
           <Link
             href="/admin/pages"
             className="text-sm text-blue-600 hover:underline"
           >
-            Ver todas →
+            View all →
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
                       : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
-                  {page.is_published ? "Publicada" : "Borrador"}
+                  {page.is_published ? "Published" : "Draft"}
                 </span>
               </div>
             </Link>
@@ -198,7 +198,7 @@ export default function AdminDashboard() {
 
       {/* Quick Actions */}
       <div className="bg-white p-6 rounded-xl shadow-sm">
-        <h2 className="text-lg font-semibold mb-4">Acciones Rapidas</h2>
+        <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Link
             href="/admin/editor/home"
@@ -217,7 +217,7 @@ export default function AdminDashboard() {
                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
               />
             </svg>
-            Editar Homepage
+            Edit Homepage
           </Link>
           <Link
             href="/admin/services"
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            Gestionar Servicios
+            Manage Services
           </Link>
           <Link
             href="/admin/testimonials"
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
                 d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
               />
             </svg>
-            Testimonios
+            Testimonials
           </Link>
           <Link
             href="/admin/faqs"

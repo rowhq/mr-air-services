@@ -77,7 +77,7 @@ export default function NavigationPage() {
   }
 
   async function deleteItem(id: string) {
-    if (!confirm("Seguro que deseas eliminar este elemento?")) return;
+    if (!confirm("Are you sure you want to delete this item?")) return;
 
     try {
       await fetch(`/api/cms/navigation/${id}`, { method: "DELETE" });
@@ -147,12 +147,12 @@ export default function NavigationPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Navegacion</h1>
+        <h1 className="text-2xl font-bold">Navigation</h1>
         <button
           onClick={startCreate}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Nuevo Enlace
+          + New Link
         </button>
       </div>
 
@@ -186,22 +186,22 @@ export default function NavigationPage() {
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 w-12">
-                Orden
+                Order
               </th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
-                Etiqueta
+                Label
               </th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
                 URL
               </th>
               <th className="text-center px-6 py-4 text-sm font-semibold text-gray-600">
-                Tipo
+                Type
               </th>
               <th className="text-center px-6 py-4 text-sm font-semibold text-gray-600">
                 Visible
               </th>
               <th className="text-right px-6 py-4 text-sm font-semibold text-gray-600">
-                Acciones
+                Actions
               </th>
             </tr>
           </thead>
@@ -209,7 +209,7 @@ export default function NavigationPage() {
             {filteredItems.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                  No hay elementos en {activeTab === "header" ? "el header" : "el footer"}
+                  No items in {activeTab}
                 </td>
               </tr>
             ) : (
@@ -242,11 +242,11 @@ export default function NavigationPage() {
                   <td className="px-6 py-4 text-center">
                     {item.is_external ? (
                       <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
-                        Externo
+                        External
                       </span>
                     ) : (
                       <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">
-                        Interno
+                        Internal
                       </span>
                     )}
                   </td>
@@ -259,7 +259,7 @@ export default function NavigationPage() {
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >
-                      {item.is_visible ? "Visible" : "Oculto"}
+                      {item.is_visible ? "Visible" : "Hidden"}
                     </button>
                   </td>
                   <td className="px-6 py-4 text-right space-x-2">
@@ -267,13 +267,13 @@ export default function NavigationPage() {
                       onClick={() => startEdit(item)}
                       className="text-blue-600 hover:underline text-sm"
                     >
-                      Editar
+                      Edit
                     </button>
                     <button
                       onClick={() => deleteItem(item.id)}
                       className="text-red-600 hover:underline text-sm"
                     >
-                      Eliminar
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -289,13 +289,13 @@ export default function NavigationPage() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-bold">
-                {editingId === "new" ? "Nuevo Enlace" : "Editar Enlace"}
+                {editingId === "new" ? "New Link" : "Edit Link"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Ubicacion
+                  Location
                 </label>
                 <select
                   value={formData.location || "header"}
@@ -313,7 +313,7 @@ export default function NavigationPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Etiqueta
+                  Label
                 </label>
                 <input
                   type="text"
@@ -321,7 +321,7 @@ export default function NavigationPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, label: e.target.value })
                   }
-                  placeholder="Servicios"
+                  placeholder="Services"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -341,7 +341,7 @@ export default function NavigationPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Elemento padre (para submenu)
+                  Parent item (for submenu)
                 </label>
                 <select
                   value={formData.parent_id || ""}
@@ -353,7 +353,7 @@ export default function NavigationPage() {
                   }
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="">Sin padre (item principal)</option>
+                  <option value="">No parent (main item)</option>
                   {items
                     .filter((i) => i.location === formData.location && !i.parent_id && i.id !== editingId)
                     .map((i) => (
@@ -374,7 +374,7 @@ export default function NavigationPage() {
                     className="w-4 h-4 text-blue-600"
                   />
                   <span className="text-sm text-gray-700">
-                    Enlace externo (abre en nueva pestana)
+                    External link (opens in new tab)
                   </span>
                 </label>
               </div>
@@ -397,13 +397,13 @@ export default function NavigationPage() {
                 onClick={cancelEdit}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={saveItem}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Guardar
+                Save
               </button>
             </div>
           </div>

@@ -9,16 +9,16 @@ import { Sidebar, MobileNav, ExternalLinkIcon, ChevronRightIcon, HomeIcon } from
 // Page titles and sections for breadcrumbs
 const pageConfig: Record<string, { title: string; section?: string }> = {
   "/admin": { title: "Dashboard" },
-  "/admin/pages": { title: "Páginas", section: "Contenido" },
-  "/admin/services": { title: "Servicios", section: "Contenido" },
-  "/admin/testimonials": { title: "Testimonios", section: "Contenido" },
-  "/admin/faqs": { title: "FAQs", section: "Contenido" },
-  "/admin/media": { title: "Media", section: "Contenido" },
+  "/admin/pages": { title: "Pages", section: "Content" },
+  "/admin/services": { title: "Services", section: "Content" },
+  "/admin/testimonials": { title: "Testimonials", section: "Content" },
+  "/admin/faqs": { title: "FAQs", section: "Content" },
+  "/admin/media": { title: "Media", section: "Content" },
   "/admin/leads": { title: "Leads" },
-  "/admin/office-locations": { title: "Ubicaciones", section: "Configuracion" },
-  "/admin/navigation": { title: "Navegacion", section: "Configuracion" },
-  "/admin/site-config": { title: "Configuracion", section: "Configuracion" },
-  "/admin/editor": { title: "Editor Visual", section: "Principal" },
+  "/admin/office-locations": { title: "Locations", section: "Settings" },
+  "/admin/navigation": { title: "Navigation", section: "Settings" },
+  "/admin/site-config": { title: "Settings", section: "Settings" },
+  "/admin/editor": { title: "Visual Editor", section: "Main" },
 };
 
 function getPageInfo(pathname: string): { title: string; section?: string } {
@@ -32,7 +32,7 @@ function getPageInfo(pathname: string): { title: string; section?: string } {
       return config;
     }
   }
-  return { title: "Panel de Control" };
+  return { title: "Control Panel" };
 }
 
 function getBreadcrumbs(pathname: string): Array<{ label: string; href?: string }> {
@@ -123,7 +123,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
                 font-medium transition-colors
               "
             >
-              <span>Ver sitio</span>
+              <span>View Site</span>
               <ExternalLinkIcon className="w-4 h-4" />
             </Link>
           </div>

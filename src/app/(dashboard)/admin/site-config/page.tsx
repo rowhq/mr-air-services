@@ -130,11 +130,11 @@ export default function SiteConfigPage() {
         }),
       ]);
 
-      setSaveMessage("Configuracion guardada exitosamente");
+      setSaveMessage("Configuration saved successfully");
       setTimeout(() => setSaveMessage(""), 3000);
     } catch (error) {
       console.error("Failed to save config:", error);
-      setSaveMessage("Error al guardar la configuracion");
+      setSaveMessage("Error saving configuration");
     } finally {
       setIsSaving(false);
     }
@@ -179,7 +179,7 @@ export default function SiteConfigPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Configuracion del Sitio</h1>
+        <h1 className="text-2xl font-bold">Site Configuration</h1>
         <div className="flex items-center gap-4">
           {saveMessage && (
             <span
@@ -197,7 +197,7 @@ export default function SiteConfigPage() {
             disabled={isSaving}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
           >
-            {isSaving ? "Guardando..." : "Guardar Cambios"}
+            {isSaving ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </div>
@@ -205,11 +205,11 @@ export default function SiteConfigPage() {
       <div className="space-y-6">
         {/* Company Info */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Informacion de la Empresa</h2>
+          <h2 className="text-lg font-semibold mb-4">Company Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Nombre de la Empresa
+                Company Name
               </label>
               <input
                 type="text"
@@ -220,7 +220,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Telefono Principal
+                Main Phone
               </label>
               <input
                 type="text"
@@ -231,7 +231,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email Principal
+                Main Email
               </label>
               <input
                 type="email"
@@ -242,7 +242,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Direccion
+                Address
               </label>
               <input
                 type="text"
@@ -256,11 +256,11 @@ export default function SiteConfigPage() {
 
         {/* Business Hours */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Horarios de Atencion</h2>
+          <h2 className="text-lg font-semibold mb-4">Business Hours</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Lunes - Viernes
+                Monday - Friday
               </label>
               <input
                 type="text"
@@ -272,7 +272,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Sabado
+                Saturday
               </label>
               <input
                 type="text"
@@ -284,25 +284,25 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Domingo
+                Sunday
               </label>
               <input
                 type="text"
                 value={config.hours.sunday}
                 onChange={(e) => updateHours("sunday", e.target.value)}
-                placeholder="Cerrado"
+                placeholder="Closed"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Emergencias
+                Emergency
               </label>
               <input
                 type="text"
                 value={config.hours.emergency}
                 onChange={(e) => updateHours("emergency", e.target.value)}
-                placeholder="24/7 Disponible"
+                placeholder="24/7 Available"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -311,7 +311,7 @@ export default function SiteConfigPage() {
 
         {/* Social Media */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">Redes Sociales</h2>
+          <h2 className="text-lg font-semibold mb-4">Social Media</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -402,11 +402,11 @@ export default function SiteConfigPage() {
 
         {/* SEO Defaults */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="text-lg font-semibold mb-4">SEO por Defecto</h2>
+          <h2 className="text-lg font-semibold mb-4">Default SEO</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Titulo por Defecto
+                Default Title
               </label>
               <input
                 type="text"
@@ -417,7 +417,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Sufijo del Titulo
+                Title Suffix
               </label>
               <input
                 type="text"
@@ -427,12 +427,12 @@ export default function SiteConfigPage() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Se agrega al final del titulo de cada pagina
+                Added to the end of each page title
               </p>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Descripcion por Defecto
+                Default Description
               </label>
               <textarea
                 value={config.seo.default_description}
@@ -443,7 +443,7 @@ export default function SiteConfigPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Imagen OG por Defecto
+                Default OG Image
               </label>
               <input
                 type="url"

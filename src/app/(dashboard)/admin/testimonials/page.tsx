@@ -71,7 +71,7 @@ export default function TestimonialsPage() {
   }
 
   async function deleteTestimonial(id: string) {
-    if (!confirm("Seguro que deseas eliminar este testimonio?")) return;
+    if (!confirm("Are you sure you want to delete this testimonial?")) return;
 
     try {
       await fetch(`/api/cms/testimonials/${id}`, { method: "DELETE" });
@@ -105,12 +105,12 @@ export default function TestimonialsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Testimonios</h1>
+        <h1 className="text-2xl font-bold">Testimonials</h1>
         <button
           onClick={startNew}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Nuevo Testimonio
+          + New Testimonial
         </button>
       </div>
 
@@ -130,7 +130,7 @@ export default function TestimonialsPage() {
                     ? "bg-yellow-100 text-yellow-600"
                     : "bg-gray-100 text-gray-400 hover:text-yellow-600"
                 }`}
-                title={testimonial.is_featured ? "Quitar destacado" : "Destacar"}
+                title={testimonial.is_featured ? "Remove featured" : "Feature"}
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -185,7 +185,7 @@ export default function TestimonialsPage() {
             {/* Featured badge */}
             {testimonial.is_featured && (
               <span className="absolute top-4 left-4 px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">
-                Destacado
+                Featured
               </span>
             )}
           </div>
@@ -198,14 +198,14 @@ export default function TestimonialsPage() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-bold">
-                {editingId === "new" ? "Nuevo Testimonio" : "Editar Testimonio"}
+                {editingId === "new" ? "New Testimonial" : "Edit Testimonial"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Iniciales
+                    Initials
                   </label>
                   <input
                     type="text"
@@ -219,7 +219,7 @@ export default function TestimonialsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Ubicacion
+                    Location
                   </label>
                   <input
                     type="text"
@@ -244,13 +244,13 @@ export default function TestimonialsPage() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
                     {[5, 4, 3, 2, 1].map((r) => (
-                      <option key={r} value={r}>{r} estrellas</option>
+                      <option key={r} value={r}>{r} stars</option>
                     ))}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Fuente
+                    Source
                   </label>
                   <select
                     value={formData.source || "Google"}
@@ -268,7 +268,7 @@ export default function TestimonialsPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Testimonio
+                  Testimonial
                 </label>
                 <textarea
                   value={formData.text || ""}
@@ -289,7 +289,7 @@ export default function TestimonialsPage() {
                     }
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm text-gray-700">Destacado</span>
+                  <span className="text-sm text-gray-700">Featured</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input
@@ -300,7 +300,7 @@ export default function TestimonialsPage() {
                     }
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm text-gray-700">Publicado</span>
+                  <span className="text-sm text-gray-700">Published</span>
                 </label>
               </div>
             </div>
@@ -309,13 +309,13 @@ export default function TestimonialsPage() {
                 onClick={cancelEdit}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={saveTestimonial}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Guardar
+                Save
               </button>
             </div>
           </div>

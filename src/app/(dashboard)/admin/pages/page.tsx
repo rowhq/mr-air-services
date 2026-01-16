@@ -65,10 +65,10 @@ export default function PagesPage() {
     <div>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          Páginas
+          Pages
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400 mt-2">
-          Gestiona todas las páginas del sitio. Las páginas de servicio usan el editor de contenido, las demás usan el editor visual.
+          Manage all site pages. Service pages use the content editor, other pages use the visual editor.
         </p>
       </div>
 
@@ -76,8 +76,8 @@ export default function PagesPage() {
       <div className="mb-10">
         <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
           <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-          Páginas de Servicio
-          <span className="text-xs font-normal text-neutral-500 ml-2">Editor de Contenido</span>
+          Service Pages
+          <span className="text-xs font-normal text-neutral-500 ml-2">Content Editor</span>
         </h2>
         <div className="grid gap-3">
           {servicePages.map((page) => (
@@ -100,14 +100,14 @@ export default function PagesPage() {
                         {page.productionUrl}
                       </span>
                       <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded">
-                        {page.fieldCount} campos
+                        {page.fieldCount} fields
                       </span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-blue-600">
                   <span className="text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    Editar Contenido
+                    Edit Content
                   </span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -124,8 +124,8 @@ export default function PagesPage() {
         <div>
           <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4 flex items-center gap-2">
             <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-            Otras Páginas
-            <span className="text-xs font-normal text-neutral-500 ml-2">Editor Visual</span>
+            Other Pages
+            <span className="text-xs font-normal text-neutral-500 ml-2">Visual Editor</span>
           </h2>
           <div className="grid gap-3">
             {otherPages.map((page) => (
@@ -152,14 +152,14 @@ export default function PagesPage() {
                             ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
                             : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-500'
                         }`}>
-                          {page.is_published ? 'Publicada' : 'Borrador'}
+                          {page.is_published ? 'Published' : 'Draft'}
                         </span>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-purple-600">
                     <span className="text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                      Editor Visual
+                      Visual Editor
                     </span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -179,10 +179,10 @@ export default function PagesPage() {
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <div className="text-sm text-neutral-600 dark:text-neutral-400">
-            <p className="font-medium text-neutral-700 dark:text-neutral-300 mb-1">Tipos de editores:</p>
+            <p className="font-medium text-neutral-700 dark:text-neutral-300 mb-1">Editor types:</p>
             <ul className="space-y-1">
-              <li><span className="text-blue-600">Editor de Contenido</span> — Edita texto directamente. Los cambios se reflejan en producción.</li>
-              <li><span className="text-purple-600">Editor Visual</span> — Diseña páginas con bloques arrastrables.</li>
+              <li><span className="text-blue-600">Content Editor</span> — Edit text directly. Changes are reflected in production.</li>
+              <li><span className="text-purple-600">Visual Editor</span> — Design pages with draggable blocks.</li>
             </ul>
           </div>
         </div>

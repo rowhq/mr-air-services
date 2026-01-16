@@ -29,34 +29,34 @@ import {
 // Base navigation structure
 const baseSections = [
   {
-    title: "Principal",
+    title: "Main",
     items: [
       { href: "/admin", label: "Dashboard", icon: LayoutDashboardIcon },
-      { href: "/admin/editor/home", label: "Editor Visual", icon: PaletteIcon, id: "visual-editor" },
+      { href: "/admin/editor/home", label: "Visual Editor", icon: PaletteIcon, id: "visual-editor" },
     ],
   },
   {
-    title: "Contenido",
+    title: "Content",
     items: [
-      { href: "/admin/pages", label: "Páginas", icon: FileTextIcon },
-      { href: "/admin/services", label: "Servicios", icon: WrenchIcon },
-      { href: "/admin/testimonials", label: "Testimonios", icon: MessageSquareIcon },
+      { href: "/admin/pages", label: "Pages", icon: FileTextIcon },
+      { href: "/admin/services", label: "Services", icon: WrenchIcon },
+      { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareIcon },
       { href: "/admin/faqs", label: "FAQs", icon: HelpCircleIcon },
       { href: "/admin/media", label: "Media", icon: ImageIcon },
     ],
   },
   {
-    title: "Configuracion",
+    title: "Settings",
     items: [
-      { href: "/admin/office-locations", label: "Ubicaciones", icon: MapPinIcon },
-      { href: "/admin/navigation", label: "Navegacion", icon: LinkIcon },
-      { href: "/admin/site-config", label: "Ajustes", icon: SettingsIcon },
+      { href: "/admin/office-locations", label: "Locations", icon: MapPinIcon },
+      { href: "/admin/navigation", label: "Navigation", icon: LinkIcon },
+      { href: "/admin/site-config", label: "Settings", icon: SettingsIcon },
     ],
   },
   {
     title: "Leads",
     items: [
-      { href: "/admin/leads", label: "Formularios", icon: MailIcon, id: "leads" },
+      { href: "/admin/leads", label: "Forms", icon: MailIcon, id: "leads" },
     ],
   },
 ];
@@ -217,7 +217,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
         {!collapsed && (
           <div>
             <h1 className="text-lg font-bold text-white dark:text-gray-100">Mr. Air CMS</h1>
-            <p className="text-xs text-gray-500">Panel de Admin</p>
+            <p className="text-xs text-gray-500">Admin Panel</p>
           </div>
         )}
         <div className="flex items-center gap-1">
@@ -225,7 +225,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
           <button
             onClick={toggleDarkMode}
             className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-            title={isDark ? "Modo claro" : "Modo oscuro"}
+            title={isDark ? "Light mode" : "Dark mode"}
           >
             {isDark ? (
               <SunIcon className="w-5 h-5" />
@@ -237,7 +237,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
           <button
             onClick={toggleCollapse}
             className="p-1.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
-            title={collapsed ? "Expandir" : "Colapsar"}
+            title={collapsed ? "Expand" : "Collapse"}
           >
             <ChevronLeftIcon
               className={`w-5 h-5 transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}
@@ -256,7 +256,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar..."
+              placeholder="Search..."
               className="
                 w-full pl-9 pr-12 py-2
                 bg-gray-800 border border-gray-700
@@ -287,7 +287,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
 
         {searchQuery && filteredSections.length === 0 && (
           <div className="px-4 py-8 text-center text-gray-500 text-sm">
-            No se encontraron resultados
+            No results found
           </div>
         )}
       </nav>
@@ -307,7 +307,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
               "
             >
               <ExternalLinkIcon className="w-4 h-4" />
-              <span>Ver sitio web</span>
+              <span>View website</span>
             </Link>
             {/* Connection Status */}
             <div
@@ -316,7 +316,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
                   ? "text-green-400"
                   : "text-red-400"
               }`}
-              title={isOnline ? "En linea" : "Sin conexion"}
+              title={isOnline ? "Online" : "Offline"}
             >
               {isOnline ? (
                 <WifiIcon className="w-3.5 h-3.5" />
@@ -333,7 +333,7 @@ export function Sidebar({ className = "" }: SidebarProps) {
               className={`p-2 rounded-lg ${
                 isOnline ? "text-green-400" : "text-red-400"
               }`}
-              title={isOnline ? "En linea" : "Sin conexion"}
+              title={isOnline ? "Online" : "Offline"}
             >
               {isOnline ? (
                 <WifiIcon className="w-4 h-4" />

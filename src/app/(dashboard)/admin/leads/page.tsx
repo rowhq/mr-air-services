@@ -13,10 +13,10 @@ const statusColors: Record<LeadStatus, string> = {
 };
 
 const statusLabels: Record<LeadStatus, string> = {
-  new: "Nuevo",
-  contacted: "Contactado",
-  converted: "Convertido",
-  closed: "Cerrado",
+  new: "New",
+  contacted: "Contacted",
+  converted: "Converted",
+  closed: "Closed",
 };
 
 export default function LeadsPage() {
@@ -58,7 +58,7 @@ export default function LeadsPage() {
   }
 
   async function deleteLead(id: string) {
-    if (!confirm("Seguro que deseas eliminar este lead?")) return;
+    if (!confirm("Are you sure you want to delete this lead?")) return;
 
     try {
       await fetch(`/api/cms/leads/${id}`, { method: "DELETE" });
@@ -107,7 +107,7 @@ export default function LeadsPage() {
           } bg-blue-50`}
         >
           <p className="text-3xl font-bold text-blue-600">{stats.new}</p>
-          <p className="text-sm text-blue-700">Nuevos</p>
+          <p className="text-sm text-blue-700">New</p>
         </button>
         <button
           onClick={() => setFilter("contacted")}
@@ -116,7 +116,7 @@ export default function LeadsPage() {
           } bg-yellow-50`}
         >
           <p className="text-3xl font-bold text-yellow-600">{stats.contacted}</p>
-          <p className="text-sm text-yellow-700">Contactados</p>
+          <p className="text-sm text-yellow-700">Contacted</p>
         </button>
         <button
           onClick={() => setFilter("converted")}
@@ -125,7 +125,7 @@ export default function LeadsPage() {
           } bg-green-50`}
         >
           <p className="text-3xl font-bold text-green-600">{stats.converted}</p>
-          <p className="text-sm text-green-700">Convertidos</p>
+          <p className="text-sm text-green-700">Converted</p>
         </button>
         <button
           onClick={() => setFilter("closed")}
@@ -134,7 +134,7 @@ export default function LeadsPage() {
           } bg-gray-50`}
         >
           <p className="text-3xl font-bold text-gray-600">{stats.closed}</p>
-          <p className="text-sm text-gray-700">Cerrados</p>
+          <p className="text-sm text-gray-700">Closed</p>
         </button>
       </div>
 
@@ -143,7 +143,7 @@ export default function LeadsPage() {
           onClick={() => setFilter("all")}
           className="mb-4 text-sm text-blue-600 hover:underline"
         >
-          ← Ver todos los leads
+          ← View all leads
         </button>
       )}
 
@@ -154,13 +154,13 @@ export default function LeadsPage() {
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
-                  Contacto
+                  Contact
                 </th>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
-                  Fecha
+                  Date
                 </th>
                 <th className="text-center px-6 py-4 text-sm font-semibold text-gray-600">
-                  Estado
+                  Status
                 </th>
               </tr>
             </thead>
@@ -168,7 +168,7 @@ export default function LeadsPage() {
               {filteredLeads.length === 0 ? (
                 <tr>
                   <td colSpan={3} className="px-6 py-8 text-center text-gray-500">
-                    No hay leads {filter !== "all" ? `con estado "${statusLabels[filter as LeadStatus]}"` : ""}
+                    No leads {filter !== "all" ? `with status "${statusLabels[filter as LeadStatus]}"` : ""}
                   </td>
                 </tr>
               ) : (
@@ -185,7 +185,7 @@ export default function LeadsPage() {
                       <p className="text-sm text-gray-500">{lead.email}</p>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
-                      {new Date(lead.created_at).toLocaleDateString("es-ES")}
+                      {new Date(lead.created_at).toLocaleDateString("en-US")}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <span
@@ -213,7 +213,7 @@ export default function LeadsPage() {
                   onClick={() => deleteLead(selectedLead.id)}
                   className="text-red-600 hover:underline text-sm"
                 >
-                  Eliminar
+                  Delete
                 </button>
               </div>
 
@@ -230,7 +230,7 @@ export default function LeadsPage() {
 
                 {selectedLead.phone && (
                   <div>
-                    <p className="text-sm text-gray-500">Telefono</p>
+                    <p className="text-sm text-gray-500">Phone</p>
                     <a
                       href={`tel:${selectedLead.phone}`}
                       className="text-blue-600 hover:underline"
@@ -242,14 +242,14 @@ export default function LeadsPage() {
 
                 {selectedLead.preferred_time && (
                   <div>
-                    <p className="text-sm text-gray-500">Horario preferido</p>
+                    <p className="text-sm text-gray-500">Preferred time</p>
                     <p className="text-gray-900">{selectedLead.preferred_time}</p>
                   </div>
                 )}
 
                 {selectedLead.services && selectedLead.services.length > 0 && (
                   <div>
-                    <p className="text-sm text-gray-500">Servicios</p>
+                    <p className="text-sm text-gray-500">Services</p>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {selectedLead.services.map((service: string, i: number) => (
                         <span
@@ -265,7 +265,7 @@ export default function LeadsPage() {
 
                 {selectedLead.message && (
                   <div>
-                    <p className="text-sm text-gray-500">Mensaje</p>
+                    <p className="text-sm text-gray-500">Message</p>
                     <p className="text-gray-900 text-sm whitespace-pre-wrap">
                       {selectedLead.message}
                     </p>
@@ -273,19 +273,19 @@ export default function LeadsPage() {
                 )}
 
                 <div>
-                  <p className="text-sm text-gray-500">Origen</p>
+                  <p className="text-sm text-gray-500">Source</p>
                   <p className="text-gray-900">{selectedLead.source}</p>
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">Fecha</p>
+                  <p className="text-sm text-gray-500">Date</p>
                   <p className="text-gray-900">
-                    {new Date(selectedLead.created_at).toLocaleString("es-ES")}
+                    {new Date(selectedLead.created_at).toLocaleString("en-US")}
                   </p>
                 </div>
 
                 <div className="pt-4 border-t">
-                  <p className="text-sm text-gray-500 mb-2">Cambiar estado</p>
+                  <p className="text-sm text-gray-500 mb-2">Change status</p>
                   <div className="flex flex-wrap gap-2">
                     {(Object.keys(statusLabels) as LeadStatus[]).map((status) => (
                       <button
@@ -306,7 +306,7 @@ export default function LeadsPage() {
             </div>
           ) : (
             <div className="text-center text-gray-500 py-8">
-              <p>Selecciona un lead para ver los detalles</p>
+              <p>Select a lead to view details</p>
             </div>
           )}
         </div>

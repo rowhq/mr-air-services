@@ -294,21 +294,21 @@ export default function MediaPage() {
 
                 <div>
                   <label className="block text-xs font-medium text-gray-500 mb-1">
-                    Alt Text (SEO/Accesibilidad)
+                    Alt Text (SEO/Accessibility)
                   </label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={editingAltText}
                       onChange={(e) => setEditingAltText(e.target.value)}
-                      placeholder="Descripcion de la imagen..."
+                      placeholder="Image description..."
                       className="flex-1 text-sm px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
                     <button
                       onClick={() => updateAltText(selectedMedia.id, editingAltText)}
                       className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm"
                     >
-                      Guardar
+                      Save
                     </button>
                   </div>
                 </div>

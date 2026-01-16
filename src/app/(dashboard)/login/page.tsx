@@ -37,7 +37,7 @@ export default function LoginPage() {
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Mr. Air Services</h1>
-          <p className="text-gray-500 mt-2">Panel de Administracion</p>
+          <p className="text-gray-500 mt-2">Admin Panel</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
@@ -88,12 +88,12 @@ export default function LoginPage() {
             disabled={isLoading}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Iniciando sesion..." : "Iniciar Sesion"}
+            {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          ¿Necesitas acceso? Contacta al administrador.
+          Need access? Contact the administrator.
         </p>
       </div>
     </div>

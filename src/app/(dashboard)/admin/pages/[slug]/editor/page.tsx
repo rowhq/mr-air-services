@@ -153,7 +153,7 @@ export default function ServicePageEditor() {
   if (!schema) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-neutral-500">Página no encontrada</p>
+        <p className="text-neutral-500">Page not found</p>
       </div>
     );
   }
@@ -225,11 +225,11 @@ export default function ServicePageEditor() {
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              Guardado
+              Saved
             </span>
           )}
           {saveStatus === 'error' && (
-            <span className="text-red-600 text-sm">Error al guardar</span>
+            <span className="text-red-600 text-sm">Error saving</span>
           )}
 
           {/* Save Button */}
@@ -241,10 +241,10 @@ export default function ServicePageEditor() {
             {isSaving ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Guardando...
+                Saving...
               </>
             ) : (
-              'Guardar Cambios'
+              'Save Changes'
             )}
           </button>
         </div>
@@ -274,9 +274,9 @@ export default function ServicePageEditor() {
         {/* Properties Panel */}
         <div className="w-96 bg-white border-l border-neutral-200 overflow-y-auto">
           <div className="p-4 border-b border-neutral-200">
-            <h2 className="font-semibold text-neutral-900">Propiedades</h2>
+            <h2 className="font-semibold text-neutral-900">Properties</h2>
             <p className="text-sm text-neutral-500 mt-1">
-              Edita el contenido de la página
+              Edit page content
             </p>
           </div>
 

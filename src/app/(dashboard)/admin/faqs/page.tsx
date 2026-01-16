@@ -71,7 +71,7 @@ export default function FAQsPage() {
   }
 
   async function deleteFAQ(id: string) {
-    if (!confirm("Seguro que deseas eliminar esta FAQ?")) return;
+    if (!confirm("Are you sure you want to delete this FAQ?")) return;
 
     try {
       await fetch(`/api/cms/faqs/${id}`, { method: "DELETE" });
@@ -97,12 +97,12 @@ export default function FAQsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Preguntas Frecuentes</h1>
+        <h1 className="text-2xl font-bold">Frequently Asked Questions</h1>
         <button
           onClick={startNew}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Nueva FAQ
+          + New FAQ
         </button>
       </div>
 
@@ -116,7 +116,7 @@ export default function FAQsPage() {
               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
           }`}
         >
-          Todas ({faqs.length})
+          All ({faqs.length})
         </button>
         {categories.map((cat) => (
           <button
@@ -153,7 +153,7 @@ export default function FAQsPage() {
                   )}
                   {!faq.is_published && (
                     <span className="px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-600 rounded">
-                      Borrador
+                      Draft
                     </span>
                   )}
                 </div>
@@ -189,13 +189,13 @@ export default function FAQsPage() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-bold">
-                {editingId === "new" ? "Nueva FAQ" : "Editar FAQ"}
+                {editingId === "new" ? "New FAQ" : "Edit FAQ"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Pregunta
+                  Question
                 </label>
                 <input
                   type="text"
@@ -208,7 +208,7 @@ export default function FAQsPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Respuesta
+                  Answer
                 </label>
                 <textarea
                   value={formData.answer || ""}
@@ -222,7 +222,7 @@ export default function FAQsPage() {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Categoria
+                    Category
                   </label>
                   <input
                     type="text"
@@ -241,7 +241,7 @@ export default function FAQsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Pagina (opcional)
+                    Page (optional)
                   </label>
                   <input
                     type="text"
@@ -255,7 +255,7 @@ export default function FAQsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Posicion
+                    Position
                   </label>
                   <input
                     type="number"
@@ -276,7 +276,7 @@ export default function FAQsPage() {
                   }
                   className="w-4 h-4 text-blue-600"
                 />
-                <span className="text-sm text-gray-700">Publicado</span>
+                <span className="text-sm text-gray-700">Published</span>
               </label>
             </div>
             <div className="p-6 border-t border-gray-200 flex justify-end gap-3">
@@ -284,13 +284,13 @@ export default function FAQsPage() {
                 onClick={cancelEdit}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={saveFAQ}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Guardar
+                Save
               </button>
             </div>
           </div>

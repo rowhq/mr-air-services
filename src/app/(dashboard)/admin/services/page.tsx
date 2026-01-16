@@ -52,7 +52,7 @@ export default function ServicesPage() {
   }
 
   async function deleteService(id: string) {
-    if (!confirm("Seguro que deseas eliminar este servicio?")) return;
+    if (!confirm("Are you sure you want to delete this service?")) return;
 
     try {
       await fetch(`/api/cms/services/${id}`, { method: "DELETE" });
@@ -86,7 +86,7 @@ export default function ServicesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Servicios</h1>
+        <h1 className="text-2xl font-bold">Services</h1>
         <button
           onClick={() => {
             setEditingId("new");
@@ -106,7 +106,7 @@ export default function ServicesPage() {
           }}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          + Nuevo Servicio
+          + New Service
         </button>
       </div>
 
@@ -116,19 +116,19 @@ export default function ServicesPage() {
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
               <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
-                Servicio
+                Service
               </th>
               <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
                 Slug
               </th>
               <th className="text-center px-6 py-4 text-sm font-semibold text-gray-600">
-                Destacado
+                Featured
               </th>
               <th className="text-center px-6 py-4 text-sm font-semibold text-gray-600">
-                Estado
+                Status
               </th>
               <th className="text-right px-6 py-4 text-sm font-semibold text-gray-600">
-                Acciones
+                Actions
               </th>
             </tr>
           </thead>
@@ -147,7 +147,7 @@ export default function ServicesPage() {
                 <td className="px-6 py-4 text-center">
                   {service.is_featured && (
                     <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">
-                      Destacado
+                      Featured
                     </span>
                   )}
                 </td>
@@ -160,7 +160,7 @@ export default function ServicesPage() {
                         : "bg-gray-100 text-gray-600"
                     }`}
                   >
-                    {service.is_published ? "Publicado" : "Borrador"}
+                    {service.is_published ? "Published" : "Draft"}
                   </button>
                 </td>
                 <td className="px-6 py-4 text-right">
@@ -168,13 +168,13 @@ export default function ServicesPage() {
                     onClick={() => startEdit(service)}
                     className="text-blue-600 hover:underline text-sm mr-4"
                   >
-                    Editar
+                    Edit
                   </button>
                   <button
                     onClick={() => deleteService(service.id)}
                     className="text-red-600 hover:underline text-sm"
                   >
-                    Eliminar
+                    Delete
                   </button>
                 </td>
               </tr>
@@ -189,13 +189,13 @@ export default function ServicesPage() {
           <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-bold">
-                {editingId === "new" ? "Nuevo Servicio" : "Editar Servicio"}
+                {editingId === "new" ? "New Service" : "Edit Service"}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Titulo
+                  Title
                 </label>
                 <input
                   type="text"
@@ -221,7 +221,7 @@ export default function ServicesPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Descripcion Corta
+                  Short Description
                 </label>
                 <textarea
                   value={formData.short_description || ""}
@@ -234,7 +234,7 @@ export default function ServicesPage() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Descripcion Completa
+                  Full Description
                 </label>
                 <textarea
                   value={formData.description || ""}
@@ -249,7 +249,7 @@ export default function ServicesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Icono
+                    Icon
                   </label>
                   <select
                     value={formData.icon || "wrench"}
@@ -258,40 +258,40 @@ export default function ServicesPage() {
                     }
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   >
-                    <optgroup label="HVAC Principal">
+                    <optgroup label="Main HVAC">
                       <option value="ac-repair">❄️ AC Repair</option>
                       <option value="heating">🔥 Heating</option>
                       <option value="tune-up">⚙️ Tune-Up / Maintenance</option>
                     </optgroup>
-                    <optgroup label="Servicios">
-                      <option value="snowflake">❄️ Snowflake (Refrigeracion)</option>
-                      <option value="thermometer">🌡️ Thermometer (Temperatura)</option>
-                      <option value="fan">💨 Fan (Ventilacion)</option>
-                      <option value="droplets">💧 Droplets (Humedad)</option>
-                      <option value="wind">🌬️ Wind (Aire)</option>
+                    <optgroup label="Services">
+                      <option value="snowflake">❄️ Snowflake (Cooling)</option>
+                      <option value="thermometer">🌡️ Thermometer (Temperature)</option>
+                      <option value="fan">💨 Fan (Ventilation)</option>
+                      <option value="droplets">💧 Droplets (Humidity)</option>
+                      <option value="wind">🌬️ Wind (Air)</option>
                     </optgroup>
-                    <optgroup label="Tipo de Servicio">
-                      <option value="home">🏠 Home (Residencial)</option>
-                      <option value="building">🏢 Building (Comercial)</option>
+                    <optgroup label="Service Type">
+                      <option value="home">🏠 Home (Residential)</option>
+                      <option value="building">🏢 Building (Commercial)</option>
                       <option value="clock">🕐 Clock (24/7)</option>
-                      <option value="zap">⚡ Zap (Emergencia)</option>
+                      <option value="zap">⚡ Zap (Emergency)</option>
                     </optgroup>
-                    <optgroup label="Calidad">
-                      <option value="shield">🛡️ Shield (Garantia)</option>
-                      <option value="check-circle">✓ Check Circle (Verificado)</option>
+                    <optgroup label="Quality">
+                      <option value="shield">🛡️ Shield (Warranty)</option>
+                      <option value="check-circle">✓ Check Circle (Verified)</option>
                       <option value="star">⭐ Star (Premium)</option>
-                      <option value="award">🏆 Award (Certificado)</option>
+                      <option value="award">🏆 Award (Certified)</option>
                     </optgroup>
-                    <optgroup label="Herramientas">
-                      <option value="wrench">🔧 Wrench (Reparacion)</option>
-                      <option value="settings">⚙️ Settings (Configuracion)</option>
-                      <option value="tools">🛠️ Tools (Herramientas)</option>
+                    <optgroup label="Tools">
+                      <option value="wrench">🔧 Wrench (Repair)</option>
+                      <option value="settings">⚙️ Settings (Configuration)</option>
+                      <option value="tools">🛠️ Tools</option>
                     </optgroup>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Posicion
+                    Position
                   </label>
                   <input
                     type="number"
@@ -307,7 +307,7 @@ export default function ServicesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Texto CTA
+                    CTA Text
                   </label>
                   <input
                     type="text"
@@ -321,7 +321,7 @@ export default function ServicesPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Link CTA
+                    CTA Link
                   </label>
                   <input
                     type="text"
@@ -337,7 +337,7 @@ export default function ServicesPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Caracteristicas (una por linea)
+                  Features (one per line)
                 </label>
                 <textarea
                   value={Array.isArray(formData.features) ? (formData.features as string[]).join("\n") : ""}
@@ -363,7 +363,7 @@ export default function ServicesPage() {
                     }
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm text-gray-700">Destacado</span>
+                  <span className="text-sm text-gray-700">Featured</span>
                 </label>
                 <label className="flex items-center gap-2">
                   <input
@@ -374,7 +374,7 @@ export default function ServicesPage() {
                     }
                     className="w-4 h-4 text-blue-600"
                   />
-                  <span className="text-sm text-gray-700">Publicado</span>
+                  <span className="text-sm text-gray-700">Published</span>
                 </label>
               </div>
             </div>
@@ -383,13 +383,13 @@ export default function ServicesPage() {
                 onClick={cancelEdit}
                 className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 onClick={saveService}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Guardar
+                Save
               </button>
             </div>
           </div>
