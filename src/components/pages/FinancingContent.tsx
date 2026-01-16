@@ -155,13 +155,10 @@ const stepIcons = [
 
 interface FinancingContentProps {
   config: FinancingPageConfig;
-  faqs?: { question: string; answer: string }[];
   isPreview?: boolean;
 }
 
-export function FinancingContent({ config, faqs, isPreview = false }: FinancingContentProps) {
-  // Use passed FAQs if available, otherwise use config FAQs
-  const faqItems = faqs || config.faq.items;
+export function FinancingContent({ config, isPreview = false }: FinancingContentProps) {
   // Build how it works with icons
   const howItWorks = config.howItWorks.steps.map((step, idx) => ({
     ...step,
@@ -420,7 +417,7 @@ export function FinancingContent({ config, faqs, isPreview = false }: FinancingC
       {/* FAQs */}
       <FAQSection
         subtitle={config.faq.subtitle}
-        items={faqItems}
+        items={config.faq.items}
       />
 
       {!isPreview && (
