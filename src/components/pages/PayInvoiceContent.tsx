@@ -33,7 +33,7 @@ export function PayInvoiceContent({ config, isPreview = false }: PayInvoiceConte
       {/* Preview indicator */}
       {isPreview && (
         <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-yellow-900 text-center py-1 text-sm font-medium z-50">
-          Preview Mode - Los cambios no se han guardado
+          Preview Mode - Changes have not been saved
         </div>
       )}
 
@@ -101,7 +101,7 @@ export function PayInvoiceContent({ config, isPreview = false }: PayInvoiceConte
               {!isPreview && <InvoicePaymentForm />}
               {isPreview && (
                 <div className="h-64 flex items-center justify-center text-neutral-400 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                  Formulario de pago (deshabilitado en preview)
+                  Payment form (disabled in preview)
                 </div>
               )}
             </div>

@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Mr. Air Services",
-  description: "Servicios profesionales de aire acondicionado",
+  description: "Professional air conditioning services",
   viewport: {
     width: "device-width",
     initialScale: 1,
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning className={plusJakarta.variable}>
+    <html lang="en" suppressHydrationWarning className={plusJakarta.variable}>
       <head>
         {/* Theme initialization script - runs before render to prevent flash */}
         <script

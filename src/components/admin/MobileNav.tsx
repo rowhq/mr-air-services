@@ -79,7 +79,7 @@ export function MobileNav({ isOpen, onToggle, children }: MobileNavProps) {
       <button
         onClick={onToggle}
         className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-gray-900 text-white rounded-lg shadow-lg hover:bg-gray-800 transition-colors"
-        aria-label={isOpen ? "Cerrar menu" : "Abrir menu"}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         {isOpen ? (
           <XIcon className="w-6 h-6" />

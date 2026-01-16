@@ -62,7 +62,7 @@ export function SidebarItem({
       <div className="relative flex-shrink-0">
         <Icon className={`w-5 h-5 ${isActive ? "text-white" : "text-gray-400 group-hover:text-white"}`} />
         {hasUnsavedIndicator && (
-          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-400 rounded-full" title="Cambios sin guardar" />
+          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-400 rounded-full" title="Unsaved changes" />
         )}
       </div>
 

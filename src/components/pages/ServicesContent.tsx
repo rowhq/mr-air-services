@@ -61,7 +61,7 @@ export function ServicesContent({ config, isPreview = false }: ServicesContentPr
       {/* Preview indicator */}
       {isPreview && (
         <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-yellow-900 text-center py-1 text-sm font-medium z-50">
-          Preview Mode - Los cambios no se han guardado
+          Preview Mode - Changes have not been saved
         </div>
       )}
 
