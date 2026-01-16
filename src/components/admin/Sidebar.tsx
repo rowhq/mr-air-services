@@ -7,7 +7,6 @@ import { SidebarSection } from "./SidebarSection";
 import { UserMenu } from "./UserMenu";
 import {
   LayoutDashboardIcon,
-  PaletteIcon,
   FileTextIcon,
   WrenchIcon,
   MessageSquareIcon,
@@ -21,6 +20,7 @@ import {
   ExternalLinkIcon,
   WifiIcon,
   WifiOffIcon,
+  HelpCircleIcon,
 } from "./icons";
 
 // Base navigation structure
@@ -29,7 +29,6 @@ const baseSections = [
     title: "Main",
     items: [
       { href: "/admin", label: "Dashboard", icon: LayoutDashboardIcon, exactMatch: true, id: "dashboard" },
-      { href: "/admin/editor/home", label: "Visual Editor", icon: PaletteIcon, id: "visual-editor" },
     ],
   },
   {
@@ -53,6 +52,12 @@ const baseSections = [
     title: "Leads",
     items: [
       { href: "/admin/leads", label: "Forms", icon: MailIcon, id: "leads" },
+    ],
+  },
+  {
+    title: "Support",
+    items: [
+      { href: "/admin/help", label: "Help", icon: HelpCircleIcon },
     ],
   },
 ];
