@@ -18,7 +18,6 @@ const pageIcons: Record<string, string> = {
   'financing-payments': '💳',
   'pay-invoice': '📄',
   'contact': '📞',
-  'about': '👥',
   'privacy-policy': '🔒',
   'terms-of-use': '📋',
 };
