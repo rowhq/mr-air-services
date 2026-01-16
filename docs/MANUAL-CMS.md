@@ -1,35 +1,35 @@
-# Manual de Usuario - Mr. Air Services CMS
+# User Manual - Mr. Air Services CMS
 
-## Guía Completa para Administradores de Contenido
-
----
-
-## Tabla de Contenidos
-
-1. [Acceso al Sistema](#1-acceso-al-sistema)
-2. [Dashboard Principal](#2-dashboard-principal)
-3. [Editor Visual de Páginas](#3-editor-visual-de-páginas)
-4. [Gestión de Páginas](#4-gestión-de-páginas)
-5. [Gestión de Servicios](#5-gestión-de-servicios)
-6. [Gestión de Testimonios](#6-gestión-de-testimonios)
-7. [Biblioteca de Medios](#7-biblioteca-de-medios)
-8. [Ubicaciones de Oficina](#8-ubicaciones-de-oficina)
-9. [Navegación del Sitio](#9-navegación-del-sitio)
-10. [Configuración General](#10-configuración-general)
-11. [Gestión de Leads](#11-gestión-de-leads)
-12. [Atajos de Teclado](#12-atajos-de-teclado)
-13. [Preguntas Frecuentes](#13-preguntas-frecuentes)
+## Complete Guide for Content Administrators
 
 ---
 
-## 1. Acceso al Sistema
+## Table of Contents
 
-### Cómo Iniciar Sesión
+1. [System Access](#1-system-access)
+2. [Main Dashboard](#2-main-dashboard)
+3. [Visual Page Editor](#3-visual-page-editor)
+4. [Page Management](#4-page-management)
+5. [Services Management](#5-services-management)
+6. [Testimonials Management](#6-testimonials-management)
+7. [Media Library](#7-media-library)
+8. [Office Locations](#8-office-locations)
+9. [Site Navigation](#9-site-navigation)
+10. [General Settings](#10-general-settings)
+11. [Lead Management](#11-lead-management)
+12. [Keyboard Shortcuts](#12-keyboard-shortcuts)
+13. [FAQ](#13-faq)
+
+---
+
+## 1. System Access
+
+### How to Log In
 
 ```
 ┌─────────────────────────────────────┐
 │                                     │
-│         [Logo Mr. Air]              │
+│         [Mr. Air Logo]              │
 │       Mr. Air Services              │
 │         Admin Panel                 │
 │                                     │
@@ -48,94 +48,96 @@
 └─────────────────────────────────────┘
 ```
 
-**Pasos:**
-1. Navega a `tudominio.com/login`
-2. Ingresa tu correo electrónico
-3. Ingresa tu contraseña
-4. Haz clic en el icono 👁 para ver/ocultar la contraseña
-5. Presiona **"Sign In"**
+**Steps:**
+1. Navigate to `yourdomain.com/login`
+2. Enter your email address
+3. Enter your password
+4. Click the 👁 icon to show/hide password
+5. Press **"Sign In"**
 
-> ⚠️ **Nota:** Si no tienes credenciales, contacta al administrador del sistema.
+> ⚠️ **Note:** If you don't have credentials, contact the system administrator.
 
 ---
 
-## 2. Dashboard Principal
+## 2. Main Dashboard
 
-Al iniciar sesión, verás el panel principal con un resumen de tu sitio.
+After logging in, you'll see the main panel with an overview of your site.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │  SIDEBAR          │                    DASHBOARD                      │
 │ ─────────────     │ ─────────────────────────────────────────────────│
 │ 📊 Dashboard      │                                                   │
-│ 🎨 Visual Editor  │   ┌──────────┐  ┌──────────┐  ┌──────────┐       │
-│ ─────────────     │   │ 📄 5     │  │ 🔧 4     │  │ ⭐ 12    │       │
-│ 📄 Pages          │   │ Páginas  │  │ Servicios│  │ Testimonios      │
-│ 🔧 Services       │   └──────────┘  └──────────┘  └──────────┘       │
-│ 💬 Testimonials   │                                                   │
-│ 🖼️ Media          │   PÁGINAS RECIENTES                              │
-│ ─────────────     │   ┌────────────────────────────────────┐         │
-│ 📍 Locations      │   │ Home          /home      ✅ Published │       │
-│ 🔗 Navigation     │   │ Contact       /contact   ✅ Published │       │
-│ ⚙️ Settings       │   │ About         /about     📝 Draft    │       │
-│ ─────────────     │   └────────────────────────────────────┘         │
-│ 📬 Leads          │                                                   │
+│ ─────────────     │   ┌──────────┐  ┌──────────┐  ┌──────────┐       │
+│ 📄 Pages          │   │ 📄 5     │  │ 🔧 4     │  │ ⭐ 12    │       │
+│ 🔧 Services       │   │ Pages    │  │ Services │  │ Testimonials     │
+│ 💬 Testimonials   │   └──────────┘  └──────────┘  └──────────┘       │
+│ 🖼️ Media          │                                                   │
+│ ─────────────     │   RECENT PAGES                                   │
+│ 📍 Locations      │   ┌────────────────────────────────────┐         │
+│ 🔗 Navigation     │   │ Home          /home      ✅ Published │       │
+│ ⚙️ Settings       │   │ Contact       /contact   ✅ Published │       │
+│ ─────────────     │   │ About         /about     📝 Draft    │       │
+│ 📬 Leads          │   └────────────────────────────────────┘         │
+│ ─────────────     │                                                   │
+│ ❓ Help           │                                                   │
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-### Elementos del Dashboard
+### Dashboard Elements
 
-| Elemento | Descripción |
-|----------|-------------|
-| **Tarjetas de Estadísticas** | Muestra el total de páginas, servicios y testimonios |
-| **Páginas Recientes** | Lista de las últimas páginas editadas con su estado |
-| **Acciones Rápidas** | Botones para ir directamente a editar contenido |
+| Element | Description |
+|---------|-------------|
+| **Statistics Cards** | Shows total pages, services, and testimonials |
+| **Recent Pages** | List of recently edited pages with their status |
+| **Quick Actions** | Buttons to directly edit content |
 
-### Barra Lateral (Sidebar)
+### Sidebar
 
-La barra lateral está organizada en secciones:
+The sidebar is organized into sections:
 
-| Sección | Elementos |
-|---------|-----------|
-| **Principal** | Dashboard, Editor Visual |
-| **Contenido** | Páginas, Servicios, Testimonios, Media |
-| **Configuración** | Ubicaciones, Navegación, Settings |
-| **Leads** | Formularios recibidos |
+| Section | Items |
+|---------|-------|
+| **Main** | Dashboard |
+| **Content** | Pages, Services, Testimonials, Media |
+| **Settings** | Locations, Navigation, Settings |
+| **Leads** | Form submissions |
+| **Support** | Help |
 
-> 💡 **Tip:** Puedes colapsar el sidebar haciendo clic en el icono `◀` para tener más espacio.
+> 💡 **Tip:** You can collapse the sidebar by clicking the `◀` icon for more space.
 
 ---
 
-## 3. Editor Visual de Páginas
+## 3. Visual Page Editor
 
-El Editor Visual es la herramienta más poderosa del CMS. Te permite construir páginas arrastrando y soltando bloques.
+The Visual Editor is the most powerful tool in the CMS. It allows you to build pages by dragging and dropping blocks.
 
-### Acceder al Editor Visual
+### Accessing the Visual Editor
 
-1. Clic en **"Visual Editor"** en el sidebar
-2. O desde Dashboard, clic en **"Edit Homepage"**
+1. Click on a page in **Pages**
+2. Select "Edit with Visual Editor"
 
-### Interfaz del Editor
+### Editor Interface
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
 │  ← Back    Home                    💻 📱 📲    ↩️ ↪️    Save Draft  Publish │
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                    │                       │
-│   ┌────────────────────────────────────────┐       │   PROPIEDADES         │
+│   ┌────────────────────────────────────────┐       │   PROPERTIES          │
 │   │                                        │       │   ─────────────       │
 │   │     ≡  HERO SECTION            👁 ✏️ 📋 🗑️│       │                       │
-│   │                                        │       │   Título:             │
+│   │                                        │       │   Title:              │
 │   │     Welcome to Mr. Air                 │       │   ┌─────────────────┐ │
 │   │     Houston's #1 HVAC                  │       │   │ Welcome to...   │ │
 │   │                                        │       │   └─────────────────┘ │
 │   │     [ Get a Quote ]                    │       │                       │
-│   │                                        │       │   Subtítulo:          │
+│   │                                        │       │   Subtitle:           │
 │   └────────────────────────────────────────┘       │   ┌─────────────────┐ │
 │                                                    │   │ Houston's #1... │ │
 │   ──────────────  ➕ Add Block ──────────────      │   └─────────────────┘ │
 │                                                    │                       │
-│   ┌────────────────────────────────────────┐       │   CTA Texto:          │
+│   ┌────────────────────────────────────────┐       │   CTA Text:           │
 │   │                                        │       │   ┌─────────────────┐ │
 │   │     ≡  SERVICES GRID           👁 ✏️ 📋 🗑️│       │   │ Get a Quote     │ │
 │   │                                        │       │   └─────────────────┘ │
@@ -148,80 +150,80 @@ El Editor Visual es la herramienta más poderosa del CMS. Te permite construir p
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Barra de Herramientas Superior
+### Top Toolbar
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
 │  ← Back    Home        💻  📱  📲       ↩️  ↪️      Save Draft  Publish │
 └──────────────────────────────────────────────────────────────────────┘
      │        │          │   │   │        │   │           │        │
-     │        │          │   │   │        │   │           │        └─ Publicar cambios
-     │        │          │   │   │        │   │           └─ Guardar borrador
-     │        │          │   │   │        │   └─ Rehacer (Ctrl+Shift+Z)
-     │        │          │   │   │        └─ Deshacer (Ctrl+Z)
-     │        │          │   │   └─ Vista Móvil (375px)
-     │        │          │   └─ Vista Tablet (768px)
-     │        │          └─ Vista Desktop (completa)
-     │        └─ Nombre de la página
-     └─ Volver al listado
+     │        │          │   │   │        │   │           │        └─ Publish changes
+     │        │          │   │   │        │   │           └─ Save draft
+     │        │          │   │   │        │   └─ Redo (Ctrl+Shift+Z)
+     │        │          │   │   │        └─ Undo (Ctrl+Z)
+     │        │          │   │   └─ Mobile View (375px)
+     │        │          │   └─ Tablet View (768px)
+     │        │          └─ Desktop View (full)
+     │        └─ Page name
+     └─ Back to list
 ```
 
-### Controles de Bloque
+### Block Controls
 
-Cada bloque tiene controles que aparecen al pasar el mouse:
+Each block has controls that appear on hover:
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  ≡  HERO SECTION                                    👁  ✏️  📋  🗑️  │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                │
-│                     Contenido del bloque                       │
+│                     Block content                              │
 │                                                                │
 └────────────────────────────────────────────────────────────────┘
  │                                                     │   │  │  │
- │                                                     │   │  │  └─ Eliminar
- │                                                     │   │  └─ Duplicar
- │                                                     │   └─ Editar (seleccionar)
- │                                                     └─ Mostrar/Ocultar
- └─ Arrastrar para mover
+ │                                                     │   │  │  └─ Delete
+ │                                                     │   │  └─ Duplicate
+ │                                                     │   └─ Edit (select)
+ │                                                     └─ Show/Hide
+ └─ Drag to move
 ```
 
-| Icono | Acción | Descripción |
-|-------|--------|-------------|
-| ≡ | Arrastrar | Mantén presionado y arrastra para reordenar |
-| 👁 | Visibilidad | Oculta el bloque sin eliminarlo |
-| ✏️ | Editar | Selecciona el bloque para editar propiedades |
-| 📋 | Duplicar | Crea una copia del bloque |
-| 🗑️ | Eliminar | Borra el bloque permanentemente |
+| Icon | Action | Description |
+|------|--------|-------------|
+| ≡ | Drag | Hold and drag to reorder |
+| 👁 | Visibility | Hide the block without deleting |
+| ✏️ | Edit | Select block to edit properties |
+| 📋 | Duplicate | Create a copy of the block |
+| 🗑️ | Delete | Permanently remove the block |
 
-### Agregar Nuevos Bloques
+### Adding New Blocks
 
-Al pasar el mouse entre bloques, aparece el botón **➕ Add Block**:
+When hovering between blocks, the **➕ Add Block** button appears:
 
 ```
    ┌──────────────────────────────┐
-   │      Bloque Superior          │
+   │      Upper Block             │
    └──────────────────────────────┘
 
-   ─────────── ➕ Add Block ───────────  ← Clic aquí
+   ─────────── ➕ Add Block ───────────  ← Click here
 
    ┌──────────────────────────────┐
-   │      Bloque Inferior          │
+   │      Lower Block             │
    └──────────────────────────────┘
 ```
 
-Al hacer clic, se abre el menú de bloques:
+Clicking opens the block menu:
 
 ```
 ┌────────────────────────────────────┐
-│  🔍 Buscar bloques...              │
+│  🔍 Search blocks...               │
 ├────────────────────────────────────┤
 │                                    │
 │  LAYOUT                            │
 │  ├─ 🏠 Hero Section                │
 │  └─ 📢 Call to Action              │
 │                                    │
-│  CONTENIDO                         │
+│  CONTENT                           │
 │  ├─ 🔧 Services Grid               │
 │  ├─ ⭐ Testimonials                │
 │  ├─ ❓ FAQ                         │
@@ -229,84 +231,84 @@ Al hacer clic, se abre el menú de bloques:
 │  ├─ 📍 Areas Served                │
 │  └─ 📞 Contact Info                │
 │                                    │
-│  BÁSICO                            │
+│  BASIC                             │
 │  ├─ 📝 Text Block                  │
 │  ├─ 🖼️ Image + Text                │
 │  └─ 📊 Stats Grid                  │
 │                                    │
-│  FORMULARIOS                       │
+│  FORMS                             │
 │  ├─ 📬 Contact Form                │
 │  └─ 💳 Payment Form                │
 │                                    │
 └────────────────────────────────────┘
 ```
 
-### Tipos de Bloques Disponibles
+### Available Block Types
 
-#### Bloques de Layout
-| Bloque | Uso |
-|--------|-----|
-| **Hero Section** | Sección principal con título grande, subtítulo y botón CTA |
-| **Call to Action** | Sección final con llamada a la acción |
+#### Layout Blocks
+| Block | Use |
+|-------|-----|
+| **Hero Section** | Main section with large title, subtitle, and CTA button |
+| **Call to Action** | Final section with call to action |
 
-#### Bloques de Contenido
-| Bloque | Uso |
-|--------|-----|
-| **Services Grid** | Muestra servicios destacados en cuadrícula |
-| **All Services** | Lista completa de todos los servicios |
-| **Testimonials** | Carrusel o grid de testimonios |
-| **FAQ** | Preguntas frecuentes en acordeón |
-| **Why Choose Us** | Características y beneficios |
-| **Areas Served** | Mapa y lista de áreas de servicio |
-| **Contact Info** | Información de contacto, horarios, mapa |
-| **Brand Logos** | Logos de marcas asociadas |
+#### Content Blocks
+| Block | Use |
+|-------|-----|
+| **Services Grid** | Shows featured services in a grid |
+| **All Services** | Complete list of all services |
+| **Testimonials** | Carousel or grid of testimonials |
+| **FAQ** | Frequently asked questions in accordion |
+| **Why Choose Us** | Features and benefits |
+| **Areas Served** | Map and list of service areas |
+| **Contact Info** | Contact information, hours, map |
+| **Brand Logos** | Associated brand logos |
 
-#### Bloques Básicos
-| Bloque | Uso |
-|--------|-----|
-| **Text Block** | Texto simple con título opcional |
-| **Image + Text** | Imagen junto a contenido de texto |
-| **Stats Grid** | Números y estadísticas |
-| **Benefits Grid** | Tarjetas de beneficios con iconos |
-| **Checklist** | Lista de verificación expandible |
+#### Basic Blocks
+| Block | Use |
+|-------|-----|
+| **Text Block** | Simple text with optional title |
+| **Image + Text** | Image alongside text content |
+| **Stats Grid** | Numbers and statistics |
+| **Benefits Grid** | Benefit cards with icons |
+| **Checklist** | Expandable checklist |
 
-#### Bloques de Formularios
-| Bloque | Uso |
-|--------|-----|
-| **Contact Form** | Formulario de contacto |
-| **Payment Form** | Formulario de pago de facturas |
+#### Form Blocks
+| Block | Use |
+|-------|-----|
+| **Contact Form** | Contact form |
+| **Payment Form** | Invoice payment form |
 
-### Panel de Propiedades
+### Properties Panel
 
-Cuando seleccionas un bloque, el panel derecho muestra sus propiedades editables:
+When you select a block, the right panel shows its editable properties:
 
 ```
 ┌─────────────────────────────┐
-│   PROPIEDADES               │
+│   PROPERTIES                │
 │   Hero Section              │
 ├─────────────────────────────┤
 │                             │
-│   Título                    │
+│   Title                     │
 │   ┌───────────────────────┐ │
 │   │ Welcome to Mr. Air    │ │
 │   └───────────────────────┘ │
 │                             │
-│   Subtítulo                 │
+│   Subtitle                  │
 │   ┌───────────────────────┐ │
 │   │ Houston's #1 HVAC     │ │
 │   └───────────────────────┘ │
 │                             │
-│   Imagen de Fondo           │
+│   Background Image          │
 │   ┌───────────────────────┐ │
-│   │ 📁 Seleccionar imagen │ │
+│   │ 📁 Select image       │ │
 │   └───────────────────────┘ │
 │                             │
-│   Texto del Botón           │
+│   Button Text               │
 │   ┌───────────────────────┐ │
 │   │ Get a Free Quote      │ │
 │   └───────────────────────┘ │
 │                             │
-│   Link del Botón            │
+│   Button Link               │
 │   ┌───────────────────────┐ │
 │   │ /contact              │ │
 │   └───────────────────────┘ │
@@ -314,34 +316,34 @@ Cuando seleccionas un bloque, el panel derecho muestra sus propiedades editables
 └─────────────────────────────┘
 ```
 
-### Guardar y Publicar
+### Save and Publish
 
 ```
-Estado de Guardado:
+Save Status:
 ┌─────────────────────────────────────────┐
-│  ● Cambios sin guardar                  │  ← Amarillo: hay cambios pendientes
-│  ✓ Todos los cambios guardados          │  ← Verde: todo está guardado
+│  ● Unsaved changes                      │  ← Yellow: pending changes
+│  ✓ All changes saved                    │  ← Green: everything saved
 └─────────────────────────────────────────┘
 
-Botones:
+Buttons:
 ┌───────────────┐  ┌───────────────┐
 │  Save Draft   │  │   Publish     │
 └───────────────┘  └───────────────┘
       │                    │
-      │                    └─ Publica los cambios al sitio en vivo
-      └─ Guarda sin publicar (solo borrador)
+      │                    └─ Publishes changes to live site
+      └─ Saves without publishing (draft only)
 ```
 
-> ⚠️ **Importante:** Los cambios NO se publican automáticamente. Debes hacer clic en **"Publish"** para que sean visibles en el sitio.
+> ⚠️ **Important:** Changes are NOT published automatically. You must click **"Publish"** for them to be visible on the site.
 
 ---
 
-## 4. Gestión de Páginas
+## 4. Page Management
 
-### Acceder a Páginas
-Clic en **"Pages"** en el sidebar.
+### Accessing Pages
+Click **"Pages"** in the sidebar.
 
-### Lista de Páginas
+### Page List
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
@@ -356,7 +358,7 @@ Clic en **"Pages"** en el sidebar.
 │  ┌──────────────────────────────────────────────────────────────┐  │
 │  │  📄 Services                                                  │  │
 │  │  /services                          ✅ Published    [Edit]   │  │
-│  │  ├─ 8/10 campos completados                                  │  │
+│  │  ├─ 8/10 fields completed                                    │  │
 │  └──────────────────────────────────────────────────────────────┘  │
 │                                                                    │
 │  ┌──────────────────────────────────────────────────────────────┐  │
@@ -367,33 +369,33 @@ Clic en **"Pages"** en el sidebar.
 └────────────────────────────────────────────────────────────────────┘
 ```
 
-### Dos Tipos de Editores
+### Two Types of Editors
 
-El CMS tiene **dos tipos de editores** dependiendo de la página:
+The CMS has **two types of editors** depending on the page:
 
-| Tipo de Página | Editor | Ejemplo |
-|----------------|--------|---------|
-| Páginas de contenido | **Editor Visual** (drag & drop) | Home, Contact, About |
-| Páginas de servicio | **Editor de Contenido** (formularios) | Services, AC Repair, Heating |
+| Page Type | Editor | Example |
+|-----------|--------|---------|
+| Content pages | **Visual Editor** (drag & drop) | Home, Contact, About |
+| Service pages | **Content Editor** (forms) | Services, AC Repair, Heating |
 
-### Editor de Contenido (Para Páginas de Servicio)
+### Content Editor (For Service Pages)
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
 │  ← Back                              💻 📱 📲                              │
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                    │                       │
-│   ┌────────────────────────────────────────┐       │   PROPIEDADES         │
+│   ┌────────────────────────────────────────┐       │   PROPERTIES          │
 │   │                                        │       │   ─────────────       │
-│   │        PREVIEW EN VIVO                 │       │                       │
+│   │        LIVE PREVIEW                    │       │                       │
 │   │                                        │       │   ▼ Hero Section      │
 │   │   ┌────────────────────────────┐       │       │   ─────────────       │
-│   │   │                            │       │       │   Título:             │
+│   │   │                            │       │       │   Title:              │
 │   │   │   AC Repair Services       │       │       │   ┌─────────────────┐ │
 │   │   │                            │       │       │   │ AC Repair...    │ │
 │   │   │   Expert repairs for...    │       │       │   └─────────────────┘ │
 │   │   │                            │       │       │                       │
-│   │   │   [Schedule Service]       │       │       │   Descripción:        │
+│   │   │   [Schedule Service]       │       │       │   Description:        │
 │   │   │                            │       │       │   ┌─────────────────┐ │
 │   │   └────────────────────────────┘       │       │   │ Expert repairs  │ │
 │   │                                        │       │   │ for all...      │ │
@@ -401,29 +403,29 @@ El CMS tiene **dos tipos de editores** dependiendo de la página:
 │   │   │                            │       │       │                       │
 │   │   │   Why Choose Us            │       │       │   ▼ Features          │
 │   │   │   ✓ 24/7 Emergency         │       │       │   ─────────────       │
-│   │   │   ✓ Licensed Technicians   │       │       │   (campos...)         │
+│   │   │   ✓ Licensed Technicians   │       │       │   (fields...)         │
 │   │   │                            │       │       │                       │
 │   │   └────────────────────────────┘       │       │                       │
-│   │                                        │       │   [ 💾 Guardar ]      │
+│   │                                        │       │   [ 💾 Save ]         │
 │   └────────────────────────────────────────┘       │                       │
 │                                                    │                       │
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Características:**
-- ✅ Vista previa en vivo mientras editas
-- ✅ Secciones colapsables para organizar
-- ✅ Cambios se reflejan automáticamente en la preview
-- ✅ Indicador de campos completados
+**Features:**
+- ✅ Live preview while editing
+- ✅ Collapsible sections for organization
+- ✅ Changes reflect automatically in preview
+- ✅ Field completion indicator
 
 ---
 
-## 5. Gestión de Servicios
+## 5. Services Management
 
-### Acceder a Servicios
-Clic en **"Services"** en el sidebar.
+### Accessing Services
+Click **"Services"** in the sidebar.
 
-### Lista de Servicios
+### Services List
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -431,27 +433,27 @@ Clic en **"Services"** en el sidebar.
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                                            │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  Título         │ Slug           │ Estado      │ Destacado │ Acciones│  │
+│  │  Title         │ Slug           │ Status      │ Featured  │ Actions │  │
 │  ├─────────────────────────────────────────────────────────────────────┤   │
-│  │  AC Repair      │ /ac-repair     │ ✅ Published │    ⭐     │ ✏️  🗑️  │   │
-│  │  Heating        │ /heating       │ ✅ Published │           │ ✏️  🗑️  │   │
-│  │  AC Tune-Up     │ /ac-tuneup     │ 📝 Draft    │    ⭐     │ ✏️  🗑️  │   │
-│  │  Installation   │ /installation  │ ✅ Published │           │ ✏️  🗑️  │   │
+│  │  AC Repair     │ /ac-repair     │ ✅ Published │    ⭐     │ ✏️  🗑️   │   │
+│  │  Heating       │ /heating       │ ✅ Published │           │ ✏️  🗑️   │   │
+│  │  AC Tune-Up    │ /ac-tuneup     │ 📝 Draft    │    ⭐     │ ✏️  🗑️   │   │
+│  │  Installation  │ /installation  │ ✅ Published │           │ ✏️  🗑️   │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                            │
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Crear/Editar Servicio
+### Create/Edit Service
 
-Al hacer clic en **"+ New Service"** o **"✏️ Edit"**:
+When clicking **"+ New Service"** or **"✏️ Edit"**:
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  Nuevo Servicio                                      [ X ] │
+│  New Service                                         [ X ] │
 ├────────────────────────────────────────────────────────────┤
 │                                                            │
-│  Título *                                                  │
+│  Title *                                                   │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ AC Repair Services                                   │  │
 │  └──────────────────────────────────────────────────────┘  │
@@ -461,60 +463,59 @@ Al hacer clic en **"+ New Service"** o **"✏️ Edit"**:
 │  │ ac-repair                                            │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Descripción Corta                                         │
+│  Short Description                                         │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Professional AC repair for all brands                │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Descripción Completa                                      │
+│  Full Description                                          │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Our certified technicians provide expert AC repair   │  │
 │  │ services for residential and commercial systems...   │  │
 │  │                                                      │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Icono                                                     │
+│  Icon                                                      │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ ❄️ AC / Snowflake                              ▼    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Posición (orden de aparición)                             │
+│  Position (display order)                                  │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ 1                                                    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Características (una por línea)                           │
+│  Features (one per line)                                   │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ 24/7 Emergency Service                               │  │
 │  │ Licensed & Insured Technicians                       │  │
 │  │ All Brands Serviced                                  │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  ☑️ Destacado (mostrar en home)                            │
-│  ☑️ Publicado                                              │
+│  ☑️ Featured (show on home)                                │
+│  ☑️ Published                                              │
 │                                                            │
-│                              [ Cancelar ]  [ 💾 Guardar ]  │
+│                              [ Cancel ]  [ 💾 Save ]       │
 └────────────────────────────────────────────────────────────┘
 ```
 
-### Iconos Disponibles
+### Available Icons
 
-| Categoría | Iconos |
-|-----------|--------|
-| **HVAC Principal** | ❄️ AC, 🔥 Heating, 🔧 Tune-Up |
-| **Servicios** | ❄️ Snowflake, 🌡️ Termómetro, 🌀 Fan, 💧 Droplets |
-| **Categorías** | 🏠 Home, 🏢 Building, ⏰ Clock, ⚡ Zap |
-| **Calidad** | 🛡️ Shield, ✅ Check, ⭐ Star, 🏆 Award |
-| **Herramientas** | 🔧 Wrench, ⚙️ Settings, 🛠️ Tools |
+| Category | Icons |
+|----------|-------|
+| **Main HVAC** | ❄️ AC, 🔥 Heating, 🔧 Tune-Up |
+| **Services** | ❄️ Snowflake, 🌡️ Thermometer, 🌀 Fan, 💧 Droplets |
+| **Quality** | 🛡️ Shield, ✅ Check, ⭐ Star, 🏆 Award |
+| **Tools** | 🔧 Wrench, ⚙️ Settings, 🛠️ Tools |
 
 ---
 
-## 6. Gestión de Testimonios
+## 6. Testimonials Management
 
-### Acceder a Testimonios
-Clic en **"Testimonials"** en el sidebar.
+### Accessing Testimonials
+Click **"Testimonials"** in the sidebar.
 
-### Vista de Testimonios
+### Testimonials View
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -533,7 +534,7 @@ Clic en **"Testimonials"** en el sidebar.
 │  │  └────┘ Houston      │  │  └────┘ Katy         │  │  └────┘ Sugar Land│ │
 │  │         📍 Google    │  │         📍 Yelp      │  │         📍 Website│ │
 │  │                      │  │                      │  │                  │  │
-│  │  [⭐ Destacado]      │  │                      │  │                  │  │
+│  │  [⭐ Featured]       │  │                      │  │                  │  │
 │  │                      │  │                      │  │                  │  │
 │  │      ⭐  ✏️  🗑️        │  │      ⭐  ✏️  🗑️        │  │      ⭐  ✏️  🗑️    │  │
 │  └──────────────────────┘  └──────────────────────┘  └──────────────────┘  │
@@ -541,48 +542,48 @@ Clic en **"Testimonials"** en el sidebar.
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Crear/Editar Testimonio
+### Create/Edit Testimonial
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  Nuevo Testimonio                                    [ X ] │
+│  New Testimonial                                     [ X ] │
 ├────────────────────────────────────────────────────────────┤
 │                                                            │
-│  Iniciales (2 letras) *                                    │
+│  Initials (2 letters) *                                    │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ JD                                                   │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Ubicación *                                               │
+│  Location *                                                │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Houston, TX                                          │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Calificación                                              │
+│  Rating                                                    │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │ ⭐⭐⭐⭐⭐ 5 estrellas                            ▼    │  │
+│  │ ⭐⭐⭐⭐⭐ 5 stars                                 ▼    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Fuente                                                    │
+│  Source                                                    │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Google                                          ▼    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Texto del Testimonio *                                    │
+│  Testimonial Text *                                        │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ "Excellent service! The technician arrived on time   │  │
 │  │  and fixed our AC quickly. Very professional and     │  │
 │  │  knowledgeable. Highly recommend!"                   │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  ☑️ Destacado                                              │
-│  ☑️ Publicado                                              │
+│  ☑️ Featured                                               │
+│  ☑️ Published                                              │
 │                                                            │
-│                              [ Cancelar ]  [ 💾 Guardar ]  │
+│                              [ Cancel ]  [ 💾 Save ]       │
 └────────────────────────────────────────────────────────────┘
 ```
 
-**Fuentes disponibles:**
+**Available sources:**
 - Google
 - Yelp
 - Facebook
@@ -590,12 +591,12 @@ Clic en **"Testimonials"** en el sidebar.
 
 ---
 
-## 7. Biblioteca de Medios
+## 7. Media Library
 
-### Acceder a Media
-Clic en **"Media"** en el sidebar.
+### Accessing Media
+Click **"Media"** in the sidebar.
 
-### Interfaz de la Biblioteca
+### Library Interface
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -604,13 +605,13 @@ Clic en **"Media"** en el sidebar.
 │                                                                            │
 │  ┌────────────────────────────────────────────────────────────────────┐    │
 │  │                                                                    │    │
-│  │     📁 Arrastra imágenes aquí o  [ + Upload Images ]               │    │
+│  │     📁 Drag images here or  [ + Upload Images ]                    │    │
 │  │                                                                    │    │
 │  └────────────────────────────────────────────────────────────────────┘    │
 │                                                                            │
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                          │                 │
-│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐  │  DETALLES       │
+│  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐  │  DETAILS        │
 │  │  🖼️    │ │  🖼️    │ │  🖼️    │ │  🖼️    │ │  🖼️    │  │  ───────────   │
 │  │        │ │        │ │ [SEL]  │ │        │ │        │  │                 │
 │  │ hero   │ │ team   │ │ office │ │ truck  │ │ logo   │  │  ┌───────────┐  │
@@ -641,51 +642,51 @@ Clic en **"Media"** en el sidebar.
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Subir Imágenes
+### Uploading Images
 
-**Método 1: Arrastrar y Soltar**
-1. Arrastra imágenes desde tu computadora
-2. Suéltalas en el área de upload
-3. Las imágenes se suben automáticamente
+**Method 1: Drag and Drop**
+1. Drag images from your computer
+2. Drop them in the upload area
+3. Images upload automatically
 
-**Método 2: Botón de Upload**
-1. Clic en **"+ Upload Images"**
-2. Selecciona una o varias imágenes
-3. Clic en **"Abrir"**
+**Method 2: Upload Button**
+1. Click **"+ Upload Images"**
+2. Select one or multiple images
+3. Click **"Open"**
 
-### Detalles de Imagen
+### Image Details
 
-Al seleccionar una imagen, el panel derecho muestra:
+When selecting an image, the right panel shows:
 
-| Campo | Descripción |
+| Field | Description |
 |-------|-------------|
-| **Preview** | Vista previa grande (clic para ver tamaño completo) |
-| **Nombre** | Nombre del archivo |
-| **Dimensiones** | Ancho x Alto en píxeles |
-| **Tamaño** | Peso del archivo (KB, MB) |
-| **Fecha** | Cuándo se subió |
-| **Alt Text** | Texto alternativo para SEO/accesibilidad |
-| **URL** | Dirección de la imagen |
+| **Preview** | Large preview (click to view full size) |
+| **Name** | File name |
+| **Dimensions** | Width x Height in pixels |
+| **Size** | File weight (KB, MB) |
+| **Date** | When it was uploaded |
+| **Alt Text** | Alternative text for SEO/accessibility |
+| **URL** | Image address |
 
-### Acciones de Imagen
+### Image Actions
 
-| Acción | Descripción |
+| Action | Description |
 |--------|-------------|
-| **📋 Copy URL** | Copia la URL al portapapeles |
-| **⬇️ Download** | Descarga la imagen |
-| **🔄 Replace** | Reemplaza la imagen manteniendo la URL |
-| **🗑️ Delete** | Elimina la imagen permanentemente |
+| **📋 Copy URL** | Copies URL to clipboard |
+| **⬇️ Download** | Downloads the image |
+| **🔄 Replace** | Replaces image while keeping URL |
+| **🗑️ Delete** | Permanently deletes image |
 
-> 💡 **Tip SEO:** Siempre agrega Alt Text descriptivo a tus imágenes. Esto mejora el SEO y la accesibilidad.
+> 💡 **SEO Tip:** Always add descriptive Alt Text to your images. This improves SEO and accessibility.
 
 ---
 
-## 8. Ubicaciones de Oficina
+## 8. Office Locations
 
-### Acceder a Ubicaciones
-Clic en **"Locations"** en el sidebar.
+### Accessing Locations
+Click **"Locations"** in the sidebar.
 
-### Lista de Ubicaciones
+### Locations List
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -709,58 +710,58 @@ Clic en **"Locations"** en el sidebar.
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Crear/Editar Ubicación
+### Create/Edit Location
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  Nueva Ubicación                                     [ X ] │
+│  New Location                                        [ X ] │
 ├────────────────────────────────────────────────────────────┤
 │                                                            │
-│  Nombre *                                                  │
+│  Name *                                                    │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Houston Main Office                                  │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
 │  ┌─────────────────────────┐ ┌────────────────────────┐    │
-│  │ Dirección *             │ │ Ciudad *               │    │
+│  │ Address *               │ │ City *                 │    │
 │  │ 123 Main Street         │ │ Houston                │    │
 │  └─────────────────────────┘ └────────────────────────┘    │
 │                                                            │
 │  ┌─────────────────────────┐ ┌────────────────────────┐    │
-│  │ Estado *                │ │ Código Postal *        │    │
+│  │ State *                 │ │ Zip Code *             │    │
 │  │ TX                      │ │ 77001                  │    │
 │  └─────────────────────────┘ └────────────────────────┘    │
 │                                                            │
 │  ┌─────────────────────────┐ ┌────────────────────────┐    │
-│  │ Teléfono                │ │ Email                  │    │
+│  │ Phone                   │ │ Email                  │    │
 │  │ (713) 555-1234          │ │ info@mrair.com         │    │
 │  └─────────────────────────┘ └────────────────────────┘    │
 │                                                            │
-│  HORARIOS DE ATENCIÓN                                      │
+│  BUSINESS HOURS                                            │
 │  ┌─────────────────────────┐ ┌────────────────────────┐    │
-│  │ Lunes                   │ │ 7:00 AM - 6:00 PM      │    │
-│  │ Martes                  │ │ 7:00 AM - 6:00 PM      │    │
-│  │ Miércoles               │ │ 7:00 AM - 6:00 PM      │    │
-│  │ Jueves                  │ │ 7:00 AM - 6:00 PM      │    │
-│  │ Viernes                 │ │ 7:00 AM - 6:00 PM      │    │
-│  │ Sábado                  │ │ 8:00 AM - 4:00 PM      │    │
-│  │ Domingo                 │ │ Closed                 │    │
+│  │ Monday                  │ │ 7:00 AM - 6:00 PM      │    │
+│  │ Tuesday                 │ │ 7:00 AM - 6:00 PM      │    │
+│  │ Wednesday               │ │ 7:00 AM - 6:00 PM      │    │
+│  │ Thursday                │ │ 7:00 AM - 6:00 PM      │    │
+│  │ Friday                  │ │ 7:00 AM - 6:00 PM      │    │
+│  │ Saturday                │ │ 8:00 AM - 4:00 PM      │    │
+│  │ Sunday                  │ │ Closed                 │    │
 │  └─────────────────────────┘ └────────────────────────┘    │
 │                                                            │
-│  ☑️ Ubicación Principal                                    │
+│  ☑️ Primary Location                                       │
 │                                                            │
-│                              [ Cancelar ]  [ 💾 Guardar ]  │
+│                              [ Cancel ]  [ 💾 Save ]       │
 └────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 9. Navegación del Sitio
+## 9. Site Navigation
 
-### Acceder a Navegación
-Clic en **"Navigation"** en el sidebar.
+### Accessing Navigation
+Click **"Navigation"** in the sidebar.
 
-### Pestañas de Navegación
+### Navigation Tabs
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -775,7 +776,7 @@ Clic en **"Navigation"** en el sidebar.
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                                            │
 │  ┌──────────────────────────────────────────────────────────────────────┐  │
-│  │ Orden │ Label        │ URL           │ Tipo     │ Visible  │ Acciones│  │
+│  │ Order │ Label        │ URL           │ Type     │ Visible  │ Actions│  │
 │  ├──────────────────────────────────────────────────────────────────────┤  │
 │  │ ▲ ▼  │ Home         │ /             │ Internal │ ✅ Visible │ ✏️  🗑️  │  │
 │  │ ▲ ▼  │ Services     │ /services     │ Internal │ ✅ Visible │ ✏️  🗑️  │  │
@@ -787,19 +788,19 @@ Clic en **"Navigation"** en el sidebar.
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Crear/Editar Link de Navegación
+### Create/Edit Navigation Link
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  Nuevo Link                                          [ X ] │
+│  New Link                                            [ X ] │
 ├────────────────────────────────────────────────────────────┤
 │                                                            │
-│  Ubicación *                                               │
+│  Location *                                                │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Header                                          ▼    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Texto del Link *                                          │
+│  Link Text *                                               │
 │  ┌──────────────────────────────────────────────────────┐  │
 │  │ Services                                             │  │
 │  └──────────────────────────────────────────────────────┘  │
@@ -809,38 +810,38 @@ Clic en **"Navigation"** en el sidebar.
 │  │ /services                                            │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  Elemento Padre (para submenús)                            │
+│  Parent Item (for submenus)                                │
 │  ┌──────────────────────────────────────────────────────┐  │
-│  │ Sin padre (elemento principal)                  ▼    │  │
+│  │ No parent (main item)                           ▼    │  │
 │  └──────────────────────────────────────────────────────┘  │
 │                                                            │
-│  ☐ Link externo (abre en nueva pestaña)                    │
+│  ☐ External link (opens in new tab)                        │
 │  ☑️ Visible                                                │
 │                                                            │
-│                              [ Cancelar ]  [ 💾 Guardar ]  │
+│                              [ Cancel ]  [ 💾 Save ]       │
 └────────────────────────────────────────────────────────────┘
 ```
 
-### Reordenar Links
+### Reordering Links
 
-Usa las flechas **▲** y **▼** para mover los links hacia arriba o abajo.
+Use the **▲** and **▼** arrows to move links up or down.
 
 ```
-Antes:                          Después (click en ▲ de About):
+Before:                          After (click ▲ on About):
 1. Home                         1. Home
-2. Services                     2. About Us     ← Subió
+2. Services                     2. About Us     ← Moved up
 3. About Us                     3. Services
 4. Contact                      4. Contact
 ```
 
 ---
 
-## 10. Configuración General
+## 10. General Settings
 
-### Acceder a Configuración
-Clic en **"Settings"** en el sidebar.
+### Accessing Settings
+Click **"Settings"** in the sidebar.
 
-### Secciones de Configuración
+### Configuration Sections
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -848,15 +849,15 @@ Clic en **"Settings"** en el sidebar.
 ├────────────────────────────────────────────────────────────────────────────┤
 │                                                                            │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  🏢 INFORMACIÓN DE LA EMPRESA                                       │   │
+│  │  🏢 COMPANY INFORMATION                                             │   │
 │  ├─────────────────────────────────────────────────────────────────────┤   │
 │  │                                                                     │   │
-│  │  Nombre de la Empresa          │  Teléfono Principal                │   │
+│  │  Company Name                  │  Main Phone                        │   │
 │  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
 │  │  │ Mr. Air Services          │ │  │ (713) 555-1234            │     │   │
 │  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
 │  │                                │                                    │   │
-│  │  Email Principal               │  Dirección                         │   │
+│  │  Main Email                    │  Address                           │   │
 │  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
 │  │  │ info@mrairservices.com    │ │  │ 123 Main St, Houston TX   │     │   │
 │  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
@@ -864,15 +865,15 @@ Clic en **"Settings"** en el sidebar.
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                            │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  ⏰ HORARIOS DE ATENCIÓN                                            │   │
+│  │  ⏰ BUSINESS HOURS                                                  │   │
 │  ├─────────────────────────────────────────────────────────────────────┤   │
 │  │                                                                     │   │
-│  │  Lunes - Viernes               │  Sábado                            │   │
+│  │  Monday - Friday               │  Saturday                          │   │
 │  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
 │  │  │ 7:00 AM - 6:00 PM         │ │  │ 8:00 AM - 4:00 PM         │     │   │
 │  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
 │  │                                │                                    │   │
-│  │  Domingo                       │  Emergencias                       │   │
+│  │  Sunday                        │  Emergency                         │   │
 │  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
 │  │  │ Closed                    │ │  │ 24/7 Available            │     │   │
 │  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
@@ -880,7 +881,7 @@ Clic en **"Settings"** en el sidebar.
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                            │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  📱 REDES SOCIALES                                                  │   │
+│  │  📱 SOCIAL MEDIA                                                    │   │
 │  ├─────────────────────────────────────────────────────────────────────┤   │
 │  │                                                                     │   │
 │  │  Facebook                      │  Instagram                         │   │
@@ -888,46 +889,20 @@ Clic en **"Settings"** en el sidebar.
 │  │  │ https://facebook.com/...  │ │  │ https://instagram.com/... │     │   │
 │  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
 │  │                                                                     │   │
-│  │  Twitter/X                     │  LinkedIn                          │   │
-│  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
-│  │  │ https://twitter.com/...   │ │  │ https://linkedin.com/...  │     │   │
-│  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
-│  │                                                                     │   │
-│  │  YouTube                       │  Yelp                              │   │
-│  │  ┌───────────────────────────┐ │  ┌───────────────────────────┐     │   │
-│  │  │ https://youtube.com/...   │ │  │ https://yelp.com/...      │     │   │
-│  │  └───────────────────────────┘ │  └───────────────────────────┘     │   │
-│  │                                                                     │   │
-│  │  Google Business                                                    │   │
-│  │  ┌───────────────────────────────────────────────────────────┐      │   │
-│  │  │ https://business.google.com/...                           │      │   │
-│  │  └───────────────────────────────────────────────────────────┘      │   │
-│  │                                                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                            │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
-│  │  🔍 SEO POR DEFECTO                                                 │   │
+│  │  🔍 DEFAULT SEO                                                     │   │
 │  ├─────────────────────────────────────────────────────────────────────┤   │
 │  │                                                                     │   │
-│  │  Título por Defecto                                                 │   │
+│  │  Default Title                                                      │   │
 │  │  ┌───────────────────────────────────────────────────────────┐      │   │
 │  │  │ Mr. Air Services                                          │      │   │
 │  │  └───────────────────────────────────────────────────────────┘      │   │
 │  │                                                                     │   │
-│  │  Sufijo del Título (aparece al final de cada página)                │   │
+│  │  Title Suffix (appears at end of all page titles)                   │   │
 │  │  ┌───────────────────────────────────────────────────────────┐      │   │
 │  │  │ | Mr. Air Services - Houston HVAC                         │      │   │
-│  │  └───────────────────────────────────────────────────────────┘      │   │
-│  │                                                                     │   │
-│  │  Descripción por Defecto                                            │   │
-│  │  ┌───────────────────────────────────────────────────────────┐      │   │
-│  │  │ Houston's premier HVAC company offering AC repair,        │      │   │
-│  │  │ heating services, and installation. 24/7 emergency...     │      │   │
-│  │  └───────────────────────────────────────────────────────────┘      │   │
-│  │                                                                     │   │
-│  │  Imagen OG por Defecto (para compartir en redes)                    │   │
-│  │  ┌───────────────────────────────────────────────────────────┐      │   │
-│  │  │ /images/og-default.jpg                                    │      │   │
 │  │  └───────────────────────────────────────────────────────────┘      │   │
 │  │                                                                     │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
@@ -937,12 +912,12 @@ Clic en **"Settings"** en el sidebar.
 
 ---
 
-## 11. Gestión de Leads
+## 11. Lead Management
 
-### Acceder a Leads
-Clic en **"Leads"** en el sidebar.
+### Accessing Leads
+Click **"Leads"** in the sidebar.
 
-### Panel de Leads
+### Leads Panel
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────┐
@@ -951,12 +926,12 @@ Clic en **"Leads"** en el sidebar.
 │                                                                            │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐                       │
 │  │ 🔵 12    │ │ 🟡 5     │ │ 🟢 8     │ │ ⚫ 3     │                       │
-│  │ Nuevos   │ │Contactados│ │Convertidos│ │ Cerrados │                      │
+│  │ New      │ │ Contacted│ │ Converted│ │ Closed   │                       │
 │  └──────────┘ └──────────┘ └──────────┘ └──────────┘                       │
 │  ═══════════                                                               │
 │                                                                            │
 ├────────────────────────────────────────────────────────────────────────────┤
-│  LISTA DE LEADS                         │  DETALLES DEL LEAD               │
+│  LEAD LIST                              │  LEAD DETAILS                    │
 │  ─────────────────────────────────────  │  ───────────────────────────────│
 │                                         │                                  │
 │  ┌───────────────────────────────────┐  │  John Smith                🗑️    │
@@ -964,24 +939,24 @@ Clic en **"Leads"** en el sidebar.
 │  │    john@email.com                 │  │                                  │
 │  │    Jan 15, 2024    🔵 New        │  │  📧 john@email.com               │
 │  └───────────────────────────────────┘  │  📞 (713) 555-1234               │
-│                                         │  ⏰ Mañanas                       │
+│                                         │  ⏰ Mornings                      │
 │  ┌───────────────────────────────────┐  │                                  │
-│  │ 📧 Sarah Johnson          [SEL]  │  │  Servicios solicitados:          │
+│  │ 📧 Sarah Johnson          [SEL]  │  │  Requested services:             │
 │  │    sarah@email.com                │  │  ┌────────┐ ┌────────┐           │
 │  │    Jan 14, 2024    🟡 Contacted  │  │  │AC Repair│ │ Heating│           │
 │  └───────────────────────────────────┘  │  └────────┘ └────────┘           │
 │                                         │                                  │
-│  ┌───────────────────────────────────┐  │  Mensaje:                        │
+│  ┌───────────────────────────────────┐  │  Message:                        │
 │  │ 📧 Mike Wilson                    │  │  "Hi, I need help with my AC.   │
 │  │    mike@email.com                 │  │   It's making a strange noise   │
 │  │    Jan 13, 2024    🟢 Converted  │  │   and not cooling properly..."   │
 │  └───────────────────────────────────┘  │                                  │
-│                                         │  Fuente: Contact Form            │
-│  ┌───────────────────────────────────┐  │  Fecha: Jan 15, 2024 10:30 AM    │
-│  │ 📧 Emily Brown                    │  │                                  │
-│  │    emily@email.com                │  │  ─────────────────────────────  │
-│  │    Jan 12, 2024    ⚫ Closed     │  │  Cambiar estado:                 │
-│  └───────────────────────────────────┘  │                                  │
+│                                         │  Source: Contact Form            │
+│                                         │  Date: Jan 15, 2024 10:30 AM     │
+│                                         │                                  │
+│                                         │  ─────────────────────────────  │
+│                                         │  Change status:                  │
+│                                         │                                  │
 │                                         │  ┌────┐ ┌─────────┐ ┌─────────┐  │
 │                                         │  │🔵  │ │🟡       │ │🟢       │  │
 │                                         │  │New │ │Contacted│ │Converted│  │
@@ -994,94 +969,94 @@ Clic en **"Leads"** en el sidebar.
 └────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Estados de Leads
+### Lead Statuses
 
-| Estado | Color | Significado |
-|--------|-------|-------------|
-| **New** | 🔵 Azul | Lead recién recibido, sin contactar |
-| **Contacted** | 🟡 Amarillo | Ya se contactó al cliente |
-| **Converted** | 🟢 Verde | El lead se convirtió en cliente |
-| **Closed** | ⚫ Gris | Lead cerrado (no interesado o completado) |
+| Status | Color | Meaning |
+|--------|-------|---------|
+| **New** | 🔵 Blue | Newly received lead, not contacted |
+| **Contacted** | 🟡 Yellow | Customer has been contacted |
+| **Converted** | 🟢 Green | Lead became a customer |
+| **Closed** | ⚫ Gray | Lead closed (not interested or completed) |
 
-### Flujo de Trabajo Recomendado
+### Recommended Workflow
 
 ```
    🔵 NEW           🟡 CONTACTED        🟢 CONVERTED       ⚫ CLOSED
    ─────────────►  ─────────────────►  ─────────────────►  ─────────
-   Lead llega      Llamaste/           Cliente confirmó    Trabajo
-   del sitio       escribiste          el servicio         completado
+   Lead arrives    You called/         Customer confirmed  Work
+   from site       emailed             the service         completed
 ```
 
-### Filtrar Leads
+### Filtering Leads
 
-1. Haz clic en las tarjetas de estadísticas para filtrar
-2. Por ejemplo, clic en **"🔵 New"** muestra solo leads nuevos
-3. Clic en **"Ver todos los leads"** para quitar el filtro
-
----
-
-## 12. Atajos de Teclado
-
-### Editor Visual
-
-| Atajo | Acción |
-|-------|--------|
-| `Ctrl/Cmd + S` | Guardar borrador |
-| `Ctrl/Cmd + Z` | Deshacer último cambio |
-| `Ctrl/Cmd + Shift + Z` | Rehacer cambio deshecho |
-| `Escape` | Deseleccionar bloque actual |
-
-### Navegación General
-
-| Atajo | Acción |
-|-------|--------|
-| `Ctrl/Cmd + K` | Abrir búsqueda en sidebar |
+1. Click on the statistics cards to filter
+2. For example, click **"🔵 New"** to show only new leads
+3. Click **"View all leads"** to remove the filter
 
 ---
 
-## 13. Preguntas Frecuentes
+## 12. Keyboard Shortcuts
 
-### ❓ ¿Por qué mis cambios no aparecen en el sitio?
+### Visual Editor
 
-**Respuesta:** Debes hacer clic en **"Publish"** para que los cambios sean visibles. **"Save Draft"** solo guarda sin publicar.
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + S` | Save draft |
+| `Ctrl/Cmd + Z` | Undo last change |
+| `Ctrl/Cmd + Shift + Z` | Redo undone change |
+| `Escape` | Deselect current block |
 
-### ❓ ¿Cómo agrego una nueva página?
+### General Navigation
 
-**Respuesta:** Las páginas se gestionan desde el Editor Visual. Actualmente el sistema soporta páginas predefinidas. Para agregar nuevas páginas, contacta al desarrollador.
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + K` | Open sidebar search |
 
-### ❓ ¿Qué tamaño deben tener las imágenes?
+---
 
-**Recomendaciones:**
-| Tipo | Tamaño Recomendado |
-|------|-------------------|
+## 13. FAQ
+
+### ❓ Why don't my changes appear on the site?
+
+**Answer:** You must click **"Publish"** for changes to be visible. **"Save Draft"** only saves without publishing.
+
+### ❓ How do I add a new page?
+
+**Answer:** Pages are managed from the Visual Editor. Currently the system supports predefined pages. To add new pages, contact the developer.
+
+### ❓ What size should images be?
+
+**Recommendations:**
+| Type | Recommended Size |
+|------|-----------------|
 | Hero/Banner | 1920 x 1080 px |
 | Thumbnails | 400 x 300 px |
-| Logos | 200 x 200 px (PNG transparente) |
+| Logos | 200 x 200 px (transparent PNG) |
 | OG Image | 1200 x 630 px |
 
-### ❓ ¿Puedo deshacer si borro algo por error?
+### ❓ Can I undo if I delete something by mistake?
 
-**Respuesta:** En el Editor Visual, usa `Ctrl/Cmd + Z` para deshacer. En otras secciones, los datos eliminados no se pueden recuperar, así que ten cuidado.
+**Answer:** In the Visual Editor, use `Ctrl/Cmd + Z` to undo. In other sections, deleted data cannot be recovered, so be careful.
 
-### ❓ ¿Cómo cambio el orden de los servicios en la home?
+### ❓ How do I change the order of services on the home page?
 
-**Respuesta:** En **Servicios**, cada servicio tiene un campo **"Posición"**. Cambia el número para reordenar (1 = primero, 2 = segundo, etc.).
+**Answer:** In **Services**, each service has a **"Position"** field. Change the number to reorder (1 = first, 2 = second, etc.).
 
-### ❓ ¿Cómo agrego un submenú?
+### ❓ How do I add a submenu?
 
-**Respuesta:** En **Navegación**, al crear/editar un link, selecciona un **"Elemento Padre"** para que aparezca como submenú de ese elemento.
+**Answer:** In **Navigation**, when creating/editing a link, select a **"Parent Item"** for it to appear as a submenu of that item.
 
-### ❓ ¿Por qué no veo algunos bloques en la preview?
+### ❓ Why don't I see some blocks in the preview?
 
-**Respuesta:** Verifica que el bloque tenga el icono 👁 activo (visible). Si está oculto, no aparecerá en la preview ni en el sitio.
-
----
-
-## Soporte
-
-Si tienes problemas o preguntas adicionales, contacta al administrador del sistema o al equipo de desarrollo.
+**Answer:** Check that the block has the 👁 icon active (visible). If hidden, it won't appear in the preview or on the site.
 
 ---
 
-*Manual creado para Mr. Air Services CMS v1.0*
-*Última actualización: Enero 2024*
+## Support
+
+If you have problems or additional questions, contact the system administrator or development team.
+
+---
+
+*Manual created for Mr. Air Services CMS v1.0*
+*Last updated: January 2024*

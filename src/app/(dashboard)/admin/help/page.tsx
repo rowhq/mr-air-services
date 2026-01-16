@@ -43,320 +43,320 @@ const helpSections: HelpSection[] = [
   {
     id: "quick-start",
     icon: LayoutDashboardIcon,
-    title: "Inicio Rápido",
-    description: "Aprende lo básico en 5 minutos",
+    title: "Quick Start",
+    description: "Learn the basics in 5 minutes",
     steps: [
       {
-        title: "1. Acceso al Sistema",
+        title: "1. System Access",
         items: [
-          "Navega a tudominio.com/login",
-          "Ingresa tu email y contraseña",
-          "Usa el icono de ojo para ver/ocultar la contraseña",
-          "Haz clic en 'Sign In' para acceder",
+          "Navigate to yourdomain.com/login",
+          "Enter your email and password",
+          "Use the eye icon to show/hide password",
+          "Click 'Sign In' to access the panel",
         ],
       },
       {
-        title: "2. Dashboard Principal",
+        title: "2. Main Dashboard",
         items: [
-          "Ve las estadísticas de páginas, servicios y testimonios",
-          "Accede rápidamente a las páginas recientes",
-          "Usa las acciones rápidas para editar contenido",
+          "View statistics for pages, services, and testimonials",
+          "Quickly access recently edited pages",
+          "Use quick actions to edit content",
         ],
       },
       {
-        title: "3. Navegación del Sidebar",
+        title: "3. Sidebar Navigation",
         items: [
-          "Principal: Dashboard y Editor Visual",
-          "Contenido: Páginas, Servicios, Testimonios, Media",
-          "Configuración: Ubicaciones, Navegación, Settings",
-          "Leads: Formularios recibidos",
+          "Main: Dashboard",
+          "Content: Pages, Services, Testimonials, Media",
+          "Settings: Locations, Navigation, Settings",
+          "Leads: Form submissions",
         ],
       },
     ],
     tips: [
-      { type: "tip", text: "Puedes colapsar el sidebar haciendo clic en la flecha para tener más espacio." },
+      { type: "tip", text: "You can collapse the sidebar by clicking the arrow to get more space." },
     ],
   },
   {
     id: "visual-editor",
     icon: PaletteIcon,
-    title: "Editor Visual",
-    description: "Crea y edita páginas con drag & drop",
+    title: "Visual Editor",
+    description: "Create and edit pages with drag & drop",
     steps: [
       {
-        title: "Interfaz del Editor",
+        title: "Editor Interface",
         items: [
-          "Panel izquierdo: Vista previa de la página",
-          "Panel derecho: Propiedades del bloque seleccionado",
-          "Barra superior: Modos de vista, deshacer/rehacer, guardar",
+          "Left panel: Page preview",
+          "Right panel: Selected block properties",
+          "Top bar: View modes, undo/redo, save options",
         ],
       },
       {
-        title: "Trabajar con Bloques",
+        title: "Working with Blocks",
         items: [
-          "Arrastra el icono ≡ para mover bloques",
-          "Haz clic en el icono de ojo para ocultar/mostrar",
-          "Usa el botón de duplicar para copiar bloques",
-          "Elimina bloques con el icono de basura",
+          "Drag the ≡ icon to move blocks",
+          "Click the eye icon to hide/show blocks",
+          "Use the duplicate button to copy blocks",
+          "Delete blocks with the trash icon",
         ],
       },
       {
-        title: "Agregar Nuevos Bloques",
+        title: "Adding New Blocks",
         items: [
-          "Pasa el mouse entre bloques para ver '+ Add Block'",
-          "Haz clic y selecciona el tipo de bloque",
-          "El bloque se insertará en esa posición",
+          "Hover between blocks to see '+ Add Block'",
+          "Click and select the block type",
+          "The block will be inserted at that position",
         ],
       },
       {
-        title: "Guardar y Publicar",
+        title: "Save and Publish",
         items: [
-          "Save Draft: Guarda sin publicar (solo borrador)",
-          "Publish: Publica los cambios al sitio en vivo",
-          "El indicador muestra si hay cambios sin guardar",
+          "Save Draft: Saves without publishing (draft only)",
+          "Publish: Publishes changes to the live site",
+          "The indicator shows if there are unsaved changes",
         ],
       },
     ],
     shortcuts: [
-      { key: "Ctrl/Cmd + S", action: "Guardar borrador" },
-      { key: "Ctrl/Cmd + Z", action: "Deshacer" },
-      { key: "Ctrl/Cmd + Shift + Z", action: "Rehacer" },
-      { key: "Escape", action: "Deseleccionar bloque" },
+      { key: "Ctrl/Cmd + S", action: "Save draft" },
+      { key: "Ctrl/Cmd + Z", action: "Undo" },
+      { key: "Ctrl/Cmd + Shift + Z", action: "Redo" },
+      { key: "Escape", action: "Deselect block" },
     ],
     tips: [
-      { type: "warning", text: "Los cambios NO se publican automáticamente. Debes hacer clic en 'Publish' para que sean visibles." },
+      { type: "warning", text: "Changes are NOT published automatically. You must click 'Publish' for them to be visible." },
     ],
   },
   {
     id: "pages",
     icon: FileTextIcon,
-    title: "Gestión de Páginas",
-    description: "Administra las páginas del sitio",
+    title: "Page Management",
+    description: "Manage your website pages",
     steps: [
       {
-        title: "Tipos de Editores",
+        title: "Editor Types",
         items: [
-          "Editor Visual: Para páginas como Home, Contact, About (drag & drop)",
-          "Editor de Contenido: Para páginas de servicio (formularios)",
+          "Visual Editor: For pages like Home, Contact, About (drag & drop)",
+          "Content Editor: For service pages (form-based)",
         ],
       },
       {
-        title: "Editor de Contenido",
+        title: "Content Editor",
         items: [
-          "Vista previa en vivo mientras editas",
-          "Secciones colapsables para organizar campos",
-          "Los cambios se reflejan automáticamente en la preview",
-          "Indicador de campos completados (X/Y)",
+          "Live preview while editing",
+          "Collapsible sections to organize fields",
+          "Changes reflect automatically in preview",
+          "Field completion indicator (X/Y)",
         ],
       },
       {
-        title: "Modos de Vista",
+        title: "View Modes",
         items: [
-          "Desktop: Vista completa",
-          "Tablet: 768px de ancho",
-          "Mobile: 375px de ancho",
+          "Desktop: Full width view",
+          "Tablet: 768px width",
+          "Mobile: 375px width",
         ],
       },
     ],
     tips: [
-      { type: "info", text: "Cada página muestra su estado: Published (publicada) o Draft (borrador)." },
+      { type: "info", text: "Each page shows its status: Published or Draft." },
     ],
   },
   {
     id: "services",
     icon: WrenchIcon,
-    title: "Gestión de Servicios",
-    description: "Crea y edita los servicios ofrecidos",
+    title: "Services Management",
+    description: "Create and edit offered services",
     steps: [
       {
-        title: "Crear un Servicio",
+        title: "Create a Service",
         items: [
-          "Haz clic en '+ New Service'",
-          "Completa el título y slug (URL)",
-          "Agrega descripción corta y completa",
-          "Selecciona un icono representativo",
-          "Define la posición (orden de aparición)",
-          "Agrega características (una por línea)",
+          "Click '+ New Service'",
+          "Fill in the title and slug (URL)",
+          "Add short and full descriptions",
+          "Select a representative icon",
+          "Set the position (display order)",
+          "Add features (one per line)",
         ],
       },
       {
-        title: "Opciones del Servicio",
+        title: "Service Options",
         items: [
-          "Destacado: Aparece en la página principal",
-          "Publicado: Visible en el sitio",
-          "Posición: Controla el orden de visualización",
+          "Featured: Appears on the homepage",
+          "Published: Visible on the site",
+          "Position: Controls display order",
         ],
       },
       {
-        title: "Iconos Disponibles",
+        title: "Available Icons",
         items: [
           "HVAC: AC, Heating, Tune-Up",
-          "Servicios: Snowflake, Termómetro, Fan, Droplets",
-          "Calidad: Shield, Check, Star, Award",
-          "Herramientas: Wrench, Settings, Tools",
+          "Services: Snowflake, Thermometer, Fan, Droplets",
+          "Quality: Shield, Check, Star, Award",
+          "Tools: Wrench, Settings, Tools",
         ],
       },
     ],
     tips: [
-      { type: "tip", text: "Usa números bajos en 'Posición' para que el servicio aparezca primero." },
+      { type: "tip", text: "Use low numbers in 'Position' for the service to appear first." },
     ],
   },
   {
     id: "testimonials",
     icon: MessageSquareIcon,
-    title: "Gestión de Testimonios",
-    description: "Administra los reviews de clientes",
+    title: "Testimonials Management",
+    description: "Manage customer reviews",
     steps: [
       {
-        title: "Crear un Testimonio",
+        title: "Create a Testimonial",
         items: [
-          "Haz clic en '+ New Testimonial'",
-          "Ingresa las iniciales del cliente (2 letras)",
-          "Agrega la ubicación (ciudad)",
-          "Selecciona la calificación (1-5 estrellas)",
-          "Elige la fuente (Google, Yelp, Facebook, Website)",
-          "Escribe el texto del testimonio",
+          "Click '+ New Testimonial'",
+          "Enter customer initials (2 letters)",
+          "Add location (city)",
+          "Select rating (1-5 stars)",
+          "Choose source (Google, Yelp, Facebook, Website)",
+          "Write the testimonial text",
         ],
       },
       {
-        title: "Gestionar Testimonios",
+        title: "Manage Testimonials",
         items: [
-          "Haz clic en la estrella para destacar/quitar destacado",
-          "Los testimonios destacados aparecen primero",
-          "Puedes ocultar testimonios sin eliminarlos",
+          "Click the star to feature/unfeature",
+          "Featured testimonials appear first",
+          "You can hide testimonials without deleting them",
         ],
       },
     ],
     tips: [
-      { type: "tip", text: "Los testimonios de Google y Yelp generan más confianza." },
+      { type: "tip", text: "Google and Yelp testimonials generate more trust." },
     ],
   },
   {
     id: "media",
     icon: ImageIcon,
-    title: "Biblioteca de Medios",
-    description: "Sube y gestiona imágenes",
+    title: "Media Library",
+    description: "Upload and manage images",
     steps: [
       {
-        title: "Subir Imágenes",
+        title: "Upload Images",
         items: [
-          "Arrastra y suelta archivos en el área de upload",
-          "O haz clic en '+ Upload Images' para seleccionar",
-          "Puedes subir múltiples archivos a la vez",
+          "Drag and drop files into the upload area",
+          "Or click '+ Upload Images' to select files",
+          "You can upload multiple files at once",
         ],
       },
       {
-        title: "Gestionar Imágenes",
+        title: "Manage Images",
         items: [
-          "Haz clic en una imagen para ver sus detalles",
-          "Agrega Alt Text para SEO y accesibilidad",
-          "Copia la URL para usar en otros lugares",
-          "Descarga o reemplaza la imagen si es necesario",
+          "Click an image to view its details",
+          "Add Alt Text for SEO and accessibility",
+          "Copy URL to use elsewhere",
+          "Download or replace the image if needed",
         ],
       },
       {
-        title: "Tamaños Recomendados",
+        title: "Recommended Sizes",
         items: [
           "Hero/Banner: 1920 x 1080 px",
           "Thumbnails: 400 x 300 px",
-          "Logos: 200 x 200 px (PNG transparente)",
-          "OG Image (redes sociales): 1200 x 630 px",
+          "Logos: 200 x 200 px (transparent PNG)",
+          "OG Image (social media): 1200 x 630 px",
         ],
       },
     ],
     tips: [
-      { type: "warning", text: "Siempre agrega Alt Text descriptivo. Mejora el SEO y la accesibilidad." },
+      { type: "warning", text: "Always add descriptive Alt Text. It improves SEO and accessibility." },
     ],
   },
   {
     id: "locations",
     icon: MapPinIcon,
-    title: "Ubicaciones de Oficina",
-    description: "Gestiona las sucursales",
+    title: "Office Locations",
+    description: "Manage branch offices",
     steps: [
       {
-        title: "Agregar Ubicación",
+        title: "Add Location",
         items: [
-          "Haz clic en '+ New Location'",
-          "Ingresa nombre, dirección, ciudad, estado y código postal",
-          "Agrega teléfono y email (opcionales)",
-          "Define los horarios de atención para cada día",
+          "Click '+ New Location'",
+          "Enter name, address, city, state, and zip code",
+          "Add phone and email (optional)",
+          "Set business hours for each day",
         ],
       },
       {
-        title: "Ubicación Principal",
+        title: "Primary Location",
         items: [
-          "Marca una ubicación como 'Primary' (principal)",
-          "La ubicación principal se muestra destacada",
-          "Solo puede haber una ubicación principal",
+          "Mark a location as 'Primary'",
+          "The primary location is displayed prominently",
+          "There can only be one primary location",
         ],
       },
     ],
     tips: [
-      { type: "info", text: "Los horarios por defecto son: Lun-Vie 7AM-6PM, Sáb 8AM-4PM, Dom Cerrado." },
+      { type: "info", text: "Default hours: Mon-Fri 7AM-6PM, Sat 8AM-4PM, Sun Closed." },
     ],
   },
   {
     id: "navigation",
     icon: LinkIcon,
-    title: "Navegación del Sitio",
-    description: "Edita los menús header y footer",
+    title: "Site Navigation",
+    description: "Edit header and footer menus",
     steps: [
       {
-        title: "Editar Navegación",
+        title: "Edit Navigation",
         items: [
-          "Selecciona la pestaña Header o Footer",
-          "Cada link muestra: Label, URL, Tipo, Visibilidad",
-          "Usa las flechas para reordenar los elementos",
+          "Select the Header or Footer tab",
+          "Each link shows: Label, URL, Type, Visibility",
+          "Use arrows to reorder items",
         ],
       },
       {
-        title: "Crear un Link",
+        title: "Create a Link",
         items: [
-          "Haz clic en '+ New Link'",
-          "Selecciona la ubicación (Header o Footer)",
-          "Ingresa el texto (Label) y la URL",
-          "Marca 'External' si abre en nueva pestaña",
-          "Selecciona un padre para crear submenús",
+          "Click '+ New Link'",
+          "Select location (Header or Footer)",
+          "Enter text (Label) and URL",
+          "Check 'External' if it opens in a new tab",
+          "Select a parent to create submenus",
         ],
       },
       {
-        title: "Tipos de Link",
+        title: "Link Types",
         items: [
-          "Internal: Links dentro del sitio (/contact, /services)",
-          "External: Links a otros sitios (https://...)",
+          "Internal: Links within the site (/contact, /services)",
+          "External: Links to other sites (https://...)",
         ],
       },
     ],
     tips: [
-      { type: "tip", text: "Puedes ocultar links temporalmente sin eliminarlos usando el toggle de visibilidad." },
+      { type: "tip", text: "You can temporarily hide links without deleting them using the visibility toggle." },
     ],
   },
   {
     id: "settings",
     icon: SettingsIcon,
-    title: "Configuración General",
-    description: "Ajustes globales del sitio",
+    title: "General Settings",
+    description: "Global site configuration",
     steps: [
       {
-        title: "Información de la Empresa",
+        title: "Company Information",
         items: [
-          "Nombre de la empresa",
-          "Teléfono principal",
-          "Email principal",
-          "Dirección física",
+          "Company name",
+          "Main phone number",
+          "Main email",
+          "Physical address",
         ],
       },
       {
-        title: "Horarios de Atención",
+        title: "Business Hours",
         items: [
-          "Define horarios para cada día",
-          "Incluye horario de emergencias",
-          "Estos horarios se muestran en el sitio",
+          "Set hours for each day",
+          "Include emergency hours",
+          "These hours are displayed on the site",
         ],
       },
       {
-        title: "Redes Sociales",
+        title: "Social Media",
         items: [
           "Facebook, Instagram, Twitter/X",
           "LinkedIn, YouTube, Yelp",
@@ -364,80 +364,80 @@ const helpSections: HelpSection[] = [
         ],
       },
       {
-        title: "SEO por Defecto",
+        title: "Default SEO",
         items: [
-          "Título por defecto para páginas sin título",
-          "Sufijo del título (aparece en todas las páginas)",
-          "Descripción por defecto",
-          "Imagen OG para compartir en redes",
+          "Default title for pages without a title",
+          "Title suffix (appears on all pages)",
+          "Default description",
+          "OG image for social sharing",
         ],
       },
     ],
     tips: [
-      { type: "warning", text: "Recuerda guardar los cambios con el botón 'Save Changes'." },
+      { type: "warning", text: "Remember to save changes with the 'Save Changes' button." },
     ],
   },
   {
     id: "leads",
     icon: MailIcon,
-    title: "Gestión de Leads",
-    description: "Administra los formularios recibidos",
+    title: "Lead Management",
+    description: "Manage form submissions",
     steps: [
       {
-        title: "Ver Leads",
+        title: "View Leads",
         items: [
-          "Las tarjetas superiores muestran conteo por estado",
-          "Haz clic en una tarjeta para filtrar",
-          "Selecciona un lead para ver sus detalles",
+          "Top cards show count by status",
+          "Click a card to filter",
+          "Select a lead to view details",
         ],
       },
       {
-        title: "Estados de Leads",
+        title: "Lead Statuses",
         items: [
-          "New (Azul): Lead recién recibido",
-          "Contacted (Amarillo): Ya se contactó al cliente",
-          "Converted (Verde): Se convirtió en cliente",
-          "Closed (Gris): Lead cerrado",
+          "New (Blue): Newly received lead",
+          "Contacted (Yellow): Customer has been contacted",
+          "Converted (Green): Became a customer",
+          "Closed (Gray): Lead closed",
         ],
       },
       {
-        title: "Flujo de Trabajo",
+        title: "Workflow",
         items: [
-          "1. Lead llega como 'New'",
-          "2. Al contactar, cambia a 'Contacted'",
-          "3. Si confirma servicio, cambia a 'Converted'",
-          "4. Al completar, cambia a 'Closed'",
+          "1. Lead arrives as 'New'",
+          "2. When contacted, change to 'Contacted'",
+          "3. If they confirm service, change to 'Converted'",
+          "4. When complete, change to 'Closed'",
         ],
       },
     ],
     tips: [
-      { type: "tip", text: "Revisa los leads nuevos diariamente para dar respuesta rápida." },
+      { type: "tip", text: "Check new leads daily for quick response." },
     ],
   },
   {
     id: "shortcuts",
     icon: HelpCircleIcon,
-    title: "Atajos de Teclado",
-    description: "Trabaja más rápido con atajos",
+    title: "Keyboard Shortcuts",
+    description: "Work faster with shortcuts",
     steps: [
       {
-        title: "Editor Visual",
+        title: "Visual Editor",
         items: [
-          "Ctrl/Cmd + S: Guardar borrador",
-          "Ctrl/Cmd + Z: Deshacer último cambio",
-          "Ctrl/Cmd + Shift + Z: Rehacer cambio",
-          "Escape: Deseleccionar bloque actual",
+          "Ctrl/Cmd + S: Save draft",
+          "Ctrl/Cmd + Z: Undo last change",
+          "Ctrl/Cmd + Shift + Z: Redo change",
+          "Escape: Deselect current block",
         ],
       },
       {
-        title: "Navegación General",
+        title: "General Navigation",
         items: [
-          "Ctrl/Cmd + K: Abrir búsqueda en sidebar",
+          "Ctrl/Cmd + K: Open sidebar search",
         ],
       },
     ],
     tips: [
-      { type: "info", text: "Los atajos funcionan en Mac (Cmd) y Windows/Linux (Ctrl)." },
+      { type: "info", text: "Shortcuts work on Mac (Cmd) and Windows/Linux (Ctrl)." },
     ],
   },
 ];
@@ -554,7 +554,7 @@ function AccordionSection({
           {section.shortcuts && section.shortcuts.length > 0 && (
             <div className="mt-6 pt-4 border-t border-neutral-100 dark:border-neutral-700">
               <h4 className="font-medium text-neutral-800 dark:text-neutral-200 mb-3">
-                Atajos de Teclado
+                Keyboard Shortcuts
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {section.shortcuts.map((shortcut, idx) => (
@@ -588,7 +588,7 @@ function AccordionSection({
                   `}
                 >
                   <span className="font-medium">
-                    {tip.type === "tip" ? "Tip:" : tip.type === "warning" ? "Importante:" : "Info:"}
+                    {tip.type === "tip" ? "Tip:" : tip.type === "warning" ? "Important:" : "Info:"}
                   </span>
                   <span>{tip.text}</span>
                 </div>
@@ -643,10 +643,10 @@ export default function HelpPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
-          Centro de Ayuda
+          Help Center
         </h1>
         <p className="text-neutral-500 dark:text-neutral-400 mt-1">
-          Aprende a usar el CMS de Mr. Air Services
+          Learn how to use the Mr. Air Services CMS
         </p>
       </div>
 
@@ -657,7 +657,7 @@ export default function HelpPage() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Buscar en la ayuda..."
+          placeholder="Search help..."
           className="
             w-full pl-12 pr-4 py-3
             bg-white dark:bg-neutral-800
@@ -674,7 +674,7 @@ export default function HelpPage() {
       {!searchQuery && (
         <div>
           <h2 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-4">
-            Acceso Rápido
+            Quick Access
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {helpSections.map((section) => (
@@ -692,14 +692,14 @@ export default function HelpPage() {
       {/* Accordion Sections */}
       <div>
         <h2 className="text-sm font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-4">
-          {searchQuery ? `Resultados (${filteredSections.length})` : "Guías Detalladas"}
+          {searchQuery ? `Results (${filteredSections.length})` : "Detailed Guides"}
         </h2>
 
         {filteredSections.length === 0 ? (
           <div className="text-center py-12 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700">
             <HelpCircleIcon className="w-12 h-12 text-neutral-300 dark:text-neutral-600 mx-auto mb-4" />
             <p className="text-neutral-500 dark:text-neutral-400">
-              No se encontraron resultados para &quot;{searchQuery}&quot;
+              No results found for &quot;{searchQuery}&quot;
             </p>
           </div>
         ) : (
@@ -722,7 +722,7 @@ export default function HelpPage() {
       {/* Footer */}
       <div className="text-center py-8 border-t border-neutral-200 dark:border-neutral-700">
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          ¿Necesitas más ayuda? Contacta al administrador del sistema.
+          Need more help? Contact the system administrator.
         </p>
       </div>
     </div>
