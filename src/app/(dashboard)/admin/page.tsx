@@ -146,7 +146,7 @@ export default function AdminDashboard() {
           {pages.map((page) => (
             <Link
               key={page.id}
-              href={`/admin/editor/${page.slug}`}
+              href={`/admin/pages/${page.slug}`}
               className="group p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors"
             >
               <div className="flex items-center justify-between">
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
         <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Link
-            href="/admin/editor/home"
+            href="/admin/pages/home"
             className="p-4 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition text-center"
           >
             <svg
